@@ -1,0 +1,45 @@
+For frame \(i=4\), the requested normalized time is \(0.75\). The plan maps \(t=0.75\) to a \(67.5^\circ\) yaw from the first-frame orientation. To fix the sign and reference, take the first-frame vertex \(A=(0.209185,0.4486)\). A \(+45^\circ\) rotation gives
+\[
+(0.7071\cdot 0.209185-0.7071\cdot 0.4486,\;0.7071\cdot 0.209185+0.7071\cdot 0.4486)
+=(-0.1693,0.4651),
+\]
+matching the previous frame’s corresponding vertex \((-0.169291,0.465124)\). Thus the previous frame \(i=3\) is \(45^\circ\) positive yaw from the first frame, and the target frame \(i=4\) is \(67.5^\circ\) positive yaw from the first frame.
+
+The first-frame horizontal vertices are
+\[
+A=(0.209185,0.4486),\quad B=(0.4486,-0.209185),
+\]
+\[
+C=(-0.209185,-0.4486),\quad D=(-0.4486,0.209185).
+\]
+The bottom face stays at \(z=-0.6\), the top face at \(z=0.1\), and the floor line stays fixed. Rotation is only yaw about the vertical center axis, so for \(\theta=67.5^\circ\),
+\[
+c=\cos67.5^\circ\approx0.38268343236509,\qquad
+s=\sin67.5^\circ\approx0.923879532511287,
+\]
+with
+\[
+x'=xc-ys,\qquad y'=xs+yc.
+\]
+For \(A\),
+\[
+x'=0.209185(0.3826834324)-0.4486(0.9238795325)
+=0.080051634-0.414452358=-0.334400724,
+\]
+\[
+y'=0.209185(0.9238795325)+0.4486(0.3826834324)
+=0.193261740+0.171671788=0.364933528.
+\]
+So
+\[
+A'=(-0.3344007,0.3649335).
+\]
+Applying the same rotation to the equivalent vertices gives
+\[
+B'=(0.3649335,0.3344007),\quad
+C'=(0.3344007,-0.3649335),
+\]
+\[
+D'=(-0.3649335,-0.3344007).
+\]
+The bottom edges are \(A'B'\), \(B'C'\), \(C'D'\), \(D'A'\) at \(z=-0.6\); the top edges use the same \(xy\) pairs at \(z=0.1\); and the vertical edges connect each \(xy\) vertex from \(z=-0.6\) to \(z=0.1\). The floor support line remains from \((-0.55,0.15,-0.6)\) to \((0.55,0.15,-0.6)\).

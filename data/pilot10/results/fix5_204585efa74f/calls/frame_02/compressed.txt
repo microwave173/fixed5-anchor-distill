@@ -1,0 +1,97 @@
+Use \(+x\) right, \(+y\) forward into the scene, \(+z\) up. The ramp is fixed between its front edge at \(y=-0.22,\ z=-0.60\) and its back edge at \(y=0.10,\ z=-0.38\), so its slope is
+\[
+m=\frac{-0.38-(-0.60)}{0.10-(-0.22)}=\frac{0.22}{0.32}=0.6875.
+\]
+The plaza top stays at \(z=-0.38\). At \(t=0.25\) the car advances in \(+y\) and pitches about the \(x\)-axis.
+
+The initial car has lower body \(x=\pm0.12\), from rear \(y=-0.62\) to front \(y=-0.22\), with top \(z=-0.38\) and bottom \(z=-0.50\). The cabin roof has \(x=\pm0.09\), \(y\in[-0.52,-0.34]\), \(z=-0.30\). Light bars occupy \(y\in[-0.46,-0.40]\), with top \(z=-0.26\) and lower side \(z=-0.30\). Wheels are circles in \(yz\)-planes at \(x=\pm0.13\), radius \(r=0.055\), with front axle center \((y,z)=(-0.30,-0.545)\) and rear center \((-0.58,-0.545)\), hence wheelbase \(L=0.28\). The lower floor is \(z=-0.60\).
+
+At \(t=0.25\), keep the rear axle on the lower floor, so its center remains at \(z=-0.545\). Let pitch \(\theta>0\) be nose-up; the front center relative to the rear is then \((L\cos\theta,L\sin\theta)\). For a wheel on the incline, contact requires the center to be offset normal to the ramp, giving vertical offset
+\[
+r\sqrt{1+m^2}=0.055\sqrt{1+0.6875^2}=0.055\sqrt{1.472656}=0.06674,
+\]
+not simply \(r=0.055\). Using vertical offset \(0.055\) would put the front wheel too low; the normal offset changes the consistent rear position to about \(y=-0.4168\).
+
+Choose \(\theta=0.23\) rad, so
+\[
+c=\cos\theta=0.973666,\quad s=\sin\theta=0.227978,
+\]
+and
+\[
+Lc=0.28(0.973666)=0.272626,\quad Ls=0.28(0.227978)=0.063834.
+\]
+The front center has
+\[
+z_f=-0.545+Ls=-0.545+0.063834=-0.481166.
+\]
+Contact with the ramp gives
+\[
+-0.545+Ls
+= -0.60+m(y_r+Lc+0.22)+0.06674.
+\]
+Substitute the numbers:
+\[
+-0.481166
+= -0.60+0.6875(y_r+0.272626+0.22)+0.06674
+= -0.19458+0.6875y_r.
+\]
+Thus
+\[
+y_r=\frac{-0.481166+0.19458}{0.6875}=-0.41685\approx -0.4168.
+\]
+So the rear center is \((y,z)=(-0.4168,-0.545)\), and the front center is
+\[
+y_f=-0.4168+0.272626=-0.14417,\quad
+z_f=-0.48117.
+\]
+The car has advanced \(0.1632\) in \(y\) from its initial rear center \(-0.58\) and pitched \(0.23\) rad.
+
+Use the rear axle as pivot: initial pivot \((-0.58,-0.545)\), final pivot \((-0.4168,-0.545)\). For every car point, \(x\) is unchanged and, with
+\[
+dy=y+0.58,\quad dz=z+0.545,
+\]
+the transformed coordinates are
+\[
+y'=-0.4168+c\,dy-s\,dz,
+\]
+\[
+z'=-0.545+s\,dy+c\,dz.
+\]
+
+Representative calculation: the body front-top point \((-0.12,-0.22,-0.38)\) has \(dy=0.36\), \(dz=0.165\). Then
+\[
+c\,dy=0.973666(0.36)=0.35052,\quad
+s\,dz=0.227978(0.165)=0.037616,
+\]
+so
+\[
+y'=-0.4168+0.35052-0.037616=-0.10390.
+\]
+Also
+\[
+s\,dy=0.227978(0.36)=0.082072,\quad
+c\,dz=0.973666(0.165)=0.160655,
+\]
+so
+\[
+z'=-0.545+0.082072+0.160655=-0.30227.
+\]
+This corner becomes \((-0.12,-0.10390,-0.30227)\), and the mirrored corner uses \(x=0.12\).
+
+Applying the same rigid transform to the other key body points gives: body rear-top at \((x=\pm0.12,\ y=-0.49336,\ z=-0.39346)\); body front-bottom at \((x=\pm0.12,\ y=-0.07654,\ z=-0.41911)\); body rear-bottom at \((x=\pm0.12,\ y=-0.46601,\ z=-0.51030)\). The cabin roof front is at \((x=\pm0.09,\ y=-0.23897,\ z=-0.25174)\), and the cabin roof rear is at \((x=\pm0.09,\ y=-0.41423,\ z=-0.29277)\). Cabin side lower points transform to \((x=0.09,\ y=-0.22074,\ z=-0.32963)\) at the front and \((x=0.09,\ y=-0.39600,\ z=-0.37067)\) at the rear. For the lights, the top-face edge at \(y=-0.46,\ z=-0.26\) becomes \((y'=-0.36493,\ z'=-0.24015)\); at \(y=-0.40,\ z=-0.26\) it becomes \((y'=-0.30651,\ z'=-0.22647)\); and the vertical side at \(y=-0.46,\ z=-0.30\) becomes \((y'=-0.35581,\ z'=-0.27909)\).
+
+Wheel centers transform by the same formula. The front center \((-0.30,-0.545)\) has \(dy=0.28,\ dz=0\), so
+\[
+y'=-0.4168+0.973666(0.28)=-0.14417,
+\]
+\[
+z'=-0.545+0.227978(0.28)=-0.48117.
+\]
+The rear center \((-0.58,-0.545)\) maps to \((-0.4168,-0.545)\). All wheel Bezier control points undergo the same rigid transform; for example, the front-wheel start point initially at \(y=-0.245,\ z=-0.545\) has \(dy=0.335,\ dz=0\), giving
+\[
+y'=-0.4168+0.973666(0.335)=-0.09062,
+\]
+\[
+z'=-0.545+0.227978(0.335)=-0.46863.
+\]
+The wheel strokes are spoke-free circles in \(yz\)-planes, so wheel spin about \(x\) leaves the visible circular set unchanged while the centers, radius \(0.055\), and rigid pitch are preserved. The ramp and plaza strokes remain static.

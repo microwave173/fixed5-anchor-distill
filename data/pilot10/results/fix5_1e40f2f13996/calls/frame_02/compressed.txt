@@ -1,0 +1,25 @@
+Frame \(i=2\) corresponds to normalized time \(0.25\). Use \(+x\) forward/right, \(+y\) depth, and \(+z\) up; the camera is fixed and the floor is at \(z=-0.6\). At this phase the left foot is the support foot, the pelvis stays low, the right knee flexes and swings under the body, and the arms counter-swing. Keep the same sparse identities: torso with shoulder/hip anchors, three head great circles, two single-line arms, two bent-knee legs, and the fixed floor line.
+
+The first-frame torso runs from hip \((-0.36,0,-0.13)\) to neck/shoulder \((-0.30,0,0.14)\), with shoulder bar \(x=-0.31,\ y=\pm0.065,\ z=0.12\) and hip bar \(x=-0.36,\ y=\pm0.075,\ z=-0.13\). Its head center is \((-0.29,0,0.26)\). The planted left leg is hip \((-0.36,0.075,-0.13)\), knee \((-0.23,0.09,-0.34)\), foot \((-0.10,0.10,-0.60)\); the trailing right leg is hip \((-0.36,-0.075,-0.13)\), knee \((-0.48,-0.09,-0.36)\), foot \((-0.60,-0.10,-0.60)\).
+
+Advance the upper body/pelvis by \(T=(+0.05,0,-0.01)\). Thus the hip becomes \((-0.36+0.05,0,-0.13-0.01)=(-0.31,0,-0.14)\), the neck becomes \((-0.30+0.05,0,0.14-0.01)=(-0.25,0,0.13)\), the shoulder bar moves to \(x=-0.26,\ z=0.11\), the hip bar to \(x=-0.31,\ z=-0.14\), and the head center to \((-0.29+0.05,0,0.26-0.01)=(-0.24,0,0.25)\). The final torso stroke is hip \((-0.31,0,-0.14)\), control \((-0.29,0,0.0)\), end \((-0.25,0,0.13)\); the source keeps that control \(z=0.0\) rather than shifting it by \(-0.01\). The anchor bars become \((-0.26,0.065,0.11)\) to \((-0.26,-0.065,0.11)\), and \((-0.31,0.075,-0.14)\) to \((-0.31,-0.075,-0.14)\).
+
+Applying the same \(T\) to the head circles gives, for the \(xz\) great circle,
+\[
+M(-0.12,0,0.25)\,C3(-0.12,0,0.41),(-0.36,0,0.41),(-0.36,0,0.25)
+\,C3(-0.36,0,0.09),(-0.12,0,0.09),(-0.12,0,0.25).
+\]
+For the \(yz\) circle,
+\[
+M(-0.24,0.12,0.25)\,C3(-0.24,0.12,0.41),(-0.24,-0.12,0.41),(-0.24,-0.12,0.25)
+\,C3(-0.24,-0.12,0.09),(-0.24,0.12,0.09),(-0.24,0.12,0.25).
+\]
+For the \(xy\) circle,
+\[
+M(-0.12,0,0.25)\,C3(-0.12,0.16,0.25),(-0.36,0.16,0.25),(-0.36,0,0.25)
+\,C3(-0.36,-0.16,0.25),(-0.12,-0.16,0.25),(-0.12,0,0.25).
+\]
+
+The arms attach to the moved shoulder bar. The right arm counter-swings near vertical/back: shoulder \((-0.26,-0.065,0.11)\), control \((-0.29,-0.08,0.00)\), hand approximately \((-0.28,-0.10,-0.09)\); the source later nudges that final hand \(x\) to about \(-0.27\). The left arm swings slightly forward: shoulder \((-0.26,0.065,0.11)\), control \((-0.18,0.09,0.02)\), hand \((-0.14,0.10,-0.08)\).
+
+For the left support leg, start at hip \((-0.31,0.075,-0.14)\), use thigh control \((-0.25,0.09,-0.24)\), knee \((-0.23,0.10,-0.34)\), shin control \((-0.17,0.10,-0.46)\), and keep the foot planted at \((-0.08,0.10,-0.60)\). For the right swing leg, start at hip \((-0.31,-0.075,-0.14)\), use thigh control \((-0.34,-0.08,-0.24)\), knee \((-0.24,-0.09,-0.35)\), shin control \((-0.21,-0.10,-0.42)\), and lifted foot \((-0.28,-0.10,-0.47)\). The left foot remains on the floor at \(z=-0.60\); the right foot is lifted at \(z=-0.47\). The floor line stays fixed as \(M(-0.75,0,-0.60)\,L(0.05,0,-0.60)\).

@@ -1,0 +1,23 @@
+At the requested normalized time 0.5, contact occurs before the cone topples, so the cone remains exactly upright in its first-frame geometry: base ellipse centered at \((0.12,0,-0.60)\) with radius \(0.14\), apex \((0.12,0,-0.20)\), and straight generators from apex to rim. The floor is \(z=-0.60\). The bird’s feet and legs remain fixed, so the previous-frame body, wing, tail, and legs are reused; only the neck, head, and beak are advanced to make contact.
+
+Parsing the previous sagittal head contour gives the head center as \((-0.08,0,-0.155)\) with radius \(0.055\), not at the initially apparent leftmost value \(-0.135\). The previous beak path
+`M -0.030 -0.01 -0.145 L 0.080 -0.015 -0.195 L -0.030 -0.02 -0.175`
+has its tip at \((0.08,-0.015,-0.195)\). To place that tip on the cone apex,
+\[
+d=(0.12,0,-0.20)-(0.08,-0.015,-0.195)=(0.04,0.015,-0.005).
+\]
+Apply this same translation to the head and beak so the head stays spherical. The new head center is
+\[
+(-0.08,0,-0.155)+(0.04,0.015,-0.005)=(-0.04,0.015,-0.16),
+\]
+so the sagittal contour has leftmost point \((-0.095,0.015,-0.160)\) and rightmost point \((0.015,0.015,-0.160)\). For example, the translated sagittal head path is
+`M -0.095 0.015 -0.160 C3 -0.095 0.015 -0.105 0.015 0.015 -0.105 0.015 0.015 -0.160 C3 0.015 0.015 -0.215 -0.095 0.015 -0.215 -0.095 0.015 -0.160 Z`.
+The depth contour is shifted by the same vector, giving
+`M -0.040 -0.040 -0.160 C3 -0.040 -0.040 -0.105 -0.040 0.015 -0.105 -0.040 0.070 -0.160 C3 -0.040 0.070 -0.215 -0.040 0.015 -0.215 -0.040 -0.040 -0.160 Z`.
+The translated beak is
+`M 0.010 0.005 -0.150 L 0.120 0.000 -0.200 L 0.010 -0.005 -0.180`,
+so the tip is exactly \((0.12,0,-0.20)\), matching the upright cone apex.
+
+The neck keeps its body attachment at \((-0.313,0.010,-0.236)\) and curves to the new head’s leftmost point, for example as
+`M -0.313 0.010 -0.236 Q3 -0.220 0.010 -0.100 -0.095 0.015 -0.160`.
+This preserves the single-line neck while extending the head toward the contact point. The cone base, cone sides, and floor remain unchanged from the previous frame.

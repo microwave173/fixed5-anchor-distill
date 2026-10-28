@@ -1,0 +1,94 @@
+We need answer JSON only. Need compute final frame index5 yaw 90° from first. Need understand initial and previous. We need produce complete frame. Need preserve cube dimensions, rotate about vertical center axis. Need determine correct final coordinates. We have first frame coordinates, previous frame i4. Need final at normalized 1, quarter turn (90°). Need consistent yaw direction/pivot. Need infer from first to previous i4? Let's analyze geometry.
+
+First frame i1: bottom vertices:
+A? Let's label coordinates:
+P1 = (0.209185, 0.4486, -0.6)
+P2 = (0.4486, -0.209185, -0.6)
+P3 = (-0.209185, -0.4486, -0.6)
+P4 = (-0.4486, 0.209185, -0.6)
+This is square centered origin? Sum x=0? 0.209185+0.4486-0.209185-0.4486=0. yes. y sum=0.4486-0.209185-0.4486+0.209185=0. side length? P1 to P2: dx=.239415, dy=-.657785, length sqrt(.0573+.4327)=.7. So square side .7. Center (0,0). Top z=.1. Cube height .7. Bottom z=-.6 top .1. Good.
+
+Initial yaw angle: vertices radii half diagonal = .4949747. P1 angle atan2(y,x)=atan2(.4486,.209185)=65°? tan =2.1445 => 65°. P2 angle atan2(-.209185,.4486)= -25°. So square corners at 65°, -25°, -115°, 155°. This corresponds maybe cube side orientation 20°? Edges angles: P1->P2 vector (0.239415,-0.657785) angle -70°; etc. If square side orientation -70°. Cube local axis? Hmm.
+
+Previous i4 coordinates:
+Q1 = (-0.334401, 0.364934, -0.6)
+Q2 = (0.364934, 0.334401, -0.6)
+Q3 = (0.334401, -0.364934, -0.6)
+Q4 = (-0.364934, -0.334401, -0.6)
+These radii ~0.4949747? Q1: sqrt(.1118+.1332)=.49497. Angle atan2(.364934,-.334401)=132.5°? atan2 0.3649,-0.3344 -> 132.5. Q2 angle 42.5°, Q3 -47.5°, Q4 -132.5°. Edges orientation? Q1->Q2 vector (.699335,-.030533) angle -2.5°. So square side angle -2.5°. Initial side angle -70°. Difference +67.5°? Rotation of corners from P1 angle 65 to Q1 132.5 = +67.5. So yaw CCW +67.5° at t=.75, from initial. Thus final 90° = +22.5° from previous, total +90 from initial. Need compute final square vertices by rotating initial by +90° (CCW). Or previous +22.5°.
+
+Need know pivot (0,0) vertical axis. Yes center x,y=(0,0). z unchanged. Need final coordinates for bottom square vertices (same labels order). Compute initial rotated +90 around z: (x,y)->(-y,x). For P1 (0.209185,0.4486) -> (-0.4486,0.209185). P2 (0.4486,-0.209185)->(0.209185,0.4486). P3 (-0.209185,-0.4486)->(0.4486,-0.209185). P4 (-0.4486,0.209185)->(-0.209185,-0.4486). So final coordinates maybe:
+R1 = (-0.4486,0.209185,-0.6)
+R2 = (0.209185,0.4486,-0.6)
+R3 = (0.4486,-0.209185,-0.6)
+R4 = (-0.209185,-0.4486,-0.6)
+Top same x,y z=0.1. Need ensure stroke labels preserve corresponding vertices. First bottom_edge_a P1->P2. At final R1->R2. bottom_edge_b R2->R3. c R3->R4. d R4->R1. Vertical edges at R1,R2,R3,R4. This should be consistent with rotation. Need check previous +22.5° yields final. Rotate Q coordinates by +22.5: Q1 angle132.5+22.5=155° coordinates (-.4486,.209185)? cos155=-.9063*radius=. -0.4486, sin155=.4226*.49497=.2092. yes. Q2 angle65 -> (.209,.4486). Good.
+
+Need produce JSON only with reason and one frame. Need include all strokes as complete paths. Use exact numbers. Need decide formatting. Use coordinates as in first/prev. Need all 12 cube edges plus floor. Need ensure top edges same x,y. Vertical edges connect bottom/top. Use straight L paths. Could combine? Better keep same IDs. Need descriptions maybe same but final positions. The renderer lines. Need not include axis. Need include floor support line unchanged: M -0.55 0.15 -0.6 L 0.55 0.15 -0.6. Wait floor line y=0.15. Cube bottom at z=-0.6. The floor line is at z=-0.6 and y=0.15. It doesn't geometrically under center? It is short line through y=0.15 x range. It's fine fixed. Need no changes.
+
+Need consider "solid objects need coherent depth: box or domino connects corresponding front/back corners." We have cube edges, all. Fine.
+
+Need ensure "black-line sketch" no shading. Wireframe with all edges visible. Fine.
+
+Need maybe final cube yaw 90° means square orientation initial +90. Since square has 90° symmetry, visually same as initial but vertex labels permuted. However all strokes same geometry? Wait cube is square; rotating 90° around vertical leaves the cube outline identical in shape if unlabeled. But edges positions? A cube with square cross-section is symmetric under 90° yaw. The final wireframe geometry exactly same set of edges as first? Let's check final coordinates set R = {(-.4486,.2092), (.2092,.4486), (.4486,-.2092), (-.2092,-.4486)}. Initial set P = {(.2092,.4486),(.4486,-.2092),(-.2092,-.4486),(-.4486,.2092)}. Exactly same set rotated? Wait set R equals P? Let's compare P1=(.209,.4486) equals R2. P2=(.4486,-.209) equals R3. P3=(-.209,-.4486)=R4. P4=(-.4486,.209)=R1. So final set identical to initial. Thus final cube wireframe geometry is exactly same as first frame, because 90° yaw maps square to itself. The edge labels map but stroke geometry set same. If we output same paths as first, except IDs maybe with mapped vertices? We need preserve stroke IDs and transform each edge. Since transformation maps edge a (P1->P2) to R1->R2 = P4->P1, which is bottom_edge_d reversed? The edge a's endpoints become positions of edge d but order R1->R2 same direction? P4=(-.4486,.209), P1=(.209,.4486), that's edge d's path from P4 to P1 (yes bottom_edge_d). So stroke cube_bottom_edge_a at final should be M -0.4486 0.209185 -0.6 L 0.209185 0.4486 -0.6. This is not identical to first stroke a. The set of all edges same but individual IDs shifted. Important. Need maintain identity under rotation. So final strokes:
+bottom_edge_a: R1 -> R2 = (-0.4486,0.209185) to (0.209185,0.4486)
+bottom_edge_b: R2 -> R3 = (0.209185,0.4486) to (0.4486,-0.209185)
+bottom_edge_c: R3 -> R4 = (0.4486,-0.209185) to (-0.209185,-0.4486)
+bottom_edge_d: R4 -> R1 = (-0.209185,-0.4486) to (-0.4486,0.209185)
+Top similarly with z=.1.
+Vertical a at R1: (-0.4486,0.209185,-.6) to (-0.4486,0.209185,.1)
+vertical b R2: (0.209185,0.4486) etc
+vertical c R3: (0.4486,-0.209185)
+vertical d R4: (-0.209185,-0.4486).
+
+Let's verify against previous plus +22.5. Previous bottom a Q1->Q2 = (-.3344,.3649)->(.3649,.3344). Rotate +22.5:
+Q1 -> R1 (-.4486,.2092); Q2 -> R2 (.2092,.4486). Yes final a R1->R2. Good.
+Previous bottom b Q2->Q3 -> R2->R3. Good.
+c R3->R4. d R4->R1. Perfect.
+
+Need include reason brief. "Cube yawed 90° CCW about vertical center axis; floor unchanged." Need output JSON only.
+
+Need use numeric coordinates exactly enough. Could use 6 decimals. Need maybe preserve dimensions with values. Let's compute using trig exact maybe. Values from given align: 0.4486, 0.209185. Need final with 6 decimals. Use maybe 0.209185 etc. Top z 0.1. Floor line.
+
+Let's ensure no missing edge. 13 strokes. Fine.
+
+Need careful JSON syntax: {"reason":"...", "frames":[{"i":5,"strokes":[...]}]}. Path strings with L. Descriptions. No style. Coordinates in [-1,1]. Good.
+
+Let's consider whether index should be 5 (requested current_frame_index 5). Yes.
+
+Potential issue: Rotation direction. We inferred +90 CCW. If alternate clockwise? From first to previous i4 we saw +67.5. It matches plan likely. At t=1 final 90; same set as first, but edge IDs correspond. Even if direction sign ambiguous, final set same? If clockwise 90 also same set due square symmetry, and edges mapping would be opposite? Let's check: Initial P1=(.209,.4486). Clockwise -90: (y,-x)=(.4486,-.209185)=P2. Then bottom edge a P1->P2 becomes P2->P3, not previous path. Previous i4 at +? If clockwise, at t=.75 -67.5 from initial: P1 angle65-67.5=-2.5 => (.4948,-.0216), not previous Q. So previous confirms +. Thus final a R1->R2 as above. Good.
+
+Need maybe final top and bottom z: bottom face stays on floor z=-0.6, top z=0.1. Yes.
+
+Let's produce final. Need no markdown code. Ensure valid JSON. 
+Double-check coordinates for final square:
+R1 angle 155°: cos155=-0.906307, radius .4949747 => -0.4486. sin155=0.422618 => 0.209185. yes.
+R2 angle 65°: x=.209185 y=.4486.
+R3 angle -25°: x=.4486 y=-.209185.
+R4 angle -115°: x=-.209185 y=-.4486.
+
+Now map:
+bottom_edge_a first P1 (front-right?) to P2 right-back? Final R1->R2. Good.
+bottom_edge_b R2->R3.
+bottom_edge_c R3->R4.
+bottom_edge_d R4->R1.
+
+Vertical:
+a at R1 (-.4486,.209185)
+b at R2 (.209185,.4486)
+c at R3 (.4486,-.209185)
+d at R4 (-.209185,-.4486)
+
+Top:
+edge a same R1->R2 at z .1
+b R2->R3
+c R3->R4
+d R4->R1
+
+Floor unchanged.
+
+Need maybe IDs stable "cube_bottom_edge_a" etc. Good.
+
+Use "description": same as previous but final "bottom square edge..." maybe no need mention final. Fine.
+
+Let's final JSON.

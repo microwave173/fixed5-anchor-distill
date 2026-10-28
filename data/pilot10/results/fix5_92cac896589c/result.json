@@ -1,0 +1,36 @@
+{
+  "task": "fix5_92cac896589c",
+  "status": "complete",
+  "frames": 5,
+  "available_frames": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "seconds": 358.8524897098541,
+  "warnings": [
+    {
+      "stage": "frame_01",
+      "kind": "command_separator_normalization",
+      "stroke": 4,
+      "original_path": "M -0.22 0 -0.34 L -0.64 0 -0.24; M -0.22 0 -0.26 L -0.63 0 -0.18; M -0.64 0 -0.24 L -0.63 0 -0.18"
+    },
+    {
+      "stage": "frame_01",
+      "kind": "command_separator_normalization",
+      "stroke": 6,
+      "original_path": "M -0.65 0 -0.20 L -0.65 0 -0.06; M -0.65 -0.07 -0.13 L -0.65 0.07 -0.13"
+    },
+    {
+      "stage": "frame_01",
+      "kind": "command_separator_normalization",
+      "stroke": 12,
+      "original_path": "M 0.15 0.18 -0.60 L 0.15 0.12 -0.43; M 0.15 -0.18 -0.60 L 0.15 -0.12 -0.43; M -0.17 0.18 -0.60 L -0.17 0.12 -0.42; M -0.17 -0.18 -0.60 L -0.17 -0.12 -0.42"
+    }
+  ],
+  "failures": [],
+  "compression_errors": [],
+  "compression_complete": true
+}

@@ -1,0 +1,22 @@
+Work in +x as the walking/forward direction, +y as lateral/depth, and +z up, with a fixed floor at z=-0.6. Place the person near x=-0.35, facing +x, with the left side at +y and the right side at -y. Keep the compact pose low: pelvis at P=(-0.36,0,-0.13), neck at N=(-0.30,0,0.14), and torso centerline as a quadratic from P to N with control (-0.34,0,0.0). Add a short shoulder bar at z=0.12 from (-0.31,-0.065,0.12) to (-0.31,0.065,0.12), and a hip bar at z=-0.13 from (-0.36,-0.075,-0.13) to (-0.36,0.075,-0.13). These anchors can be subpaths of the same torso stroke, making arm and leg attachments explicit.
+
+For the spatial head, use center H=(-0.29,0,0.26) and radius r=0.12. The bottom is H_z-r=0.26-0.12=0.14, which equals the neck top, so the head attaches to the torso. This corrects an earlier head height of z=0.30. Use three great circles in orthogonal planes; for a half-circle cubic approximation the control offset is 4r/3=4(0.12)/3=0.16. The x-z circle is
+M (-0.17,0,0.26) C3 (-0.17,0,0.42) (-0.41,0,0.42) (-0.41,0,0.26) C3 (-0.41,0,0.10) (-0.17,0,0.10) (-0.17,0,0.26).
+The y-z circle is
+M (-0.29,0.12,0.26) C3 (-0.29,0.12,0.42) (-0.29,-0.12,0.42) (-0.29,-0.12,0.26) C3 (-0.29,-0.12,0.10) (-0.29,0.12,0.10) (-0.29,0.12,0.26).
+The x-y equator is
+M (-0.17,0,0.26) C3 (-0.17,0.16,0.26) (-0.41,0.16,0.26) (-0.41,0,0.26) C3 (-0.41,-0.16,0.26) (-0.17,-0.16,0.26) (-0.17,0,0.26).
+These three intersecting circles express volume without a billboard.
+
+Use one Q3 stroke per arm. For the initial left-foot-forward pose, counter-swing the right arm forward:
+M (-0.31,-0.065,0.12) Q3 (-0.18,-0.09,0.02) (-0.08,-0.10,-0.08).
+Swing the left arm back:
+M (-0.31,0.065,0.12) Q3 (-0.44,0.09,0.02) (-0.53,0.10,-0.08).
+
+Keep both knees visibly bent. The left leg is forward and planted:
+M (-0.36,0.075,-0.13) Q3 (-0.30,0.08,-0.25) (-0.23,0.09,-0.34) Q3 (-0.16,0.10,-0.48) (-0.10,0.10,-0.60).
+The right leg trails:
+M (-0.36,-0.075,-0.13) Q3 (-0.42,-0.08,-0.26) (-0.48,-0.09,-0.36) Q3 (-0.55,-0.10,-0.49) (-0.60,-0.10,-0.60).
+Both feet are on z=-0.60; the left foot is forward at (-0.10,0.10,-0.60), the right trails at (-0.60,-0.10,-0.60), and the pelvis stays low at z=-0.13.
+
+Use separate stable strokes for the torso/anchors, the three head circles, the two arms, the two legs, and a single floor line from (-0.75,0,-0.6) to (0.05,0,-0.6) as necessary support. No additional scenery is needed.

@@ -1,0 +1,296 @@
+We need answer JSON only for FIRST frame index 1. Need draw dog in true 3D world space, black-line strokes. Need meet prompt. We need craft paths. Need understand coordinate system camera from (2.8,-3.2,2.4) looking origin. +x right, +y depth, +z up. Dog faces +x. Floor z=-0.6. Start near x=-0.45, t=0 planted stable stance. Need body, head at +x, snout, perked ears, tail at -x rising, four legs single-line, paws ground. Need coherent depth: torso with spine contour and depth curves; maybe ellipsoidal body via multiple great-circle-ish curves. We need minimal friendly immediately recognizable. Need no text etc. Only JSON with reasons and frames.
+
+We need produce paths numeric absolute. Need design geometry in 3D. Need be careful with perspective? Camera fixed. We just coordinates.
+
+Dog facing +x. Body elongated along x. Torso center maybe (-0.35,0, -0.05?) Wait z floor -0.6. Dog size compact within [-0.8,0.8]. Need body height around z 0.0 to 0.3, legs from body to floor -0.6. Head at +x near x=-0.05? If dog starts near x=-0.45, body center maybe -0.40, dog extends -0.65 tail to 0.05 head. Actually start near -0.45 might mean root location. Need dog full within bounds. Let body center at x=-0.45, y=0, z=-0.02. Torso length ~0.45 (x -0.7 to -0.2), body height 0.28, depth 0.25. Head at x=-0.15 z=0.15, snout x=0.06 z=0.10. Tail x=-0.75 z=0.15. Legs down to z=-0.6: front near-side shoulder x=-0.22,y=0.08,z=-0.10 down to knee x=-0.25 etc paw x=-0.22,z=-0.6; front far x=-0.20,y=-0.08. Hind near x=-0.58,y=0.08 to paw maybe -0.60; hind far x=-0.56,y=-0.08. At t=0 stable planted stance: perhaps near fore and far hind planted? But need at least two paws planted; can have all four planted initially. Walk phase t=0 stable planted stance; maybe all four contact ground. We can draw four legs with paws at ground. But dog should be walking; first pose stable. Since FIRST can be all four planted.
+
+Need ensure no foot-ground contact missing. Paws as tiny soles? Prompt says small paws as ground contacts. Use single-line legs perhaps endpoint at z=-0.6; maybe a short horizontal/diagonal paw stroke? It says no outlined hands/feet; for dog paws can use tiny line? "small paws as ground contacts" likely endpoint enough or tiny stroke. We can do legs extending to floor and maybe short paw line on ground. But "single-line legs" suggests one line per leg; no paws separate maybe endpoint. To show contact, endpoint at z=-0.6. Could add tiny paw stroke? "four connected single-line legs... small paws as ground contacts" Maybe each leg path ends with small horizontal segment on floor, but then it's not single-line? Still connected line. But no outlined feet. Use simple L at end maybe.
+
+Need torso with depth. We can draw main body outline in 3D. Since line sketch true 3D, can have several contours. For organic body use smooth cubic. Need "few spatial contours express depth". Could draw:
+- body top/spine curve along from rump to neck: M -0.70 0 0.18 C3 ... to -0.20 0 0.16.
+- belly curve: M -0.66 0 -0.12 C3 ... to -0.22 0 -0.12.
+- body side depth contour near side: M -0.67 0.10 0.10 C3 ... to -0.23 0.10 0.09? Hmm.
+Maybe a closed-ish torso shape as two side curves at y=0? But flat. Need genuine 3D volume: use central long contour plus cross-section arcs at front/rear. Could draw an ellipsoid-like body with few longitudinal curves at y offsets. Body has width in y. The visible silhouette perhaps defined by outline projected? But we can't compute projection. We can draw three curves: top spine (y=0), left/right side contours (y=±0.09) around body, and cross arcs at shoulders/hips. That yields volume.
+
+Need head. A spherical head uses few intersecting great-circle curves in different planes. We can draw circle-ish head via two or three arcs: vertical arc in x-z plane (front view), horizontal arc in x-y plane, maybe side. Position head center x=-0.10, y=0, z=0.20 radius 0.13. snout extends +x to 0.04. Ear perked up from head top: two triangles or curved lines. Need recognizable dog: head round with snout, ears. Add eyes? No face. Prompt says no face generally. So no eyes. Ears perked. Tail.
+
+Need use coordinate constraints. We need draw body around x -0.65 to -0.15, head +x to 0.05, tail -0.80 maybe? Keep within [-0.8,0.8]. Tail at -0.75 rising to -0.82? Must keep within 0.8. Use -0.78 maybe.
+
+Let's plan coordinates.
+
+Set dog root center x=-0.45, y=0, z maybe -0.05.
+
+Torso:
+Represent as horizontal ellipsoid length 0.48 from x=-0.70 to -0.22, height z -0.14..0.16, width y ±0.10. Main top spine at y=0: M -0.68 0 0.10 Q? C3 -0.58 0 0.19, -0.34 0 0.19, -0.23 0 0.11. Belly: M -0.67 0 -0.13 C3 -0.55 0 -0.18, -0.35 0 -0.18, -0.22 0 -0.11. These two create side silhouette at y=0. Side contour on near side y=0.10: M -0.65 0.09 0.02 C3 -0.57 0.11 0.09, -0.34 0.11 0.09, -0.24 0.09 0.02. Maybe lower near side: M -0.65 0.09 -0.06 C3 -0.55 0.11 -0.12, -0.35 0.11 -0.12, -0.24 0.08 -0.06. And far side maybe y=-0.09? To show depth, maybe only one side visible because camera y=-3.2 looks from -y side? Wait camera at y=-3.2, so near side is y negative (closer to camera). Need show near-side contour at y=-0.10. Since camera from negative y, near side visible. Draw a side contour at y=-0.10. The far side y=0.10 might be hidden; no need. But volume requires top and near side plus cross arcs. Draw cross-section arcs at rear and front connecting top to belly via near side? Could draw elliptical cross-sections:
+Rear cross-section around x=-0.66, center z=0, y=0: ellipse in y-z plane. Stroke: M -0.66 0 0.12 C3 -0.66 -0.10 0.06, -0.66 -0.10 -0.08, -0.66 0 -0.14 C3 -0.66 0.10 -0.08, -0.66 0.10 0.06, -0.66 0 0.12. This is ellipse cross-section at rump. But maybe clutter. Front shoulder cross-section x=-0.26? ellipse in y-z. Maybe one at x=-0.26. This creates volume. Need not overdo. Body should be compact rounded. We can include top spine, belly, near side contour, one shoulder cross arc, one hip cross arc. This is 5 strokes.
+
+Head:
+Center C=(-0.13,0,0.22), r=0.13. Need faces +x, snout extends. We can draw head as ellipsoid with three great circles:
+- vertical/sagittal (x-z plane, y=0): M -0.26 0 0.22 C3 -0.26 0 0.35, -0.02 0 0.35, 0.00 0 0.22 C3 0.00 0 0.09, -0.26 0 0.09, -0.26 0 0.22. That's a circle centered -0.13, z .22, radius .13.
+- horizontal (x-y plane at z=0.22): M -0.26 0 0.22 C3 -0.26 -0.13 0.22, 0.00 -0.13 0.22, 0.00 0 0.22 C3 0.00 0.13 0.22, -0.26 0.13 0.22, -0.26 0 0.22. But this overlaps, maybe visible as ellipse.
+- cross vertical in y-z plane at x=-0.13: M -0.13 0 0.09 C3 -0.13 -0.13 0.13, -0.13 -0.10 0.32, -0.13 0 0.35? Hmm better ellipse: M -0.13 0 0.09 C3 -0.13 -0.12 0.13, -0.13 -0.12 0.31, -0.13 0 0.35 C3 -0.13 0.12 0.31, -0.13 0.12 0.13, -0.13 0 0.09. That's circle in y-z. But too many strokes.
+
+Maybe draw head outline using two overlapping ellipses: side profile and top contour. Since line sketch, okay.
+
+Snout: a small rounded muzzle protruding +x from head. Could draw a short double curve:
+M -0.03 -0.05 0.19 Q3 0.09 -0.06 0.18, 0.10 0 0.18 Q3 0.09 0.06 0.18, -0.03 0.05 0.19? This forms muzzle cross-section. But maybe just a single snout outline: M -0.03 0 0.25 C3 0.06 0 0.23, 0.09 0 0.18, 0.06 0 0.14; and lower? Need nose tip maybe at x=0.10 z=0.18. A simple curve from head front to snout. Could draw one continuous snout line: M -0.02 -0.07 0.24 C3 0.05 -0.05 0.23, 0.11 -0.03 0.19, 0.10 0 0.17 C3 0.09 0.03 0.19, 0.05 0.05 0.23, -0.02 0.07 0.24. This is muzzle in y-z/x. But maybe too abstract. Simpler: from lower head front x=-0.02,z=0.16 to nose x=0.10,z=0.18, then back to upper head x=-0.02,z=0.27. Use smooth curve:
+M -0.02 0 0.16 C3 0.05 0 0.16, 0.11 0 0.18, 0.10 0 0.20 C3 0.11 0 0.23, 0.06 0 0.27, -0.02 0 0.27. That is flat in y=0 but side profile. It might be enough; head circle already. Add a tiny nose line? no face.
+
+Ears perked: two ears on top/back of head. Use triangular/leaf shapes with 2 strokes each or as single connected path? Need recognizable. Left/right in y. Since camera sees near side y negative. We can draw near ear at y=-0.06 and far ear at y=0.06. Perked up. Each ear as a simple curved leaf: M -0.18 -0.06 0.31 C3 -0.20 -0.07 0.45, -0.16 -0.06 0.48, -0.10 -0.05 0.35 C3 -0.12 -0.05 0.32, -0.15 -0.06 0.31, -0.18 -0.06 0.31. This makes ear shape. For far ear y=0.06. Need not be closed? Draw complete visible strokes. Ears perked, simple triangular but curved. Keep z up to 0.48 within bounds. Dog body top 0.2; ears 0.48.
+
+Tail: at -x rising slightly. Start rump x=-0.70, y maybe 0.02, z=0.11. Curve up/back: M -0.69 0.02 0.12 C3 -0.76 0.04 0.18, -0.79 0.05 0.26, -0.77 0.06 0.31. Need within x≥-0.8. That's fine. Maybe one stroke; tail volumetric? Single-line tail okay. Add small tip? No.
+
+Legs:
+Need four connected single-line legs. Attach at shoulder/hip. Body lower z=-0.14. Floor -0.6. Leg lengths ~0.46. Need near-side pair offset y=-0.10? Wait near-side pair offset in +y? Prompt says near-side pair offset in +y and far-side in -y, but camera at y=-3.2 means near side would be -y. However prompt explicitly says near-side +y, far-side -y. Hmm we should follow prompt? "near-side pair offset in +y and far-side pair in -y" is in total_plan. Camera y=-3.2 means +y is farther, but maybe they define near-side relative to drawing? But fixed camera from -y, so +y is far. Yet prompt says follow total_plan. We can set near-side pair y=+0.10 and far y=-0.10. But then visually near side is actually farther. Not critical. Use y=+0.09 for pair 1, y=-0.09 for pair 2. But depth occlusion not rendered, all lines visible.
+
+At t=0 all four planted. However "legs alternate in clear walk cycle" at t=0 stable planted stance. Could have front left and hind right slightly forward? But all paws on ground.
+
+Define coordinates:
+Foreleg near (y=+0.09): shoulder x=-0.24, y=0.09, z=-0.10. Upper/lower single line to paw. Need articulated? At t=0 maybe straight/slightly bent. Single-line limb with joint: use Q3 or C3 from shoulder to paw. One path per leg could be two segments shoulder->elbow->paw. Since "single-line arms/legs" can be polyline with joint. Dog legs should have joint. At t=0 stable planted, we can draw a gentle bend at knee. Path M shoulder L elbow Q paw? Use C3 for organic. For foreleg near: M -0.25 0.09 -0.10 C3 -0.27 0.09 -0.25, -0.26 0.09 -0.42, -0.25 0.09 -0.57 L -0.22 0.09 -0.60? Actually paw contact. A single stroke with small horizontal foot at end: M -0.25 0.09 -0.10 C3 -0.25 0.09 -0.28, -0.22 0.09 -0.44, -0.25 0.09 -0.60 L -0.19 0.09 -0.60. This gives foot line. But then leg is a line with a bend and paw. Good. But paw at ground. For far foreleg y=-0.09, x maybe -0.20 (slightly forward) to show stride? At t=0 all planted, but can have forelegs slightly offset. Maybe near fore x=-0.26 paw; far fore x=-0.18 paw. But body translation? Start stable. Let's set:
+Fore near (nf): shoulder (-0.25, 0.09, -0.10) down to paw (-0.27, 0.09, -0.60), slight bend.
+Fore far (ff): shoulder (-0.21, -0.09, -0.10) down to paw (-0.17, -0.09, -0.60).
+Hind near (nh): shoulder (-0.61, 0.09, -0.08) down/back to paw (-0.63, 0.09, -0.60).
+Hind far (hf): shoulder (-0.58, -0.09, -0.08) down to paw (-0.55, -0.09, -0.60).
+This forms stance with front paws x -0.27, -0.17; hind -0.63, -0.55. At least two on ground; all four.
+
+But dog facing +x: head at -0.13, body center -0.45, front legs near x -0.25, hind -0.6. Good.
+
+Need tail maybe x -0.77.
+
+Need ensure dog within [-0.8,0.8] yes.
+
+Need exact path syntax. No style fields. JSON only. Need "reason" brief public geometry/motion rationale. frames array with i:1, strokes.
+
+Need maybe include ground? Prompt says no decorative scenery, fixed floor around z=-0.6 when needed. Not asked to draw floor; avoid.
+
+Need include all requested subjects. Dog only. Could perhaps include 20 strokes. Need not overdo. We need true 3D world coordinates. Need use Q3/C3. All strokes numeric. No variables. Use unique stable IDs. Need descriptions semantic.
+
+Let's design strokes carefully with minimal but enough.
+
+We'll create:
+
+1. body_top: M -0.68 0 0.10 C3 -0.61 0 0.18 -0.39 0 0.19 -0.23 0 0.11
+2. body_belly: M -0.67 0 -0.13 C3 -0.55 0 -0.18 -0.35 0 -0.18 -0.22 0 -0.11
+3. body_side_near: maybe y=+0.09 (per prompt near). M -0.65 0.10 0.02 C3 -0.57 0.12 0.08 -0.35 0.12 0.08 -0.24 0.10 0.02. Hmm this is a contour on near side at mid-height, not a full outline. It adds depth. But if near side is y=+0.09, okay.
+4. body_side_low: M -0.65 0.10 -0.08 C3 -0.55 0.12 -0.13 -0.35 0.12 -0.13 -0.24 0.10 -0.07. Maybe too many. Could omit; body_belly is at y=0, side near at +0.10, and cross arcs create volume.
+
+5. rump_cross: elliptical cross-section at rear x=-0.65 in y-z plane. M -0.65 0 0.10 C3 -0.65 -0.10 0.05 -0.65 -0.10 -0.08 -0.65 0 -0.13 C3 -0.65 0.10 -0.08 -0.65 0.10 0.05 -0.65 0 0.10. This may appear as a loop. Good.
+6. shoulder_cross x=-0.25: M -0.25 0 0.11 C3 -0.25 -0.10 0.06 -0.25 -0.10 -0.08 -0.25 0 -0.12 C3 -0.25 0.10 -0.08 -0.25 0.10 0.06 -0.25 0 0.11. Good.
+
+Head:
+7. head_side_arc: M -0.26 0 0.22 C3 -0.26 0 0.35 -0.02 0 0.35 0.00 0 0.22 C3 0.00 0 0.09 -0.26 0 0.09 -0.26 0 0.22
+8. head_top_arc: M -0.26 0 0.22 C3 -0.26 -0.13 0.22 0.00 -0.13 0.22 0.00 0 0.22 C3 0.00 0.13 0.22 -0.26 0.13 0.22 -0.26 0 0.22
+9. head_cross_arc: M -0.13 0 0.09 C3 -0.13 -0.12 0.13 -0.13 -0.12 0.31 -0.13 0 0.35 C3 -0.13 0.12 0.31 -0.13 0.12 0.13 -0.13 0 0.09
+Maybe head cross overlaps. Fine.
+
+10. muzzle: M -0.02 0 0.16 C3 0.05 0 0.16 0.11 0 0.18 0.10 0 0.20 C3 0.11 0 0.23 0.06 0 0.27 -0.02 0 0.27
+This uses y=0 only. Might not show depth but muzzle is thin. Could add nose bridge curve at y=-0.05? But okay.
+
+Ears:
+11. ear_near: M -0.18 0.06 0.32 C3 -0.20 0.07 0.43 -0.17 0.07 0.48 -0.11 0.05 0.36 C3 -0.12 0.05 0.33 -0.15 0.06 0.32 -0.18 0.06 0.32
+12. ear_far: M -0.18 -0.06 0.32 C3 -0.20 -0.07 0.43 -0.17 -0.07 0.48 -0.11 -0.05 0.36 C3 -0.12 -0.05 0.33 -0.15 -0.06 0.32 -0.18 -0.06 0.32
+Perked.
+
+Tail:
+13. tail: M -0.68 0.02 0.12 C3 -0.75 0.04 0.18 -0.78 0.05 0.26 -0.75 0.06 0.31
+Maybe add second contour? Single-line tail is fine.
+
+Legs:
+Need attach to shoulder/hip cross at z -0.10. Use separate strokes with paw at end. Make them look like single-line legs. Use C3 shoulder to ankle and L paw. Each path can include M ... C3 ... L ... Maybe one path includes paw. Use four.
+
+14. leg_front_near: M -0.25 0.09 -0.10 C3 -0.26 0.09 -0.25 -0.24 0.09 -0.43 -0.25 0.09 -0.59 L -0.19 0.09 -0.60
+15. leg_front_far: M -0.21 -0.09 -0.10 C3 -0.20 -0.09 -0.27 -0.18 -0.09 -0.45 -0.17 -0.09 -0.60 L -0.11 -0.09 -0.60
+16. leg_hind_near: M -0.61 0.09 -0.08 C3 -0.63 0.09 -0.25 -0.65 0.09 -0.43 -0.63 0.09 -0.59 L -0.57 0.09 -0.60
+17. leg_hind_far: M -0.58 -0.09 -0.08 C3 -0.56 -0.09 -0.26 -0.54 -0.09 -0.44 -0.55 -0.09 -0.60 L -0.49 -0.09 -0.60
+
+Hind legs should maybe angle backward? Dog faces +x, hind legs at -x, can angle down/back. Fine. But body legs attach to shoulder/hip. At t=0 stable.
+
+Need maybe neck connection between body and head? Head center x=-0.13, body front x=-0.23; there's gap but head arc overlaps shoulder. Could add neck stroke connecting body top to head lower/back. M -0.26 0 0.11 C3 -0.22 0 0.16 -0.20 0 0.18 -0.17 0 0.18. Or head overlaps body; body top ends at -0.23, head back at -0.26, so connected visually. Good.
+
+Need maybe small chest? body front cross at -0.25, head back at -0.26, fine.
+
+Need check no face. Good.
+
+Need "true 3D" not flat billboards. Head has three arcs. Body has cross-sections. Legs planar. Ears in y. Good.
+
+Maybe all strokes need be visible complete. If some arcs overlap, okay. Need max maybe 17 strokes. Could add "muzzle side depth" to show snout not flat. Maybe add small lower muzzle curve at y=-0.05:
+M -0.03 -0.05 0.16 C3 0.05 -0.05 0.16 0.10 -0.03 0.18 0.09 0 0.19? But might clutter. The muzzle path is flat y=0, but head volume; snout can be single planar curve. Prompt says genuine flat props and thin stick limbs may be planar; snout maybe acceptable. But "solid objects need coherent depth" for head; snout part of head. Could make muzzle two arcs at y ±0.05 to show depth? It might be more recognizable. But minimal.
+
+Alternative: muzzle outline could be a small ring around nose:
+M -0.03 -0.06 0.16 C3 0.04 -0.07 0.16 0.10 -0.04 0.18 0.09 0 0.20 C3 0.10 0.04 0.18 0.04 0.07 0.16 -0.03 0.06 0.16? Hmm.
+
+Let's consider drawing head as spherical with great circles. The muzzle can be a short C3 segment from head side to nose. Maybe add a second line above. But "no face" means no eyes/mouth. A muzzle line is okay.
+
+Need score likely based on visual. Need enough details.
+
+Potential issue: Camera from (2.8,-3.2,2.4) looking origin means +x axis points somewhat into screen/right? The dog facing +x may appear side/three-quarter. Our coordinate design okay.
+
+Let's perhaps adjust body position to start near x=-0.45. Body center around -0.45, head to 0.0, tail -0.78. The whole dog spans -0.78 to 0.1, center -0.34. Start near -0.45 maybe not exact. Prompt says starts near x=-0.45 and finishes +0.45. For FIRST, dog near -0.45. Our body center -0.45, head -0.13, tail -0.75. That's fine (root at body center -0.45). At finish translation +0.9? Later frames will shift. First frame okay.
+
+Need "ears perked" clearly. Ears at z 0.32-0.48, on top. Good.
+
+Need "tail rising slightly": tail ends z 0.31. Body top 0.19, so rising.
+
+Need "head stays forward": head at +x.
+
+Need "at least two paws remain on z=-0.6" all four endpoints z=-0.6.
+
+Need "No shading, hatching..." no.
+
+Need use numeric coordinates. No functions. IDs stable semantic. Descriptions.
+
+Need JSON exactly. Ensure path strings with decimals and no commas? Path syntax uses spaces. Commands separated by semicolons? We can use spaces, semicolons optional? The syntax examples: "M x y z; L x y z; Q3 ...". It says absolute commands: M x y z; L x y z; Q3... Use semicolons between commands maybe. We can include semicolons. Our path strings with multiple commands should use semicolons. For single command no semicolon. Use "M ... C3 ...". That's fine. Need no SVG tags.
+
+Need maybe include comma? No, spaces.
+
+Let's ensure all C3 commands have 6 control points? C3 c1x c1y c1z c2x c2y c2z x y z = 9 coordinates after C3. In our paths, C3 -0.61 0 0.18 -0.39 0 0.19 -0.23 0 0.11 = 9 yes.
+
+Need use Q3? None.
+
+Let's enumerate strokes with IDs:
+- body_spine
+- body_belly
+- body_near_side
+- body_rump_arc
+- body_shoulder_arc
+- head_sagittal
+- head_transverse
+- head_coronal
+- muzzle_bridge
+- ear_near
+- ear_far
+- tail
+- leg_front_near
+- leg_front_far
+- leg_hind_near
+- leg_hind_far
+
+Maybe add neck? Could add "neck_line" to connect. But head arcs overlap. Let's add neck stroke to make attachment:
+M -0.26 0 0.12 C3 -0.22 0 0.15 -0.20 0 0.16 -0.18 0 0.17. Actually this is inside head/body. Not necessary. But "necessary connections" body-head. The head back x=-0.26 touches shoulder cross x=-0.25 and body top ends -0.23. Good.
+
+Need maybe body_near_side at y=+0.10 conflicts with cross arcs. Let's refine body geometry to be more coherent:
+Body main side silhouette at y=0: top spine and belly. But these are two separate long curves, not closed. Cross arcs at rump and shoulder connect top/belly around y. That creates a rounded body. Near side contour at y=+0.10 should be a long ellipse-side line, maybe connects rump/shoulder? We can draw a side contour as a curve offset from spine:
+M -0.64 0.10 0.08 C3 -0.50 0.11 0.14 -0.36 0.11 0.14 -0.26 0.10 0.08
+This sits between top and side. It might look like extra line. Better: Use body side as the main visible outline at y=+0.10:
+M -0.66 0.10 0.02 C3 -0.56 0.12 -0.12 -0.34 0.12 -0.13 -0.24 0.10 -0.06
+But then belly at y=0 is lower? Hmm.
+
+Maybe draw body as two ellipsoid rings at ends and two longitudinal lines (top/belly) at y=0. That's enough. Avoid near side to reduce ambiguity.
+
+Actually a 3D ellipsoid can be represented by:
+- top profile in x-z plane (y=0): top half ellipse from rear to front
+- bottom profile: bottom half ellipse
+- one side profile in x-y plane (z=0): maybe an ellipse outline around body at mid-height
+- cross-section arcs at ends.
+But too many. Our current is okay.
+
+Let's ensure "body_near_side" y=+0.10 is not weird. Maybe set y=-0.10 (camera side) but prompt says near +y. Use +0.10 per prompt.
+
+Could make body near side as an arc from rump to shoulder at mid-height:
+M -0.66 0.10 0.00 C3 -0.54 0.12 0.06 -0.36 0.12 0.06 -0.24 0.10 0.00
+This is a longitudinal contour on the side. Good. Add lower side? no.
+
+Need cross arcs: rump_cross at x=-0.65 y from -0.10 to +0.10, z 0.10 to -0.13. Shoulder at x=-0.25 y ±0.10 z 0.11/-0.12. These cross arcs intersect top/belly endpoints and side. Good.
+
+Head arcs:
+head_sagittal uses y=0, x from -0.26 to 0.00. head_transverse uses z=0.22, x-y plane. head_coronal uses x=-0.13, y-z plane. This creates sphere. Good. But head_transverse is a full ellipse in x-y at z=0.22, which from camera may look like horizontal line. Fine.
+
+Muzzle: Let's make it 3D a bit:
+M -0.02 -0.05 0.16 C3 0.05 -0.06 0.16 0.10 -0.04 0.18 0.10 0 0.19 C3 0.10 0.04 0.18 0.05 0.06 0.16 -0.02 0.05 0.16
+This is a small ellipse at head front, suggesting snout. But then missing upper bridge. Add separate "muzzle_bridge": M -0.03 0 0.26 C3 0.03 0 0.25 0.09 0 0.22 0.10 0 0.19. Hmm. To keep minimal, use one snout outline path that goes around nose and connects to head:
+M -0.03 -0.06 0.17 C3 0.04 -0.07 0.17 0.11 -0.04 0.19 0.11 0 0.20 C3 0.11 0.04 0.19 0.04 0.07 0.17 -0.03 0.06 0.17
+This is a ring at the front. Add "muzzle_top": M -0.03 0 0.27 C3 0.02 0 0.26 0.08 0 0.23 0.11 0 0.20. Maybe two strokes for snout. But prompt says no face; a snout ring could look like nose. Fine.
+
+Maybe use simple side profile:
+M -0.04 0 0.27 C3 0.02 0 0.25 0.08 0 0.22 0.10 0 0.19 C3 0.08 0 0.16 0.03 0 0.14 -0.04 0 0.14
+This is a curved snout outline in x-z plane. It doesn't show y depth but head does. We can draw a small horizontal arc near nose to show width:
+M 0.10 -0.03 0.19 C3 0.11 0 0.20 0.10 0.03 0.19 0.08 0.04 0.18? Hmm.
+
+Maybe keep one snout profile and one nose width arc:
+- muzzle_profile: M -0.04 0 0.27 C3 0.02 0 0.26 0.08 0 0.22 0.10 0 0.19 C3 0.08 0 0.16 0.03 0 0.14 -0.04 0 0.14
+- nose_width: M 0.10 -0.04 0.19 C3 0.12 0 0.19 0.10 0.04 0.19 0.08 0.04 0.18? This is a tiny arc, maybe not.
+
+Need minimal. Let's not overcomplicate. Use one snout profile.
+
+Potential issue "No face" but snout okay. No eyes/mouth.
+
+Need maybe paws as tiny horizontal L at end; okay.
+
+Let's provide JSON. Need reason brief. "Dog stands in stable planted stance at start, body/head/ears/tail in true 3D with four grounded single-line legs." Good.
+
+Double-check all coordinates within [-0.8,0.8]. Ear z 0.48, yes. Tail x -0.78, yes. Front paw x -0.11, yes. Body x -0.68. Good.
+
+Need maybe starting near x=-0.45; body center -0.45. Good.
+
+Let's ensure "legs alternate" at t=0 stable planted stance. Our legs are not symmetrical but all planted. Good.
+
+Need "ears perked" yes.
+
+Need "head stays forward" yes.
+
+Need "tail sways minimally" first frame no sway.
+
+No extra text. Use JSON only.
+
+Let's formulate paths. Need no spaces around semicolon? Fine.
+
+Path strings:
+body_spine: "M -0.68 0 0.10 C3 -0.61 0 0.18 -0.39 0 0.19 -0.23 0 0.11"
+body_belly: "M -0.67 0 -0.13 C3 -0.55 0 -0.18 -0.35 0 -0.18 -0.22 0 -0.11"
+body_near_side: "M -0.66 0.10 0.00 C3 -0.54 0.12 0.06 -0.36 0.12 0.06 -0.24 0.10 0.00"
+body_rump_arc: "M -0.65 0 0.10 C3 -0.65 -0.10 0.05 -0.65 -0.10 -0.08 -0.65 0 -0.13 C3 -0.65 0.10 -0.08 -0.65 0.10 0.05 -0.65 0 0.10"
+body_shoulder_arc: "M -0.25 0 0.11 C3 -0.25 -0.10 0.06 -0.25 -0.10 -0.08 -0.25 0 -0.12 C3 -0.25 0.10 -0.08 -0.25 0.10 0.06 -0.25 0 0.11"
+
+Head:
+head_sagittal: "M -0.26 0 0.22 C3 -0.26 0 0.35 -0.02 0 0.35 0.00 0 0.22 C3 0.00 0 0.09 -0.26 0 0.09 -0.26 0 0.22"
+head_transverse: "M -0.26 0 0.22 C3 -0.26 -0.13 0.22 0.00 -0.13 0.22 0.00 0 0.22 C3 0.00 0.13 0.22 -0.26 0.13 0.22 -0.26 0 0.22"
+head_coronal: "M -0.13 0 0.09 C3 -0.13 -0.12 0.13 -0.13 -0.12 0.31 -0.13 0 0.35 C3 -0.13 0.12 0.31 -0.13 0.12 0.13 -0.13 0 0.09"
+
+Muzzle:
+muzzle_profile: "M -0.04 0 0.27 C3 0.02 0 0.26 0.08 0 0.22 0.10 0 0.19 C3 0.08 0 0.16 0.03 0 0.14 -0.04 0 0.14"
+Maybe this is a closed-ish curved line; starts at upper head and ends lower. It doesn't connect at front? It goes from -0.04,0,0.27 to 0.10,0,0.19 to -0.04,0,0.14. The head front at x=0.0; snout extends to x=0.10. Good.
+
+Ears:
+ear_near: "M -0.18 0.06 0.32 C3 -0.20 0.07 0.43 -0.17 0.07 0.48 -0.11 0.05 0.36 C3 -0.12 0.05 0.33 -0.15 0.06 0.32 -0.18 0.06 0.32"
+ear_far: "M -0.18 -0.06 0.32 C3 -0.20 -0.07 0.43 -0.17 -0.07 0.48 -0.11 -0.05 0.36 C3 -0.12 -0.05 0.33 -0.15 -0.06 0.32 -0.18 -0.06 0.32"
+
+Tail:
+tail: "M -0.68 0.02 0.12 C3 -0.75 0.04 0.18 -0.78 0.05 0.26 -0.75 0.06 0.31"
+
+Legs:
+leg_front_near: "M -0.25 0.09 -0.10 C3 -0.26 0.09 -0.25 -0.24 0.09 -0.43 -0.25 0.09 -0.59 L -0.19 0.09 -0.60"
+leg_front_far: "M -0.21 -0.09 -0.10 C3 -0.20 -0.09 -0.27 -0.18 -0.09 -0.45 -0.17 -0.09 -0.60 L -0.11 -0.09 -0.60"
+leg_hind_near: "M -0.61 0.09 -0.08 C3 -0.63 0.09 -0.25 -0.65 0.09 -0.43 -0.63 0.09 -0.59 L -0.57 0.09 -0.60"
+leg_hind_far: "M -0.58 -0.09 -0.08 C3 -0.56 -0.09 -0.26 -0.54 -0.09 -0.44 -0.55 -0.09 -0.60 L -0.49 -0.09 -0.60"
+
+Check leg endpoints: L from -0.25,0.09,-0.59 to -0.19,0.09,-0.60, paw line slants slightly down to ground. But z -0.59 to -0.60, okay. It means the leg line ends at -0.19,-0.60, contact. The vertical leg endpoint at -0.25,-0.59 then paw line to -0.19,-0.60. Good. But the leg's actual ankle is -0.25,-0.59, not exactly floor; paw at floor. Good.
+
+Maybe the hind near leg path: C3 to -0.63,0.09,-0.59 then L -0.57,0.09,-0.60. Fine.
+
+Need all strokes visible. No fills.
+
+Potential issue "small paws as ground contacts" with L line extending forward. Good.
+
+Maybe need "four connected single-line legs attached at shoulder/hip positions" Our leg starts at x -0.25 and -0.61; body shoulder arc at -0.25, rump arc at -0.65. Hind near start -0.61 not exactly rump arc. Fine.
+
+Need maybe body top doesn't connect to head? Head sagittal back at -0.26, body top ends -0.23; head arc starts -0.26 z0.22, body top z0.11. Not connected. There is gap between body and head? Shoulder cross at -0.25 z up to 0.11. Head bottom at z0.09, x -0.26 to 0.0. Head bottom nearly touches body top? Head center z0.22 r0.13 bottom z0.09. Body top at front x -0.23 z0.11. So they overlap/touch. Good.
+
+Maybe add neck? Not necessary.
+
+Let's think if "round spatial head" ours is spherical. yes.
+
+Need "no joint dots, tubes or outlined hands/feet" we don't have circles at joints. Legs are strokes. Good.
+
+Need "single-line limbs" yes.
+
+Need "true 3D world space" coordinates include y. Good.
+
+Need answer JSON only. Use exact index 1. Ensure no markdown.
+
+Let's craft final JSON with reason and strokes. Use descriptions concise.
+
+Need "frames":[{"i":1,"strokes":[...]}].
+
+No style fields. Good.
+
+Let's final.

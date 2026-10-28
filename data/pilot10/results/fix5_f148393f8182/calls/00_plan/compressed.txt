@@ -1,0 +1,75 @@
+Use \(+x\) right, \(+y\) depth, \(+z\) up, with a fixed camera and floor \(z=-0.6\); keep the action roughly within \([-0.8,0.8]\). The minimal scene is a black-line bird to the left of a small rigid cone. The bird’s feet sit on the floor around \((-0.32,-0.05,-0.6)\), its body center is near \((-0.35,0,-0.38)\), and its head/pointed beak aims toward \(+x\). Draw the bird with a few spatial body contours, a small head, single-line neck and legs, folded wing curves, and a tail. The cone uses a circular base ellipse, an apex, and a few straight side generators.
+
+Choose the cone small enough that the toppled apex stays in range. An earlier height \(h=0.5\) with the base right rim at \((0.35,0,-0.58)\) would put the final apex at \(x=0.85\), outside \([-0.8,0.8]\), so use height \(h=0.38\) and base radius \(r=0.14\). The initial base center is \(C_0=(0.12,0,-0.58)\), the apex is \(A_0=(0.12,0,-0.20)\), and the floor-contact pivot is the base right rim
+
+\[
+P=(0.12+r,0,-0.58)=(0.26,0,-0.58).
+\]
+
+At \(t=0\) the bird is upright and the cone is upright. At \(t=.25\) the bird leans forward and extends its neck toward the apex while its feet remain fixed. At \(t=.5\) the beak tip contacts \(A_0=(0.12,0,-0.20)\); the cone is still upright, so contact occurs before reaction. At \(t=.75\) the beak pushes the apex toward \(+x\), and the cone rotates clockwise in the \(x\)-\(z\) plane about \(P\); the base’s left rim lifts while \(P\) stays in contact. At \(t=1\) the cone has toppled to the \(+x\) side, the bird recoils or stands clear, and both bird and cone are supported by the floor.
+
+During tipping, for a pivot-to-point vector \(v=(x,z)\), clockwise rotation by \(\theta\) gives
+
+\[
+x'=x\cos\theta+z\sin\theta,\qquad
+z'=-x\sin\theta+z\cos\theta.
+\]
+
+The initial pivot-to-apex vector is
+
+\[
+v_A=A_0-P=(-0.14,0,0.38).
+\]
+
+At \(\theta=45^\circ\), using \(\cos45^\circ=\sin45^\circ\approx0.707\),
+
+\[
+x'=(-0.14)(0.707)+(0.38)(0.707)
+=-0.099+0.269=0.170,
+\]
+\[
+z'=-(-0.14)(0.707)+(0.38)(0.707)
+=0.099+0.269=0.368.
+\]
+
+Thus
+
+\[
+A=P+(x',0,z')
+=(0.26+0.170,0,-0.58+0.368)
+=(0.43,0,-0.212).
+\]
+
+At \(\theta=60^\circ\), using \(\cos60^\circ=0.5\), \(\sin60^\circ\approx0.866\),
+
+\[
+x'=(-0.14)(0.5)+(0.38)(0.866)
+=-0.07+0.329=0.259,
+\]
+\[
+z'=-(-0.14)(0.866)+(0.38)(0.5)
+=0.121+0.19=0.311,
+\]
+
+so
+
+\[
+A=P+(0.259,0,0.311)
+=(0.519,0,-0.269).
+\]
+
+The source’s final \(90^\circ\) placement uses the simplified apex
+
+\[
+A=P+(h,0,0)=(0.26+0.38,0,-0.58)
+=(0.64,0,-0.58),
+\]
+
+and the final base center
+
+\[
+C=P+(0,0,r)=(0.26,0,-0.58+0.14)
+=(0.26,0,-0.44).
+\]
+
+These are the final key coordinates for the toppled cone. Keep the cone rigid throughout, keep the bird’s feet planted without sliding, and have the head/neck articulate rather than moving a frozen pose. The final cone lies on its side toward \(+x\), with the base left/up, and the bird stands clear.

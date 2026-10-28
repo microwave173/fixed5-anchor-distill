@@ -1,0 +1,72 @@
+{
+  "task": "fix5_1e40f2f13996",
+  "status": "complete",
+  "frames": 5,
+  "available_frames": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "seconds": 309.41175532341003,
+  "warnings": [
+    {
+      "stage": "frame_01",
+      "kind": "command_separator_normalization",
+      "stroke": 0,
+      "original_path": "M -0.36 0 -0.13; Q3 -0.34 0 0.0 -0.30 0 0.14; M -0.31 0.065 0.12; L -0.31 -0.065 0.12; M -0.36 0.075 -0.13; L -0.36 -0.075 -0.13"
+    },
+    {
+      "stage": "frame_01",
+      "kind": "command_separator_normalization",
+      "stroke": 1,
+      "original_path": "M -0.17 0 0.26; C3 -0.17 0 0.42 -0.41 0 0.42 -0.41 0 0.26; C3 -0.41 0 0.10 -0.17 0 0.10 -0.17 0 0.26"
+    },
+    {
+      "stage": "frame_01",
+      "kind": "command_separator_normalization",
+      "stroke": 2,
+      "original_path": "M -0.29 0.12 0.26; C3 -0.29 0.12 0.42 -0.29 -0.12 0.42 -0.29 -0.12 0.26; C3 -0.29 -0.12 0.10 -0.29 0.12 0.10 -0.29 0.12 0.26"
+    },
+    {
+      "stage": "frame_01",
+      "kind": "command_separator_normalization",
+      "stroke": 3,
+      "original_path": "M -0.17 0 0.26; C3 -0.17 0.16 0.26 -0.41 0.16 0.26 -0.41 0 0.26; C3 -0.41 -0.16 0.26 -0.17 -0.16 0.26 -0.17 0 0.26"
+    },
+    {
+      "stage": "frame_01",
+      "kind": "command_separator_normalization",
+      "stroke": 4,
+      "original_path": "M -0.31 -0.065 0.12; Q3 -0.18 -0.09 0.02 -0.08 -0.10 -0.08"
+    },
+    {
+      "stage": "frame_01",
+      "kind": "command_separator_normalization",
+      "stroke": 5,
+      "original_path": "M -0.31 0.065 0.12; Q3 -0.44 0.09 0.02 -0.53 0.10 -0.08"
+    },
+    {
+      "stage": "frame_01",
+      "kind": "command_separator_normalization",
+      "stroke": 6,
+      "original_path": "M -0.36 0.075 -0.13; Q3 -0.30 0.08 -0.25 -0.23 0.09 -0.34; Q3 -0.16 0.10 -0.48 -0.10 0.10 -0.60"
+    },
+    {
+      "stage": "frame_01",
+      "kind": "command_separator_normalization",
+      "stroke": 7,
+      "original_path": "M -0.36 -0.075 -0.13; Q3 -0.42 -0.08 -0.26 -0.48 -0.09 -0.36; Q3 -0.55 -0.10 -0.49 -0.60 -0.10 -0.60"
+    },
+    {
+      "stage": "frame_01",
+      "kind": "command_separator_normalization",
+      "stroke": 8,
+      "original_path": "M -0.75 0 -0.60; L 0.05 0 -0.60"
+    }
+  ],
+  "failures": [],
+  "compression_errors": [],
+  "compression_complete": true
+}

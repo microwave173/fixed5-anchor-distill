@@ -1,0 +1,9 @@
+{
+  "reason": "A minimal side-profile cat walks left-to-right across a fixed floor; its body advances smoothly while legs alternate contact and its tail stays level, preserving a coherent 3D animal silhouette in five sampled frames.",
+  "total_plan": {
+    "scene": "Empty white space with a fixed floor line at z=-0.6. A single cat is shown in profile facing +x, starting near the left side at t=0 and ending near the right side at t=1, with enough clearance for nose, tail, and moving paws. No props or scenery.",
+    "parts": "One compact cat: a short rounded torso volume defined by back, belly, and far-side contours; a recognizable head at the +x end with two pointed ears and a short muzzle; four connected single-line legs, near and far pairs slightly offset in y for depth; and a tail attached at the rear (-x) extending backward at a level height, with a gentle curve. No face details.",
+    "motion": "The cat advances smoothly +x through the five times while its tail remains held level. At t=0, diagonal legs are in floor contact. By t=.25, the body has moved forward and one swinging leg lifts clear while support paws stay planted. At t=.5, the opposite diagonal pair has planted near mid-frame. At t=.75, another leg swings forward as the body continues. At t=1, the cat reaches the right side with a stable alternating support pose and the tail still level. Head and torso keep constant proportions throughout.",
+    "constraints": "Paws contact the floor at z=-0.6 before bearing weight and do not slide during stance; lifted paws clear the floor. Legs stay attached at fixed shoulder/hip locations with near/far depth offsets. Torso, head, ears, and tail keep rigid dimensions and attachments. Tail remains level behind the body without drooping or raising. The final pose is fully supported by floor-contact paws, with no detached parts or extra marks."
+  }
+}

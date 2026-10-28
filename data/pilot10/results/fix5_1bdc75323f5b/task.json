@@ -1,0 +1,19 @@
+{
+  "id": "fix5_1bdc75323f5b",
+  "prompt": "A wireframe cube rotates about its vertical center axis through a quarter turn.",
+  "prompt_zh": "",
+  "dim": 3,
+  "total_frames": 5,
+  "category": "geometry",
+  "category_zh": "几何与空间运动",
+  "independent": false,
+  "locomotion": false,
+  "tags": [
+    "rotation"
+  ],
+  "review_quality": 2,
+  "source_id": "fix5_1bdc75323f5b",
+  "source_file": "fixed5_anchor_v1/tasks5000_v1/topup/candidates.json",
+  "source_dim": 3,
+  "title": "立方体旋转"
+}

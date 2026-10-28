@@ -1,0 +1,96 @@
+{
+  "task": "fix5_1bdc75323f5b",
+  "status": "complete",
+  "frames": 5,
+  "available_frames": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "seconds": 156.1912178993225,
+  "warnings": [
+    {
+      "stage": "frame_01",
+      "kind": "command_separator_normalization",
+      "stroke": 0,
+      "original_path": "M 0.209185 0.4486 -0.6; L 0.4486 -0.209185 -0.6"
+    },
+    {
+      "stage": "frame_01",
+      "kind": "command_separator_normalization",
+      "stroke": 1,
+      "original_path": "M 0.4486 -0.209185 -0.6; L -0.209185 -0.4486 -0.6"
+    },
+    {
+      "stage": "frame_01",
+      "kind": "command_separator_normalization",
+      "stroke": 2,
+      "original_path": "M -0.209185 -0.4486 -0.6; L -0.4486 0.209185 -0.6"
+    },
+    {
+      "stage": "frame_01",
+      "kind": "command_separator_normalization",
+      "stroke": 3,
+      "original_path": "M -0.4486 0.209185 -0.6; L 0.209185 0.4486 -0.6"
+    },
+    {
+      "stage": "frame_01",
+      "kind": "command_separator_normalization",
+      "stroke": 4,
+      "original_path": "M 0.209185 0.4486 0.1; L 0.4486 -0.209185 0.1"
+    },
+    {
+      "stage": "frame_01",
+      "kind": "command_separator_normalization",
+      "stroke": 5,
+      "original_path": "M 0.4486 -0.209185 0.1; L -0.209185 -0.4486 0.1"
+    },
+    {
+      "stage": "frame_01",
+      "kind": "command_separator_normalization",
+      "stroke": 6,
+      "original_path": "M -0.209185 -0.4486 0.1; L -0.4486 0.209185 0.1"
+    },
+    {
+      "stage": "frame_01",
+      "kind": "command_separator_normalization",
+      "stroke": 7,
+      "original_path": "M -0.4486 0.209185 0.1; L 0.209185 0.4486 0.1"
+    },
+    {
+      "stage": "frame_01",
+      "kind": "command_separator_normalization",
+      "stroke": 8,
+      "original_path": "M 0.209185 0.4486 -0.6; L 0.209185 0.4486 0.1"
+    },
+    {
+      "stage": "frame_01",
+      "kind": "command_separator_normalization",
+      "stroke": 9,
+      "original_path": "M 0.4486 -0.209185 -0.6; L 0.4486 -0.209185 0.1"
+    },
+    {
+      "stage": "frame_01",
+      "kind": "command_separator_normalization",
+      "stroke": 10,
+      "original_path": "M -0.209185 -0.4486 -0.6; L -0.209185 -0.4486 0.1"
+    },
+    {
+      "stage": "frame_01",
+      "kind": "command_separator_normalization",
+      "stroke": 11,
+      "original_path": "M -0.4486 0.209185 -0.6; L -0.4486 0.209185 0.1"
+    },
+    {
+      "stage": "frame_01",
+      "kind": "command_separator_normalization",
+      "stroke": 12,
+      "original_path": "M -0.55 0.15 -0.6; L 0.55 0.15 -0.6"
+    }
+  ],
+  "failures": [],
+  "compression_errors": [],
+  "compression_complete": true
+}

@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+.env
+.env.*
+*key*.txt
+models/
+runs/
+training/train.jsonl
+training/validation.jsonl
+training/split.json
+training/prepare_report.json
+training/training/
+training/smoke*/
+training/*failure.json
+*.pt
+*.safetensors

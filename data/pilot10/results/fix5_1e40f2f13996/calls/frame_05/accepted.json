@@ -1,0 +1,55 @@
+{
+  "reason": "At the final frame the person has completed a compact slow step: the body has advanced slightly, the left foot plants forward on the fixed floor, the right foot remains planted in a trailing support position, and the low bent-knee stance and counter-swinging arms are held consistently.",
+  "frames": [
+    {
+      "i": 5,
+      "strokes": [
+        {
+          "id": "torso_anchors",
+          "path": "M -0.10 0 -0.14 Q3 -0.08 0 0 -0.04 0 0.13 M -0.05 0.065 0.11 L -0.05 -0.065 0.11 M -0.10 0.075 -0.14 L -0.10 -0.075 -0.14",
+          "description": "short forward-leaning torso centerline with shoulder and hip anchor bars"
+        },
+        {
+          "id": "head_xz",
+          "path": "M 0.09 0 0.25 C3 0.09 0 0.41 -0.15 0 0.41 -0.15 0 0.25 C3 -0.15 0 0.09 0.09 0 0.09 0.09 0 0.25",
+          "description": "head great circle in the vertical x-z plane"
+        },
+        {
+          "id": "head_yz",
+          "path": "M -0.03 0.12 0.25 C3 -0.03 0.12 0.41 -0.03 -0.12 0.41 -0.03 -0.12 0.25 C3 -0.03 -0.12 0.09 -0.03 0.12 0.09 -0.03 0.12 0.25",
+          "description": "head great circle in the vertical y-z plane"
+        },
+        {
+          "id": "head_xy",
+          "path": "M 0.09 0 0.25 C3 0.09 0.16 0.25 -0.15 0.16 0.25 -0.15 0 0.25 C3 -0.15 -0.16 0.25 0.09 -0.16 0.25 0.09 0 0.25",
+          "description": "head great circle in the horizontal x-y plane"
+        },
+        {
+          "id": "arm_right",
+          "path": "M -0.05 -0.065 0.11 Q3 0.06 -0.09 0.01 0.18 -0.10 -0.08",
+          "description": "right arm swinging forward with a relaxed bend"
+        },
+        {
+          "id": "arm_left",
+          "path": "M -0.05 0.065 0.11 Q3 -0.15 0.09 0.01 -0.27 0.10 -0.08",
+          "description": "left arm counter-swinging backward"
+        },
+        {
+          "id": "leg_left",
+          "path": "M -0.10 0.075 -0.14 Q3 -0.05 0.08 -0.28 -0.01 0.09 -0.36 Q3 0.07 0.10 -0.48 0.05 0.10 -0.60",
+          "description": "left leg planted forward with a bent knee and floor contact"
+        },
+        {
+          "id": "leg_right",
+          "path": "M -0.10 -0.075 -0.14 Q3 -0.04 -0.08 -0.27 -0.02 -0.09 -0.36 Q3 -0.02 -0.10 -0.49 -0.08 -0.10 -0.60",
+          "description": "right leg trailing as a bent-knee support with firm floor contact"
+        },
+        {
+          "id": "floor_line",
+          "path": "M -0.75 0 -0.60 L 0.05 0 -0.60",
+          "description": "minimal fixed floor line supporting the foot contacts"
+        }
+      ]
+    }
+  ]
+}

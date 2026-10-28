@@ -1,0 +1,41 @@
+Frame 2 is at normalized time \(0.25\). The cone has not yet been contacted, so it remains upright in its first-frame pose: base ellipse at \(z=-0.60\), apex at \((0.12,0,-0.20)\), side generators unchanged. The bird’s feet stay fixed on the floor at \(z=-0.60\). The front leg remains from \((-0.44,-0.04,-0.42)\) via control \((-0.41,-0.05,-0.50)\) to \((-0.38,-0.06,-0.60)\), then to foot \((-0.33,-0.06,-0.60)\). The back leg remains from \((-0.46,0.04,-0.42)\) via control \((-0.43,0.05,-0.50)\) to \((-0.40,0.06,-0.60)\), then to foot \((-0.34,0.06,-0.60)\). The floor line remains from \((-0.72,-0.20,-0.60)\) to \((0.72,-0.20,-0.60)\).
+
+To lean the upper bird without sliding the feet, rotate the body, wings, and tail about the \(y\)-axis through hip pivot \(P=(-0.44,0,-0.42)\) by \(\theta=8^\circ=0.1396\) rad. With \(+x\) right, \(+z\) up, \(c=\cos\theta=0.9903\), \(s=\sin\theta=0.1392\), and for each point \((x,y,z)\),
+\[
+x'=p_x+c(x-p_x)+s(z-p_z),\qquad
+z'=p_z-s(x-p_x)+c(z-p_z),\qquad y'=y .
+\]
+The \(+8^\circ\) sign moves the upper body toward \(+x\). For example, the body-outline point \((-0.45,0,-0.17)\) has \(x-p_x=-0.01\), \(z-p_z=0.25\), so
+\[
+x'=-0.44+0.9903(-0.01)+0.1392(0.25)=-0.4151,
+\]
+\[
+z'=-0.42-0.1392(-0.01)+0.9903(0.25)=-0.1710,
+\]
+giving \((-0.415,0,-0.171)\). Applying the same rotation to the body-outline anchors gives
+\[
+\begin{aligned}
+&(-0.575,0,-0.300),\ (-0.557,0,-0.171),\ (-0.484,0,-0.161),\\
+&(-0.415,0,-0.171),\ (-0.326,0,-0.184),\ (-0.285,0,-0.250),\\
+&(-0.297,0,-0.339),\ (-0.311,0,-0.438),\ (-0.388,0,-0.478),\\
+&(-0.457,0,-0.468),\ (-0.556,0,-0.454),\ (-0.586,0,-0.379).
+\end{aligned}
+\]
+The body depth cross-section uses the same \(x,z\) rotation, with \(y\) unchanged: its transformed points are \((-0.436,-0.10,-0.320)\), controls \((-0.418,-0.10,-0.190)\) and \((-0.415,0,-0.171)\), end \((-0.436,0.10,-0.320)\), then controls \((-0.454,0.10,-0.448)\) and \((-0.457,0,-0.468)\), returning to \((-0.436,-0.10,-0.320)\).
+
+The first wing transforms to \((-0.375,-0.05,-0.247)\), controls \((-0.399,-0.10,-0.274)\), \((-0.464,-0.11,-0.305)\), end \((-0.519,-0.06,-0.338)\). The second wing transforms to \((-0.389,-0.06,-0.276)\), controls \((-0.423,-0.09,-0.301)\), \((-0.468,-0.09,-0.335)\), end \((-0.512,-0.05,-0.359)\). The tail transforms to \((-0.570,-0.02,-0.341)\) to \((-0.672,-0.03,-0.276)\), and \((-0.570,0.02,-0.341)\) to \((-0.661,0.02,-0.268)\).
+
+The head and beak are advanced as a rigid unit by
+\[
+\Delta=(0.08,0,-0.005).
+\]
+Thus the head center \((-0.16,0,-0.15)\) moves to \((-0.08,0,-0.155)\), and the beak tip \((0,-0.015,-0.19)\) moves to \((0.08,-0.015,-0.195)\). The cone apex is still \((0.12,0,-0.20)\), so the beak is approaching but not yet in contact. The head sagittal and depth contours are translated by the same \(\Delta\), keeping the head radius and proportions. The beak becomes \((-0.03,-0.01,-0.145)\to(0.08,-0.015,-0.195)\to(-0.03,-0.02,-0.175)\).
+
+The neck must connect the leaned body to the advanced head. Its body-side endpoint is the original shoulder \((-0.34,0.01,-0.22)\) under the body rotation:
+\[
+x'=-0.44+0.9903(0.10)+0.1392(0.20)=-0.3131,
+\]
+\[
+z'=-0.42-0.1392(0.10)+0.9903(0.20)=-0.2359,
+\]
+so the start is \((-0.313,0.01,-0.236)\). The original neck attachment to the head \((-0.195,0,-0.18)\) translates by \(\Delta\) to \((-0.115,0,-0.185)\). The neck is therefore the quadratic from \((-0.313,0.01,-0.236)\) with control \((-0.22,0.005,-0.205)\) to \((-0.115,0,-0.185)\).

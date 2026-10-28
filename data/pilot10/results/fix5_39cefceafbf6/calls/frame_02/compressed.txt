@@ -1,0 +1,103 @@
+The scene uses \(+x\) right, \(+y\) depth, \(+z\) up. The pendulum swings in the vertical plane \(y=0\) about a fixed pivot \(P=(0,0,0.62)\). The bob is a sphere of radius \(r=0.11\) with initial center
+\[
+C_0=(-0.58,0,0.10).
+\]
+The supplied initial rod endpoint \(S_0=(-0.498,0,0.174)\) is on the bob surface toward \(P\), since
+\[
+S_0-C_0=(0.082,0,0.074),\qquad \|S_0-C_0\|\approx 0.110.
+\]
+The fixed floor is \(z=-0.6\); the overhead bracket, stem, axle and pivot ring hold \(P\); and the rubber stop sits on a short base at the lower right. The stop’s left face is near \(x=0.38\) at \(z\approx -0.11\), spanning roughly \(x\approx 0.38\) to \(0.54\) and \(z\approx -0.20\) to \(-0.02\). These fixed parts do not move.
+
+From \(C_0-P=(-0.58,-0.52)\) in the \(x\)-\(z\) plane,
+\[
+L=\sqrt{0.58^2+0.52^2}=\sqrt{0.6068}=0.778974\approx 0.779.
+\]
+Measuring the pendulum angle \(\theta\) from the downward vertical, positive toward the right, the initial pose has
+\[
+\sin\theta_0=\frac{-0.58}{L}=-0.7446,\qquad
+\cos\theta_0=\frac{0.52}{L}=0.6676,
+\]
+so \(\theta_0\approx -48.1^\circ\).
+
+To choose a plausible quarter-swing pose, use the stop contact as the end of the swing at \(t=0.5\). At contact the bob center is one radius left of the stop face:
+\[
+x_c\approx 0.38-0.11=0.27.
+\]
+On the pendulum circle,
+\[
+z_c=0.62-\sqrt{L^2-x_c^2}
+=0.62-\sqrt{0.6068-0.0729}
+=0.62-0.7304=-0.1104,
+\]
+so the contact angle is
+\[
+\theta_c=\operatorname{atan2}(0.27,0.7304)\approx 20.3^\circ.
+\]
+For \(t=0.25\), choose the quarter-swing pose still left of the stop:
+\[
+\theta=-14^\circ.
+\]
+Then \(\sin\theta=-0.241922\) and \(\cos\theta=0.970296\), giving the new bob center
+\[
+C_1=(L\sin\theta,0,0.62-L\cos\theta)
+=(0.778974(-0.241922),0,0.62-0.778974(0.970296))
+=(-0.18845,0,-0.13584).
+\]
+The rod endpoint is one bob radius closer to \(P\), so its distance from \(P\) is \(L-r=0.668974\). Along the same radial direction,
+\[
+S_1=((L-r)\sin\theta,0,0.62-(L-r)\cos\theta)
+=(-0.16184,0,-0.02910).
+\]
+
+The bob is moved rigidly by rotating every bob point about \(P\) in the \(x\)-\(z\) plane by
+\[
+\alpha=\theta-\theta_0=-14^\circ-(-48.1^\circ)=34.1^\circ,
+\]
+with
+\[
+\cos\alpha\approx 0.82785,\qquad \sin\alpha\approx 0.56096.
+\]
+For any point \((x,y,z)\), \(y\) is unchanged and
+\[
+x'=\cos\alpha\,(x-P_x)-\sin\alpha\,(z-P_z),
+\]
+\[
+z'=P_z+\sin\alpha\,(x-P_x)+\cos\alpha\,(z-P_z).
+\]
+Representatively, applying this to \(C_0\) gives
+\[
+x'=0.82785(-0.58)-0.56096(-0.52)=-0.1885,
+\]
+\[
+z'=0.62+0.56096(-0.58)+0.82785(-0.52)=-0.1358,
+\]
+and applying it to \(S_0\) gives
+\[
+x'=0.82785(-0.498)-0.56096(-0.446)=-0.1618,
+\]
+\[
+z'=0.62+0.56096(-0.498)+0.82785(-0.446)\approx -0.0291.
+\]
+
+The \(x\)-\(z\) great circle stays in the \(x\)-\(z\) plane and is recentered at \(C_1\). Its initial point \((-0.69,0,0.10)\) shifts by \(\Delta=(+0.39155,-0.23584)\) to
+\[
+(-0.29845,0,-0.13584),
+\]
+its top point \((-0.58,0,0.21)\) goes to
+\[
+(-0.18845,0,-0.02584),
+\]
+and its bottom point \((-0.58,0,-0.01)\) goes to
+\[
+(-0.18845,0,-0.24584).
+\]
+
+The other two great circles tilt because the rotation axis is \(y\) (depth), not \(z\). Their \(y\)-coordinates stay unchanged while \(x\) and \(z\) mix through the same matrix. For example, on the \(x\)-\(y\) circle the point \((-0.69,0,0.10)\) maps to
+\[
+(-0.27952,0,-0.19754),
+\]
+and the center maps to \((-0.18845,0,-0.13584)\). On the \(y\)-\(z\) circle, the point \((-0.58,0,0.21)\) maps to
+\[
+(-0.25016,0,-0.04478).
+\]
+The remaining control points follow by the same substitution. The rod becomes the segment from \(P=(0,0,0.62)\) to \(S_1=(-0.16184,0,-0.02910)\), while the stop, base, floor, pivot support and pivot ring remain unchanged.

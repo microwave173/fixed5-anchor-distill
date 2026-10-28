@@ -1,0 +1,86 @@
+We need answer JSON only. Need compute frame 3 requested index 3, time 0.5 -> yaw 45 degrees absolute from initial. First frame coordinates initial yaw? Need infer. Cube centered at origin? bottom z=-0.6 top z=0.1, center z=-0.25. Horizontal square radius? Coordinates initial correspond rotated square. Let's analyze initial. Vertices bottom at z=-0.6:
+v0=(0.209185,0.4486)
+v1=(0.4486,-0.209185)
+v2=(-0.209185,-0.4486)
+v3=(-0.4486,0.209185)
+These are square rotated? Radius sqrt(0.209^2+0.4486^2)=? 0.04376+0.20124=0.245, r=0.495. Angles: v0 atan2(y,x) = atan2 .4486,.2092=65deg? tan=2.144 ->65. v1 angle -25 deg. So square edges are at angles? The square's vertices around circle separated 90. Initial orientation maybe yaw = 20? Let's map canonical cube with half-size s? Points perhaps from square with side 0.5? Coordinates v0 angle 65, v1 -25, etc. Edge from v0 to v1 vector (0.2394,-0.6578), length .7? Actually side 0.7? Let's compute edge length sqrt(0.2394²+(-0.6578)²)=sqrt(.0573+.4327)=.7. So cube side .7. Radius .495. The square orientation: edge angle atan2(-0.6578,.2394)=-70 deg. So one edge direction at -70 deg.
+
+Previous frame i=2 corresponds target normalized? Current frame 2 likely t=.25 yaw 22.5. Its coords show v0=(0.02159,0.4945) angle 87.5°, v1=(0.4945,-0.02159) angle -2.5°. That is +22.5° rotation? Initial v0 65°, prev v0 87.5°, yes +22.5 about z, from initial. So frame 3 at 45° from initial. Need apply yaw +45 to initial coordinates. Equivalent from prev +22.5. Compute initial v0 angle 65+45=110°. Or use rotation matrix 45 of initial.
+
+Initial vertex A? bottom_edge_a from v0=(0.209185,0.4486) to v1=(0.4486,-0.209185). Apply Rz(45): x'= (x-y)/√2, y'=(x+y)/√2 for +45. Need compute accurately.
+
+Let's do exact relationships. r=0.495? initial v0 maybe r cos65? Let's compute using known: initial v0 coordinates 0.209185, 0.4486. Could derive from some rotation. At 45, angle 110°, cos110=-0.342020, sin110=0.939693. r ~? r= sqrt((0.209185)^2+(0.4486)^2). 0.209185^2=0.043758? 0.4486^2=0.201242? sum .245000? sqrt .4949747. Maybe r=0.495 exactly. cos65=0.422618, r*cos65=0.209195. yes r=0.495. sin65=.906307*0.495=.448622. So r=0.495. At angle 110: x=0.495*cos110 = 0.495*(-0.342020143)= -0.169300? y=0.495*0.939692621=0.465148? Let's compute. 0.342020143*0.5=0.17101007 minus 0.342020143*0.005=0.0017101 ->0.16929997. y: 0.939692621*0.5=0.46984631 minus 0.00469696=0.46514935. So v0'=(-0.169300, 0.465148). v1 initial angle -25 +45=20°. x=0.495*cos20=0.495*0.939692621=0.465148; y=0.495*sin20=0.169300. Wait initial v1 angle -25, yes +45 =20. v1'=(0.465148,0.169300). v2 initial angle -115+45=-70: x=0.495*cos(-70)=0.495*0.342020=0.169300, y=-0.465148. v3 angle 155? initial v3 angle 155? (-0.4486,0.209185) angle155. +45=200° = (-0.465148,-0.169300). Let's check ordering: v2 initial angle -115? Yes +45=-70. v3 initial angle 155? +45=200.
+
+But wait previous i=2 already at 22.5: v0 angle 87.5 => (0.02159,0.4945). yep. Frame 3 at 45 -> v0 angle 110.
+
+Need output 12 cube edges + floor line. Bottom z=-0.6, top z=0.1. Need preserve IDs.
+
+Let's compute coordinates carefully to enough decimals. Use r=0.4949747468 maybe, angles. Let's derive from initial values and rotation exact maybe use trig.
+
+Initial v0 (0.209185,0.4486) approximate. Rotate by 45:
+x'=(x-y)*0.707106781 = (0.209185 - 0.4486)*0.70710678 = (-0.239415)*0.70710678 = -0.169289? y'=(x+y)*0.70710678 = 0.657785*0.70710678 = 0.465143? Different slight. Let's calculate with high precision.
+
+Let's use exact r maybe 0.495. cos65 etc. We can compute accurately:
+cos65 = 0.42261826174069944
+sin65 = 0.9063077870366499
+r=0.495.
+v0 x = 0.495*0.42261826174069944. 0.42261826174069944* (0.5 -0.005) =0.21130913087034972 -0.002113091308703497=0.20919603956164622. But given 0.209185 (10.9e-6 lower). Their r not exactly .495? Maybe cube side 0.7? r = side/√2=0.7/√2=0.4949747468305833. Ah r=0.4949747468.
+r*cos65 = 0.4949747468305833*0.42261826174069944.
+0.42261826174069944*0.5=0.21130913087034972
+subtract *0.0050252531694167 (~0.002123?) =0.2091858. yes.
+Given values 0.209185,0.4486. likely rounded. Let's use side length 0.7 exactly and initial orientation 65? Then coordinates:
+r=0.7/√2=0.4949747468305833.
+v0 = (r cos65, r sin65)
+x=0.49497474683*0.42261826174. Let's multiply precisely.
+0.42261826174 * 0.49497474683.
+=0.42261826174*(0.5 -0.00502525317)
+=0.21130913087 - 0.002123? Compute 0.42261826174*0.00502525317.
+0.42261826174*0.005 =0.0021130913087.
+0.42261826174*0.00002525317 ≈0.000010671? Sum 0.002123762? Let's calculate: 0.42261826174*0.000025 =0.0000105654565. *0.00000025317=0.000000106999. total 0.000010672456. sum 0.002123763765. subtract 0.21130913087 =0.209185367105. Given 0.209185. good.
+y=0.49497474683*0.906307787037 =0.906307787037*(0.5-0.00502525317) =0.4531538935185 -0.004554? 0.906307787*0.005=0.004531538935; *0.000025253=0.000022889; sum 0.004554428; result 0.4485994655. Given 0.4486. good.
+
+At +45, v0 angle 110. x=r cos110 = -r sin20? cos110=-sin20? cos(90+20)=-sin20. Yes -0.49497474683*sin20. sin20=0.3420201433256687. multiply:
+0.34202014333*0.49497474683 =0.34202014333*(0.5 -0.00502525317)
+=0.17101007166 - (0.0017101007166 +0.000008639? for .000025253*0.342020=0.000008636)
+=0.17101007166-0.001718737=0.169291335. Wait earlier 0.1693. Let's compute more exact: 0.3420201433*0.00502525317.
+0.3420201433*0.005=0.0017101007166
+*0.00002525317: *0.000025=0.0000085505036; *0.00000025317=0.00000008656; sum 0.00000863706. total 0.00171873778.
+0.17101007166-0.00171873778=0.16929133388. So x=-0.16929133.
+y=r cos20? sin110=cos20=0.9396926207859084. multiply *0.49497474683:
+0.9396926208*0.5=0.4698463104
+minus *0.00502525317: *0.005=0.004698463104; *0.000025253=0.000023725? 0.9396926208*0.000025=0.0000234923155; *0.00000025317=0.0000002379; sum .0000237302. total .0047221933. result .4651241171. So v0'=(-0.169291,0.465124).
+
+Check rotate given initial (0.209185,0.4486) by .7071:
+x=(0.209185-0.4486)/√2=-0.169292; y=.657785/√2=.465126. good.
+
+v1 angle 20: x=0.465124117, y=0.169291334.
+v2 angle -70: cos -70=0.342020143, sin=-0.939692621. x=0.169291334, y=-0.465124117.
+v3 angle 200: cos=-0.939692621, sin=-0.342020143. x=-0.465124117, y=-0.169291334.
+
+Let's ensure orientation order: bottom edge a from v0 to v1; b v1 to v2; c v2 to v3; d v3 to v0. Yes.
+
+Need floor support line fixed: M -0.55 0.15 -0.6 L 0.55 0.15 -0.6. Wait floor line y=0.15? It is at y=0.15 constant. Cube center origin, bottom face at z=-0.6. Fine.
+
+We should include all edges. Top z=0.1. Vertical edges.
+
+Need JSON. Reason brief. Only one frame. Ensure paths use absolute commands M/L numeric. IDs stable. Description. No style. Valid JSON.
+
+Let's craft coordinates with 6 decimals maybe. Use values above.
+
+Strokes:
+cube_bottom_edge_a: M -0.169291 0.465124 -0.6 L 0.465124 0.169291 -0.6
+cube_bottom_edge_b: M 0.465124 0.169291 -0.6 L 0.169291 -0.465124 -0.6
+cube_bottom_edge_c: M 0.169291 -0.465124 -0.6 L -0.465124 -0.169291 -0.6
+cube_bottom_edge_d: M -0.465124 -0.169291 -0.6 L -0.169291 0.465124 -0.6
+Top similar z=0.1.
+Vertical a from -0.169291 0.465124 -0.6 to z 0.1.
+b from 0.465124 0.169291...
+c from 0.169291 -0.465124...
+d from -0.465124 -0.169291...
+Floor line same.
+
+Need maybe cube yaw 45 relative initial. Yes.
+
+Check previous frame i=2 at 22.5 coordinates: v0 angle 87.5 -> (0.021589,0.4945). Rotate prev 22.5 yields frame3. Let's verify frame2 v0 (0.02159,0.4945) angle 87.5. Add 22.5 =110 -> our v0. Good. Absolute transformation from first to frame3. Fine.
+
+We need final answer only JSON.

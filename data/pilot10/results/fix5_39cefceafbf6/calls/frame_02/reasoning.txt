@@ -1,0 +1,172 @@
+We need answer JSON only. Need compute frame at t=0.25, current index 2, from first frame initial high left to swing down toward bottom. Need preserve fixed geometry. Need pendulum rod and bob rotate about pivot (0,0,0.62) in x-z plane at y=0? Bob center initial? Need infer bob center from strokes. Initial bob great circle xz: center? The path for bob_xz seems circle centered at (-0.58,0,0.10) radius .11 in x-z plane. Let's verify: x range -0.69 to -0.47, z range -0.01 to 0.21. center (-0.58,0,0.10), radius 0.11. Rod from pivot (0,0,0.62) to (-0.498,0,0.174) — this endpoint should be on bob surface toward pivot. Distance from center to endpoint: dx .082, dz .074, length .1104. Yes. Rod drawn to bob surface, not center. Rod length from pivot to endpoint sqrt(.498^2 + .446^2?) pivot z .62 to .174 diff -.446; len sqrt(.248+.1989)=.6685. Center distance from pivot: (-.58, -.52) len sqrt(.3364+.2704)=.7787. Bob radius .11. Pivot-to-surface = center distance - .11 = .6687. So pendulum length (to center) L=~0.7787. Initial angle from vertical downward? Pivot (0,0.62), center (-0.58,0.10): vector dx=-0.58, dz=-0.52. Angle from downward vertical (0,-1): atan2(|dx|, down) = atan2(0.58,0.52)=48.1° to left. likely ~48 degrees. At t=0.25, "bob swings down toward the bottom". t=.5 contact stop at bottom of swing near bottom-right? Need determine stop contact. Stop bumper front rounded leftmost? Stop at x around 0.38-0.54, z -0.20 to -0.02. Bob should touch its left face near bottom. At bottom swing? Pivot at z .62, center radius .7787 => bottom center z=-0.1587 if vertical. Stop face leftmost x=0.38? Actually bumper rounded left at x 0.38 around z -0.11, extending to x .54. Bob radius .11. To touch stop with bob center at maybe x .38 - .11 = .27 if at same z? But at bottom vertical center x=0, z=-0.159, not near stop at x .38. Hmm stop near bottom-right x .38-.54, z -0.20 to -0.02. Bob bottom lowest z=-0.159, radius .11, leftmost at x=-.11? Wait bob at bottom center (0,-.159) with radius .11, so its rightmost x=.11. Stop at x=.38, gap .27. That won't touch. So "arc bottom near bottom-right" maybe means stop at right portion, contact at angle to right, not vertical bottom. At t=.5 bob touches stop face at bottom of swing. It would swing from left high down through bottom toward right, contact stop at x maybe .27 center, z =? On pendulum circle radius .7787 from pivot: center (0.27, z) satisfying dx=.27, dz = -sqrt(L^2 - .27^2) = -sqrt(.6064-.0729)= -.7304, z= .62-.7304=-.1104. Stop bumper left face x maybe .38 at z -0.11, bob center x .27, radius .11 touches. Yes contact at center (0.27,0,-0.11), rod endpoint on bob surface toward pivot = center - radius*unit from pivot to center? Direction from pivot to center (0.27, -0.7304), unit (.3467,-.938), surface point center - r*unit = (0.27-.0381, -0.11+0.1032) = (0.2319, -0.0068). But initial rod endpoint at surface above-left. At t .5 rod endpoint would be (0.232,0,-0.0068). Bob center (0.27,0,-0.11). Good.
+
+At t=0.25, halfway from initial angle 48° left to contact angle ~20° right? Need interpolate swing. At t=0 initial angle left 48.1°. At t=.5 contact to right angle? Center (0.27,-.1104) relative pivot dx .27, dz -.7304; angle right from vertical atan2(.27,.7304)=20.3°. So total swing 68.4°. At t=.25 maybe halfway angle? For pendulum, t=0 high left, t=.25 down toward bottom. Could set angle at t=.25 to maybe -? Need visually "swings down toward bottom". If initial left 48, at t=.25 perhaps 0° (vertical bottom) or ~5° left. Since t=.5 contact at right 20°, motion accelerates? A pendulum released from left, at 0 high left, at .25 approaching bottom. At t=.5 contact at bottom-right. If constant-ish angular motion, at .25 angle halfway between 48 left and 20 right = 48 - 34.2 = 13.8° left. That seems "toward bottom", still left of vertical. Maybe at t=.25 near bottom. Use angle 10° left? Need plausible. Total plan t=.25 bob swings down toward bottom, stop still. At .5 contact at bottom swing. If contact at 20° right, midpoint in angular terms between 48 left and 20 right is 14° left. That's a good quarter position. We'll use angle +? Define θ positive right from downward vertical. Initial θ=-48.1°. Contact θ=+20.3°. At t=.25 θ = interpolate maybe -13.9° if linear. Then bob center = (L sin θ, 0, 0.62 - L cos θ). L=0.7787. θ=-13.9°, sin=-.240, cos .971. center x=-0.187, z=0.62 -0.756= -0.136. Hmm that's much lower than initial z .10, near bottom. Good.
+
+But need rod endpoint on bob surface. Could compute. Rod line from pivot to bob surface; direction from pivot to center unit u = (sinθ, -cosθ) in x,z. Surface point = center - r*u (toward pivot) = ((L-r) sinθ, 0, 0.62 - (L-r) cosθ). L-r = .6687. For θ=-13.9°, sin=-.240, cos=.971. endpoint x = -0.1605, z = 0.62 - .6494 = -0.0294. Bob center (-0.187,0,-0.136). Wait center z = .62 - .7787*.971 = .62-.756 = -.136. yes. Bob radius .11. Surface endpoint above-right from center? center - r*u = (-.187 - .11*(-.240), -.136 - .11*(-.971)) = (-.1606, -.0292). Good.
+
+Need rotate bob strokes as rigid body around pivot? The bob itself should maintain orientation? In real pendulum, bob is spherical; rotation of sphere irrelevant. Great-circle curves can rotate with rod? Since sphere symmetric, if we rotate all bob geometry around pivot, it moves and also orientation rotates. But for sphere, any orientation okay. Could simply translate bob center from initial to new center preserving internal curves (no rotation) or rotate them around center? A spherical bob attached to rod maybe orientation not visible. For consistency, transform bob all points by rigid rotation about pivot (same as rod) to move center and rotate sphere. Since sphere symmetric, resulting great circles rotate in space; may no longer align with xz? Wait if we rotate entire spherical wireframe around y-axis (in x-z plane), the great-circle curves rotate orientation, but still sphere. Acceptable. But specification "bob drawn with intersecting great-circle curves" maybe orientation can rotate; no issue. However first frame bob curves aligned with axes. At t=.25, if rotate bob by θ-θ0? The whole bob rotates about pivot; the sphere itself orientation rotates about y. Since no marking, fine. But easier to preserve bob curves translated to new center (no local rotation). But "Within each rigid part, apply one consistent transform to all its path points" If bob is rigid part, a translation only is not physically full transform? It translates, but since it's connected to rod via center, rotation around its own center could be irrelevant. We can apply the same rotation about pivot to all bob points; that's consistent. Need calculate all points.
+
+Need parse bob strokes and transform rotation about pivot in x-z plane by delta angle? Initial vector angle? Rod initial endpoint vector from pivot: (-0.498,-0.446) relative. Initial bob center vector (-0.58,-0.52). The angular position of bob center relative downward vertical = -48.1°. New θ=-13.9°. Delta = +34.2° (counterclockwise? Need coordinate convention). Rotation about y-axis? In x-z plane. Need transform points (x,z) around pivot (0,0.62). Standard 2D rotation in x-z plane: x' = px + cosδ*(x-px) - sinδ*(z-pz)? Careful axes: x right, z up. If using coordinates (x,z), a rotation by angle α in x-z plane mathematically: x' = cosα x - sinα z; z' = sinα x + cosα z. But angle from downward vector? Let's define vector from pivot to bob center initial v0=(x=-0.58, z=-0.52). New desired v=(L sinθ, L? z=-L cosθ) = (-0.187,-0.756). The angle α that rotates v0 to v. Compute using atan2 maybe. v0 angle in standard x-z from +x axis: atan2(z, x)=atan2(-0.52,-0.58)= -138.1° (or 221.9). v angle = atan2(-0.756,-0.187)= -103.9° (or 256.1). α = +34.2° (counterclockwise in x-z plane with z up? From -138 to -104 is +34). In standard 2D rotation: x' = cosα x - sinα z; z' = sinα x + cosα z. Need check with pivot origin. α +34.2°, cos=.827, sin=.562. v0 (-.58,-.52): x'=.827*(-.58)-.562*(-.52)= -.480 + .292=-.188. z'=.562*(-.58)+.827*(-.52)= -.326 -.430=-.756. Good.
+
+Thus delta α=34.2°.
+
+Need transform rod endpoints: pivot (0,0.62) stays. Endpoint (-0.498,0.174) relative (-.498,-.446). New x = .827*(-.498)-.562*(-.446)= -.412+ .251=-.161. z rel=.562*(-.498)+.827*(-.446)= -.280-.369=-.649, z=.62-.649=-.029. Matches.
+
+Transform bob strokes all points relative pivot by α. Need compute coordinates for paths. Could alternatively simpler: since sphere is symmetric, translate bob curves by center difference, but rotation would rotate curves. To avoid extensive calculations? We need produce complete paths accurate. We can compute transformed points for each control. Need ensure curves remain great circles. We can transform all coordinates.
+
+Let's compute accurately. Need perhaps choose nice values. Let's set L maybe initial center (-0.58,0.10), pivot (0,0.62). L = sqrt(.58^2+.52^2)=sqrt(.3364+.2704)=sqrt(.6068)=0.778974. Radius .11. Contact center maybe (0.27,-0.110) gives angle. At t=.25 use θ maybe -14° exactly. Then cos=.970296, sin=-.241922. L=0.778974. New center x = L sinθ = -0.1884; z=0.62 - L cosθ = 0.62 - .7558 = -0.1358. More exact. Rod surface length L-r=0.668974: endpoint x = .668974 * sinθ = -.1618; z=0.62 - .668974*cosθ = 0.62 - .6490=-.0290. Delta α relative to initial: initial θ0=atan2(-.58? Let's compute initial angle from down: sinθ0 = -0.58/L=-0.7445, cosθ0=.52/L=.6675, θ0=-48.1°. New θ=-14°, α=34.1°. Need use rotation angle α from initial center vector. We can compute α = θ_new - θ_initial. θ_initial = atan2(-0.58, 0.52?) Since down vector (x=0,z=-1) angle. Let's parameterize v = (L sinθ, -L cosθ). Initial x=-0.58, zrel=-0.52. sinθ0=-.58/L=-.74457; cosθ0=.52/L=.66756. θ0=-48.10°. New θ=-14°. α=34.10°. More exact α=34.10°.
+
+But to transform bob paths, easiest maybe use new center and rotate initial coordinates around pivot. We can calculate using rotation angle. Need transform many points. But maybe can simply translate bob strokes by center offset? Let's evaluate whether rotating spherical wireframe by 34° is necessary visually. If we translate only, bob curves remain in same orientation; since sphere, that's okay. The rod endpoint: if bob center shifts, rod endpoint should attach to surface. If we translate bob curves by (dx_center, dz_center) = (0.3916, -0.2358), the stroke points remain great circles aligned with axes. The attachment point initial rod surface (-.498,.174) translated becomes (-.1064,-.0618), but new rod endpoint is (-.1618,-.0290). That would not lie on translated bob surface? Actually initial rod endpoint relative to bob center was (0.082,0.074). After translation, it remains same relative, so translated surface point = new center + (0.082,0.074)=(-.1064,-.0618). But actual rod endpoint if rod rotated around pivot is new center - r*u = (-.1884 - .11*(-.2419), -.1358 - .11*(-.9703)) = (-.1618,-.0291). Difference: because initial rod endpoint relative to center was not just toward new pivot direction, it was toward initial pivot. Translating sphere without rotating means the attachment point on sphere changes relative to pivot. If rod endpoint connects at old surface point translated, the rod would not point directly from pivot through center? But rod is straight from pivot to a surface point; if endpoint is (-.1064,-.0618) and center (-.1884,-.1358), vector from center to endpoint is (.082,.074) not aligned away from pivot. The rod line from pivot to endpoint might still be okay? Let's check pivot to endpoint vector (-.1064,-.6818), not collinear with center vector (-.1884,-.7558). The rod would not pass through center, bending? Actually rod attaches to bob surface; it's okay if not aligned with center? In physical pendulum, rod usually attaches to bob at top/thread, passing through center if idealized. The initial rod endpoint is on surface toward pivot, so collinear. If we translate bob but rotate rod, endpoint doesn't match new sphere surface? It could still lie on sphere? Distance from center to endpoint: (-.1064+.1884=.082, -.0618+.1358=.074) length .1104, yes lies on sphere surface but offset. The rod from pivot to that endpoint is not radial through center, but still taut and attaches to surface. However rod length from pivot to endpoint would differ? Pivot to endpoint length sqrt(.1064^2+.6818^2)=.690? Initial rod length .668? Wait new endpoint translated initial surface is (-.1064,-.0618), distance from pivot = sqrt(.106^2 + .6818^2)=.690, not preserving rod length. Therefore must rotate bob or at least attachment. Better rotate whole bob rigidly by α. Then initial rod endpoint rotates to correct new rod endpoint. The sphere orientation rotates; fine.
+
+Thus transform all bob points with rotation α about pivot. Need compute each point. Could derive simpler: since initial bob points are center + offsets, after rotation, new point = new center + R*offset, where new center is rotated initial center. Need apply rotation matrix to offsets (dx,dz). Compute cosα, sinα. Need exact enough.
+
+Let's define initial center C0=(-0.58,0,0.10). Pivot P=(0,0,0.62). New θ=-14°. Let's use exact sin14=.2419218956, cos14=.9702957263. L = sqrt(0.6068). Let's compute L more accurately. 0.778974? Use Newton. 0.779^2=.606841. Difference -0.000041. /1.558=-0.0000263 => 0.7789737. Good L=0.778974.
+New center x = L sinθ = 0.778974 * (-0.2419219) = -0.18843. Compute 0.2419219*0.778974. 0.2419219*0.78=0.188699; subtract *0.001026=0.000248 =>0.188451. x=-0.18845.
+New center zrel = -L cosθ = -0.75583. 0.9702957*0.778974. 0.9702957*0.78=0.756831; subtract *0.001026=0.000996 =>0.755835. z=0.62-0.755835=-0.135835.
+Initial center relative P: v0=(-0.58, -0.52). Angle α rotation. Need cosα, sinα from rotating v0 to new. Could use vector formulas. α = θ_new - θ_initial. Need cos/sin. θ_initial has cosθ0=0.52/L, sinθ0=-0.58/L. For rotation in x-z plane by α = θ_new - θ_initial, with v = L(sinθ, -cosθ). We can compute cosα = cosθnew cosθ0 + sinθnew sinθ0? Because angle standard maybe. Let's avoid. Use rotation matrix that maps v0 to vnew. We know new center. For any initial offset from pivot (x,z), rotated x' = (cosα)x - (sinα)z (relative P). We need cosα/sinα. Use two vectors: v0=(-0.58,-0.52), v1=(-0.18845,-0.755835). Both length L. cosα = (v0·v1)/L^2. Dot = (-0.58)(-0.18845)+(-0.52)(-0.755835)=0.109301+0.393034=0.502335. L^2=0.6068. cosα=0.82785. sinα = cross? In x-z coordinates, cross v0 to v1 = v0_x*v1_z - v0_z*v1_x = (-0.58)(-0.755835) - (-0.52)(-0.18845)=0.438384 -0.097994=0.34039. /L^2=0.56096. So α positive (counterclockwise? matrix x'=cos x - sin z, z'=sin x + cos z). Check with v0: x'=0.82785*(-.58)-0.56096*(-.52)= -.48015+.29170=-.18845. z'=0.56096*(-.58)+0.82785*(-.52)= -.32536-.43048=-.75584. Good. So C=0.82785, S=0.56096.
+
+Now transform bob curves. Initial bob center C0=(-0.58,0.10) radius r=.11. Need all points. Bob_xz is circle in vertical xz plane centered at C0, radius .11. It lies at y=0. Its points relative center in x,z. Rotating whole circle about pivot rotates its plane? Wait bob_xz plane is x-z. Rotation about y-axis maps x-z plane to itself. So bob_xz remains in x-z plane, centered at C1=(-0.18845,-0.13584), radius .11. So simply translate/rotate? The circle orientation in plane irrelevant: bob_xz circle is centered at new center, radius .11. Since it's a full circle in x-z, rotation around center does nothing geometrically. Thus bob_xz path can be same shape centered at C1. Nice. Initial bob_xz path: M -0.69 0 0.10 ... center -0.58, z .10. New center -0.18845,z -0.13584. So subtract/add offsets: offset points about center: start (-0.11, 0) at z center. New start x=-0.18845-0.11=-0.29845, z=-0.13584. Then top? Let's parse. Bob_xz path:
+M -0.69 0 0.10
+C3 -0.69 0 0.16075 -0.64075 0 0.21 -0.58 0 0.21
+C3 -0.51925 0 0.21 -0.47 0 0.16075 -0.47 0 0.10
+C3 -0.47 0 0.03925 -0.51925 0 -0.01 -0.58 0 -0.01
+C3 -0.64075 0 -0.01 -0.69 0 0.03925 -0.69 0 0.10
+This is circle centered (-0.58, z .10), radius .11. New center (-0.18845, z -0.13584). So add dx=0.39155, dz=-0.23584 to all x,z. y stays 0. Need calculate rounded coordinates. Could also express new center and offsets exactly.
+
+Bob_xy and bob_yz are horizontal/vertical great circles involving y. Rotating about y-axis changes x,z for these, but y unchanged. Need transform points. Bob_xy is circle in x-y plane at z=0.10? Actually horizontal circle centered at (-0.58, y=0, z=0.10), radius .11 in x-y plane. After rotation about y-axis around pivot, its center moves to new center as above; its plane? The x-y plane is horizontal; rotation about y-axis (vertical? Wait y is depth axis, not vertical! Careful: coordinate system: +x right, +y depth, +z up. The pendulum swings in vertical x-z plane, so rotation axis is y (depth). A rotation about y-axis rotates x-z plane. A horizontal circle in x-y plane (constant z) under y-axis rotation? Rotation about y leaves y coordinate unchanged but mixes x and z. The plane z=constant is not invariant; it tilts. The great circle in x-y plane becomes a great circle in a tilted plane (normal rotated). Need transform all points. Similarly bob_yz plane x=constant becomes tilted.
+
+Thus must compute transformed points for bob_xy and bob_yz using rotation matrix in x-z. Bob_xz as circle can be recentered; its curve points if rotated about pivot: Since it's a full circle centered at C0 in x-z plane. Rotation about pivot maps its plane x-z to itself and circle to itself centered C1. All points transform. But because it's a circle, we can represent same circle centered C1. Good.
+
+Bob_xy path points: initial center C0=(-0.58,0,0.10), radius .11 in x-y plane. Param points. Need transform each control point (x,z) by rotation about pivot; y unchanged. Let's list coordinates from path:
+M -0.69 0 0.10
+C3 -0.69 0.06075 0.10 -0.64075 0.11 0.10 -0.58 0.11 0.10
+C3 -0.51925 0.11 0.10 -0.47 0.06075 0.10 -0.47 0 0.10
+C3 -0.47 -0.06075 0.10 -0.51925 -0.11 0.10 -0.58 -0.11 0.10
+C3 -0.64075 -0.11 0.10 -0.69 -0.06075 0.10 -0.69 0 0.10
+
+We need transform x,z for every point. Note z initially all 0.10 (constant). Transform relative P: For point (x,z), delta=(x, z-0.62). x'=C*x - S*(z-0.62); z'=0.62 + S*x + C*(z-0.62). Since z constant 0.10, dz0=-0.52 for all, x varies. New z = 0.62 + S*x + C*(-0.52). New x = C*x - S*(-0.52)= C*x + 0.291699. This makes circle tilted in x-z. y unchanged. Need compute for x values: -0.69, -0.64075, -0.58, -0.51925, -0.47. Let's compute with C=0.82785 S=0.56096.
+
+Constants: S*0.52 = 0.291699 (so x' = C*x + 0.291699). New z = 0.62 + S*x - C*0.52. C*0.52=0.430482. So z' = 0.189518 + S*x.
+
+For x=-0.69: x'=0.82785*(-0.69)+0.291699. 0.82785*0.69 = 0.5712165. Negative -> -0.5712165+0.291699=-0.2795175. z'=0.189518 +0.56096*(-0.69)=0.189518 -0.387062= -0.197544. y unchanged.
+x=-0.64075: compute C*x: 0.82785*0.64075. 0.82785*0.64=0.529824; *0.00075=0.000621; total .530445. Negative. x'=-0.530445+0.291699=-0.238746. z'=0.189518 -0.56096*0.64075. 0.56096*0.64=0.359014; *0.00075=0.0004207; total .359435. z'= -0.169917.
+x=-0.58: C*x=-0.480153 (0.82785*.58=0.480153). x'=-0.480153+0.291699=-0.188454. z'=0.189518 -0.56096*.58. 0.56096*.58=0.325357. z'=-0.135839. Center.
+x=-0.51925: C*.51925: .82785*.5=.413925; *.01925= .015933? compute .82785*0.01925 = .82785*(0.02 -0.00075)=.016557-.000621= .015936. total .429861. Negative. x'=-.429861+.291699=-.138162. z'=0.189518 - .56096*.51925. .56096*.5=.28048; *.01925=.010798? .56096*(.02-.00075)=.0112192-.0004207=.0107985. total .2912785. z'= -0.1017605.
+x=-0.47: C*.47=.3899895. x'=-.389990+.291699=-.0982905. z'=0.189518 - .56096*.47. .56096*.47=.263651 (0.56*.47=.2632 plus .000451). z'=-0.074133.
+
+So transformed bob_xy path:
+M -0.2795 0 -0.1975
+C3 -0.2795 0.06075 -0.1975? Wait control point (-0.69,0.06075,0.10) transforms x,z same as start because x same, z same. Yes x=-0.2795,z=-0.1975. Next control (-0.64075,0.11,0.10) -> (-0.2387, y .11, z -0.1699). End (-0.58,0.11,0.10) -> (-0.18845,0.11,-0.13584).
+Then x=-0.51925 y=.11 -> (-.13816,.11,-.10176); x=-0.47 y=.06075 -> (-.09829,.06075,-.07413); x=-0.47 y=0 -> (-.09829,0,-.07413).
+Then x=-0.47 y=-.06075 -> (-.09829,-.06075,-.07413); x=-0.51925 y=-.11 -> (-.13816,-.11,-.10176); x=-.58 y=-.11 -> (-.18845,-.11,-.13584).
+Then x=-.64075 y=-.11 -> (-.23875,-.11,-.16992); x=-.69 y=-.06075 -> (-.27952,-.06075,-.19754); x=-.69 y=0 -> (-.27952,0,-.19754).
+
+Good.
+
+Bob_yz path: initial points (x=-0.58 constant, y varies, z varies). Need transform x,z. Initial x=-0.58 constant, z values: 0.10 center, 0.21, 0.16075, 0.03925, -0.01. For x constant, transform:
+x' = C*(-0.58) - S*(z-0.62) = -0.480153 - S*(z-0.62) = -0.480153 - S*z + S*0.62.
+S*0.62 = 0.347795. So x' = -0.132358 - S*z. Wait -0.480153+0.347795=-0.132358. Yes.
+z' = 0.62 + S*(-0.58) + C*(z-0.62) = 0.62 -0.325357 + C*z - C*0.62. C*0.62=0.513267. 0.62-0.325357-0.513267 = -0.218624. So z' = C*z -0.218624. Check for z=.10: .082785-0.218624=-0.135839. Good. For z=.21: C*.21=.173841; z'=-0.044783. x'= -0.132358 - S*.21 (.117802)= -0.250160. For z=.16075: C*.16075. .82785*.16=.132456; *.00075=.000621; total .133077. z'=-.085547. x'= -0.132358 - .56096*.16075. .56096*.16=.089754; *.00075=.000421; total .090175. x'=-.222533.
+z=.03925: C*.03925. .82785*(.04-.00075)=.033114-.000621=.032493. z'=-.186131. x'= -0.132358 - .56096*.03925. .56096*(.04-.00075)=.022438-.000421=.022017. x'=-.154375.
+z=-.01: C*(-.01)=-.0082785. z'=-.2269025. x'= -0.132358 - .56096*(-.01)= -0.132358 +0.0056096=-0.126748.
+Center z=.10: x'= -0.132358 -0.056096=-0.188454, z'=-0.135839.
+Now parse bob_yz path:
+M -0.58 -0.11 0.10
+C3 -0.58 -0.11 0.16075 -0.58 -0.06075 0.21 -0.58 0 0.21
+C3 -0.58 0.06075 0.21 -0.58 0.11 0.16075 -0.58 0.11 0.10
+C3 -0.58 0.11 0.03925 -0.58 0.06075 -0.01 -0.58 0 -0.01
+C3 -0.58 -0.06075 -0.01 -0.58 -0.11 0.03925 -0.58 -0.11 0.10
+Transform x,z for each (x const). y unchanged.
+z=.10 -> x=-0.18845,z=-0.13584.
+z=.16075 -> x=-0.22253,z=-0.08555.
+z=.21 -> x=-0.25016,z=-0.04478.
+z=.03925 -> x=-0.15438,z=-0.18613.
+z=-.01 -> x=-0.12675,z=-0.22690.
+Need include y values.
+
+Now bob_xz path recenter. Initial x,z offset from center (-0.58,0.10). New center (-.18845,-.13584). Add dx=0.391546, dz=-0.235839. Points:
+M -0.69 0 0.10 -> x=-0.298454, z=-0.135839.
+C3 -0.69 0 0.16075 -> x=-.298454, z=-.075089? 0.16075-0.235839=-0.075089.
+-0.64075 0 0.21 -> x=-.249204, z=-0.025839.
+-0.58 0 0.21 -> x=-.188454,z=-.025839.
+C3 -0.51925 0 0.21 -> x=-.127704,z=-.025839.
+-0.47 0 0.16075 -> x=-.078454,z=-.075089.
+-0.47 0 0.10 -> x=-.078454,z=-.135839.
+C3 -0.47 0 0.03925 -> x=-.078454,z=-.196589.
+-0.51925 0 -0.01 -> x=-.127704,z=-.245839.
+-0.58 0 -0.01 -> x=-.188454,z=-.245839.
+C3 -0.64075 0 -0.01 -> x=-.249204,z=-.245839.
+-0.69 0 0.03925 -> x=-.298454,z=-.196589.
+-0.69 0 0.10 -> -0.298454,-0.135839.
+
+But wait if bob_xz is rotated around pivot, does the circle remain exactly same orientation (center new)? The circle in x-z plane under rotation about y is still in x-z plane. It's a circle centered at new center. Since it's orientation-free, yes.
+
+Now rod. New rod path M 0 0 0.62 L -0.1618 0 -0.0290. Need compute endpoint more accurately. It is rotation of initial endpoint (-0.498,0.174). Or using L-r with θ -14. L-r=0.668974. x=(L-r)sinθ=-0.16182. z=0.62 - (L-r)cosθ. (L-r)cosθ=0.668974*0.9702957. 0.668974*0.97=0.648905? Let's compute: 0.668974*0.9702957 = 0.668974*(1 - .0297043)=0.668974 -0.019868 =0.649106. z=-0.029106. Let's refine. 0.668974*0.9702957. 0.668974*0.970 =0.64890478. plus *0.0002957=0.0001978. total 0.6491026. z= -0.0291026. x 0.668974* -0.2419219. 0.668974*0.24=0.160554; *0.0019219=0.0012856; total .1618396. x=-0.161840. Good.
+
+Rod from pivot to surface. Check bob center-to-endpoint vector: endpoint - center = (-0.16184 +0.18845=0.02661, -0.02910+0.13584=0.10674). Length sqrt(.000708+.011393)=sqrt(.012101)=0.1100. Direction from center to endpoint should be opposite u? u from pivot to center =(-.2419,-.9703); center - r*u = center + (0.0266,0.1067) yes.
+
+Now fixed parts unchanged. Need ensure stop unchanged. The prompt: target_normalized_time 0.25, first frame is t=0, previous same. Need output complete frame index 2. We need include all strokes, fixed and moving.
+
+Potential issue: "bob swings down toward the bottom" at t=.25. Our bob center z=-0.136, near bottom; yes. Is bob maybe too low? Initial center z=.10. Floor at -0.6, okay. It is above stop? At t=.25 bob still left of stop, x=-0.188 center, radius .11 -> rightmost -0.078, stop leftmost x .38, gap .458. Good. It hasn't contacted.
+
+But wait stop at x .38-.54, z -0.2 to -.02, bob at x -.188, z -.136, far left. Actually at t=.5 contact would be x .27, z -.11. At t=.25 x -.188, z -.136, moving from left to right near bottom. Fine.
+
+Need "complete immediate preceding frame" previous same as first; no additional. We should use IDs same. JSON only. Include descriptions short. Need ensure paths syntax valid. For all transformed paths use M/C3/L/Z. Coordinates numeric. For bob_xz, we need maintain smooth curves; transformed center translation. For bob_xy, controls transformed. For bob_yz controls transformed. Need ensure no invalid C3 count? Path3D C3 has 6 coords + endpoint 3 = 9 numbers after C3. In first paths yes.
+
+Let's craft strokes with IDs: floor, pivot_beam, pivot_stem, pivot_axle, pivot_ring, stop_base_front, stop_base_side, stop_bumper_front, stop_bumper_side, pendulum_rod, bob_xz, bob_xy, bob_yz.
+
+Round coordinates to 3-4 decimals. Need maintain depth y for bob_xy/y. For rod y=0. Bob_xz y=0. Bob_xy y varies. Bob_yz y varies.
+
+Let's write bob_xz path:
+M -0.2985 0 -0.1358
+C3 -0.2985 0 -0.0751 -0.2492 0 -0.0258 -0.1885 0 -0.0258
+C3 -0.1277 0 -0.0258 -0.0785 0 -0.0751 -0.0785 0 -0.1358
+C3 -0.0785 0 -0.1966 -0.1277 0 -0.2458 -0.1885 0 -0.2458
+C3 -0.2492 0 -0.2458 -0.2985 0 -0.1966 -0.2985 0 -0.1358
+This is circle center (-.1885,-.1358). Good.
+
+Bob_xy path transformed:
+M -0.2795 0 -0.1975
+C3 -0.2795 0.06075 -0.1975 -0.2387 0.11 -0.1699 -0.1885 0.11 -0.1358
+C3 -0.1382 0.11 -0.1018 -0.0983 0.06075 -0.0741 -0.0983 0 -0.0741
+C3 -0.0983 -0.06075 -0.0741 -0.1382 -0.11 -0.1018 -0.1885 -0.11 -0.1358
+C3 -0.2387 -0.11 -0.1699 -0.2795 -0.06075 -0.1975 -0.2795 0 -0.1975
+Note control y for first C3: start at y0, control1 y .06075, control2 y .11, endpoint y .11. Good. z values all transformed. Is this a great circle? The transformed circle lies in tilted plane; yes.
+
+Bob_yz path:
+M -0.1885 -0.11 -0.1358
+C3 -0.2225 -0.11 -0.0855 -0.2502 -0.06075 -0.0448 -0.2502 0 -0.0448
+C3 -0.2502 0.06075 -0.0448 -0.2225 0.11 -0.0855 -0.1885 0.11 -0.1358
+C3 -0.1544 0.11 -0.1861 -0.1267 0.06075 -0.2269 -0.1267 0 -0.2269
+C3 -0.1267 -0.06075 -0.2269 -0.1544 -0.11 -0.1861 -0.1885 -0.11 -0.1358
+Check z for z=.03925 -> -0.1861, y .11 etc. Good.
+
+Need maybe update rod endpoint to surface point at (-.1618,0,-.0291). Bob_xz rightmost? Wait bob center x=-.1885, rod endpoint x=-.1618 (right of center? Actually center x -0.1885, endpoint x -0.1618 is to right). That is toward pivot (pivot x=0), yes. z endpoint -0.0291 above center -0.1358. Good. This endpoint lies on bob_xz circle? For bob_xz circle center (-.1885,-.1358), radius .11, offset (.0267,.1067) length .1100. It lies on circle. But bob_xz path is a 2D circle in x-z plane. Rod endpoint should be on its perimeter. Our bob_xz path has topmost z=-.0258 at x=-.1885; endpoint z=-.0291 close. It lies near top, yes.
+
+Need ensure rod endpoint matches surface; in drawn path rod ends at (-.1618,-.0291). It should meet bob top/right. Great.
+
+Need check "fixed overhead bracket/pivot above center", pivot beam at z .86, stem to .62. okay.
+
+Now think about frame at t=.25: Should pendulum rod and bob be rotating as a rigid body. We transformed bob sphere by rotation α. But note bob_xz circle remains centered, and bob_xy/y circles transformed. The whole sphere after rotation has its great circles in rotated orientations. The bob_xz great circle originally in vertical plane; after rotation about y it stays vertical plane x-z. So its orientation unchanged; good. The horizontal great circle tilts. The side vertical great circle tilts. Does this preserve "intersecting great-circle curves in different planes"? Yes, three great circles in mutually perpendicular planes rotated together; still intersect at poles? They intersect at points that should be on sphere. Good.
+
+Let's verify transformed bob_xy and bob_yz still intersect. They share points? Initial bob_xy and bob_yz intersect along y? At initial, bob_xy at y=±.11? Actually all three. After rotation, yes.
+
+Need maybe round rod endpoint z -0.029. For bob_xz top control at z -0.0258; rod endpoint z -0.029, on surface. Good.
+
+Potential issue with coordinate bounds: bob lowest z -0.2458, floor -0.6. okay.
+
+Need output reason, frames exactly one with i=2. Ensure JSON valid. No code. Descriptions. Use "3D" no.
+
+Let's decide if use more precise coordinates to avoid mismatch. We can round to 4 decimals.
+
+Let's produce final.
+
+But before final, let's double-check initial first frame "bob held high on left" had center (-.58,.10), rod to surface (-.498,.174). At t=.25, center (-.188,-.136). It swings down and right, near bottom. Good.
+
+Should there be any motion that stop remains unchanged. yes.
+
+Potential issue "current_frame_index": 2 but animation request says t=0 at first? first_frame i=1 corresponds t=0. target time .25. Good index 2.
+
+Need maybe include "pendulum_rod" description "taut rod rotated to quarter-swing position". Fine.
+
+Final JSON only.

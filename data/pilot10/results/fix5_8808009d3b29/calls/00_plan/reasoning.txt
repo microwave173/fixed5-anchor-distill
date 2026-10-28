@@ -1,0 +1,60 @@
+We need answer JSON plan. Need think through 3D sketch animation dog walks forward ears perked, 5 normalized times. Need compact shared plan only. Need include scene initial spatial layout, parts essential subjects spatial contours, motion how unfolds, constraints invariants contacts. Drawing style given. Need plan remains unchanged. No coords every stroke. Need use +x right +y depth +z up. Coordinates [-1,1], floor z=-0.6. Fixed camera from (2.8,-3.2,2.4). Dog walks forward. Need decide direction likely forward along +x? We can choose walking from left to right (+x) across floor. 5 frames, 2.5 sec. Dog simple coherent body, recognizable head, legs connected, tail, ears perked. Need motion articulated: legs alternate diagonal, body slight bob, head facing forward, ears perked. Main contacts paws on ground appropriate supporting. Stationary no props. Maybe scene: open floor, no props. Need plan total_plan. JSON with reason and total_plan fields. Need "brief public explanation". The plan should be compact. Need include anchors: floor plane z=-0.6, dog body around x -0.5 to +0.5? But plan not full coords every stroke. Need maybe initial layout: dog side profile in 3D, body centerline along +x, at origin-ish, all four paws on floor. At t0 start left side x=-0.45, t1 ends right x=0.45. Body height around z -0.05, head at front +x, tail at rear -x. Ears perked upward. Legs simple single-line connected to shoulders/hips. Need spatial depth: near/far legs offset in y to show gait. Body has rounded torso contour, head with snout, two ears upward, tail slight upward. Use few Beziers. 3D: torso maybe ellipsoidal with central spine and side contour; legs in y planes. Camera from x positive, y negative, z positive, so visible side/front? Dog walking along +x, camera sees side and front maybe. Need keep within [-0.8,0.8]. We can mention side profile with slight y offset for near and far limbs. Body rigid. Head steady, ears perked. Motion: at t=0 contact near forefoot and far hind? For a walk: diagonal pairs. Need ensure plausible. 5 frames: t0 initial stance with left fore and right hind contacting? Let's define dog faces +x. Legs: near front (NF) and far front (FF), near hind (NH), far hind (FH). In quadruped walk, footfall sequence maybe LH, LF, RH, RF. But in 5 frames we can show alternating diagonal supports, no sliding. Need be simple. At t0: near-front forward contact and far-hind back contact? Actually for walking, diagonal pairs not simultaneous in walk; but can simplify. Need "contact before reaction" maybe foot contacts floor before body moves over. "stable rigid dimensions, supported final states". Need at each frame at least two paws contact; body height constant with slight bob. Limb angular changes, no stretching. Ears perked throughout. Tail sways slightly? maybe tail steady.
+
+Need include no scenery. Stationary props none. Keep domino row not relevant.
+
+Need ensure plan remains unchanged during drawing. JSON only. Let's craft concise.
+
+Potential plan:
+
+reason: "Dog crosses the open floor from left to right in a four-beat walk; simple 3D contours show a coherent body, perked ears, and alternating planted paws."
+
+total_plan:
+scene: "Open white space with fixed floor plane at z=-0.6. Dog faces +x, starts near x=-0.45 and ends near x=+0.45; side/three-quarter view, body centered roughly z=-0.05, all within [-0.8,0.8]. No props/scenery."
+
+parts: "One dog: rounded torso with front/back great-circle-like contours and short centerline; compact head at +x with small snout, two triangular ears standing up; thin tail at -x slight upward curl; four single-line legs attached at shoulder/hip points, near pair slightly +y and far pair slightly -y to show depth; paws as small floor contacts. Keep proportions fixed."
+
+motion: "At t=0, dog in neutral walking stance, near-fore and far-hind paws planted, opposite legs beginning to lift. t=.25 shift weight forward as far-fore paw contacts and near-hind lifts; body advances and bobs slightly. t=.5 midstride with near-fore/far-hind? Wait need sequence. Need consistent. Could describe alternate diagonal supports.
+
+Let's design 5 frames perhaps:
+t0: stance: near fore and far hind contact; far fore and near hind lifted or lifting? Hmm if two contact. At t0 start from rest, all four maybe contact? Then as walks. But "main motion". Need show articulated. t0: four paws contact neutral stance, head/ears perked. t.25: near fore and far hind planted; far fore lifts forward, near hind pushes back. t.5: far fore and near hind contact; near fore and far hind lifted/passing. t.75: near fore and far hind contact; far fore and near hind swing; t1: four paws supported? Or final midstride? Stable final state supported by contact. Since 5 frames, a full cycle maybe end with near fore/far hind contact. Simpler: alternate diagonal supports at t0, .5, 1; swings at .25,.75. This is trot-like but dog walk. Prompt "walks". A four-beat may not show full cycle in five frames. Could use "walk-like alternating diagonal supports" acceptable? Need plausible.
+
+Let's do walk cycle with contacts:
+t0: near-fore and far-hind planted; far-fore lifting, near-hind lifting? Actually that's two paws contact, okay.
+t.25: far-fore touches ground ahead; near-hind still lifted; body shifts. Contacts: near-fore, far-hind, far-fore (three).
+t.5: near-fore lifts; contacts far-fore and far-hind (diagonal? far fore front and far hind rear same side). 
+t.75: near-hind touches down; contacts far-fore, near-hind plus maybe far-hind lifts. 
+t1: near-fore contacts ahead, far-hind lifts? Hmm.
+
+Maybe only need plan, not exact per-frame footfall sequence. But constraints mention at least two paws planted, no sliding, body advances smoothly. Could mention "alternating legs swing while planted paws stay fixed to floor until lifted; at least two contacts at every frame." That suffices.
+
+Need "contact before reaction": planted paws contact floor before body shifts over them; head/ears maintain perked.
+
+Need "recognizable parts and main motion and necessary contact/support constraints". Good.
+
+Need JSON valid. Use double quotes.
+
+Let's consider drawing style: "simple coherent body" etc. "No shading". Use "few Bezier contours". In JSON string can include semicolons.
+
+Potential final:
+
+{
+ "reason":"A minimal 3D dog crosses the floor with a short walk cycle; the plan fixes body proportions and visible foot contacts so the motion reads clearly in five frames.",
+ "total_plan":{
+  "scene":"Open white space with a fixed ground plane at z=-0.6. The dog faces +x, starts slightly left of center and finishes slightly right of center, staying within [-0.8,0.8]. Camera fixed three-quarter side view; no props or scenery.",
+  "parts":"One friendly dog: compact rounded torso with a short spine contour and a few depth curves; small head at +x with short snout and two upright perked ears; thin tail at -x rising slightly; four connected single-line legs attached at shoulder/hip positions, near-side pair offset in +y and far-side pair in -y; small paws as ground contacts. Keep head, body, ears, tail and limb lengths rigid.",
+  "motion":"A short forward walk: the body translates along +x with a subtle vertical bob. Legs alternate: rear legs push, forelegs reach, and diagonal pairs pass through a neutral stance at t=0.5. Head stays forward, ears remain perked, tail sways minimally. At t=0 and t=1 use stable planted supports; at t=.25 and .75 show swing legs passing while other paws hold contact.",
+  "constraints":"At least two paws remain on z=-0.6 in every frame; a paw stays fixed once planted and lifts only after the body passes over it. Do not stretch limbs, bob the torso through the legs, slide paws, or move ears/tail independently of the body. Keep all shapes within the drawing bounds and maintain the same 3D body dimensions from start to finish."
+ }
+}
+
+Need maybe mention "ears perked" always. Fine.
+
+But maybe plan should specify t normalized times? The request "Plan one short atomic 3D sketch animation at five normalized times 0, .25, .5, .75, 1. Think through action and essential geometry, then return compact shared plan." We can include timing in motion. We have t references. Good.
+
+Need ensure no complete coordinates for every stroke. We include only general coordinates. Good.
+
+Need maybe mention initial dog start and end positions? We can include "starts near x=-0.45, ends near x=+0.45". That's coordinate but not every stroke. Helpful spatial anchor. Could include. The plan should be compact. Fine.
+
+Need consider "Stationary props may remain still." None. "Keep a domino row short enough to show the cascade in five frames." irrelevant. Good.
+
+Let's final with JSON only.

@@ -1,0 +1,29 @@
+The sketch is a single cat in profile, facing \(+x\), with no props or scenery. The floor is fixed at \(z=-0.6\). To keep depth legible, near-side legs use \(y=-0.12\) and far-side legs use \(y=0.10\); the tail stays level at \(z=-0.10\).
+
+At the supplied previous frame \(t=.25\), the torso/head/tail rigidly translated \(0.12\) in \(x\) from the first frame. Assuming uniform forward motion, at \(t=.5\) the body translation is \(0.24\) from the first frame, equivalently another \(0.12\) from the previous frame:
+\[
+S=0.12+0.12=0.24.
+\]
+Apply this same \(x\)-translation to every torso, head, ear, and tail point. For example, the previous torso back near begins at \((-0.42,-0.11,-0.07)\), with control \((-0.16,-0.13,-0.02)\), and ends at \((0.13,-0.11,-0.10)\). Adding \(+0.12\) to the previous \(x\)-coordinates gives
+\[
+(-0.42+0.12,\,-0.11,\,-0.07)=(-0.30,-0.11,-0.07),
+\]
+\[
+(-0.16+0.12,\,-0.13,\,-0.02)=(-0.04,-0.13,-0.02),
+\]
+\[
+(0.13+0.12,\,-0.11,\,-0.10)=(0.25,-0.11,-0.10).
+\]
+The same \(+0.12\) increment is applied to the remaining torso contours, head/ears, and tail. Thus the previous head start \((0.13,-0.10,-0.10)\) becomes \((0.25,-0.10,-0.10)\), the muzzle reaches \(x=0.43+0.12=0.55\), and the near ear tip becomes \(x=0.29+0.12=0.41\). The tail begins at \((-0.42+0.12,-0.05,-0.10)=(-0.30,-0.05,-0.10)\) and ends at \((-0.67+0.12,-0.02,-0.10)=(-0.55,-0.02,-0.10)\), remaining level.
+
+The gait switches to the opposite diagonal support at \(t=.5\): the far front and near rear legs are planted on \(z=-0.6\), while the near front and far rear legs swing clear. Shoulder and hip attachments follow the body translation. The far front shoulder is
+\[
+(0.02+0.24,\,0.10,\,-0.13)=(0.26,\,0.10,\,-0.13),
+\]
+and its planted paw is chosen at \((0.36,0.10,-0.60)\), reached by a cubic leg from the shoulder through controls near \((0.32,0.10,-0.24)\) and \((0.36,0.10,-0.44)\). The near rear hip is
+\[
+(-0.43+0.24,\,-0.12,\,-0.13)=(-0.19,\,-0.12,\,-0.13),
+\]
+with its planted paw at \((-0.14,-0.12,-0.60)\), using controls near \((-0.18,-0.12,-0.30)\) and \((-0.16,-0.12,-0.46)\).
+
+For the swing phase, the near front shoulder is \((0.00+0.24,-0.12,-0.13)=(0.24,-0.12,-0.13)\), and its lifted paw is set around \((0.22,-0.12,-0.47)\), clear of the floor. The far rear hip is \((-0.44+0.24,0.10,-0.12)=(-0.20,0.10,-0.12)\), with its lifted paw around \((-0.30,0.10,-0.47)\). At this frame the two floor-contact paws are the far front and near rear; the other two paws are off the floor at \(z=-0.47\), preserving the alternating diagonal walk and the level tail.

@@ -1,0 +1,19 @@
+Use +x right, +y depth, +z up. The floor is fixed at z=-0.60 and the camera is unchanged. The helicopter is level and rigid: a rounded cabin with intersecting spatial contours, a tail boom extending toward -x opposite the +x nose, a small fin and tail rotor at the boom end, a vertical main-rotor mast on the cabin roof, and two crossing main blades in the horizontal x-y plane. Two parallel skids at y=±0.18 are attached by four short struts.
+
+At i=1 the skids touch the floor. At i=4, t=0.75, the body has already translated from the first frame by approximately
+Δ_prev = (-0.06, 0, +0.30),
+since the cabin center goes from about (0.02,0,-0.30) to (-0.04,0,0.00), and the skid height goes from z=-0.60 to z=-0.30. For the final frame i=5 at t=1, choose one further incremental rigid-body translation
+Δ_final = (-0.02, 0, +0.10)
+relative to the previous frame, giving total translation (-0.08,0,+0.40) from the first frame. Apply this consistently to all cabin, tail, skid and mast points:
+P_final = P_prev + (-0.02, 0, 0.10).
+For example, the cabin outline start (0.23,0,0.00) becomes (0.21,0,0.10), and its rear point (-0.31,0,0.00) becomes (-0.33,0,0.10), so the final cabin center is (-0.06,0,0.10). The cabin equator, previously at z=0.00, becomes z=0.10, and the cabin cross-section, previously at x=-0.04, becomes x=-0.06.
+
+The left skid, previously (-0.36,0.18,-0.30) to (0.26,0.18,-0.30), becomes (-0.38,0.18,-0.20) to (0.24,0.18,-0.20); the right skid has the same endpoints with y=-0.18. Thus the final skid height is z=-0.20, clear of the floor, with the parallel separation unchanged. The strut tops become z=-0.03 and z=-0.02. The tail boom endpoints (-0.70,0,0.06) and (-0.69,0,0.12) become (-0.72,0,0.16) and (-0.71,0,0.22); the fin tip (-0.68,0,0.25) becomes (-0.70,0,0.35), and the tail rotor translates to x=-0.73 with vertical span z=0.20 to 0.34 and crossbar at z=0.27.
+
+The rotor mast, previously (-0.04,0,0.16) to (-0.04,0,0.34), becomes (-0.06,0,0.26) to (-0.06,0,0.44), so the final hub is (-0.06,0,0.44). The main blades are perpendicular lines through the hub of length approximately
+r = sqrt(0.3639² + 0.21²) ≈ 0.4200.
+In the previous frame, blade A has relative endpoints (-0.3639,-0.21) at 210° and (0.3639,0.21) at 30°; the endpoint order has swapped relative to the first frame, consistent with a 180° rotor rotation by i=4. Advance another 60°: 210+60=270 and 30+60=90, so blade A’s final endpoints are
+(-0.06,-0.4200,0.44) and (-0.06,+0.4200,0.44).
+Blade B’s previous relative vectors are (0.21,-0.3637) at 300° and (-0.21,0.3637) at 120°; adding 60° gives 0° and 180°. Using the same blade length,
+sqrt(0.21² + 0.3637²) ≈ 0.4200,
+its final endpoints are hub+(0.4200,0) = (0.3600,0,0.44) and hub+(-0.4200,0) = (-0.4800,0,0.44). The final pose is a stable airborne hover, with the body level and the rotor spinning about the vertical mast axis.

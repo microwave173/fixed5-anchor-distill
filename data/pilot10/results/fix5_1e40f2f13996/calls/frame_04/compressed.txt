@@ -1,0 +1,33 @@
+Use world coordinates \(+x\) right/forward along the walk, \(+y\) depth, \(+z\) up, with the fixed floor at \(z=-0.60\) and the camera unchanged. Frame 1 is \(t=0\), frame 3 is the immediately preceding \(t=0.5\), and the requested frame 4 is \(t=0.75\). At this phase the right foot supports the body, the left leg swings through with a bent knee and lifted foot, and the arms counter-swing: right arm forward, left arm back.
+
+The previous torso had hip \(x=-0.26\), shoulder \(x=-0.21\), and head center \(x=-0.19\). A small forward advance from frame 3 to frame 4 is \(+0.06\) in \(x\): hip \(-0.26+0.06=-0.20\), shoulder \(-0.21+0.06=-0.15\), head center \(-0.19+0.06=-0.13\). The torso remains low and slightly forward-leaning. Its centerline is
+`M -0.20 0 -0.14 Q3 -0.18 0 0 -0.14 0 0.13`.
+The shoulder anchor bar is
+`M -0.15 0.065 0.11 L -0.15 -0.065 0.11`
+and the hip anchor bar is
+`M -0.20 0.075 -0.14 L -0.20 -0.075 -0.14`,
+giving the left/right shoulder and hip attachment points for the limbs.
+
+The head center is \((-0.13,0,0.25)\), translated with the torso while keeping its round spatial form from three intersecting great circles. The \(x\)-\(z\) circle is
+`M -0.01 0 0.25 C3 -0.01 0 0.41 -0.25 0 0.41 -0.25 0 0.25 C3 -0.25 0 0.09 -0.01 0 0.09 -0.01 0 0.25`.
+The \(y\)-\(z\) circle is
+`M -0.13 0.12 0.25 C3 -0.13 0.12 0.41 -0.13 -0.12 0.41 -0.13 -0.12 0.25 C3 -0.13 -0.12 0.09 -0.13 0.12 0.09 -0.13 0.12 0.25`.
+The \(x\)-\(y\) circle is
+`M -0.01 0 0.25 C3 -0.01 0.16 0.25 -0.25 0.16 0.25 -0.25 0 0.25 C3 -0.25 -0.16 0.25 -0.01 -0.16 0.25 -0.01 0 0.25`.
+
+From the right shoulder \((-0.15,-0.065,0.11)\), the right arm swings forward to hand \((0.08,-0.10,-0.08)\) via control \((-0.04,-0.09,0.01)\):
+`M -0.15 -0.065 0.11 Q3 -0.04 -0.09 0.01 0.08 -0.10 -0.08`.
+From the left shoulder \((-0.15,0.065,0.11)\), the left arm swings back to hand \((-0.37,0.10,-0.08)\) via control \((-0.25,0.09,0.01)\):
+`M -0.15 0.065 0.11 Q3 -0.25 0.09 0.01 -0.37 0.10 -0.08`.
+
+The right support leg attaches at hip \((-0.20,-0.075,-0.14)\). Keep the planted foot at the previous contact \((-0.08,-0.10,-0.60)\). Choose the bent knee at \((-0.08,-0.09,-0.35)\), with controls \((-0.15,-0.08,-0.25)\) and \((-0.07,-0.10,-0.48)\):
+`M -0.20 -0.075 -0.14 Q3 -0.15 -0.08 -0.25 -0.08 -0.09 -0.35 Q3 -0.07 -0.10 -0.48 -0.08 -0.10 -0.60`.
+Its foot lies on the floor at \(z=-0.60\).
+
+The left swing leg attaches at hip \((-0.20,0.075,-0.14)\). For the swing-through, put the knee forward and up at \((-0.06,0.10,-0.33)\), with control \((-0.15,0.09,-0.24)\); let the lower leg trail back to the lifted foot \((-0.20,0.10,-0.53)\), with control \((-0.13,0.10,-0.47)\):
+`M -0.20 0.075 -0.14 Q3 -0.15 0.09 -0.24 -0.06 0.10 -0.33 Q3 -0.13 0.10 -0.47 -0.20 0.10 -0.53`.
+The left foot is above the floor. The previous frame’s left swung shin runs from knee \((-0.24,0.10,-0.35)\) to foot \((-0.31,0.10,-0.44)\), only about \(0.11\) long, whereas the first-frame left shin is about \(0.29\); the frame-4 swing leg is therefore laid out as a coherent bent-knee swing rather than copying that compressed lower segment.
+
+Keep the fixed floor line unchanged:
+`M -0.75 0 -0.60 L 0.05 0 -0.60`.
+The right foot at \((-0.08,-0.10,-0.60)\) remains in contact, while the left foot at \(z=-0.53\) is lifted.

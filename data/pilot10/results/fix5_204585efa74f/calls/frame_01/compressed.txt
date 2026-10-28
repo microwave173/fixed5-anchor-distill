@@ -1,0 +1,37 @@
+Use \(+x\) right, \(+y\) depth, \(+z\) up, with the camera fixed at \((2.8,-3.2,2.4)\) looking toward the origin. For the FIRST frame at \(t=0\), place the car level on the lower floor \(z=-0.60\) at the ramp foot, facing \(+y\) toward the ramp/plaza. Since the camera has negative \(y\), the visible car face is the rear at \(y=-0.62\) together with the near side \(x=+0.12\); draw that rear face rather than a front face. Keep all geometry within roughly \([-0.8,0.8]\).
+
+Make the ramp a wedge from the lower front edge at \(y=-0.22,\ z=-0.60\) to the upper back edge at \(y=0.10,\ z=-0.38\), with width \(x=-0.35\) to \(0.25\). Its surface vertices are
+\[
+A(-0.35,-0.22,-0.60),\quad B(0.25,-0.22,-0.60),
+\]
+\[
+C(0.25,0.10,-0.38),\quad D(-0.35,0.10,-0.38),
+\]
+closed as \(A\to B\to C\to D\to A\). The visible right side depth at \(x=0.25\) is \(C\to(0.25,0.10,-0.60)\to B\). The plaza is a flat slab behind/right with top at \(z=-0.38\), using vertices
+\[
+D(-0.35,0.10,-0.38),\quad C(0.25,0.10,-0.38),
+\]
+\[
+E(0.65,0.55,-0.38),\quad F(-0.35,0.55,-0.38),
+\]
+closed \(D\to C\to E\to F\to D\). Show its right-side depth by \((0.25,0.10,-0.60)\to(0.65,0.55,-0.60)\to E\); the vertical \(C\to(0.25,0.10,-0.60)\) is shared with the ramp side.
+
+For the car, use a compact lower body box with \(x=\pm0.12\), front \(y=-0.22\), rear \(y=-0.62\), bottom \(z=-0.50\), top \(z=-0.38\). Its top rectangle is
+\[
+(-0.12,-0.22,-0.38)\to(0.12,-0.22,-0.38)
+\to(0.12,-0.62,-0.38)\to(-0.12,-0.62,-0.38)\to\text{close}.
+\]
+Draw the near side at \(x=0.12\) from \(y=-0.22\) to \(-0.62\) between \(z=-0.38\) and \(-0.50\), and the rear face at \(y=-0.62\) between \(x=\pm0.12\) and \(z=-0.38,-0.50\). The shorter cabin has roof \(z=-0.30\), \(x=\pm0.09\), \(y=-0.34\) to \(-0.52\). Its near side is \(x=0.09\), \(y=-0.34\) to \(-0.52\), \(z=-0.38\) to \(-0.30\), and its rear face is \(y=-0.52\), \(x=\pm0.09\), \(z=-0.38\) to \(-0.30\). Put two small roof-light blocks on the cabin: left \(x\in[-0.06,-0.005]\), right \(x\in[0.005,0.06]\), both with \(y\in[-0.46,-0.40]\), \(z\in[-0.30,-0.26]\), each drawn as a top rectangle plus its near face at \(y=-0.46\).
+
+The four thin cylindrical wheels have axis along \(x\), radius \(r=0.055\), and centers at \(z=-0.545\), so each bottom is \(z=-0.600\) and contacts the lower floor. Use front axle \(y=-0.30\), rear axle \(y=-0.58\), near side \(x=0.13\), far side \(x=-0.13\), giving centers
+\[
+(0.13,-0.30,-0.545),\quad (0.13,-0.58,-0.545),
+\]
+\[
+(-0.13,-0.30,-0.545),\quad (-0.13,-0.58,-0.545).
+\]
+In the \(y\)-\(z\) plane, the quarter-circle control offset is
+\[
+k=0.55228475\,r=0.55228475(0.055)=0.030375.
+\]
+For the near front wheel, start at the right point \((0.13,-0.245,-0.545)\). Right-to-top uses controls \((0.13,-0.245,-0.514625)\) and \((0.13,-0.269625,-0.490)\), ending at \((0.13,-0.30,-0.490)\). Top-to-left uses controls \((0.13,-0.330375,-0.490)\) and \((0.13,-0.355,-0.514625)\), ending at \((0.13,-0.355,-0.545)\). Left-to-bottom uses controls \((0.13,-0.355,-0.575375)\) and \((0.13,-0.330375,-0.600)\), ending at \((0.13,-0.30,-0.600)\). Bottom-to-right uses controls \((0.13,-0.269625,-0.600)\) and \((0.13,-0.245,-0.575375)\), ending back at \((0.13,-0.245,-0.545)\). The other three wheels use the same quarter-circle template shifted to their listed centers, preserving radius, contact at \(z=-0.600\), and the \(x\)-axis wheel orientation.

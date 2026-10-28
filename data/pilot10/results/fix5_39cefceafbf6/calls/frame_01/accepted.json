@@ -1,0 +1,75 @@
+{
+  "reason": "First frame establishes the fixed overhead pivot and stop, with the bob held high on the left and the rod taut; no motion trail or future rebound is shown.",
+  "frames": [
+    {
+      "i": 1,
+      "strokes": [
+        {
+          "id": "floor",
+          "path": "M -0.8 0 -0.6 L 0.8 0 -0.6",
+          "description": "fixed low floor line"
+        },
+        {
+          "id": "pivot_beam",
+          "path": "M -0.32 0 0.86 L 0.32 0 0.86",
+          "description": "fixed overhead bracket beam"
+        },
+        {
+          "id": "pivot_stem",
+          "path": "M 0 0 0.86 L 0 0 0.62",
+          "description": "fixed drop stem to pendulum pivot"
+        },
+        {
+          "id": "pivot_axle",
+          "path": "M 0 -0.055 0.62 L 0 0.055 0.62",
+          "description": "pivot axle across depth"
+        },
+        {
+          "id": "pivot_ring",
+          "path": "M 0.035 0 0.62 C3 0.035 0 0.6393 0.0193 0 0.655 0 0 0.655 C3 -0.0193 0 0.655 -0.035 0 0.6393 -0.035 0 0.62 C3 -0.035 0 0.6007 -0.0193 0 0.585 0 0 0.585 C3 0.0193 0 0.585 0.035 0 0.6007 0.035 0 0.62",
+          "description": "small fixed pivot ring"
+        },
+        {
+          "id": "stop_base_front",
+          "path": "M 0.41 -0.06 -0.60 L 0.51 -0.06 -0.60 L 0.51 -0.06 -0.20 L 0.41 -0.06 -0.20 Z",
+          "description": "front face of fixed stop base"
+        },
+        {
+          "id": "stop_base_side",
+          "path": "M 0.51 -0.06 -0.60 L 0.51 0.06 -0.60 L 0.51 0.06 -0.20 L 0.51 -0.06 -0.20",
+          "description": "right side depth of fixed stop base"
+        },
+        {
+          "id": "stop_bumper_front",
+          "path": "M 0.54 -0.07 -0.20 L 0.41 -0.07 -0.20 Q3 0.38 -0.07 -0.20 0.38 -0.07 -0.17 L 0.38 -0.07 -0.05 Q3 0.38 -0.07 -0.02 0.41 -0.07 -0.02 L 0.54 -0.07 -0.02 L 0.54 -0.07 -0.20 Z",
+          "description": "rounded front face of rubber stop"
+        },
+        {
+          "id": "stop_bumper_side",
+          "path": "M 0.54 -0.07 -0.20 L 0.54 0.07 -0.20 L 0.54 0.07 -0.02 L 0.54 -0.07 -0.02",
+          "description": "right side depth of rubber stop"
+        },
+        {
+          "id": "pendulum_rod",
+          "path": "M 0 0 0.62 L -0.498 0 0.174",
+          "description": "taut pendulum rod from pivot to bob surface"
+        },
+        {
+          "id": "bob_xz",
+          "path": "M -0.69 0 0.10 C3 -0.69 0 0.16075 -0.64075 0 0.21 -0.58 0 0.21 C3 -0.51925 0 0.21 -0.47 0 0.16075 -0.47 0 0.10 C3 -0.47 0 0.03925 -0.51925 0 -0.01 -0.58 0 -0.01 C3 -0.64075 0 -0.01 -0.69 0 0.03925 -0.69 0 0.10",
+          "description": "bob great circle in vertical x-z plane"
+        },
+        {
+          "id": "bob_xy",
+          "path": "M -0.69 0 0.10 C3 -0.69 0.06075 0.10 -0.64075 0.11 0.10 -0.58 0.11 0.10 C3 -0.51925 0.11 0.10 -0.47 0.06075 0.10 -0.47 0 0.10 C3 -0.47 -0.06075 0.10 -0.51925 -0.11 0.10 -0.58 -0.11 0.10 C3 -0.64075 -0.11 0.10 -0.69 -0.06075 0.10 -0.69 0 0.10",
+          "description": "bob horizontal great circle in x-y plane"
+        },
+        {
+          "id": "bob_yz",
+          "path": "M -0.58 -0.11 0.10 C3 -0.58 -0.11 0.16075 -0.58 -0.06075 0.21 -0.58 0 0.21 C3 -0.58 0.06075 0.21 -0.58 0.11 0.16075 -0.58 0.11 0.10 C3 -0.58 0.11 0.03925 -0.58 0.06075 -0.01 -0.58 0 -0.01 C3 -0.58 -0.06075 -0.01 -0.58 -0.11 0.03925 -0.58 -0.11 0.10",
+          "description": "bob great circle in y-z plane"
+        }
+      ]
+    }
+  ]
+}

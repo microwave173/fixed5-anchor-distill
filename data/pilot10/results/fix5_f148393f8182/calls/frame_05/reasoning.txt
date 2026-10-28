@@ -1,0 +1,193 @@
+We need answer JSON only. Need produce frame 5 complete geometry. Need infer final toppled cone lying to +x, apex near (0.64,0,-0.58), base left/up, bird recoils standing clear feet planted. Need construct coherent 3D strokes. Must preserve identities and dimensions. We need apply rigid rotation to cone from previous/first. Need compute final orientation. Need create bird final pose (recoil) with head clear, body maybe more upright/back compared previous, feet fixed, neck retract, head at some point left/up? Need understand coordinate system camera. We can choose final bird body standing slightly leaning back, head around (-0.05? 0? -0.1?) clear of cone. But must maintain identities. Need no overlap. Need cone final lying side on floor, base left/up, apex +x near (0.64,0,-0.58). Need base center? Cone height ~0.38 (apex z -0.20 to base z -0.6). radius .14. Lying on side: axis nearly horizontal, apex at x=0.64,z=-0.58, base center should be x=0.26,z=-0.58 if lying along +x? Wait from base center (0.12,0,-0.58) to apex (0.12,0,-0.20) original axis vector (0,0,0.38). To topple to +x, rotate about base rim contact. Final axis vector from base to apex should be +x-ish, length .38, with apex near (0.64,0,-0.58), base center near (0.26,0,-0.58). But actual base center might be left/up? Prompt says "apex near (0.64,0,-0.58) and base left/up". If apex at z=-0.58, base center left and slightly up maybe z=-0.48? However lying on side supported by floor: cone axis horizontal above floor by radius? The side touches floor, axis at z=floor + radius = -0.6+0.14 = -0.46, so apex (tip) could touch floor maybe z=-0.58 (tip radius zero). Base center (largest circle) at axis height z=-0.46. Then base rim bottom z=-0.6 and top z=-0.32. Apex at (0.64?,-0.58) not exactly axis. Cone lying on side with base left/up: base center likely (0.26,0,-0.46), apex (0.64,0,-0.58) (axis slopes down toward tip touching floor). That matches apex near floor at -0.58. Base center is left/up relative to apex: x 0.26 < .64, z -0.46 > -0.58. Good. Axis length sqrt(0.38^2+(-0.12)^2)=0.398 close height .38. Need exact height 0.38 maybe base center (0.27,0,-0.50), apex (0.64,0,-0.58), axis length sqrt(.37^2+.08^2)=.378. okay.
+
+Need cone geometry: base ellipse and side generators from apex to rim points. Need rigid rotation. We can derive final base circle as ellipse in plane perpendicular to axis. Need represent 3D base circle. Since axis vector from base center B to apex A = (dx, dy, dz). Circle plane perpendicular. Need find basis u,v. For final axis roughly (0.38,0,-0.08) maybe with y? We can keep y=0 for axis, lying in xz plane, but base ellipse still 3D with one basis in y (depth), one perpendicular in xz. Since cone side on floor, base circle plane tilted. Need draw base ellipse as Bezier. We can compute points.
+
+Simpler use a rotation transform from previous cone's rigid points by rotating around pivot. Previous final? Previous frame is at t=.75 after contact, cone tilted. We can apply additional rotation around same floor-contact rim to final. But easier to create final from scratch with correct shape. Must ensure coherent depth. Need preserve cone base radius .14, height .38, apex to rim side generators. Need edge contact floor.
+
+Let's define final cone:
+Apex A = (0.64,0,-0.58).
+Base center B maybe (0.27,0,-0.50). Axis vector from B to A = (0.37,0,-0.08), length sqrt(0.1369+0.0064)=0.3786 ~0.38. Good. Base plane perpendicular. Need basis vectors u,v in base plane, length radius .14. Let axis unit n = (0.37,0,-0.08)/.3786 = (0.977,0,-0.211). Need perpendicular e1 in xz: (-n_z,0,n_x) maybe (0.211,0,0.977) (pointing mostly +z) or (n_z,0,-n_x). e2 = (0,1,0) depth. Circle points B + r(cosθ e1 + sinθ e2). With e1 = (0.211,0,0.977), e2=(0,1,0). This yields base rim at B +/- .14 e1: top point B + (.0295,0,.1368) = (0.2995,0,-0.3632); bottom B - = (0.2405,0,-0.6368) which is below floor .6 by .037. Need base bottom on floor z=-0.6. So choose B z so bottom z=-0.6: B_z = -0.6 + .14*0.977 = -0.4632. Then base center z=-0.463. Axis to apex: A-B = (0.37,0,-0.1168), length .388. Need adjust B_x or A to length .38. Let's pick B=(0.26,0,-0.463). A=(0.64,0,-0.58). dx=.38,dz=-.117, length .3976. Too long. Need height .38. We can set A_z = B_z - dz, with dz = sqrt(.38^2-.38^2?) if dx=.36? Let's solve for base center B with bottom rim at floor and axis length .38 to A (0.64,-0.58). Axis from B to A = (0.64-Bx, -0.58-Bz). Let axis direction n. Also bottom rim = B - r e1 if e1 chosen upward along axis-perp? We can set B_z = -0.6 + r*|n_x| if e1_z = |n_x|? Actually n=(nx,0,nz). choose e_up=(-nz,0,nx), length 1. If n_x positive, n_z negative, e_up_z=nx positive. Bottom point B - r e_up has z = B_z - r n_x. Set = -0.6 => B_z = -0.6 + r n_x. A = B + h n. h=.38. Need A=(0.64,-0.58). Equations: B_x + .38 n_x = .64; B_z + .38 n_z = -.58; n_x^2+n_z^2=1; B_z=-.6+.14 n_x. Substitute .38 n_z - .6 + .14 n_x = -.58 => .38 n_z = .02 - .14 n_x => n_z = (0.02 - .14 n_x)/.38 = 0.05263 - 0.36842 n_x. Also B_x=.64-.38 n_x. No constraint on B_x except base within floor. Need n unit. Solve n_x^2 + (0.05263 - .36842 nx)^2 =1. Let nx=0.94? nz= .0526-.346= -.293, too long. Solve quadratic: nx^2 + 0.00277 -0.03879 nx +0.1357 nx^2=1 =>1.1357 nx^2 -0.03879 nx -0.99723=0. Discriminant .0015+4*1.1357*.99723=4.533. sqrt=2.129. nx=(.03879+2.129)/(2.2714)=0.9547. nz=.0526-.3517=-.2991. Unit check .911+.089=1. Good. Then B_z=-.6+.14*.9547=-.4663. B_x=.64-.38*.9547=.2772. So B=(0.277,0,-.466). Base bottom = B - r e_up where e_up=(-nz,0,nx)=(.299,0,.955) => bottom=(.235,0,-.600) good. Top rim = B + r e_up =(.319,0,-.332). Depth rim points B ±(0,.14,0) = (.277,±.14,-.466). Apex A=(.64,0,-.58). Side generators from apex to base rim points. Cone lying on side: bottom line from base bottom rim (.235,0,-.6) to apex? Apex at z -.58 above floor .02. The side touches floor near point? okay.
+
+Need draw base ellipse as spatial circle. We can use Bezier cubic approximations. Base center B=(0.2772,0,-0.4663), e1 = e_up=(0.2991,0,0.9543)*0.14 = (0.04187,0,0.1336), e2=(0,0.14,0). Circle points:
+At θ=0: B + e1 = (0.3191,0,-0.3327) top.
+θ=90: B + e2 = (0.2772,0.14,-0.4663) depth far.
+θ=180: B - e1 = (0.2353,0,-0.5999) bottom floor.
+θ=270: B - e2 = (0.2772,-0.14,-0.4663) near.
+
+Cubic ellipse segments with control offsets. Need accurate. Could approximate circle using k=0.55228475 times radius tangent. Param: P(θ)=B + r cosθ e1_unit + r sinθ e2_unit. For quarter from θ0=0 to π/2, control P0 + r*k * derivative at 0 = B+e1 + r*k * e2 = B+e1 +0.14*.552 e2 = (0.3191, 0.0773, -0.3327). P3=B+e2. Control2 = P3 - r*k* derivative at π/2 where derivative = -r e1; so P3 + r*k e1? Need cubic formula for quarter: P0, C0=P0 + k*r*(-sin0 e1 + cos0 e2)=P0 + k*r e2. C1=P3 - k*r*(-sinπ/2 e1 + cosπ/2 e2)=P3 - k*r*(-e1)=P3 + k*r e1. Yes.
+We can build full ellipse with 4 C3 segments. Need path starting at top? In frame 1 base path started rightmost then around. We can choose final base path. Need maintain id. No requirement exact point ordering. Need coherent.
+
+Let's compute all points.
+
+B=(0.2772,0,-0.4663)
+u=(0.0419,0,0.1336) (e1*r)
+v=(0,0.14,0)
+k=0.5523. u*k=(0.02314,0,0.07379). v*k=(0,0.07732,0).
+
+Top T = B+u = (0.3191,0,-0.3327)
+Far F = B+v = (0.2772,0.14,-0.4663)
+Bottom D = B-u = (0.2353,0,-0.5999)
+Near N = B-v = (0.2772,-0.14,-0.4663)
+
+Ellipse path segments:
+M T.
+C3 T + k v = (0.3191,0.0773,-0.3327), F + k u = (0.2772+0.0231,0.14,-0.4663+0.0738) = (0.3003,0.14,-0.3925), F (0.2772,0.14,-0.4663)
+C3 F - k u? From F (θ=π/2) to D (θ=π): C0 = F + k r * (-e1) = F - k u = (0.2541,0.14,-0.5401). C1 = D +? formula for next quarter: P3=D; C1 = P3 + k*r*(cos? let's derive: from θ=π/2 to π, derivative at start=-e1, C0=F + k*r*(-e1)=F - k u. At end θ=π, derivative = -e2. C1 = P3 - k*r*derivative_end = D - k*r*(-e2)=D + k v = (0.2353,0.2173,-0.5999)? Wait for quarter circle from top to far? We need be careful using e1/e2 basis and derivative. General C1 = P3 - k*r*P'(θ3) where P' components? For unit circle with basis e1,e2, P'(θ) = -sinθ e1 + cosθ e2 times r. At θ3=π, derivative = -e2. C1 = P3 - k*r*(-e2)= P3 + k v = (0.2353,0.2173,-0.5999). Does that lie beyond far? Hmm C1 y=0.2173. For quarter from right to top, control2 y positive. Maybe yes.
+
+Let's instead use standard ellipse aligned: If axes e1 (x-like vertical) and e2 (y depth), start at T (θ=0). Quarter 0->90: C1=T + k v, C2=F + k u, End F. Quarter 90->180: C1=F - k u, C2=D + k v, End D. Quarter 180->270: start D (θ=π), end N (θ=3π/2): derivative at start = -e2, C1=D + k v? Wait at θ=π derivative = -e2, so C1 = D + k*r*(-e2) = D - k v. At end derivative = +e2, C2 = N - k*r*e2? Let's derive standard circle with x=cos, y=sin:
+Quarter from π to 3π/2:
+P0=(-1,0), P3=(0,-1).
+C1=P0 + k*(0,-1) = (-1,-k)
+C2=P3 - k*(-1,0)? Hmm formula C1 = P0 + (π/2)*k? Standard: quarter from (1,0) to (0,1): C1=(1,k), C2=(k,1). From (0,1) to (-1,0): C1=(-k,1), C2=(-1,k). From (-1,0) to (0,-1): C1=(-1,-k), C2=(-k,-1). Yes. Mapping x=e1, y=e2:
+P0 = D = -e1. C1 = D - k v. C2 = N - k u? Wait point (-k,-1) in basis e1/e2 = -k e1 - e2 = N - k u. Yes C2=N - k u. End N. Quarter N->T: C1=N + k u? Let's compute standard (0,-1) to (1,0): C1=(k,-1), C2=(1,-k). So C1=N + k u, C2=T - k v. End T. Good.
+
+So full ellipse:
+M T
+C3 T+kv, F+ku, F
+C3 F-ku, D+kv, D  Wait standard from F (0,1) to D(-1,0): C1 = F - k u? Standard C1=(-k,1) = F - k u. C2=(-1,k)=D + k v. yes.
+C3 D - k v, N - k u, N
+C3 N + k u, T - k v, T
+Z.
+
+Let's compute:
+T=(0.3191,0,-0.3327)
+T+kv=(0.3191,0.0773,-0.3327)
+F+ku=(0.2772+0.0231,0.14,-0.4663+0.0738)=(0.3003,0.14,-0.3925)
+F=(0.2772,0.14,-0.4663)
+F-ku=(0.2541,0.14,-0.5401)
+D+kv=(0.2353,0.2173,-0.5999)
+D=(0.2353,0,-0.5999)
+D-kv=(0.2353,-0.2173,-0.5999) Wait y negative. That seems okay but base circle extends y ±.14, controls can go beyond ±.14 slightly. Fine.
+N-ku: N=(0.2772,-0.14,-0.4663); -ku=(-0.0231,0,-0.0738) => (0.2541,-0.14,-0.5401)
+N=(0.2772,-0.14,-0.4663)
+N+ku=(0.3003,-0.14,-0.3925)
+T-kv=(0.3191,-0.0773,-0.3327)
+T.
+
+This base ellipse okay but note bottom D z=-0.5999 floor, top z=-.333. Good.
+
+Side generators: from apex A=(0.64,0,-0.58) to base rim points. Need 3 side lines to top T, bottom D, far F or near? Frame1 had three from apex to rightmost, leftmost, depth. We can use to top T, bottom D, far F maybe. But bottom D to apex line lies mostly along floor? Apex z -0.58, D -0.6, so line slightly above floor. Top T to apex forms upper side. Far F to apex gives depth. Need maybe also near N? First frame had 3. Use top, bottom, far. Path "M A L T M A L D M A L F". Ensure straight edges. Could include near instead far? Need coherent. With base ellipse and three generators, enough. Since lying on side, visible contour probably A to top T and A to bottom D (silhouette) plus A to far F for depth. Good.
+
+Bird final. Need design final bird standing clear left, feet fixed around (-0.32,0,-.6) from frame1. Body maybe centered x -0.47, z -0.32. Head recoiled back/up-left, not near cone. Need feet planted. The body is left of cone. Cone base leftmost around x .235, bird body maybe x -0.27 rightmost? Need non-overlap: cone leftmost base bottom x .235, bird body rightmost around -0.25 maybe gap. But previous bird beak was at .34 touching apex; final recoil: neck retracts, head back to around -0.18? Need clear. Maybe head at (-0.20,0,-0.12) slightly up, beak pointing right? Body around -0.5. In final, bird stands upright, head withdrawn, perhaps leaning back. Feet fixed at (-0.33..-0.5, z -.6). Since bird size max x rightmost maybe beak tip -0.08 or -0.05, clear of cone base leftmost .235. Good.
+
+Need maintain body identity and dimensions. Use first frame body outline but maybe shift/rotate upright/recoil. Previous frame body was leaning right (body x coordinates -0.575 to -0.250). First frame body x -0.59 to -0.31 rough. Final recoil maybe body more upright/back: body outline centered x -0.50, width .32, top z -0.17, bottom -0.47. Could use frame1 body outline with slight shift +0.02? But "recoils and stands clear" maybe body pulls back/left and up slightly. Feet fixed, torso centerline can lean left. Need preserve contact via legs from body to feet. Let's define bird body final:
+Body side contour: a rounded egg centered (-0.47,0,-0.33), width .30 (x from -0.63 to -0.32), height .28 (z -0.18 to -0.48). It stands slightly upright. Could reuse first frame with slight transform: first body outline coordinates x -0.59..-0.31, z -.47..-.17. Good. Maybe final body shifted left a bit (-0.02) and up? Actually recoil back (left) and upright. Use first body outline almost exactly? The first frame is neutral upright. Final after recoil should perhaps torso upright and slightly left to clear, head retracted. We can use first body geometry but maybe rotate around feet? But feet fixed, body should not slide too much? In previous body leaned forward; final recoils back. Could set body to first pose with by shifting left .02 and up .015. Let's compute from first body outline:
+
+First "bird_body_outline":
+M -0.59 0 -0.32
+C3 -0.59 0 -0.19 -0.52 0 -0.17 -0.45 0 -0.17
+C3 -0.36 0 -0.17 -0.31 0 -0.23 -0.31 0 -0.32
+C3 -0.31 0 -0.42 -0.38 0 -0.47 -0.45 0 -0.47
+C3 -0.55 0 -0.47 -0.59 0 -0.40 -0.59 0 -0.32 Z
+This is an egg with y=0 all points (silhouette). Depth contour:
+M -0.45 -0.10 -0.32 C3 ... -0.45 0.10 -0.32 ... This is cross-section in y. Good.
+
+Final body could use same with slight shift x -0.02? Actually if recoil, maybe body stays but head is pulled back. Since feet fixed and legs can flex. Use body centered x -0.49 (shift +0.01?). Let's choose final body more upright than previous. We can use original first body with x -0.02 (left) and z +0.02 (up). But feet fixed at z=-.6; legs connect. Body bottom z -0.45, leg length to floor .15. okay.
+
+Need neck and head. Final head position maybe (-0.18,0,-0.14), beak tip (-0.06,0,-0.18) pointing right but away from cone. Head around x -0.18, z -0.15. Neck from body front upper (-0.34,0.01,-0.22) to head rear (-0.22,0,-0.15). But if head at -0.16, beak to -0.04, gap to cone x .235 is .275. Fine. Head sphere radius .055. Need head sagittal and depth. We can reuse first head geometry but translated to final head center. First head sagittal path:
+M -0.215 0 -0.15
+C3 -0.215 0 -0.095 -0.105 0 -0.095 -0.105 0 -0.15
+C3 -0.105 0 -0.205 -0.215 0 -0.205 -0.215 0 -0.15 Z
+This is circle center (-0.16,0,-0.15), radius .055. It is sagittal in xz. Beak attached at right (-0.105). Final head could keep same center (-0.16,0,-0.15) but neck retract. But previous head was at +0.18, x. Final needs recoil back. Using first head at -0.16 is good; maybe slightly higher z=-0.13? Let's set center (-0.17,0,-0.12) with radius .055. Need translate first head +? center first -0.16, z -0.15. To final center (-0.17,-0.10?) Let's pick final head center (-0.18,0,-0.11) (higher, recoiled up). But body top -0.15, neck can arch. If head at -0.18, -0.11, beak tip -0.055,-0.15, clear. Neck from body front top (-0.34,-0.20) to head rear (-0.22,-0.12). That's a short upward neck. Good.
+
+Need beak: first beak M -0.11 -0.01 -0.14 L 0.00 -0.015 -0.19 L -0.11 -0.02 -0.17. That points right/down from head right. If translate head? First head center -0.16, beak base x -0.11 (right edge). For final head center shift by (-0.02, +0.03) from first (center -0.18,-0.12), beak base x -0.13, tip -0.02, z around -0.16. But beak tip -0.02, still gap. Let's compute translation from first head center (-0.16,-0.15) to final (-0.18,-0.10) => dx=-.02, dz=+.05. Beak becomes:
+M -0.13 -0.01 -0.09? Wait first beak z -0.14 -> +.05 = -0.09; L 0.00->-0.02, z -0.19 -> -0.14; L -0.13 -0.02 -0.12. But this beak points upward? First beak: start z -0.14, tip z -0.19 (down), lower base z -0.17. Add .05 => start -0.09, tip -0.14, lower -0.12. Head center z -0.10; beak at -0.09 to -0.14 (slightly downward). Fine. But beak tip x -0.02, good. However head sphere center z -0.10, top -0.045, bottom -0.155. Beak base -0.09 near front. Good.
+
+But final head sagittal/depth need translate. Let's define final head center (-0.18,0,-0.10) radius .055. Sagittal circle in xz:
+M -0.235 0 -0.10
+C3 -0.235 0 -0.045 -0.125 0 -0.045 -0.125 0 -0.10
+C3 -0.125 0 -0.155 -0.235 0 -0.155 -0.235 0 -0.10 Z
+This is center -0.18, radius .055. Depth contour (circle in yz? first depth had M -0.16 -0.055 -0.15 C3 ... to .055). For final center x -0.18,z -0.10:
+M -0.18 -0.055 -0.10
+C3 -0.18 -0.055 -0.045 -0.18 0 -0.045 -0.18 0.055 -0.10
+C3 -0.18 0.055 -0.155 -0.18 -0.055 -0.155 -0.18 -0.055 -0.10 Z
+Wait first depth path: M -0.16 -0.055 -0.15 C3 -0.16 -0.055 -0.095 -0.16 0 -0.095 -0.16 0.055 -0.15 C3 -0.16 0.055 -0.205 -0.16 -0.055 -0.205 -0.16 -0.055 -0.15 Z. This is a circle in yz plane at x center. It uses controls. Good copy with x=-0.18,z center -0.10.
+
+Beak: base at right side of head x -0.125. We need pointed upper/lower. Let's use M -0.13 -0.01 -0.09 L -0.02 -0.015 -0.14 L -0.13 -0.02 -0.12. This is triangle open? first was open polyline. Good. But beak tip x -0.02, z -0.14; head center -0.18. Gap to cone .235. Fine.
+
+Neck: from body front upper to head rear. Body front upper around x -0.34,z -0.22. Head rear maybe x -0.23,z -0.105. Path M -0.33 0.01 -0.22 Q3 -0.28 0.015 -0.18 -0.235 0.005 -0.115? Need neck single line. Use C3 or Q3. Q3 control, endpoint. We want neck arch. Command Q3 cx cy cz x y z. M -0.35 0.01 -0.23 Q3 -0.29 0.015 -0.16 -0.235 0.005 -0.12. This connects body to head rear. Good.
+
+Wings: Need folded wing contours on body. Final body maybe same as first, use first wing paths with slight body transform? Let's use first wing and wing_second unchanged (body same), but maybe shift up/left .01. If body final using original coordinates shifted left? Need consistent. Let's decide final body coordinates. Maybe use first body exactly to reduce changes. The final "recoils and stands clear" can be same upright body, head retracted. But previous was leaning forward. From prev to final, body rebounds upright; using first body is fine. Feet remain fixed. Let's use first body outline exactly? Feet positions in first match. If body exactly first, legs unchanged. That may be okay. Bird body not sliding; it rotates back from lean to upright around feet. Head retracts. The animation phase final: standing clear, upright. Use first body and wings/tail exactly. But maybe final body shifted slightly left/up from first due recoil. Could use first as baseline persistent identity. Since first was neutral upright, final after recoil can be near first but head retracted/raised and body slightly leaning back. But if body exactly first, no recoil body. Yet head recoil is enough. Need "bird recoils and stands clear". Let's slightly lean body back (left) compared first by rotating torso about hip. But easier using first body and shift x -0.02. Need adjust legs connections. Let's create final body outline with a mild leftward lean: top shifted left by .04, bottom near hips shifted little. But then need transform wing/tail/neck accordingly. More complex. Could use first body with a small rotation around hip point (-0.45,-0.42) by +? Rotating back means top moves left, bottom fixed. Let's compute maybe not necessary. Simpler: use first body coordinates but move whole body up/left slightly? Legs can flex. Let's use first body exactly, it is upright. Previous leaned forward. Final can be upright. Good.
+
+Need bird legs: feet fixed at frame1. In final body maybe same as frame1, so legs unchanged. Use first leg paths. They have body attachment at (-0.44,-0.42) and foot at (-0.33,-.6). Good. If body exactly first, legs unchanged. That preserves contact. Nice.
+
+Need tail maybe same as first. Wings same. Then bird is first frame body but head/neck retracted? First head was at -0.16,-.15, neck from -0.34,-.22 to -0.195,-.18. Final head at -0.18,-.10 (higher), neck arch. That is recoil upward/back. Good. Beak away. Body same. Feet fixed. This is acceptable and clear.
+
+However first beak tip x 0.00; final beak tip -0.02. Cone base leftmost .235, gap .255. No overlap. Good.
+
+Need check final cone orientation relative previous. Previous cone apex at (0.3388,0,-0.1836), base bottom maybe etc. Final apex at (0.64,0,-0.58). The cone topples further to +x and down. Good.
+
+But must ensure previous to final rotation is rigid about floor contact. Our final base center (0.277,-0.466), apex (0.64,-0.58). Previous apex (0.339,-0.184), base center? base ellipse from prev has points including bottom around? It was tilted but not our concern; final should be after rotating around rim. It is plausible. Need maybe previous base bottom on floor at x? The final base center left/up. Good.
+
+Need produce JSON exactly one frame i=5 with strokes. All coordinates numeric. Need descriptions. No style. Use unique stable stroke IDs from previous: bird_body_outline, bird_body_depth, bird_neck, bird_head_sagittal, bird_head_depth, bird_beak, bird_wing, bird_wing_second, bird_tail, bird_leg_front, bird_leg_back, cone_base, cone_sides, floor.
+
+Need maybe floor line. Use same: M -0.72 -0.20 -0.6 L 0.72 -0.20 -0.6. Note floor line y=-.2? In first floor path has y -0.20, z -0.6. It is a line in x at depth y=-0.2. Fine.
+
+Need ensure cone base ellipse path valid, Z. In Path3D, Z closes. Good.
+
+Let's maybe refine cone geometry to make final base left/up and apex near .64. Our base center B (.277,-.466), apex (.64,-.58). This means base left and up relative apex. The base rim top z -.333, bottom z -.6. Cone lying on side with axis downward toward tip. It's supported by floor at base bottom and side? The apex is at z -.58 (above floor .02), not touching floor. But prompt says apex near (0.64,0,-0.58) and cone lies on side supported by floor. A cone lying on side usually side line touches floor, apex might be at floor if tip point. Here apex slightly above floor, side near apex maybe touches? Let's see side generator from apex to base bottom: line from A(.64,-.58) to D(.235,-.6) has z ~ -0.58 to -0.6; near middle z -0.59, above floor. The lowest point of cone is base bottom rim at z -.6. Does side touch floor? Maybe not. But a cone on side should contact floor along a line from base rim to apex? If axis is slightly tilted up at apex, only base rim touches. But prompt says "lateral side and base rim settle on the floor". We should make side touch floor along a generator. That means apex also at floor (z=-.6) if the generator from apex to base bottom is on floor. But prompt explicitly apex near z=-0.58, maybe approx. Could set apex z=-0.6 exactly? But "near (0.64,0,-0.58)" likely use -0.58. If apex z=-0.58 and base bottom z=-0.6, the line is not floor but close. Could adjust base bottom lower? floor z=-.6, can't below. If apex -0.58, side doesn't touch. But maybe cone rests on base rim and side near apex? Hmm.
+
+Let's solve for cone lying on side with base bottom rim and apex both on floor z=-0.6: apex A=(0.64,0,-0.60). Base bottom D on floor z=-0.6. Axis length .38. Base center B = D + r e_up? Need B z = -0.6 + r n_x. A = B + h n. With A_z=-0.6. Equation B_z + .38 n_z = -.6; B_z=-.6+.14 n_x => .14 n_x + .38 n_z=0 => n_z = -(0.14/.38)n_x = -0.36842 n_x. Unit: nx^2 + .1357 nx^2=1 => nx=0.9384, nz=-.3457. Then B_z=-.6+.1314=-.4686; B_x = A_x - .38*nx = .64-.3566=.2834. Base bottom D = B - r e_up where e_up=(-nz,0,nx)=(.3457,0,.9384), D_x=.2834-.0484=.2350, z=-.4686-.1314=-.6000. Great. Apex at z -0.6. But prompt says apex near -0.58; -0.6 is close. The cone axis slopes more. But final apex at floor exactly. This matches "lateral side and base rim settle on floor" (apex touches floor). However apex at z=-0.6 may be slightly below requested -0.58 but okay. "near (0.64,0,-0.58)" maybe -0.6 acceptable. The cone height .38, base radius .14, lying side: apex can touch floor and base rim bottom touches floor, side line along generator on floor. Better physical. Let's use this more accurate final cone: A=(0.64,0,-0.60) maybe. But the prompt explicitly "apex near (0.64,0,-0.58)"; use A=(0.64,0,-0.59) maybe. If A_z=-0.59, solve equation: B_z = -0.6+.14 nx; A_z = B_z + .38 nz = -.59 => .14 nx + .38 nz = .01 => nz=(.01-.14nx)/.38 = .02632 - .36842 nx. Unit solve: nx^2+(.0263-.3684nx)^2=1. 1.1357nx^2 -0.01938nx -0.99931=0. Discriminant .000375+4.538? sqrt 2.1304. nx=(.01938+2.1304)/2.2714=0.9464. nz=.0263-.3487=-.3224. B_z=-.6+.1325=-.4675. B_x=.64-.3596=.2804. Base bottom D=(.2804-.? e_up=(-nz=.3224,nx=.9464)*.14 =(.0451,.1325)) => D=(.2353,-.6000). Top T=B+e_up=(.3255,-.3350). Apex A=(.64,-.59). This is good, apex slightly above floor .01, side line near floor. The generator to bottom D: from A z -.59 to D z -.6 (slight). It's okay. Let's use A=(0.64,0,-0.59), B=(0.2804,0,-0.4675), n=(.9464,0,-.3224), u=e_up*r = (0.0451,0,0.1325), v=(0,0.14,0). Then base ellipse:
+T = B+u = (0.3255,0,-0.3350)
+F = B+v = (0.2804,0.14,-0.4675)
+D = B-u = (0.2353,0,-0.6000)
+N = B-v = (0.2804,-0.14,-0.4675)
+k*u = (0.0249,0,0.0732)
+k*v=(0,0.0773,0)
+Segments:
+M T (0.3255 0 -0.3350)
+C3 T+kv (0.3255 0.0773 -0.3350), F+ku (0.2804+0.0249=0.3053, 0.14, -0.4675+0.0732=-0.3943), F (0.2804 0.14 -0.4675)
+C3 F-ku (0.2555,0.14,-0.5407), D+kv (0.2353,0.2173,-0.6000), D (0.2353,0,-0.6000)
+C3 D-kv (0.2353,-0.2173,-0.6000), N-ku (0.2804-0.0249=0.2555,-0.14,-0.4675-0.0732=-0.5407), N (0.2804,-0.14,-0.4675)
+C3 N+ku (0.3053,-0.14,-0.3943), T-kv (0.3255,-0.0773,-0.3350), T (0.3255,0,-0.3350) Z.
+This base ellipse bottom at floor. Apex .64,-.59. Good.
+
+Side generators: A=(0.64,0,-0.59) to T and D and F (far depth). Use M 0.64 0 -0.59 L 0.3255 0 -0.3350 M ... L 0.2353 0 -0.6000 M ... L 0.2804 0.14 -0.4675. Wait A to D line nearly along floor. A to F for depth. Top T upper silhouette. Good. But note A to D line from .64,-.59 to .235,-.6: almost horizontal along floor, represents side generator on floor. Good. A to T line is upper side. A to F is a depth line from apex to far rim. Need maybe A to N too? Not necessary. Three side generators plus ellipse.
+
+Could include A to N? First frame had 3. Our base ellipse plus three lines enough. Need cone base circle maybe visible. Fine.
+
+Need final bird geometry. Let's use first body exact. But final cone much closer to bird? Cone base leftmost x .235. Bird beak tip -0.02, gap .255. Good.
+
+Let's ensure final bird head doesn't overlap body? Head center -0.18,-.10, body top around -0.17 at x -0.45, so head is right and above. Neck from body front top (-0.34,-.22) to head rear (-0.235,-.115). The head rear x -0.235, z -0.10. Neck endpoint at -0.235,-0.12. Good.
+
+Maybe final bird "recoils" means head pulled back left/up, beak still pointing right but away. Use head center -0.20,-0.08? But body top -0.17. Maybe head too high. In first head center -0.16,-.15. Recoil could move head up/left to -0.20,-.10. Let's set center (-0.20,0,-0.10), radius .055. Then beak tip x -0.04. Neck from body front top -0.34,-.22 to head rear -0.255,-0.115. This is more back. Body front is x -0.31,-0.23; head center -0.20 is right of body? Actually body rightmost -0.31. Head center -0.20 is to the right, still. Recoil from previous head +0.18 to -0.20 huge. First head -0.16; final -0.20 slightly left/up. Good. Beak tip -0.04. Gap to cone .275. Let's use center (-0.20,-0.10). Sagittal:
+M -0.255 0 -0.10
+C3 -0.255 0 -0.045 -0.145 0 -0.045 -0.145 0 -0.10
+C3 -0.145 0 -0.155 -0.255 0 -0.155 -0.255 0 -0.10 Z.
+Depth at x=-0.20:
+M -0.20 -0.055 -0.10 C3 -0.20 -0.055 -0.045 -0.20 0 -0.045 -0.20 0.055 -0.10 C3 -0.20 0.055 -0.155 -0.20 -0.055 -0.155 -0.20 -0.055 -0.10 Z.
+Beak: base right side x -0.145. Tip maybe -0.04. Use M -0.145 -0.01 -0.09 L -0.04 -0.015 -0.14 L -0.145 -0.02 -0.12. This points down/right. Good. But beak base z -0.09 and -0.12, head center -0.10. Fine.
+
+Neck: from (-0.33,0.01,-0.22) to (-0.255,0.005,-0.115). Use Q3 control (-0.30,0.015,-0.16). Path M -0.34 0.01 -0.23 Q3 -0.30 0.015 -0.16 -0.255 0.005 -0.12. Good.
+
+Body exact first:
+body_outline M -0.59 0 -0.32 C3 -0.59 0 -0.19 -0.52 0 -0.17 -0.45 0 -0.17 C3 -0.36 0 -0.17 -0.31 0 -0.23 -0.31 0 -0.32 C3 -0.31 0 -0.42 -0.38 0 -0.47 -0.45 0 -0.47 C3 -0.55 0 -0.47 -0.59 0 -0.40 -0.59 0 -0.32 Z.
+Body depth same.
+Wing, wing_second, tail same.
+Legs same. This bird is standing neutral. But final after recoil maybe okay.
+
+Need check "motion articulated rather than sliding frozen pose" final head/neck changed, body upright. Good.
+
+Let's consider whether final bird body should be slightly more left to clear cone. Body rightmost -0.31, head rightmost -0.145/beak -0.04. Cone base leftmost .235. Clear. Good.
+
+Need output JSON only with reason. Reason brief public geometry/motion rationale. Frame i=5. Strokes list. Ensure path strings use numeric coordinates, no ellipses. Use "C3" and "Q3", "M", "L", "Z". Use 3 coords after each. We need include all strokes. We can copy body paths.
+
+Let's verify path syntax: "M -0.59 0 -0.32 C3 -0.59 0 -0.19 -0.52 0 -0.17 -0.45 0 -0.17 ..." Each C3 has six numbers (two control points + endpoint). Yes.
+
+Need ensure no missing "Z" for closed shapes. Body outline Z, depth Z, head sagittal Z, head depth Z, cone base Z. Beak open polyline no Z. Neck Q3. Wing C3 etc. Tail M L M L. Legs M Q3 ... L ... (Q3 has control+endpoint). Good.
+
+Let's maybe include final cone sides with "M 0.64 0 -0.59 L 0.3255 0 -0.3350 M 0.64 0 -0.59 L 0.2353 0 -0.6000 M 0.64 0 -0.59 L 0.2804 0.14 -0.4675". This is three subpaths. Good.
+
+Need maybe cone base ellipse start at top, close. All controls. Ensure no negative zero weird. Fine.
+
+Let's double-check final cone base center and ellipse: B=(0.2804,0,-0.4675), u=(0.0451,0,0.1325), v=(0,0.14,0). Top B+u=(0.3255,0,-0.3350). Bottom B-u=(0.2353,0,-0.6000). Yes. The ellipse's far F y=0.14, near N y=-0.14. Camera from (2.8,-3.2,2.4), so y negative is closer to camera. The ellipse has depth. Good.
+
+Potential issue: base ellipse path includes control points with y ±0.217 > 0.14; that's okay for Bezier circle controls, not actual point. But prompt says keep roughly within [-0.8,0.8], y .217 okay.
+
+Need maybe floor line should be at z=-0.6 and y=-0.20 as given. Use same.
+
+Need reason: "Final recoil pose: bird upright with feet planted, neck retracted/head raised clear; rigid cone rotated fully to +x and lying on floor with apex near (0.64,0,-0.59), base rim contacting floor." Good.
+
+Need final answer JSON only. No markdown. Ensure valid JSON escaping? Path strings contain no quotes. Fine.
+
+Let's produce.

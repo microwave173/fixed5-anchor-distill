@@ -1,0 +1,70 @@
+{
+  "i": 2,
+  "strokes": [
+    {
+      "id": "cube_bottom_edge_a",
+      "path": "M 0.021589952 0.494503991 -0.6 L 0.494503991 -0.021589952 -0.6",
+      "description": "bottom square edge from front-right to right-back"
+    },
+    {
+      "id": "cube_bottom_edge_b",
+      "path": "M 0.494503991 -0.021589952 -0.6 L -0.021589952 -0.494503991 -0.6",
+      "description": "bottom square edge from right-back to back-left"
+    },
+    {
+      "id": "cube_bottom_edge_c",
+      "path": "M -0.021589952 -0.494503991 -0.6 L -0.494503991 0.021589952 -0.6",
+      "description": "bottom square edge from back-left to left-front"
+    },
+    {
+      "id": "cube_bottom_edge_d",
+      "path": "M -0.494503991 0.021589952 -0.6 L 0.021589952 0.494503991 -0.6",
+      "description": "bottom square edge from left-front to front-right"
+    },
+    {
+      "id": "cube_top_edge_a",
+      "path": "M 0.021589952 0.494503991 0.1 L 0.494503991 -0.021589952 0.1",
+      "description": "top square edge from front-right to right-back"
+    },
+    {
+      "id": "cube_top_edge_b",
+      "path": "M 0.494503991 -0.021589952 0.1 L -0.021589952 -0.494503991 0.1",
+      "description": "top square edge from right-back to back-left"
+    },
+    {
+      "id": "cube_top_edge_c",
+      "path": "M -0.021589952 -0.494503991 0.1 L -0.494503991 0.021589952 0.1",
+      "description": "top square edge from back-left to left-front"
+    },
+    {
+      "id": "cube_top_edge_d",
+      "path": "M -0.494503991 0.021589952 0.1 L 0.021589952 0.494503991 0.1",
+      "description": "top square edge from left-front to front-right"
+    },
+    {
+      "id": "cube_vertical_edge_a",
+      "path": "M 0.021589952 0.494503991 -0.6 L 0.021589952 0.494503991 0.1",
+      "description": "vertical edge at front-right corner"
+    },
+    {
+      "id": "cube_vertical_edge_b",
+      "path": "M 0.494503991 -0.021589952 -0.6 L 0.494503991 -0.021589952 0.1",
+      "description": "vertical edge at right-back corner"
+    },
+    {
+      "id": "cube_vertical_edge_c",
+      "path": "M -0.021589952 -0.494503991 -0.6 L -0.021589952 -0.494503991 0.1",
+      "description": "vertical edge at back-left corner"
+    },
+    {
+      "id": "cube_vertical_edge_d",
+      "path": "M -0.494503991 0.021589952 -0.6 L -0.494503991 0.021589952 0.1",
+      "description": "vertical edge at left-front corner"
+    },
+    {
+      "id": "floor_support_line",
+      "path": "M -0.55 0.15 -0.6 L 0.55 0.15 -0.6",
+      "description": "short fixed floor line supporting the bottom face"
+    }
+  ]
+}

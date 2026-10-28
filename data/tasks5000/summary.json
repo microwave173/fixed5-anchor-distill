@@ -1,0 +1,38 @@
+{
+  "total": 5000,
+  "candidates": 9019,
+  "accepted_candidates": 8922,
+  "category_counts": {
+    "physics": 1250,
+    "animal": 1250,
+    "human": 1250,
+    "vehicle": 750,
+    "geometry": 500
+  },
+  "domino": 248,
+  "independent": {
+    "animal": 962,
+    "human": 503
+  },
+  "locomotion": {
+    "animal": 634,
+    "human": 436
+  },
+  "quality_counts": {
+    "2": 4921,
+    "1": 79
+  },
+  "source_counts": {
+    "sketch3d_general5000_v2/tasks.json": 2317,
+    "sketch3d_general5000_v2/source_tasks_4000.json": 1445,
+    "ar_high_weakness600_v1/tasks.json": 434,
+    "human_motion_800_v1/mixed500_v1/tasks_new400.json": 320,
+    "atomic_first_frame_8000_v1/task_pool/tasks.json": 424,
+    "fixed5_anchor_v1/tasks5000_v1/topup/candidates.json": 60
+  },
+  "source_dimension_counts": {
+    "3": 4256,
+    "2": 744
+  },
+  "seed": 20261028
+}

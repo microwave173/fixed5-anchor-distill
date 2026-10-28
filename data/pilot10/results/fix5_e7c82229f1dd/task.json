@@ -1,0 +1,21 @@
+{
+  "id": "fix5_e7c82229f1dd",
+  "prompt": "A small ball rolls across the table into the first of three dominoes set in a gentle curve, toppling them one after another.",
+  "prompt_zh": "一个小球沿桌面滚向呈平缓弧线排列的三张多米诺骨牌中的第一张，使它们接连倒下。",
+  "dim": 3,
+  "total_frames": 5,
+  "category": "physics",
+  "category_zh": "物理运动",
+  "independent": false,
+  "locomotion": false,
+  "tags": [
+    "translation",
+    "contact",
+    "domino"
+  ],
+  "review_quality": 2,
+  "source_id": "atom_1a3497ab6e9d",
+  "source_file": "ar_high_weakness600_v1/tasks.json",
+  "source_dim": 3,
+  "title": "球推三张骨牌"
+}

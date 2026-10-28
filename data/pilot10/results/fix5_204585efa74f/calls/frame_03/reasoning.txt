@@ -1,0 +1,518 @@
+We need answer JSON only. Need generate frame 3 (target t=.5) for police car centered on ramp, all wheels on incline, body held at ramp angle. Need use first/prev geometry, consistent transform. Need understand coordinate system and existing geometry. We need produce full strokes for frame 3. Need likely take first-frame rigid car and transform to ramp centered position/orientation. Previous frame was t=.25 with front wheels on ramp, rear remain lower? Need infer intended pose. At t=.5 car centered on ramp all wheels on incline, body at ramp angle. Need preserve ramp/plaza static. Need transform car as rigid entire car: translation and rotation/pitch to match ramp slope.
+
+Let's parse first frame geometry. Ramp top surface: M -0.35 -0.22 -0.60 L 0.25 -0.22 -0.60 L 0.25 0.10 -0.38 L -0.35 0.10 -0.38 Z. This is a sloped rectangular plane. Coordinates: x lateral; y depth; z up. Ramp extends from front edge y=-0.22,z=-0.60 (lower) to back edge y=0.10,z=-0.38 (upper). So slope rises along +y (depth) and +z. Plaza top: from y=0.10,z=-0.38 to y=0.55,z=-0.38. Car starts at ramp foot facing toward plaza. Car first frame: body/cabin coordinates x around ±0.12, y from -0.62 (rear) to -0.22 (front? Wait car body top: x ±0.12, y -0.22 front? It has y -0.22 to -0.62. Given ramp foot y=-0.22 lower edge. Car facing toward plaza likely front toward +y. Body extends from y=-0.62 rear to -0.22 front, so front at -0.22 at ramp foot. z around -0.38 to -0.50/wheels -0.49 to -0.60. Car sits lower floor? At t=0 "level on lower floor at ramp foot". Floor around z=-0.6. Wheels center z=-0.545 radius .055, bottom -0.6. Body bottom z=-0.50, top -0.38. Car is level z constant. y rear -0.62, front -0.22. It faces +y. x width ±.12, near side x=.12, far x=-.13 wheels.
+
+Ramp slope angle: dz/dy = ( -0.38 - (-0.60))/(0.10 - (-0.22)) = 0.22/0.32 = 0.6875, angle atan 0.6875 ≈ 34.5° rising toward +y. Car on ramp should pitch nose up? Since facing +y and ramp rises, front at higher z. In world z, car local forward vector +y, up local +z. Rotate about x axis? Standard: rotation about x: y' = y cosθ - z sinθ, z'= y sinθ + z cosθ? For +y axis to gain +z, positive θ around +x? Using right-hand x: y-> z? Let's compute rotation around x by angle θ: y' = y cosθ - z sinθ; z' = y sinθ + z cosθ. A point at +y relative pivot gets z'= y sinθ, positive for θ>0. So pitch up positive θ. Need align car bottom wheel contact plane with ramp. First frame car level, wheel bottoms z=-0.60. Local wheelbase from front wheel center y=-0.30? Wait first frame near front wheel center: x=.13, y≈-0.30, z=-0.545? Wheel path center from bounding: near front wheel path M 0.13 -0.245 -0.545 ... center maybe x .13, y -.30, z -.545. Rear wheel center y -.58, z -.545. Wheel bottom local z=-.60. Body/cabin etc. So car local vertical offset wheel centers z=-.545; bottom contact -0.6. For on ramp, entire car rotated θ around x about some pivot and translated so wheel contact points lie on ramp surface. Need place car centered on ramp: car center along y maybe around -0.06? Ramp spans y -0.22 to +0.10, length .32. Car length y -0.62 to -0.22 = .4. If centered on ramp, center y should midpoint of ramp ~ -0.06. But car length .4, ramp length .32, so cannot have all four wheels on ramp if wheelbase .28? Wait wheelbase front y=-.30, rear y=-.58 difference .28. Ramp length .32. At centered, wheel contacts along ramp from maybe -0.20 to +.08? Hmm if wheelbase .28 fits within ramp length .32. Body overhang front/rear may extend beyond, but all wheels on incline. Need determine target car position. Car local wheel centers front y=-.30, rear y=-.58 when facing +y. That means if front is toward +y, front wheel y local -0.30, rear -0.58. Wait local y front is -0.30 (less negative) and rear -0.58. So front is +y direction? In first frame body front at y=-0.22, rear -0.62, so yes front = higher y. Wheel centers front y=-0.30, rear y=-0.58 (front 0.28 ahead). On ramp, front wheels should be at higher y and z than rear. If centered on ramp, wheel contacts maybe front y=0.08, rear y=-0.20? But ramp y range -0.22 to 0.10. Could fit front y=0.06 rear y=-0.22. Then car center wheelbase midpoint y=-0.08; body front overhang to +? front body y local -0.22, wheel center front -0.30 => front body is +0.08 ahead of front wheel. If front wheel y=0.08, front body y=0.16 beyond ramp end, okay but at t=.5 "centered on ramp" likely all wheels on ramp not necessarily body. We can choose.
+
+Previous frame t=.25: Need see transform they used. Let's infer pivot/translation. In prev, car body top points:
+First to prev mapping for body top point (-.12,-.22,-.38) -> (-.12,-.10390,-.30227) maybe? Let's identify. Body top path: M -0.12 -0.10390 -0.30227 L 0.12 -0.10390 -0.30227 L 0.12 -0.49336 -0.39346 L -0.12 -0.49336 -0.39346. This corresponds likely first point at front? First body top: (-.12,-.22,-.38) front-left? and (0.12,-.22,-.38), (0.12,-.62,-.38), (-.12,-.62,-.38). Prev: y: -0.1039 (front?) z -0.30227; y -0.49336 z -0.39346. This suggests front point y=-.22 moved to y=-.1039, z=-.30227 (up/forward), rear y=-.62 -> -0.49336, z=-.39346. So pitch angle? Let's compute vector between rear and front (dy=0.38946, dz=0.09119) in prev. If original dx? Original vector from rear (y=-.62,z=-.38) to front (y=-.22,z=-.38): (0, .4, 0). Rotated should (0, .4 cosθ, .4 sinθ). Prev dy=.38946, dz=.09119 => cosθ=.97365, sinθ=.22798 => θ≈13.18°. So at t=.25 pitch ~13.2°, not full ramp 34.5°. Translation: front point original (-.22,-.38) rotated θ around maybe origin? Let's derive transform prev. For a local vector relative maybe rear? We can compute transform from first to prev for car. Use body point original rear (y=-.62,z=-.38) -> prev (-.49336,-.39346). If rotation θ=0.2299 rad around x plus translation. Need determine translation and pivot. Usually translate in y and z. Compute transformed coordinates with rotation about maybe car center and translate. Use one point.
+
+Prev rotation and translation mapping y,z:
+y' = y cosθ - z sinθ + Ty
+z' = y sinθ + z cosθ + Tz
+For original rear y=-.62,z=-.38, y'=-.49336, z'=-.39346.
+cos=0.97365, sin=0.22798.
+Compute y cos = -0.603663; - z sin = -(-.38*.22798)=+0.086632; sum=-0.517031. Ty = -0.49336 +0.517031=0.023671.
+z sin = -.141348; z cos=-.369987; sum=-0.511335. Tz = -0.39346 +0.511335=0.117875.
+Check front original y=-.22,z=-.38: y cos=-.214203, +.086632=-.127571+Ty .02367=-.103900 correct. z sin=-.050156, z cos=-.369987=-.420143+Tz .117875=-.302268 correct. Great.
+
+So previous frame applied rotation θ≈0.2299 rad (13.18°), translation Ty=.02367 Tz=.117875 to whole car including wheels? Wheels prev: near front first center? First near front wheel center y=-.30,z=-.545. Apply: y' = -.30*.97365 - (-.545*.22798)+.02367 = -.292095 +.12425+.02367=-.14418. Prev near front center from path maybe y=(-0.09062 + -0.19773? center? Actually center should be around y=-.144, z=-.468? Yes path M 0.13 -0.09062 -0.46863 ... bounds y -0.0906 to -0.2047, center -0.1477; z -0.4207 to -0.5416 center -0.481? Hmm check. Wait near front wheel prev path has center maybe y=-.144, z=-.481? Let's calculate from transformation of original center (y=-.30,z=-.545): y' = -.292095 + .12425 + .02367 = -.14418; z' = y sinθ + z cosθ + Tz = -0.068394 + (-.545*.97365=-.53064?) + .117875 = -0.48116. Path points: M 0.13 -0.09062 -0.46863 ... The path is wheel circle, center maybe average of ellipse endpoints? It includes points y -0.09062 z -0.46863; y -0.12714 z -0.42069; y -0.15671 z -0.42761; etc. Center around y=-0.144, z=-0.481. Good. So entire car rigidly transformed by rotation θ=.2299 about origin and translation Ty=.02367,Tz=.117875. Equivalent pivot not origin but fine. This transform places contact? Let's check first wheel bottom local point? Need ensure wheels meet ramp. At t=.25 front wheels roll onto ramp, rear near floor? But prev transform seems all car rotated 13° and translated; rear wheels maybe still near floor? Compute rear wheel center first (y=-.58,z=-.545) -> y' = -.564? -? -0.58*.97365=-.5647 +.12425 +.02367=-.41678. z'= -.58*.22798=-.13223 + (-.53064)+.117875=-.54499. Rear center z=-.545, bottom maybe lower than floor? But ramp? At y=-.4168 (below ramp lower y=-.22) not on ramp. Wait rear at y=-.416, still before ramp foot, floor z=-.6. Wheel center z=-.545, bottom z=-.6 (if level? but rotated; bottom not exactly -0.6 due rotation). Hmm front center y=-.144,z=-.481, on ramp? Ramp at y=-.144 has z surface = -0.60 + (y+0.22)*0.6875 = -0.60 +0.076*0.6875=-0.54775. Wheel bottom? Need bottom contact point along local down rotated. Wheel center z=-.481, radius .055; contact point below relative? Rotated down vector (0, y? local down -z) becomes direction with dy = -(-1)*sin? Actually local bottom offset (0,0,-r) rotates to y offset = -z? For vector (0,0,-r): y' = -(-r) sinθ? y' = 0*cos - (-r) sin = +r sin; z'=0*sin + (-r)cos=-r cos. So contact point y = center y + r sin=.01256; z=center z - r cos=.05358. Front contact y=-.1316, z=-.5348. Ramp surface at y=-.1316: z=-.6 + (0.0884)*.6875=-.5392. Contact z=-.5348, 0.0044 above surface. Hmm maybe near. Not exact due maybe chosen θ not slope? At t=.25 front wheel on ramp, body pitch only partially. Contact maybe slightly above? It should meet ramp. Maybe my center maybe off. But likely okay. Wait front wheel contact on ramp should be exact if translate based on contact. The prev data might be from prior generation not exact? Need produce next coherent.
+
+At t=.5 target: all wheels on incline, body at ramp angle θ=atan(0.22/0.32)=0.602287 rad (34.5°). Need transform entire car rigidly by rotation θ about x plus translation to place all four wheels on ramp surface. Must compute using first-frame car geometry, not previous incremental? Since rigid car transform from first frame with rotation θ and translation. We need choose translation such that all wheel contact points lie on ramp plane. Since wheelbase length 0.28 along local y, and ramp slope matches, if rotation exactly slope, all wheel bottoms at same local down offset will lie on same plane if translation adjusts normal distance. We need position along ramp likely centered. Also x unchanged (maybe x shift? car centered x=0 already). Need determine translation Ty,Tz for "car centered on ramp" at t=.5. Need decide car's position along slope. The car moves forward along +y as it climbs. At t=.5 car centered on ramp: midpoint of wheelbase at ramp midpoint? Ramp y range -0.22 to .10, mid -0.06. Car wheelbase midpoint local y=(-.30 + -.58)/2=-.44. We want transformed wheelbase midpoint y maybe -0.06. But wheelbase length .28 when aligned with ramp, spanning y difference .28 cosθ=0.2308. So wheel contact y from -0.1754 to +0.0554 if center -0.06, within ramp [-0.22,0.10]. Good. Body length .4 along y cosθ=.3296, so body front maybe center +? Front overhang from wheel midpoint to body front local .22? Actually body front local y=-.22, wheel midpoint -0.44, difference +.22; transformed y diff .22 cosθ=.1814; body front y = -0.06+.181? =0.1214, slightly beyond ramp upper y .10. But body overhang can overhang plaza edge? At t=.5 "car centered on ramp, all wheels on incline"; body front may overhang onto plaza? Wait at t=.5 front wheels maybe near top but not on plaza. If body front beyond ramp end at z? It might pass over plaza edge but not wheel contact. Hmm okay.
+
+Alternatively "centered on ramp" could mean body center (y=-.42? first body center -0.42) at ramp center -0.06, so translation. Need compute using previous and total plan maybe timing. Let's infer from motion trajectory. At t=0 car at ramp foot, front wheels/body at y=-.22 lower edge? Car y local -0.62 to -0.22, front at -0.22, wheels front center y=-.30, rear -0.58. At t=0 all wheels on lower floor? Wait front wheel center y=-.30, which is before ramp foot y=-.22. Body front reaches ramp foot at y=-.22. So at t=0 front of car at ramp foot. At t=.25 front wheels roll onto ramp, rear wheels remain near floor. Prev front wheel center y≈-0.144, which is on ramp (between -0.22 and .10). Rear wheel center y=-.417, still on lower floor (below ramp foot), but its z center -0.545 (bottom around -0.6) maybe floor. Okay.
+
+At t=.5 car centered on ramp, all wheels on incline. Need move forward enough so rear wheel center crosses ramp foot. At t=.25 rear center y=-.417; must be ≥ ramp foot -0.22 for contact. Front center maybe maybe -0.06? Rear center with wheelbase projected: front y = rear y + .2308. If rear at -0.20, front at +0.0308. Both on ramp. Wheelbase midpoint -0.0846. This is near centered. If center wheelbase at -0.06, rear=-0.1754, front=.0554. Both within. At t=.5 likely car further forward than prev by Δy maybe ~0.25. Previous wheelbase midpoint y =(-.14418 + -.41678)/2=-.28048. Target -0.06 => forward Δy .220. So plausible. At t=.75 front wheels reach plaza, rear still ramp; t=1 all on plaza. So t=.5 all wheels on ramp, probably rear just leaves foot and front nearing top. Maybe target rear y=-0.22 (at ramp foot) and front y=0.0108? That gives wheelbase midpoint -0.1046. Or centered on ramp length means wheel contact midpoint midpoint y=-0.06, as above. The phrase "centered on ramp" likely midpoint of car on ramp. Use that.
+
+Need compute transform for θ = slope angle. Need place all wheels on ramp, accounting wheel contact points at local bottom. Since ramp plane tilted, if car rotated by θ (same as ramp), local "down" vector is not vertical but normal to ramp? Wait car body/suspension orientation on incline: wheels contact along a line parallel to ramp. The car's local z axis rotated with car by θ about x; local down vector (0,0,-1) becomes (0, sinθ, -cosθ) and is normal to ramp surface? Ramp surface normal for slope rising +y: Ramp plane z = z0 + m(y-y0), normal vector (0,-m,1) or (0, -m, 1). Unit normal (0,-sinθ,cosθ). Local up rotated (0,-sinθ,cosθ)? Rotation by θ of local up (0,0,1): y'=-sinθ, z'=cosθ. Yes local up = (0,-sinθ,cosθ), which is exactly ramp normal. Local down is (0,sinθ,-cosθ), pointing into ramp. So wheel bottom local offset -r along z becomes (0, r sinθ, -r cosθ) from center, as used. Thus all wheel contact points relative to centers have same y offset r sinθ and z offset -r cosθ. If centers lie along line parallel ramp, contact points line also. Need choose translation such that contact points lie on ramp plane. Since a wheel center at local (x,yc,zc=-.545) after rotation: y'= yc cos - zc sin + Ty; z'=yc sin+zc cos+Tz. Contact bottom = center + (0, r sin, -r cos). For all, contact z = y_contact relation. To set contact point at desired y on ramp, we can solve Ty,Tz. Let desired wheel contact center (for midpoint?) But easier: require for e.g. front wheel contact at a chosen y on ramp. Since θ exactly matches slope, any contact point on line with same normal offset? Actually if car orientation matches ramp, and all wheel bottoms have same local z, the contact points line is parallel to ramp. Need set its offset to ramp surface. Choose along-slope location translation. Translation Ty along world y shifts contact y; Tz should adjust so contact z equals ramp surface at that y. There is one degree along slope and one normal distance; set normal distance zero and along location.
+
+Use first car wheel local geometry. Need exact wheel centers and radius from first frame. From first wheel path: near front wheel center: x=.13. y? Path outlines a circle in plane x constant? Let's derive center from path endpoints. For near front:
+M 0.13 -0.245 -0.545
+C3 0.13 -0.245 -0.514625 0.13 -0.269625 -0.490 0.13 -0.30 -0.490
+C3 0.13 -0.330375 -0.490 0.13 -0.355 -0.514625 0.13 -0.355 -0.545
+C3 0.13 -0.355 -0.575375 0.13 -0.330375 -0.600 0.13 -0.30 -0.600
+C3 0.13 -0.269625 -0.600 0.13 -0.245 -0.575375 0.13 -0.245 -0.545 Z
+This is circle radius .055 centered y=-.30,z=-.545. Yes.
+Rear center y=-.58,z=-.545. Far same x=-.13. Wheel radius .055.
+
+At t=.5, want full car rotated θ about x, translated. Need select Ty,Tz. Let's define contact point of front wheel bottom local (y=-.30,z=-.60) -> after rotation no translation. At θ:
+cos c, sin s. Need exact c and s. Slope m = 0.6875 = 11/16? 0.22/0.32=0.6875 exactly. θ=atan(11/16). Compute c=1/sqrt(1+m^2)=? m^2=0.47265625, 1+m^2=1.47265625=377/256? 1.47265625*256=377. c=16/sqrt377 ≈16/19.41649=0.82404. s=11/sqrt377=0.56646. Let's compute more accurate. sqrt377=19.41648784. c=16/19.41648784=0.824039? 19.4165*0.824=15.999? Yes. s=11/19.4165=0.566756? Wait 11/19.4165=0.56653. Let's calculate: 19.4165*0.5665=10.999? 19.4165*0.5665 = 10.999? 19.4165*0.5=9.70824; *0.0665=1.291? total 10.999. s=0.56653. Let's do exact with m=0.6875: angle 34.508°. cos=0.8240, sin=0.5667. Let's use more precise later.
+
+Ramp plane: lower edge y=-0.22,z=-0.60; m=0.6875. Equation z = -0.60 + m*(y+0.22) = m y + ( -0.60 +0.22m) = m y + (-0.60 +0.15125)= m y -0.44875. Since z=-0.38 at y=0.10: 0.06875-0.44875=-0.38. Good.
+
+For a point local (y,z) on car bottom wheel contact, after rotation + translation:
+y' = c y - s z + Ty
+z' = s y + c z + Tz
+Require z' = m y' -0.44875.
+
+Plug: s y + c z + Tz = m(c y - s z + Ty) -0.44875.
+Since m = s/c? Actually m = tanθ = s/c. Then m c = s; m s = s^2/c. RHS = (s/c)c y = s y - (s^2/c) z + (s/c)Ty -0.44875.
+Cancel s y both sides. Left c z + Tz. Right - (s^2/c) z + (s/c)Ty -0.44875.
+Thus Tz = -[c + s^2/c] z + (s/c)Ty -0.44875. c + s^2/c = (c^2+s^2)/c =1/c.
+For wheel bottom z=-0.60 (all same): Tz = (0.60)/c + (s/c) Ty -0.44875 = (s/c)Ty + (0.60/c -0.44875). But we don't need use formula separately; choosing Ty determines Tz. Since all wheel contact z same, yes.
+
+Choose target wheelbase midpoint contact y' maybe -0.06? Contact points y' = c y - s z + Ty. For front y=-.30,z=-.60: base y_rot = c*(-.30) - s*(-.60) = -0.2472 +0.3399=0.0927? Wait s .566*0.60=0.340, so front contact y' before Ty =0.0927. Rear y=-.58,z=-.60: base=-0.4779+0.3399=-0.1380. Difference .2307. Interesting contact y fronts higher. If wheelbase midpoint contact target -0.06, then Ty = target - average base. Average base = (0.0927 + -0.1380)/2=-0.02265. Ty = -0.06 +0.02265 = -0.03735. Wait previous Ty at .25 was +0.0237, so if at .5 Ty negative? That would move car backwards in y, not plausible. Something off: At .25 front center y=-.144, contact y maybe -0.132. Wheelbase midpoint contact? Rear center y=-0.417, contact y? Transform rear contact first y=-.58,z=-.60 -> y' base = -0.58*c - s*(-.60)= -0.4779 +0.3399=-0.1380 +Ty=.02367 => -0.1143. Wheelbase midpoint contact =(-.1316 + -0.1143)/2=-0.12295. Target centered -0.06 would require Ty +0.063 more? Wait using formula with contact target -0.06 gives Ty=-0.037, conflict. I think I inverted target? Let's recalc base for rear contact at θ full: y'= c y - s z + Ty. For y=-.58,z=-.60: c*y=-.824*.58=-.4779. -s*z = -(.566)*(-.60)=+0.3399. Sum=-0.1380. Front contact y=-.30: -0.2472+0.3399=0.0927. Average=-0.02265. To set average y=-0.06, Ty=-0.03735. But at .25 with θ=13°, base front y? front contact y=-.30,z=-.60: c(-.30) -s(-.60)= -.2921 + .1368? Wait s13=.228, *0.6=.1368. sum=-.1553. Ty=.02367 => -0.1316. Rear contact: y=-.58,z=-.60: -.5647 +.1368=-.4279 +.02367=-0.4042 (not -0.114; I earlier used center z=-.545, not contact z=-.60). Let's compute rear contact at prev using first local contact y=-.58,z=-.60: y'= -.5647 +.1368 +.02367=-.4042. So wheelbase midpoint contact =(-.1316 + -.4042)/2=-.2679. Ah. At target t=.5 wheelbase midpoint -0.06, Ty = -0.06 - average base(-.02265)= -0.03735. But prev Ty .02367, so increase is -0.061 (backward y), while θ increases, rotation moves contacts forward due z term. Net contact midpoint from -.268 to -.06: forward .208, while Ty decreases .061 because pitching up moves wheel contact forward. So car center may not move forward? Whole car translations can be negative while orientation lifts, but physical car moves up ramp. Let's check body center movement: previous body center maybe y (-0.1039 + -0.49336)/2=-0.2986 at z -0.3479. Target with Ty -0.037, Tz? Body center local y=-.42,z=-.44? After rotation full: y'=c(-.42)-s(-.44)+Ty = -0.3461 +0.2493 -0.0374=-0.1342. Previous body center -0.2986, so forward .164. Good. So Ty can be less positive due rotation. Fine.
+
+But is target wheelbase midpoint contact -0.06? Wheel contact points: front y = base 0.0927 + Ty(-.03735)=0.05535; rear=-0.1380-.03735=-0.17535. Both within ramp [-.22,.10]. Wheelbase midpoint -0.06. Good. Front body front point local y=-.22,z maybe -0.38? After rotation: y' = c(-.22)-s(-.38)+Ty = -0.1813+0.2153-0.0374=-0.0034. Wait body front y = -0.003, not 0.12 as earlier; because body z -0.38 rotates. Body center -0.134. So body front near -0.003, within ramp. Body rear local y=-.62,z=-.38: y'= -.5109+0.2153-.0374=-0.3330. Body rear still before ramp foot -0.22, overhang off ramp. Hmm at t=.5 car centered on ramp, rear body overhang behind ramp foot, but wheelbase fully on ramp. Wait body length is .4; wheelbase .28; rear overhang .04? Actually rear wheel center y=-.58, body rear y=-.62 difference .04, so rear body only .04 behind rear wheel. Contact rear at y=-.175, body rear local y=-.62,z=-.50? Let's use body rear bottom z=-.50, not -0.38; y' = c(-.62)-s(-.50)+Ty = -0.5109+0.2833-0.0374=-0.2650. Still before y=-0.22 but only -0.265, maybe outside ramp by .045. Body rear bottom could overhang off foot. At t=.5 "centered on ramp" maybe body center -0.134, not centered (-0.06). Maybe we should target car body center on ramp center, not wheelbase. Let's consider total plan: t=.5 car centered on ramp, all wheels on incline, body held at ramp angle. "centered on ramp" likely overall car centered along ramp. At t=.25 front wheels on ramp, rear near floor. At t=.5 car centered; at t=.75 front reaches plaza, rear still ramp; t=1 all plaza. If body center at ramp center y=-0.06, then wheelbase midpoint maybe? Body center local y=-.42,z? body top center? The car center perhaps midpoint of body (y=-.42,z=-.44). If body center y'=-0.06, solve Ty: local body center (-.42,-.44). y'base = c(-.42)-s(-.44)= -0.3461+0.2493=-0.0968. Ty=-0.06-(-0.0968)=+0.0368. Then contact front y=.0927+.0368=.1295, beyond ramp top y=.10 (front wheel past plaza edge). Not "all wheels on incline". So body center cannot be at ramp center without front wheel beyond ramp. Thus centered likely wheelbase on ramp. Good.
+
+Need decide target contact y= -0.06. Could also target rear contact at ramp foot y=-0.22 and front y=0.0108. At t=.5 all wheels on incline: rear just at foot? "centered" means maybe rear wheel near foot, front near top? Ramp length .32, wheelbase .2308 when projected; remaining .0892 margin. If centered margin .0446 each. So rear contact -0.1754, front .0554. That's plausible.
+
+Need produce full transformed stroke coordinates for all car strokes. Need transform all points by rotation θ and translation Ty,Tz. Need compute Tz. Use plane equation with contact. Choose Ty such that wheelbase midpoint contact -0.06. Need exact θ, c, s. Let's compute accurately enough. m=0.6875. θ=atan(11/16). Use sqrt377. Let sqrt377. 19.4164878389476. c=16/19.41648784. Calculate using division. 19.41648784*0.824 = 15.999? Compute 19.41648784*0.824 = 19.41648784*(0.8+0.024)=15.53319027+0.466 - wait 19.41648784*0.024=0.466 - 19.41648784*0.02=.3883297568; *0.004=.0776659514; sum .4659957082. total 15.99918598. Need 16, diff .000814. /19.416=.0000419. So c=0.8240419. Check. s=11/19.41648784. 19.41648784*0.5665 = 10.999? 19.41648784*(0.5)=9.70824392; *0.0665=1.291? 19.41648784*0.06=1.16498927; *0.0065=0.12620717; total 1.29119644; sum 10.99944036. diff .00055964 /19.416=.00002882 => s=0.56652882. Check c^2+s^2: .6790+.3210=1. Let's use c=0.8240419, s=0.566527? Need maybe not critical. Let's compute with higher precision via known slope. m=0.6875. c=1/sqrt(1+0.47265625)=1/sqrt1.47265625. sqrt1.47265625. Let's compute Newton. 1.213530? squared 1.47265. Let's use exact sqrt377/16? c=16/sqrt377. sqrt377=19.4164878389476. 16/19.41648784. Long: 1/19.41648784=0.051502? Since 19.416*0.0515=0.999? Compute reciprocal: 19.41648784*0.0515 = 0.999949? 19.41648784*0.05=0.970824392; *0.0015=0.029124732; sum .999949124. Need +0.000050876/19.416=0.00000262. Reciprocal 0.05150262. times16=0.82404192. Good.
+s=11*0.05150262=0.56652882. Because 0.05150262*10=.5150262; +.05150262=.56652882. Good. c=0.82404192, s=0.56652882. Check c^2 ~0.679046; s^2 .320953 sum 1. Good.
+
+Now choose Ty. Contact base for front y=-.30,z=-.60: c*y = -0.247212576; -s*z = +0.339917292; base=0.092704716. Rear y=-.58,z=-.60: c*y=-0.477944314; +0.339917292 = -0.138027022. Average = -0.022661153. Ty = target_mid - average. target_mid = -0.06. Ty = -0.037338847. Let's use -0.03733885.
+
+Tz from plane condition. For any wheel contact point (e.g., front): y_world = base + Ty = 0.092704716 -0.037338847 = 0.055365869. Ramp z at y=0.055365869: m*y -0.44875. m=0.6875. 0.055365869*0.6875 = * (11/16) = 0.055365869*11=0.609024559 /16=0.038064035. z_ramp=0.038064035-0.44875=-0.410685965.
+We need z_world contact = z_ramp. z_base for front y=-.30,z=-.60: s*y + c*z = 0.56652882*(-.30)+0.82404192*(-.60)= -0.169958646 -0.494425152= -0.664383798. So Tz = z_ramp - z_base = -0.410685965 - (-0.664383798)=0.253697833. Let's check formula. So Tz≈0.25369783.
+
+Check rear contact z base: s*(-.58)+c*(-.60)= -0.328586716 -0.494425152=-0.823011868 + Tz .253697833=-0.569314035. Ramp at rear y=-0.175365869: m*y=-0.120560? 0.175365869*0.6875=0.120560? 0.175365869*11=1.929024559/16=0.120564035. z=-0.44875-0.120564=-0.569314. Good.
+
+Now transform all car points from first frame using c,s,Ty,Tz. Keep x unchanged. Need transform path coordinates for all car strokes. Ramp/plaza static unchanged. Need use first_frame car geometry. Need carefully transform all points including Bezier controls for wheels. Since rotation about x, y,z transform, x unchanged. We can compute using formula y' = c*y - s*z + Ty; z'=s*y+c*z+Tz. Need for each first-frame car stroke all points. Need produce Path3D with exact coordinates. Need maintain same IDs. We'll transform body, cabin, lights, wheels. We can use calculations. Need be accurate enough. We'll do many points. Need avoid errors. Could perhaps use previous frame? But need target full transform. Since car is rigid, transform first-frame all points. We need compute each. We'll do systematic. Use constants:
+c = 0.82404192
+s = 0.56652882
+Ty = -0.03733885
+Tz = 0.25369783
+Formula:
+y' = 0.82404192*y - 0.56652882*z -0.03733885
+z' = 0.56652882*y + 0.82404192*z +0.25369783
+x'=x.
+
+Need preserve two/three decimal? Existing paths have five decimals. We can output 5 or 6 decimals. Need compute many points. Let's create helper mental calculations. Could also derive using known original values. Need transform all car strokes: body_top (4 pts), body_near_side (4), body_rear (4), cabin_roof (4), cabin_near_side (4), cabin_rear (4), light_left (5? two subpaths 4+4 but shared), light_right, four wheels each 8 points? Wheels paths have M then 4 cubic segments: each C3 has 3 points = 12 points + M =13? Actually near front: M; C3 p1 p2 end (3); repeated 4 segments; final end same as start. Need transform all control points. Lots (~13*4=52 wheel points). Need do.
+
+Could exploit wheel paths are circles in yz centered known with radius .055. After rotation, they become circles/ellipses? Since rotation in yz plane, circle in yz plane remains circle, same radius, center transformed, orientation unchanged? Rotation about x rotates the plane? Wait wheel plane is x=constant, which contains y,z. Rotation about x keeps x constant and rotates y,z within plane; a circle in that plane rotates to same circle in plane, just center moves and points rotate by θ around center. Since wheel shape circle, and we are applying same rigid rotation to entire path, the path is a circle of same radius centered at transformed center, but parameter angles are rotated. We could regenerate wheel circles centered at transformed centers with radius .055 in yz plane; but need preserve path coordinates maybe similar to transformed first. It's allowed if same geometry, but must correspond. Could output circle path parameterization centered at transformed center with radius .055. Because applying rotation to all points of a circle yields another circle same radius centered at transformed center. That may simplify. However "preserve identity dimensions" okay. Need ensure wheel strokes are valid and connected? Wheels should contact ramp. We can generate a circle path in yz plane with center transformed. But we must use Path3D absolute cubic. Use standard 4 cubic segments. Need choose start point maybe at top? Could generate consistent with first frame orientation? The wheel path after rotation has start at transformed original point, not necessarily cardinal. But any circle is okay. Need preserve wheel visual rotation? At t=.5, wheel rotation follows forward travel. Ah! Wheels themselves rotate about axle as car moves. The total plan says "Wheel rotation follows forward travel without sliding." For a minimal 3D sketch with no markings, a perfect circle's rotation isn't visible unless there are features. The first frame wheels are circular outlines; rotating a circle around axle doesn't change appearance. So no need. But they might expect wheel geometry remains. Fine. Since circle invariant, use transformed center.
+
+Need compute transformed centers for four wheels. Original centers: near front x=.13,y=-.30,z=-.545; near rear x=.13,y=-.58,z=-.545; far front x=-.13,y=-.30,z=-.545; far rear x=-.13,y=-.58,z=-.545. Wheel radius .055.
+Compute y' and z' for center.
+
+For front center y=-.30,z=-.545:
+y' = c*(-.30) - s*(-.545)+Ty = -0.247212576 + (0.56652882*0.545) + Ty.
+0.56652882*0.545 = 0.56652882*(0.5+0.045)=0.28326441+0.025493797=0.308758207. Sum -0.247212576+0.308758207=0.061545631. +Ty -0.03733885 =0.024206781.
+z' = s*(-.30)+ c*(-.545)+Tz = -0.169958646 - (0.82404192*0.545) +0.25369783.
+0.82404192*0.545 = 0.41202096+0.037081886=0.449102846. Sum -0.169958646-0.449102846=-0.619061492 +0.25369783=-0.365363662. So near/far front center (x±.13,y=0.02420678,z=-0.36536366). Wheel bottom contact at center plus (0, r*s, -r*c) = y+0.031159? 0.055*s=0.031159085; z -0.045322? 0.055*c=0.045322306. Contact y=0.055365866, z=-0.410685968 matches. Good.
+
+Rear center y=-.58,z=-.545:
+y'= c*(-.58) - s*(-.545)+Ty = -0.477944314 +0.308758207 -0.03733885 = -0.206524957? Compute -0.477944314+0.308758207=-0.169186107; -0.03733885=-0.206524957.
+z'= s*(-.58)+c*(-.545)+Tz = -0.328586716 -0.449102846 +0.25369783 = -0.523991732? -0.777689562+0.25369783=-0.523991732. Rear center y=-0.206525,z=-0.52399173. Contact y=-0.17536587,z=-0.56931404. Good.
+
+Wheel circles radius .055 centered these, in plane x constant. Need generate cubic circle. We can mimic first frame path but centered with start at y=center_y +? first path start was y_center at -0.30? Original front path M y=-0.245 = center+0.055 (top? z same -0.545). Actually start at y = center_y + r, z=center_z. Then cubics go around: first control? Let's inspect original near front: center (-.30,-.545). M (y=-.245,z=-.545) = center + (r,0). Then C3 p1 (y=-.245,z=-.514625) = center+(r, 0.030375?) Wait z difference +0.030375 = r*0.552? Hmm p1 not standard? Let's parse: M 0.13 -0.245 -0.545
+C3 0.13 -0.245 -0.514625  0.13 -0.269625 -0.490  0.13 -0.30 -0.490
+This is quarter from rightmost to top? Rightmost in y direction? center y=-.30, z=-.545. M y=-.245 = +0.055 in y (horizontal y), z same. End y=-.30, z=-.490 = z+0.055 top. Controls: p1 y=-.245,z=-0.514625 (dy=+0.055,dz=+0.030375); p2 y=-.269625 (dy=+0.030375),z=-0.490 (dz=+0.055). This is circle with k=0.5523? For quarter arc from (r,0) to (0,r): control (r, k r), (k r, r) with k=0.55228475. Yes. So standard. Good.
+We can output transformed circles with same parameterization relative to center in yz: start at center+(r,0), etc. But note original start direction might rotate; if we use same local axes in world, still a valid circle. For transformed wheel, the circle lies in yz plane and center changed; orientation not rotated? Wait applying rotation to original circle points yields circle centered transformed, but the parameter point at original start maps to a different angle relative center. If we generate start at center+(r,0) in world y direction, that's not the transformed original start, but it's still the same set of points (circle) because circle is rotationally symmetric. The stroke as a whole identical. Acceptable. Wheel rotation not visible. So use circle centered transformed with radius .055. Need ensure all points lie in plane x constant. Yes. For near front x=0.13, center y=0.02420678,z=-0.36536366. Generate path with same pattern:
+M x y_c+0.055 z_c
+C3 x y_c+0.055 z_c+0.030375  x y_c+0.030375 z_c+0.055  x y_c z_c+0.055
+C3 x y_c-0.030375 z_c+0.055  x y_c-0.055 z_c+0.030375  x y_c-0.055 z_c
+C3 x y_c-0.055 z_c-0.030375  x y_c-0.030375 z_c-0.055  x y_c z_c-0.055
+C3 x y_c+0.030375 z_c-0.055  x y_c+0.055 z_c-0.030375  x y_c+0.055 z_c
+Z.
+This is circle in yz plane. Does it match transformed first geometry? The wheel plane x constant; yes. The wheel's circumference is unaffected. Need 0.030375 = 0.055*0.5522727. Original uses exactly .030375 (which is 0.055*0.5522727). Good.
+
+But if output wheel circle at center, points not transformed from first; but as rigid part, all endpoints/control transformed together. Since circle symmetry, okay? The instruction says apply consistent transform to all endpoints. We can instead generate transformed original points to be safe, but that is more work. Using centered circle with start at cardinal is equivalent to rotating the wheel around its center by some angle, which is exactly wheel spin. Since cars wheels do rotate, and no markings, invisible. It's fine. But there is potential issue: coordinate control points for wheel circle are not exactly transformed first control points; however wheel rotation is intended (rolling). So acceptable.
+
+Need transform body and cabin/lights. Let's compute all body points. Need be careful which original coordinates correspond to which transformed points in prev? We'll use first frame.
+
+Let's list first car strokes coordinates:
+
+1 car_body_top:
+M -0.12 -0.22 -0.38
+L 0.12 -0.22 -0.38
+L 0.12 -0.62 -0.38
+L -0.12 -0.62 -0.38
+Z
+
+2 car_body_near_side:
+M 0.12 -0.22 -0.38
+L 0.12 -0.62 -0.38
+L 0.12 -0.62 -0.50
+L 0.12 -0.22 -0.50
+Z
+Wait original path: M 0.12 -0.22 -0.38 L 0.12 -0.62 -0.38 L 0.12 -0.62 -0.50 L 0.12 -0.22 -0.50 Z. Yes.
+
+3 car_body_rear:
+M -0.12 -0.62 -0.38
+L 0.12 -0.62 -0.38
+L 0.12 -0.62 -0.50
+L -0.12 -0.62 -0.50
+Z
+
+4 car_cabin_roof:
+M -0.09 -0.34 -0.30
+L 0.09 -0.34 -0.30
+L 0.09 -0.52 -0.30
+L -0.09 -0.52 -0.30
+Z
+
+5 car_cabin_near_side:
+M 0.09 -0.34 -0.38
+L 0.09 -0.52 -0.38
+L 0.09 -0.52 -0.30
+L 0.09 -0.34 -0.30
+Z
+
+6 car_cabin_rear:
+M -0.09 -0.52 -0.38
+L 0.09 -0.52 -0.38
+L 0.09 -0.52 -0.30
+L -0.09 -0.52 -0.30
+Z
+
+7 car_light_left:
+M -0.06 -0.46 -0.26
+L -0.005 -0.46 -0.26
+L -0.005 -0.40 -0.26
+L -0.06 -0.40 -0.26
+Z
+M -0.06 -0.46 -0.26
+L -0.005 -0.46 -0.26
+L -0.005 -0.46 -0.30
+L -0.06 -0.46 -0.30
+Z
+
+8 car_light_right:
+M 0.005 -0.46 -0.26
+L 0.06 -0.46 -0.26
+L 0.06 -0.40 -0.26
+L 0.005 -0.40 -0.26
+Z
+M 0.005 -0.46 -0.26
+L 0.06 -0.46 -0.26
+L 0.06 -0.46 -0.30
+L 0.005 -0.46 -0.30
+Z
+
+Need transform all unique (y,z) pairs. Let's create table for pairs:
+A y=-0.22,z=-0.38
+B y=-0.62,z=-0.38
+C y=-0.62,z=-0.50
+D y=-0.22,z=-0.50
+E y=-0.34,z=-0.30
+F y=-0.52,z=-0.30
+G y=-0.34,z=-0.38
+H y=-0.52,z=-0.38
+I y=-0.46,z=-0.26
+J y=-0.40,z=-0.26
+K y=-0.46,z=-0.30
+L y=-0.40,z=-0.30? Wait light right first subpath has y -0.46 to -0.40; second K y=-0.46,z=-0.30 maybe. Actually left light first: pts (-.46,-.26),(-.40,-.26),(-.40,-.26?) Need read: M -0.06 -0.46 -0.26 L -0.005 -0.46 -0.26 L -0.005 -0.40 -0.26 L -0.06 -0.40 -0.26 Z. So y=-.46 and y=-.40, z=-.26. Second M -0.06 -0.46 -0.26 L -0.005 -0.46 -0.26 L -0.005 -0.46 -0.30 L -0.06 -0.46 -0.30 Z. So pairs: (-.46,-.26), (-.40,-.26), (-.46,-.30). No (-.40,-.30). Right analogous. Good.
+
+Need compute transformed for A-L maybe. Let's do with formulas. Need high accuracy. I'll compute using c,s. To avoid repeated manual errors, use arithmetic. Let constants:
+c=0.82404192
+s=0.56652882
+Ty=-0.03733885
+Tz=0.25369783
+
+Formula y' = c*y - s*z + Ty. Since z negative, -s*z positive. z'=s*y + c*z + Tz.
+
+We'll compute each pair.
+
+A: y=-0.22, z=-0.38.
+c*y = -0.22*0.82404192 = -0.1812892224 (0.82404192*0.2=.164808384; *.02=.0164808384 total .1812892224)
+-s*z = -0.56652882*(-0.38)=+0.2152809516 (0.56652882*0.38=0.2152809516)
+sum = 0.0339917292; +Ty -0.03733885 = -0.0033471208. y'A=-0.00334712.
+z': s*y = -0.22*0.56652882 = -0.1246363404
+c*z = 0.82404192*(-0.38) = -0.3131359296 (0.82404192*0.38=0.3131359296)
+sum=-0.4377722700; +Tz 0.25369783 = -0.1840744400. z'A=-0.18407444.
+Check prev at t=.25 was z=-.302; target higher. Good.
+
+B: y=-0.62, z=-0.38.
+c*y = -0.62*0.82404192 = -0.5109059904? 0.82404192*0.6=.494425152; *.02=.0164808384 total .5109059904.
+-s*z=+0.2152809516.
+sum=-0.2956250388; +Ty=-0.3329638888. y'B=-0.33296389.
+z': s*y=-0.62*0.56652882 = -0.351248? 0.56652882*0.6=.339917292; *.02=.0113305764 total .3512478684 negative.
+c*z=-0.3131359296.
+sum=-0.6643837980; +Tz .25369783 = -0.4106859680. z'B=-0.41068597.
+
+C: y=-0.62,z=-0.50.
+c*y=-0.5109059904
+-s*z=+0.28326441
+sum=-0.2276415804 +Ty = -0.2649804304. y'C=-0.26498043.
+z': s*y=-0.3512478684
+c*z=-0.41202096
+sum=-0.7632688284 +Tz .25369783 = -0.5095710? Compute -0.7632688284 +0.25369783 = -0.5095709984. z'C=-0.50957100.
+
+D: y=-0.22,z=-0.50.
+c*y=-0.1812892224
+-s*z=+0.28326441
+sum=0.1019751876 +Ty=-0.03733885 => 0.0646363376. y'D=0.06463634.
+z': s*y=-0.1246363404
+c*z=-0.41202096
+sum=-0.5366573004 +Tz= -0.2829594704. z'D=-0.28295947.
+
+E: y=-0.34,z=-0.30.
+c*y=-0.34*0.82404192=-0.2801742528 (0.82404192*.3=.247212576; *.04=.0329616768 total .2801742528)
+-s*z=+0.169958646
+sum=-0.1102156068 +Ty=-0.1475544568. y'E=-0.14755446.
+z': s*y=-0.34*0.56652882 = -0.1926197988 (0.56652882*.3=.169958646; *.04=.0226611528 total .1926197988)
+c*z= -0.247212576
+sum=-0.4398323748 +Tz .25369783 = -0.1861345448. z'E=-0.18613454.
+
+F: y=-0.52,z=-0.30.
+c*y=-0.52*0.82404192 = -0.4285017984 (0.82404192*.5=.41202096; *.02=.0164808384 total .4285017984)
+-s*z=+0.169958646
+sum=-0.2585431524 +Ty=-0.2958820024. y'F=-0.29588200.
+z': s*y=-0.52*0.56652882 = -0.294595? 0.56652882*.5=.28326441; *.02=.0113305764 total .2945949864 negative.
+c*z=-0.247212576
+sum=-0.5418075624 +Tz=.25369783 => -0.2881097324. z'F=-0.28810973.
+
+G: y=-0.34,z=-0.38.
+c*y=-0.2801742528
+-s*z=+0.2152809516
+sum=-0.0648933012 +Ty=-0.1022321512. y'G=-0.10223215.
+z': s*y=-0.1926197988
+c*z=-0.3131359296
+sum=-0.5057557284 +Tz=.25369783 => -0.2520578984. z'G=-0.25205790.
+
+H: y=-0.52,z=-0.38.
+c*y=-0.4285017984
+-s*z=+0.2152809516
+sum=-0.2132208468 +Ty=-0.2505596968. y'H=-0.25055970.
+z': s*y=-0.2945949864
+c*z=-0.3131359296
+sum=-0.6077309160 +Tz=.25369783 => -0.3540330860. z'H=-0.35403309.
+
+I: y=-0.46,z=-0.26.
+c*y=-0.46*0.82404192. 0.82404192*(0.4=.329616768; .06=.0494425152) total .3790592832 negative.
+-s*z=+0.56652882*.26 = 0.1472974932 (0.56652882*.25=.141632205; *.01=.0056652882 total .1472974932)
+sum=-0.2317617900 +Ty=-0.2691006400. y'I=-0.26910064.
+z': s*y=-0.46*0.56652882. 0.56652882*.4=.226611528; *.06=.0339917292 total .2606032572 negative.
+c*z=-0.26*0.82404192 = -0.2142508992 (0.82404192*.25=.20601048; *.01=.0082404192 total .2142508992)
+sum=-0.4748541564 +Tz=.25369783 => -0.2211563264. z'I=-0.22115633.
+
+J: y=-0.40,z=-0.26.
+c*y=-0.329616768
+-s*z=+0.1472974932
+sum=-0.1823192748 +Ty=-0.2196581248. y'J=-0.21965812.
+z': s*y=-0.226611528
+c*z=-0.2142508992
+sum=-0.4408624272 +Tz=.25369783 => -0.1871645972. z'J=-0.18716460.
+
+K: y=-0.46,z=-0.30.
+c*y=-0.3790592832
+-s*z=+0.169958646
+sum=-0.2091006372 +Ty=-0.2464394872. y'K=-0.24643949.
+z': s*y=-0.2606032572
+c*z=-0.247212576
+sum=-0.5078158332 +Tz=.25369783 => -0.2541180032. z'K=-0.25411800.
+
+Need maybe L? no.
+
+Now cabin roof uses E (y=-.34,z=-.30) and F (y=-.52,z=-.30). Good.
+Cabin near side uses G,H and E,F? Cabin near side path: M y=-.34,z=-.38 (G) -> y=-.52,z=-.38 (H) -> y=-.52,z=-.30 (F) -> y=-.34,z=-.30 (E). So yes.
+Cabin rear uses y=-.52,z=-.38 (H) then y=-.52,z=-.30 (F) etc.
+
+Body top uses A (front top), B? Body top path: A (-.12,-.22,-.38), A2 x .12 same pair A, B2 x .12 pair B, B x -0.12 pair B. So use A and B.
+Body near side uses A,B,C,D.
+Body rear uses B (x -0.12,-0.62,-0.38), B x .12, C x .12, C x -.12.
+Wait B pair y=-.62,z=-.38, C y=-.62,z=-.50. Good.
+
+Lights use I,J,K etc.
+
+Need write transformed stroke paths with x same and y,z transformed. Let's list coordinates:
+A (-0.00334712, -0.18407444)
+B (-0.33296389, -0.41068597)
+C (-0.26498043, -0.50957100)
+D (0.06463634, -0.28295947)
+E (-0.14755446, -0.18613454)
+F (-0.29588200, -0.28810973)
+G (-0.10223215, -0.25205790)
+H (-0.25055970, -0.35403309)
+I (-0.26910064, -0.22115633)
+J (-0.21965812, -0.18716460)
+K (-0.24643949, -0.25411800)
+
+Check car overall z: body top z -0.184 to -0.411, cabin roof z -0.186 to -0.288. Wait body top at front A z -0.184, rear B z -0.411. But cabin roof E/F z -0.186/-0.288. Cabin roof should be above body top (higher z) at corresponding y? At front y=-0.34, body top maybe around z? The body top is a tilted deck from front z -0.184 at y=-0.003 to rear z -0.411 at y=-0.333. At y=-0.147 (E y), body top z maybe interpolate: front A y=-.003,z=-.184; rear B y=-.333,z=-.411; at y=-.147, z~-0.281. Cabin roof front E y=-.147,z=-0.186, above by .095. Good. At rear F y=-.296,z=-0.288, body top near y=-.296 z=-.383? above .095. Good. Cabin is above body. Fine.
+
+But body top is lower body deck maybe at z around -0.184 front, which is high. Wheels centers z -0.365, bottom -0.411. Body bottom C z -0.509? Wait body near side C y=-0.265,z=-0.509 is lower than wheel contact? Let's revisit: Body near side path A->B->C->D. A is top front, B top rear, C bottom rear z=-0.50, D bottom front z=-0.50. Transformed C z=-0.509, D z=-0.283. That seems bizarre: body bottom rear much lower than front due rotation? Wait original body "near side" path M 0.12 -0.22 -0.38 (A) L 0.12 -0.62 -0.38 (B) L 0.12 -0.62 -0.50 (C) L 0.12 -0.22 -0.50 (D) Z. So A front top, B rear top, C rear bottom, D front bottom. On ramp rotated nose up: front top A z=-0.184, front bottom D z=-0.283 (vertical difference .099). Rear top B z=-0.411, rear bottom C z=-0.509 (diff .099). Yes body rear bottom z=-0.509, which is near wheel bottom contact rear z=-0.569; okay. Front bottom z=-0.283, wheel front contact z=-0.411; front body is higher than wheels? Wait on incline front wheel contact z=-0.411, front body bottom z=-0.283 (above contact by .128). That seems too high; body bottom should be above wheels, yes .128 above ground at front due wheel radius .055 plus body clearance .07. At rear, body bottom z=-0.509, rear contact z=-0.569 difference .06. But due rotation and body bottom is a plane parallel to ramp? Original body bottom z=-0.50 vs wheel centers z=-0.545: body bottom is 0.045 above wheel centers, wheel bottom -0.60; body bottom 0.10 above ground? Wait first frame body bottom z=-0.50, wheel bottom -0.60, so body bottom .10 above ground. On ramp rotated, normal distance from wheel contact to body bottom should be .10 along normal, which projects to z diff .0824? Let's compute normal distance: body bottom plane local z=-0.50; wheel contact local z=-0.60; diff .10 along local z. After rotation, vector (0,0,.10) -> y=-.05665,z=.0824. So z diff .0824. At front, body bottom point D has same y local as front top? D local y=-.22,z=-.50. Contact point for body bottom at same local y? The body bottom plane at local y=-.22,z=-.50. Wheel contact front local y=-.30,z=-.60. Difference y .08,z .10. After rotation dz = s*.08 + c*.10 = .0453 + .0824 = .1277. Ah yes, front body bottom above front wheel contact by .128 due y offset. At rear body bottom C local y=-.62,z=-.50 vs rear contact y=-.58,z=-.60 diff y=-.04,z=.10; dz = s*(-.04)+c*.10 = -.02266+.0824=.0597. So okay.
+
+Need check car wheels on ramp: front wheel center y=0.0242,z=-0.365; rear center y=-0.2065,z=-0.524. Car body front y A=-0.003? Wait front body top A y=-0.003, rear B y=-0.333. The car appears from y -0.333 to 0.065 (bottom), mostly on ramp. Wheel contacts y -0.175 to .055. Good.
+
+Now need output all car strokes transformed. But wheels: use circle centers computed. Need ensure wheel circles are in plane x ±.13 and don't overlap body? Original wheels at x ±.13, body sides x ±.12. Fine.
+
+Need maybe ramp and plaza static strokes identical to first/prev. Include all 4 static strokes. Need include exactly one frame i=3. Need no extra text. Need JSON with reason and frames.
+
+Let's compute wheel path coordinates for four wheels.
+
+Constants radius r=0.055. rk=0.030375. For each center (cy,cz) at x:
+Near front x=0.13, cy=0.024206781, cz=-0.365363662.
+Generate path:
+M 0.13 (cy+0.055) cz = y 0.079206781 z -0.365363662
+C3 0.13 0.079206781 (cz+0.030375=-0.334988662)  0.13 (cy+0.030375=0.054581781) (cz+0.055=-0.310363662)  0.13 cy 0.024206781 (cz+0.055=-0.310363662)
+C3 0.13 (cy-0.030375=-0.006168219) (cz+0.055=-0.310363662)  0.13 (cy-0.055=-0.030793219) (cz+0.030375=-0.334988662)  0.13 (cy-0.055=-0.030793219) cz -0.365363662
+C3 0.13 (cy-0.055=-0.030793219) (cz-0.030375=-0.395738662)  0.13 (cy-0.030375=-0.006168219) (cz-0.055=-0.420363662)  0.13 cy 0.024206781 (cz-0.055=-0.420363662)
+C3 0.13 (cy+0.030375=0.054581781) (cz-0.055=-0.420363662)  0.13 (cy+0.055=0.079206781) (cz-0.030375=-0.395738662)  0.13 (cy+0.055=0.079206781) cz -0.365363662
+Z.
+Need ensure order. Original wheel path used M at (center_y + r, center_z) then C3 p1 (center_y+r, center_z+0.030375), p2(center_y+0.030375, center_z+r), end (center_y, center_z+r). Yes. Then next C3 p1(center_y-0.030375, center_z+r), p2(center_y-r, center_z+0.030375), end(center_y-r, center_z). Then p1(center_y-r, center_z-0.030375), p2(center_y-0.030375, center_z-r), end(center_y, center_z-r). Then p1(center_y+0.030375, center_z-r), p2(center_y+r, center_z-0.030375), end(center_y+r, center_z). Good.
+
+Near rear x=0.13 cy=-0.206524957, cz=-0.523991732.
+Path:
+M y=cy+0.055=-0.151524957 z=cz=-0.523991732
+C3 p1 y=-0.151524957 z=cz+0.030375=-0.493616732; p2 y=cy+0.030375=-0.176149957 z=cz+0.055=-0.468991732; end y=cy=-0.206524957 z=-0.468991732
+C3 p1 y=cy-0.030375=-0.236899957 z=-0.468991732; p2 y=cy-0.055=-0.261524957 z=cz+0.030375=-0.493616732; end y=cy-0.055=-0.261524957 z=cz=-0.523991732
+C3 p1 y=-0.261524957 z=cz-0.030375=-0.554366732; p2 y=cy-0.030375=-0.236899957 z=cz-0.055=-0.578991732; end y=cy=-0.206524957 z=-0.578991732
+C3 p1 y=cy+0.030375=-0.176149957 z=-0.578991732; p2 y=cy+0.055=-0.151524957 z=cz-0.030375=-0.554366732; end y=-0.151524957 z=cz=-0.523991732
+Z.
+
+Far front x=-0.13 same cy/cz as near front.
+Far rear x=-0.13 same cy/cz as near rear.
+
+Need maybe vehicle wheel rotation at t=.5: Should we rotate wheel paths around their centers by some angle? Since circle no visible. But if using same start point cardinal, it's okay. However instruction "do not reset moving parts to first-frame pose" wheel spin invisible. Fine.
+
+Need check transformed car body/cabin/lights all lie coherent. Need output paths with 5 decimal maybe. Need ensure path syntax: M x y z; L x y z; Q3 etc. Use C3 for wheels. No commas. IDs stable. Descriptions.
+
+Let's construct each stroke.
+
+Static:
+ramp_surface path same: M -0.35 -0.22 -0.60 L 0.25 -0.22 -0.60 L 0.25 0.10 -0.38 L -0.35 0.10 -0.38 Z
+ramp_right_depth: M 0.25 0.10 -0.38 L 0.25 0.10 -0.60 L 0.25 -0.22 -0.60
+plaza_top: M -0.35 0.10 -0.38 L 0.25 0.10 -0.38 L 0.65 0.55 -0.38 L -0.35 0.55 -0.38 Z
+plaza_right_depth: M 0.25 0.10 -0.60 L 0.65 0.55 -0.60 L 0.65 0.55 -0.38
+
+Car body top:
+M -0.12 -0.00334712 -0.18407444 L 0.12 -0.00334712 -0.18407444 L 0.12 -0.33296389 -0.41068597 L -0.12 -0.33296389 -0.41068597 Z
+
+Body near side:
+M 0.12 -0.00334712 -0.18407444 L 0.12 -0.33296389 -0.41068597 L 0.12 -0.26498043 -0.50957100 L 0.12 0.06463634 -0.28295947 Z
+Wait body near side order: A (front top) -> B (rear top) -> C (rear bottom) -> D (front bottom). This forms side face. But note A y=-.003, B y=-.333; C y=-.265,z=-.509, D y=.0646,z=-.283. This quadrilateral may cross? Let's visualize: top front A(-.003,-.184), top rear B(-.333,-.411), bottom rear C(-.265,-.510), bottom front D(.0646,-.283). This is a parallelogram rotated? Vector A->B =(-.3296,-.2266); B->C=(.06798,-.0989); C->D=(.3296,.2266); D->A=(-.06798,.0989). Yes consistent. Good.
+
+Body rear:
+M -0.12 -0.33296389 -0.41068597 L 0.12 -0.33296389 -0.41068597 L 0.12 -0.26498043 -0.50957100 L -0.12 -0.26498043 -0.50957100 Z
+Wait original body rear path is M -0.12 -0.62 -0.38 L 0.12 -0.62 -0.38 L 0.12 -0.62 -0.50 L -0.12 -0.62 -0.50 Z. Yes top at B, bottom at C. Fine. Note B y=-.3329, C y=-.26498 (bottom rear is forward due pitch); rear face tilted. Good.
+
+Cabin roof:
+M -0.09 -0.14755446 -0.18613454 L 0.09 -0.14755446 -0.18613454 L 0.09 -0.29588200 -0.28810973 L -0.09 -0.29588200 -0.28810973 Z
+Wait original cabin roof y=-.34 z=-.30 (E), y=-.52 z=-.30 (F). Yes.
+
+Cabin near side:
+Original M 0.09 -0.34 -0.38 (G) L 0.09 -0.52 -0.38 (H) L 0.09 -0.52 -0.30 (F) L 0.09 -0.34 -0.30 (E) Z.
+So:
+M 0.09 -0.10223215 -0.25205790 L 0.09 -0.25055970 -0.35403309 L 0.09 -0.29588200 -0.28810973 L 0.09 -0.14755446 -0.18613454 Z
+Check shape: G(-.102,-.252) -> H(-.251,-.354) -> F(-.296,-.288) -> E(-.148,-.186). Hmm F is top? Wait local y=-.52,z=-.30 (top at rear) transformed to y=-.2959,z=-.2881. E local y=-.34,z=-.30 transformed y=-.1476,z=-.1861. G local y=-.34,z=-.38 transformed y=-.1022,z=-.2521. H local y=-.52,z=-.38 transformed y=-.2506,z=-.3540. The path G->H->F->E: G lower front side, H lower rear side, F upper rear side, E upper front side. z values: G -0.252, H -0.354, F -0.288, E -0.186. F should be above H, yes z -0.288 > -0.354; E above G. Good. But note G y=-.102,z=-.252 (front lower) vs E y=-.148,z=-.186 (front upper): E is rearward of G due rotation. Fine.
+
+Cabin rear:
+Original M -0.09 -0.52 -0.38 (H) L 0.09 -0.52 -0.38 (H) L 0.09 -0.52 -0.30 (F) L -0.09 -0.52 -0.30 (F) Z.
+Trans:
+M -0.09 -0.25055970 -0.35403309 L 0.09 -0.25055970 -0.35403309 L 0.09 -0.29588200 -0.28810973 L -0.09 -0.29588200 -0.28810973 Z.
+
+Lights:
+Left first block top? Original:
+car_light_left path = M -0.06 -0.46 -0.26 (I) L -0.005 -0.46 -0.26 L -0.005 -0.40 -0.26 (J for y -.40) L -0.06 -0.40 -0.26 Z
+M -0.06 -0.46 -0.26 L -0.005 -0.46 -0.26 L -0.005 -0.46 -0.30 (K) L -0.06 -0.46 -0.30 Z
+Wait careful: first subpath has z=-0.26 for all, y from -0.46 to -0.40. Use I at y=-.46,z=-.26, J at y=-.40,z=-.26. Second uses z=-0.30 at y=-.46, K. So transformed coordinates:
+I (-0.26910064, -0.22115633)
+J (-0.21965812, -0.18716460)
+K (-0.24643949, -0.25411800)
+But note K y (-.246) lies between I and J; z lower. For left light:
+M -0.06 I_y I_z L -0.005 I_y I_z L -0.005 J_y J_z L -0.06 J_y J_z Z
+M -0.06 I_y I_z L -0.005 I_y I_z L -0.005 K_y K_z L -0.06 K_y K_z Z
+But original second subpath used point (-0.005 -0.46 -0.30) which is same y as I but z K; yes.
+Let's write:
+M -0.06 -0.26910064 -0.22115633 L -0.005 -0.26910064 -0.22115633 L -0.005 -0.21965812 -0.18716460 L -0.06 -0.21965812 -0.18716460 Z
+M -0.06 -0.26910064 -0.22115633 L -0.005 -0.26910064 -0.22115633 L -0.005 -0.24643949 -0.25411800 L -0.06 -0.24643949 -0.25411800 Z
+But wait second subpath original: M -0.06 -0.46 -0.26 L -0.005 -0.46 -0.26 L -0.005 -0.46 -0.30 L -0.06 -0.46 -0.30 Z. So yes only y=-.46 for top/bottom depth. But I transformed y for z=-.30 gives K y=-.2464, not same as I y=-.2691. That's correct due rotation: top and bottom of light block at same local y but different z have different world y after pitch. The path should connect corresponding front/back corners? The block is tilted. The first point I (top front? z=-.26) and K (bottom same local y,z=-.30). The side depth edge runs from I to K. Our subpath from I (x -.06) to K (x -.005) etc. Good. But original first subpath uses top z=-.26 with y range .46 to .40. It is a horizontal (along y) top rectangle. After rotation, its corners I and J differ both y,z. Good.
+
+Right light:
+Use x positive .005,.06. Original first: M 0.005 -0.46 -0.26 (I) L 0.06 -0.46 -0.26 L 0.06 -0.40 -0.26 (J) L 0.005 -0.40 -0.26 Z. So:
+M 0.005 I_y I_z L 0.06 I_y I_z L 0.06 J_y J_z L 0.005 J_y J_z Z
+Second: M 0.005 I_y I_z L 0.06 I_y I_z L 0.06 K_y K_z L 0.005 K_y K_z Z.
+Good.
+
+Need perhaps light blocks should sit on cabin roof; our transformed coordinates: I/K y around -0.269/-0.246, z -0.221/-0.254; J z -0.187. Cabin roof spans y -0.148 to -0.296 z -0.186 to -0.288. Light sits above roof? At y -0.269, roof z maybe -0.261? Light z -0.254 (bottom) maybe just above. Good.
+
+Now body_near_side and cabin near side may have x=0.12 and 0.09; car near side visible. Body far side not drawn, only near side. Original car is open? Fine.
+
+Need include wheel paths. Let's write with five/six decimals.
+
+Need ensure wheel centers from transform correspond to body. Near front center y 0.02420678,z -0.36536366. But body front bottom D y .06464,z -.28296; front wheel is forward? Wheel front center y .024, body front D y .0646. Body front overhang y .0646 > wheel center .024, so wheel under body near front. Wheel contact y .05536,z -.41069. Body bottom at same local? okay.
+
+Need maybe x of wheels: near front x=0.13, far x=-0.13. Body near side x=0.12, wheels stick out .01. Good.
+
+Let's formulate wheel paths precisely.
+
+Near front:
+id wheel_near_front path:
+M 0.13 0.07920678 -0.36536366
+C3 0.13 0.07920678 -0.33498866 0.13 0.05458178 -0.31036366 0.13 0.02420678 -0.31036366
+C3 0.13 -0.00616822 -0.31036366 0.13 -0.03079322 -0.33498866 0.13 -0.03079322 -0.36536366
+C3 0.13 -0.03079322 -0.39573866 0.13 -0.00616822 -0.42036366 0.13 0.02420678 -0.42036366
+C3 0.13 0.05458178 -0.42036366 0.13 0.07920678 -0.39573866 0.13 0.07920678 -0.36536366 Z
+
+Near rear:
+cy=-0.20652496, cz=-0.52399173.
+M 0.13 -0.15152496 -0.52399173
+C3 0.13 -0.15152496 -0.49361673 0.13 -0.17614996 -0.46899173 0.13 -0.20652496 -0.46899173
+C3 0.13 -0.23689996 -0.46899173 0.13 -0.26152496 -0.49361673 0.13 -0.26152496 -0.52399173
+C3 0.13 -0.26152496 -0.55436673 0.13 -0.23689996 -0.57899173 0.13 -0.20652496 -0.57899173
+C3 0.13 -0.17614996 -0.57899173 0.13 -0.15152496 -0.55436673 0.13 -0.15152496 -0.52399173 Z
+
+Far front: x=-0.13 same as near front:
+M -0.13 0.07920678 -0.36536366
+C3 -0.13 0.07920678 -0.33498866 -0.13 0.05458178 -0.31036366 -0.13 0.02420678 -0.31036366
+C3 -0.13 -0.00616822 -0.31036366 -0.13 -0.03079322 -0.33498866 -0.13 -0.03079322 -0.36536366
+C3 -0.13 -0.03079322 -0.39573866 -0.13 -0.00616822 -0.42036366 -0.13 0.02420678 -0.42036366
+C3 -0.13 0.05458178 -0.42036366 -0.13 0.07920678 -0.39573866 -0.13 0.07920678 -0.36536366 Z
+
+Far rear x=-0.13 same cy/cz as near rear.
+
+Need maybe wheel paths in original had z center -0.545 radius .055, but body lower z -0.50; wheel top z center+.055=-0.310 for front, body bottom at front D z -0.283, so wheel top below body bottom by .027. At rear, wheel top -0.469, body bottom C -0.509? Wait rear wheel top z=-0.46899, body bottom C z=-0.50957. The wheel top is above body bottom (because body bottom at rear is lower due rotation? Hmm body bottom C z=-0.509, wheel top -0.469 (higher), overlap .04; first frame wheel top -0.49, body bottom -0.50 (wheel top above body bottom .01) so wheels partly overlap body. Original design wheel centers z=-.545, top=-.49, body bottom=-.50, yes wheel top .01 above body bottom. On ramp, due different y, rear wheel top z -0.469, body bottom C z -0.509, overlap .04? Because body bottom at y=-0.265, wheel center y=-0.207, wheel top local y=-.58,z=-.49 vs body bottom local y=-.62,z=-.50 difference y .04,z .01; after rotation z diff s*.04+c*.01=.0227+.0082=.0309. So wheel top above body bottom by .03. Original wheel top at same y? Wheel top local y=-.58,z=-.49; body bottom rear local y=-.62,z=-.50: dz local .01, dy .04. After rotation, yes body bottom lower than wheel top because rear body extends back and down. Hmm wheel may overlap body more, but acceptable as wheels under fenders? Could be visible. In first frame wheel top z=-.49 and body bottom z=-.50, overlap .01. After rotation, body rear bottom at y=-.265,z=-.509, wheel top at same y? wheel top point y=-.207,z=-.469. Not same y. The wheel circle at x=0.13 vs body side x=0.12, so overlap not visually crossing in x. Fine.
+
+Need maybe adjust wheel path orientation? Since circle rotated? We use unchanged wheel vertical circle. In 3D, the wheel plane is x constant. The car is pitched about x, so wheel plane remains x constant (same), good. Wheel circle center moves, but since rotation about x is within wheel plane, wheel itself rotated around x. A wheel normally rotates about its axle, which is x axis. Pitching car also rotates wheel plane? Wait car pitch about x (axle axis). The wheel plane x=constant; rotation about x by θ rotates the wheel in its own plane around origin, but wheel center also moves. For a wheel rolling on incline, its axle remains x-direction, wheel plane is x=constant, yes. The wheel's circular outline remains identical regardless of spin. So using cardinal circle is equivalent to not applying pitch rotation to its phase; but the wheel circle itself is symmetric, so the set of points is same. Good.
+
+Need check Tz chosen using wheel contact exactly; our wheel circles bottom contact should be at ramp surface. For front center cy=0.02420678, cz=-0.36536366; bottom point local (cy, cz-0.055)= (0.02420678,-0.42036366). Is that the bottom in world? Since wheel circle is axis-aligned in yz (not rotated parameter), the lowest z is center_z - r = -0.42036, at y=center_y=0.0242. But the contact with ramp is not vertical bottom; it's along ramp normal. Our transformed wheel circle generated axis-aligned has no point exactly at contact (0.05537,-0.41069)? Actually the transformed original wheel contact point was at center + (r*s, -r*c) = (0.05537,-0.41069), which lies on circle. Does our generated circle include that point? Yes any point on circle. But the path start/cardinal bottom is (cy, cz-r) = (0.0242,-0.42036). The circle includes contact point at angle arctan? Let's verify point (0.05537,-0.41069) relative center = (0.03116, -0.04532), norm sqrt(.000971+.002054)=sqrt(.003025)=.055, yes. So the circle is same set. It intersects ramp at contact point. Good. The path description still wheel. No issue.
+
+But if renderer draws cubic approximation, contact point may not be exactly on path sample? The Bezier circle approximation approximates circle; it includes endpoint at cardinal, not contact. But the actual circle path is smooth; it passes near contact. The contact point isn't an anchor but on arc; okay. If strict, maybe better to rotate the wheel circle so one point at contact and orientation matches rolling? But not necessary. Yet to maintain "wheels contact surface", visual may show wheel bottom at vertical lowest not on ramp? Wait the wheel is a 3D circle; the lowest z point is at y=center. The ramp surface under wheel at y=center is z_ramp = m*cy-0.44875. Compute at cy=0.0242: z=-0.43210. Wheel bottom z=-0.42036, which is 0.0117 above ramp at that y. But contact occurs at a different y (0.05537) along circle; since wheel is a disk in yz plane, its boundary intersects ramp at the contact point, not at vertical bottom. The visual wheel might appear floating if you look at vertical lowest point, but physically a circle resting on an inclined plane touches at a point offset uphill. This is correct. However with a line drawing, the wheel circle will cross ramp surface maybe? Since incline plane is a line in yz; a circle tangent to it touches at one point. Our circle centered at distance normal r from plane, yes tangent. It may visually appear tangent. Good.
+
+Need maybe body wheels near/far all tangent. Since same orientation and all contact local z=-0.60, yes.
+
+Need output JSON only. But before final, let's verify transform of previous? Not needed. Ensure frame index 3.
+
+Potential concern: The plan target t=.5 "car is centered on ramp, all wheels on the incline, body held at ramp angle." Our car body's pitch exactly ramp angle. Position: wheel contacts front y=0.055, rear=-0.175. Ramp y range -0.22 to 0.10. So both on ramp with margins .045. Good. Car body rear extends y=-0.333 (body top) below ramp foot, but wheels/contact okay. Body bottom rear C y=-0.265, still slightly behind foot -0.22. Does body intersect ramp surface? Body bottom rear C z=-0.5096; ramp surface at y=-0.265? But y=-0.265 is below ramp lower y=-0.22, no surface. The ramp foot is a vertical face? The body overhang could hover behind ramp, not intersect. At y=-0.22, ramp surface z=-0.60. Body bottom plane at y=-0.265,z=-0.509, above floor z=-0.6, so overhang above lower floor. Fine. Body front D y=.0646,z=-.283; ramp surface at y=.0646: z=0.6875*.0646-.44875=-.4043. Body bottom is above by .121 (clearance). Front wheel contact z=-.4107 at y .055. Good. Body doesn't intersect.
+
+Need output paths with enough precision. Should we include .00? Numeric coordinates fine. Path syntax no commas. Use spaces.
+
+Let's ensure no accidental "Z M" without semicolon? Path3D syntax uses ; between commands, M subpaths. We can include all as one string with spaces/semicolons. For multi-subpath lights, use "M ... Z M ... Z". Good.
+
+Need include reason brief public geometry/motion. JSON with escaped? We'll output raw JSON.
+
+Let's draft full frame.
+
+IDs:
+ramp_surface
+ramp_right_depth
+plaza_top
+plaza_right_depth
+car_body_top
+car_body_near_side
+car_body_rear
+car_cabin_roof
+car_cabin_near_side
+car_cabin_rear
+car_light_left
+car_light_right
+wheel_near_front
+wheel_near_rear
+wheel_far_front
+wheel_far_rear
+
+Descriptions. Need exactly one frame with i=3. Not include style. Good.
+
+Double-check body top coordinates: A transform y -0.00334712 z -0.18407444. B y -0.33296389 z -0.41068597. For body top path original order: M -0.12 A L 0.12 A L 0.12 B L -0.12 B Z. fine.
+Body near side: M 0.12 A L 0.12 B L 0.12 C L 0.12 D Z. Wait original body near side "M 0.12 -0.22 -0.38 L 0.12 -0.62 -0.38 L 0.12 -0.62 -0.50 L 0.12 -0.22 -0.50 Z": A->B->C->D. Yes.
+Car body rear: original M -0.12 -0.62 -0.38 (B) L 0.12 B L 0.12 C L -0.12 C Z. Good.
+
+Cabin roof: original M -0.09 -0.34 -0.30 (E) L 0.09 E L 0.09 F L -0.09 F Z. Yes.
+Cabin near side: M 0.09 -0.34 -0.38 (G) L 0.09 -0.52 -0.38 (H) L 0.09 -0.52 -0.30 (F) L 0.09 -0.34 -0.30 (E) Z. Good.
+Cabin rear: M -0.09 H L 0.09 H L 0.09 F L -0.09 F Z. Good.
+
+Lights: Need check left light coordinates due x order. Original left light x -0.06 to -0.005. After transform, y,z for I/J/K. Good. But note second subpath start I and to K uses x -0.005 K; K y -0.246 vs I y -0.269; z -0.254. This forms side edge. Good.
+
+Need maybe correct car_body_rear B/C y/z: B (-0.33296389,-0.41068597), C(-0.26498043,-0.50957100). Wait B is top rear at local y=-0.62,z=-0.38, C is bottom rear at local y=-0.62,z=-0.50. After rotation both local y same, different z. The vector B->C is (0.06798,-0.09889) (bottom is forward) because rotation. Yes.
+
+Potential issue: car_body_top is lower body top deck z around -0.184 to -0.411; cabin roof z -0.186 to -0.288. At rear, car_body_top z -0.411, cabin roof rear F z -0.288, above by .123. Fine. At front, body top A z -0.184, cabin roof E z -0.186, almost same; cabin roof front is slightly below body top front? Wait A local y=-.22,z=-.38; E local y=-.34,z=-.30. Not same y. At y=-.003, body top A; cabin front E at y=-.148. The cabin front is behind top deck front, okay. It sits on body, roof z -0.186, body top at that y maybe -0.283? Wait I need compute body top at y=-0.148 between A and B. Body top plane includes local y/z? Body top is local z=-.38, y varies. After rotation, line A->B. At y=-0.148, param from A to B: Δy total -0.3296, Δz -0.2266. Fraction ( -0.148 +0.003)/-0.3296=0.44; z=-0.184 +0.44*(-0.2266)=-0.284. Cabin roof at E z=-0.186. So roof is .098 above body top. Good.
+
+Need check cabin near side path maybe body top/cabin roof weird due G z -0.252, cabin roof E z -0.186; vertical side height .066. Original cabin side local z -0.38 to -0.30 diff .08; after rotation vertical diff? G->E vector local y same (-.34), z +.08 -> world y -s*.08=-.0453, z +c*.08=.0659. So E y G-0.045, z G+0.066. Our G y=-.102,z=-.252; E y=-.148,z=-.186, yes diff y=-.0453,z=.0659. Good.
+
+Need if renderer uses line width 3, all good.
+
+Now final JSON. Need no markdown. We'll include reason string.
+
+Let's ensure JSON syntax: all strings with quotes. Path strings contain semicolons. No line breaks? Can include as one line. Valid JSON with numbers. Use decimal negative. Fine.
+
+Let's produce.

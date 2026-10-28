@@ -1,0 +1,123 @@
+Use +x right, +y forward toward the plaza, +z up. The ramp/plaza is fixed: the ramp rises from \(z=-0.60\) at \(y=-0.22\) to \(z=-0.38\) at \(y=0.10\), so its slope is
+\[
+m=\frac{(-0.38)-(-0.60)}{0.10-(-0.22)}=\frac{0.22}{0.32}=0.6875.
+\]
+Thus the ramp surface is
+\[
+z_{\text{ramp}}=0.6875(y+0.22)-0.60=0.6875y-0.44875
+\]
+for \(-0.22\le y\le0.10\), and the plaza top is \(z=-0.38\) for \(0.10\le y\le0.55\). The ramp and plaza strokes are kept unchanged.
+
+The car is a rigid body with length along \(y\). From the first frame, the body top is at \(z=-0.38\), \(y=-0.22\) at the front and \(y=-0.62\) at the rear; the lower side reaches \(z=-0.50\). The cabin roof is at \(z=-0.30\) with \(y=-0.34\) to \(-0.52\); light blocks occupy \(y=-0.40\) to \(-0.46\) and \(z=-0.26\) to \(-0.30\). Body x-extents are \(\pm0.12\), cabin \(\pm0.09\), and lights \(\pm0.005\) to \(\pm0.06\). The wheelbase is \(L=0.28\), with initial axle centers
+\[
+F_0=(-0.30,-0.545),\qquad R_0=(-0.58,-0.545)
+\]
+in \((y,z)\), wheel radius \(r=0.055\), and wheel x-centers \(\pm0.13\). At the previous \(t=0.5\) frame the car was centered on the ramp with pitch
+\[
+\theta=\tan^{-1}(0.6875)\approx34.5^\circ
+\]
+and front/rear wheel centers approximately
+\[
+(0.024207,-0.365364),\qquad(-0.206525,-0.523992).
+\]
+
+For frame \(i=4\) at \(t=0.75\), use a reduced pitch \(\phi=20^\circ\) about the x-axis, positive rotation raising the \(+y\) front, as the body begins to level. The front wheels are on the flat plaza, so their center height is
+\[
+z_f=-0.38+r=-0.38+0.055=-0.325.
+\]
+With the rigid wheelbase \(L=0.28\), the rear axle center height follows
+\[
+z_r=z_f-L\sin\phi
+=-0.325-0.28\sin20^\circ
+=-0.325-0.095766=-0.420766.
+\]
+For the rear wheel to contact the ramp, its center lies on the line parallel to the ramp at normal distance \(r\):
+\[
+z=0.6875y-0.44875+r\sqrt{1+0.6875^2}
+=0.6875y-0.44875+0.066744
+=0.6875y-0.382006.
+\]
+Substituting \(z_r=-0.420766\),
+\[
+-0.420766=0.6875y_r-0.382006
+\]
+gives
+\[
+y_r=\frac{-0.420766+0.382006}{0.6875}=-0.056378.
+\]
+Then
+\[
+y_f=y_r+L\cos\phi
+=-0.056378+0.28\cos20^\circ
+=-0.056378+0.263114=0.206736.
+\]
+So the transformed axle centers are
+\[
+F_4=(0.206736,-0.325),\qquad
+R_4=(-0.056378,-0.420766).
+\]
+
+All car body, cabin, light, and wheel-center points use the same rigid transform. With
+\[
+c=\cos20^\circ=0.9396926,\qquad s=\sin20^\circ=0.3420201,
+\]
+the transform from the first-frame local coordinates \((y_0,z_0)\) is
+\[
+y=c(y_0+0.30)-s(z_0+0.545)+0.206736
+\]
+\[
+z=s(y_0+0.30)+c(z_0+0.545)-0.325,
+\]
+or equivalently
+\[
+y=0.9396926\,y_0-0.3420201\,z_0+0.302243,
+\]
+\[
+z=0.3420201\,y_0+0.9396926\,z_0+0.289739.
+\]
+For example, the first-frame front body-top point \((-0.12,-0.22,-0.38)\) maps to
+\[
+y=0.9396926(-0.22)-0.3420201(-0.38)+0.302243
+=-0.206732+0.129968+0.302243=0.225478,
+\]
+\[
+z=0.3420201(-0.22)+0.9396926(-0.38)+0.289739
+=-0.075244-0.357083+0.289739=-0.142589.
+\]
+Thus the body top has front corners \((\pm0.12,0.225478,-0.142589)\) and rear corners \((\pm0.12,-0.150399,-0.279397)\). The near body side uses
+\[
+(0.12,0.225478,-0.142589),\quad
+(0.12,-0.150399,-0.279397),
+\]
+\[
+(0.12,-0.109356,-0.392160),\quad
+(0.12,0.266521,-0.255352).
+\]
+The rear body face connects the rear top \((\pm0.12,-0.150399,-0.279397)\) to the rear bottom \((\pm0.12,-0.109356,-0.392160)\).
+
+The cabin roof maps to front corners \((\pm0.09,0.085354,-0.108456)\) and rear corners \((\pm0.09,-0.083791,-0.170020)\). The cabin near side has vertices
+\[
+(0.09,0.112715,-0.183632),\quad
+(0.09,-0.056429,-0.245195),
+\]
+\[
+(0.09,-0.083791,-0.170020),\quad
+(0.09,0.085354,-0.108456).
+\]
+The cabin rear face connects \(y=-0.056429,z=-0.245195\) to \(y=-0.083791,z=-0.170020\) at \(x=\pm0.09\).
+
+The light blocks transform to the \(y,z\) vertices
+\[
+(-0.041090,-0.111911),\quad
+(0.015291,-0.091390),\quad
+(-0.027409,-0.149499),
+\]
+with the left block using \(x\in[-0.06,-0.005]\) and the right block using \(x\in[0.005,0.06]\). The wheel outlines keep radius \(0.055\) and use the same cubic circle approximation; the near/far front wheels are centered at
+\[
+(y,z)=(0.206736,-0.325)
+\]
+with \(x=\pm0.13\), and the near/far rear wheels at
+\[
+(y,z)=(-0.056378,-0.420766)
+\]
+with \(x=\pm0.13\). This places the front wheel bottoms on the plaza top \(z=-0.38\), keeps the rear wheels on the ramp, and applies one consistent rigid pitch/translation to the car while the scene remains stationary.

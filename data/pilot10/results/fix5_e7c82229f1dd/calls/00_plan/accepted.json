@@ -1,0 +1,9 @@
+{
+  "reason": "A short three-domino arc keeps the cascade readable within five frames while the fixed table and clear contacts preserve support and cause-and-effect.",
+  "total_plan": {
+    "scene": "Minimal fixed tabletop at about z=-0.20, drawn with a few straight support edges. A small ball starts on the left side of the table, aimed at three slim dominoes standing in a gentle front-left to back-right arc. Generous white space; camera fixed.",
+    "parts": "Ball: small sphere, radius about 0.07, centered at tabletop plus radius, drawn with intersecting great-circle arcs. Dominoes: three rigid thin rectangular prisms, about 0.12 wide, 0.035 thick, 0.22 tall, each showing front/back corner edges and standing on the tabletop. Tabletop: one fixed planar support with minimal straight edges.",
+    "motion": "t=0: ball at left, all three dominoes upright along the arc. t=.25: ball reaches and contacts the first domino's lower face; only after contact does the first begin tipping forward. t=.5: first domino rotates about its table-contact edge and strikes the second; second begins to tip. t=.75: second strikes the third; third begins to tip while the first lies lower. t=1: all three dominoes rest fallen on the table in a short curved chain, and the ball has stopped just behind the first base. The ball's great-circle curves rotate to indicate rolling; no motion trails.",
+    "constraints": "All bases remain supported by the fixed tabletop; falling dominoes pivot on their bottom edges and then lie flat without changing size. Ball radius and center height above the table stay constant while rolling, and it stops on the table after impact. Contact precedes each reaction: ball-to-first, first-to-second, then second-to-third. No overlapping solids, no extra moving props, and all action stays within the central bounds."
+  }
+}

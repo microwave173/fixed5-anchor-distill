@@ -1,0 +1,15 @@
+Use +x right, +y depth, +z up, with the camera fixed at (2.8,-3.2,2.4) looking toward the origin; do not move the camera. Keep the cube and support inside [-0.8,0.8], with the floor plane at z=-0.6. For the first frame at t=0, choose a cube of side length 0.7, half-size h=0.35, centered on the vertical axis at (0,0,-0.25). Thus the bottom face is at z=-0.6 and the top face at z=0.1. Choose the initial yaw as φ0=20° about the fixed vertical center axis through (0,0,z). Motion is yaw only, so vertical edges remain vertical and the bottom face remains on the floor plane.
+
+Use c=cos20°=0.9396926 and s=sin20°=0.3420201. For a local corner (a,b) with a,b∈{±h}, yaw about z gives
+X = a c - b s,  Y = a s + b c,
+with z=-0.6 for bottom vertices and z=0.1 for top vertices. For the representative corner (a,b)=(h,h):
+X = 0.35(0.9396926-0.3420201) = 0.35(0.5976725) = 0.209185,
+Y = 0.35(0.3420201+0.9396926) = 0.35(1.2817127) = 0.448599.
+So
+B0=(0.209185,0.4486,-0.6), T0=(0.209185,0.4486,0.1).
+Applying the same rotation to the other three corners gives
+B1=(0.4486,-0.209185,-0.6), T1=(0.4486,-0.209185,0.1),
+B2=(-0.209185,-0.4486,-0.6), T2=(-0.209185,-0.4486,0.1),
+B3=(-0.4486,0.209185,-0.6), T3=(-0.4486,0.209185,0.1).
+
+Draw all twelve cube edges as straight L segments: the bottom face edges B0-B1, B1-B2, B2-B3, B3-B0; the top face edges T0-T1, T1-T2, T2-T3, T3-T0; and the four vertical edges B0-T0, B1-T1, B2-T2, B3-T3. All edges are visible wireframe lines, with no shading, labels, arrows, or decorative geometry. Add the short fixed floor support line from (-0.55,0.15,-0.6) to (0.55,0.15,-0.6), which touches and supports the cube’s bottom face. The planned quarter turn is a +90° yaw from this initial orientation, preserving dimensions, edge connections, vertical edges, and bottom-face contact.

@@ -1,0 +1,69 @@
+Final frame is a recoil pose for the bird and a fully toppled rigid cone. In the previous frame the cone apex was at \((0.338756,0,-0.18359)\); the final cone rotates farther clockwise about its floor-contact base rim toward \(+x\). Take the final apex \(A=(0.64,0,-0.59)\), preserving cone height \(h=0.38\) and base radius \(r=0.14\). Let \(B\) be the base center and \(n=(n_x,0,n_z)\) the unit axis from \(B\) to \(A\). With \(e_{\text{up}}=(-n_z,0,n_x)\), the bottom base rim is \(B-r e_{\text{up}}\), so floor contact requires
+\[
+B_z=-0.6+r n_x.
+\]
+Since \(A=B+h n\) and \(A_z=-0.59\),
+\[
+-0.6+0.14n_x+0.38n_z=-0.59
+\]
+so
+\[
+n_z=\frac{0.01-0.14n_x}{0.38}=0.02632-0.36842n_x.
+\]
+Using \(n_x^2+n_z^2=1\) gives \(n_x\approx0.9464\), \(n_z\approx-0.3224\). Therefore
+\[
+B_z=-0.6+0.14(0.9464)=-0.4675,\qquad
+B_x=0.64-0.38(0.9464)=0.2804,
+\]
+so \(B=(0.2804,0,-0.4675)\). This places the base left/up relative to the apex and keeps the bottom rim at \(z=-0.6\).
+
+For the base circle use
+\[
+u=r e_{\text{up}}=(0.0451,0,0.1325),\qquad v=(0,0.14,0).
+\]
+The four ellipse points are
+\[
+T=B+u=(0.3255,0,-0.3350),\quad
+F=B+v=(0.2804,0.14,-0.4675),
+\]
+\[
+D=B-u=(0.2353,0,-0.6000),\quad
+N=B-v=(0.2804,-0.14,-0.4675).
+\]
+With \(k=0.5523\), \(ku=(0.0249,0,0.0732)\) and \(kv=(0,0.0773,0)\), the base ellipse is
+\[
+\begin{aligned}
+M\;&T,\\
+C3\;&T+kv=(0.3255,0.0773,-0.3350),\;
+F+ku=(0.3053,0.14,-0.3943),\;
+F,\\
+C3\;&F-ku=(0.2555,0.14,-0.5407),\;
+D+kv=(0.2353,0.2173,-0.6000),\;
+D,\\
+C3\;&D-kv=(0.2353,-0.2173,-0.6000),\;
+N-ku=(0.2555,-0.14,-0.5407),\;
+N,\\
+C3\;&N+ku=(0.3053,-0.14,-0.3943),\;
+T-kv=(0.3255,-0.0773,-0.3350),\;
+T\;Z.
+\end{aligned}
+\]
+From apex \(A=(0.64,0,-0.59)\), draw straight generators to \(T\), \(D\), and \(F\), giving the upper silhouette, the floor-side generator, and one depth generator.
+
+The bird recoils upright while its planted feet remain at the first-frame contacts \((-0.33,-0.06,-0.60)\) and \((-0.34,0.06,-0.60)\). Keep the first-frame body outline/depth, folded wing curves, tail, and leg paths unchanged to preserve identity and attachment. Retract the head clear: the first head center \((-0.16,0,-0.15)\) moves by \((-0.04,0,+0.05)\) to \((-0.20,0,-0.10)\), radius \(0.055\). Thus the sagittal head circle is
+\[
+M\,(-0.255,0,-0.10)\;
+C3\,(-0.255,0,-0.045),\,(-0.145,0,-0.045),\,(-0.145,0,-0.10)
+\]
+\[
+C3\,(-0.145,0,-0.155),\,(-0.255,0,-0.155),\,(-0.255,0,-0.10)\,Z,
+\]
+and the depth circle is
+\[
+M\,(-0.20,-0.055,-0.10)\;
+C3\,(-0.20,-0.055,-0.045),\,(-0.20,0,-0.045),\,(-0.20,0.055,-0.10)
+\]
+\[
+C3\,(-0.20,0.055,-0.155),\,(-0.20,-0.055,-0.155),\,(-0.20,-0.055,-0.10)\,Z.
+\]
+The neck runs from the body at \((-0.34,0.01,-0.23)\) with control \((-0.30,0.015,-0.16)\) to the head rear \((-0.255,0.005,-0.12)\). The beak is an open V from \((-0.145,-0.01,-0.09)\) to tip \((-0.04,-0.015,-0.14)\) to lower base \((-0.145,-0.02,-0.12)\); its tip is clear of the cone base leftmost \(x=0.235\). The floor support line remains \(M\,(-0.72,-0.20,-0.6)\;L\,(0.72,-0.20,-0.6)\).

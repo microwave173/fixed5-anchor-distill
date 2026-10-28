@@ -1,0 +1,104 @@
+The cube has bottom-square vertices at \(z=-0.6\):
+
+\[
+P_1=(0.209185,0.4486,-0.6),\quad
+P_2=(0.4486,-0.209185,-0.6),
+\]
+\[
+P_3=(-0.209185,-0.4486,-0.6),\quad
+P_4=(-0.4486,0.209185,-0.6).
+\]
+
+The corresponding top vertices have the same \(x,y\) and \(z=0.1\), so the cube height is \(0.1-(-0.6)=0.7\). From \(P_1\) to \(P_2\),
+
+\[
+\Delta x=0.4486-0.209185=0.239415,\quad
+\Delta y=-0.209185-0.4486=-0.657785,
+\]
+
+and
+
+\[
+\sqrt{0.239415^2+(-0.657785)^2}=0.7.
+\]
+
+The square is centered at \((0,0)\) in \(xy\); the vertical center axis is \(x=0,\ y=0\). Yaw changes only \(x,y\) and leaves \(z\) unchanged.
+
+In the first frame the first corner \(P_1\) is at angle
+
+\[
+\operatorname{atan2}(0.4486,0.209185)\approx 65^\circ.
+\]
+
+In the preceding frame the corresponding first bottom vertex is
+
+\[
+Q_1=(-0.334401,0.364934,-0.6),
+\]
+
+whose angle is
+
+\[
+\operatorname{atan2}(0.364934,-0.334401)\approx 132.5^\circ.
+\]
+
+Thus the motion from the first frame to \(t=0.75\) is \(132.5^\circ-65^\circ=67.5^\circ\), matching the planned counterclockwise yaw. At \(t=1\), the total yaw is therefore \(90^\circ\) counterclockwise from the first frame.
+
+Use the pivot \((0,0)\), axis \(z\), and rotation
+
+\[
+R_z(90^\circ):(x,y)\mapsto(-y,x).
+\]
+
+For the representative vertex \(P_1\),
+
+\[
+(0.209185,0.4486)\mapsto(-0.4486,0.209185),
+\]
+
+so the final bottom vertex is
+
+\[
+R_1=(-0.4486,0.209185,-0.6),
+\]
+
+and the corresponding top vertex is
+
+\[
+(-0.4486,0.209185,0.1).
+\]
+
+Applying the same map to the other three vertices gives
+
+\[
+P_2=(0.4486,-0.209185)\mapsto R_2=(0.209185,0.4486),
+\]
+
+\[
+P_3=(-0.209185,-0.4486)\mapsto R_3=(0.4486,-0.209185),
+\]
+
+\[
+P_4=(-0.4486,0.209185)\mapsto R_4=(-0.209185,-0.4486).
+\]
+
+Thus the final bottom vertices are
+
+\[
+R_1=(-0.4486,0.209185,-0.6),\quad
+R_2=(0.209185,0.4486,-0.6),
+\]
+\[
+R_3=(0.4486,-0.209185,-0.6),\quad
+R_4=(-0.209185,-0.4486,-0.6),
+\]
+
+with corresponding top vertices at \(z=0.1\).
+
+The bottom edge carrying the original \(P_1\to P_2\) identity becomes \(R_1\to R_2\); the remaining bottom edges become \(R_2\to R_3\), \(R_3\to R_4\), and \(R_4\to R_1\). The top square uses the same \(R_1,\dots,R_4\) order at \(z=0.1\). The vertical edges connect each \(R_i\) from \(z=-0.6\) to \(z=0.1\), preserving the four vertical cube edges. Although the set of corner positions at \(90^\circ\) coincides with the initial set because of the square symmetry, the labeled vertex identities are shifted by the rotation.
+
+The floor line is fixed and unchanged:
+
+\[
+(-0.55,0.15,-0.6)\to(0.55,0.15,-0.6).
+\]

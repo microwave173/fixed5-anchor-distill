@@ -1,0 +1,61 @@
+Use \(+x\) right, \(+y\) depth, \(+z\) up. The camera is fixed at \((2.8,-3.2,2.4)\) looking toward the origin, and the pendulum swings in the vertical \(x\)-\(z\) plane at \(y=0\). The floor is the line \(z=-0.6\) from \((-0.8,0,-0.6)\) to \((0.8,0,-0.6)\).
+
+Place the fixed pivot at \(P=(0,0,0.62)\). The overhead bracket is a horizontal beam at \(z=0.86\) from \((-0.32,0,0.86)\) to \((0.32,0,0.86)\), with a vertical stem down to \(P\). A small pivot ring of radius \(0.035\) sits at \(P\), and a short axle line runs across depth from \((0,-0.055,0.62)\) to \((0,0.055,0.62)\).
+
+For frame 1, set the bob center at \(B=(-0.58,0,0.10)\) with radius \(r=0.11\). Then
+\[
+\overrightarrow{PB}=(-0.58,0,-0.52),\qquad
+|\overrightarrow{PB}|=\sqrt{0.58^2+0.52^2}
+=\sqrt{0.6068}\approx0.779.
+\]
+So the taut rod length is \(L\approx0.779\). Its unit direction is
+\[
+u\approx(-0.7445,0,-0.6676).
+\]
+The rod ends on the sphere surface, at distance \(L-r\approx0.669\) from \(P\):
+\[
+P+(L-r)u
+=(0,0,0.62)+0.669(-0.7445,0,-0.6676)
+\approx(-0.498,0,0.174).
+\]
+Thus the rod is \(M(0,0,0.62)\;L(-0.498,0,0.174)\).
+
+Draw the bob as three intersecting great circles of radius \(0.11\) centered at \(B=(-0.58,0,0.10)\). With cubic-circle constant \(k=0.5523\), \(kr=0.06075\), the vertical \(x\)-\(z\) circle is
+\[
+\begin{aligned}
+&M(-0.69,0,0.10)\\
+&C3(-0.69,0,0.16075)(-0.64075,0,0.21)(-0.58,0,0.21)\\
+&C3(-0.51925,0,0.21)(-0.47,0,0.16075)(-0.47,0,0.10)\\
+&C3(-0.47,0,0.03925)(-0.51925,0,-0.01)(-0.58,0,-0.01)\\
+&C3(-0.64075,0,-0.01)(-0.69,0,0.03925)(-0.69,0,0.10).
+\end{aligned}
+\]
+The horizontal \(x\)-\(y\) circle at \(z=0.10\) is
+\[
+\begin{aligned}
+&M(-0.69,0,0.10)\\
+&C3(-0.69,0.06075,0.10)(-0.64075,0.11,0.10)(-0.58,0.11,0.10)\\
+&C3(-0.51925,0.11,0.10)(-0.47,0.06075,0.10)(-0.47,0,0.10)\\
+&C3(-0.47,-0.06075,0.10)(-0.51925,-0.11,0.10)(-0.58,-0.11,0.10)\\
+&C3(-0.64075,-0.11,0.10)(-0.69,-0.06075,0.10)(-0.69,0,0.10).
+\end{aligned}
+\]
+The vertical \(y\)-\(z\) circle at \(x=-0.58\) is
+\[
+\begin{aligned}
+&M(-0.58,-0.11,0.10)\\
+&C3(-0.58,-0.11,0.16075)(-0.58,-0.06075,0.21)(-0.58,0,0.21)\\
+&C3(-0.58,0.06075,0.21)(-0.58,0.11,0.16075)(-0.58,0.11,0.10)\\
+&C3(-0.58,0.11,0.03925)(-0.58,0.06075,-0.01)(-0.58,0,-0.01)\\
+&C3(-0.58,-0.06075,-0.01)(-0.58,-0.11,0.03925)(-0.58,-0.11,0.10).
+\end{aligned}
+\]
+
+The fixed rubber stop is placed from the planned contact point. At contact, the bob is at angle \(+20^\circ\) from vertical:
+\[
+x=0.779\sin20^\circ\approx0.266,\qquad
+z=0.62-0.779\cos20^\circ\approx-0.112.
+\]
+The bob's rightmost point is then \(x\approx0.266+0.11=0.376\), so the stop contact face is placed at \(x\approx0.38\). Use a rounded bumper block centered at about \((0.46,0,-0.11)\), with extents \(x=0.38\) to \(0.54\), \(z=-0.20\) to \(-0.02\), \(y=-0.07\) to \(0.07\), and rounded left corners of radius about \(0.03\). Its front face at \(y=-0.07\) runs from \((0.54,-0.07,-0.20)\) to \((0.41,-0.07,-0.20)\), rounds to \((0.38,-0.07,-0.17)\), descends to \((0.38,-0.07,-0.05)\), rounds to \((0.41,-0.07,-0.02)\), and closes through \((0.54,-0.07,-0.02)\). A right-side depth edge at \(x=0.54\) connects the front and back \(y=\pm0.07\) corners, giving the bumper coherent depth.
+
+The bumper sits on a fixed base from \(z=-0.60\) to \(-0.20\). Its front face is the rectangle with \(x=0.41\) to \(0.51\) at \(y=-0.06\), and its right side is the rectangle at \(x=0.51\) spanning \(y=-0.06\) to \(0.06\). The base meets the floor at \(z=-0.60\). In frame 1 the bob remains high on the left, the rod is taut, and the stop stays fixed and untouched.

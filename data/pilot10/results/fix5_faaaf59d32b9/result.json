@@ -1,0 +1,17 @@
+{
+  "task": "fix5_faaaf59d32b9",
+  "status": "complete",
+  "frames": 5,
+  "available_frames": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "seconds": 415.30603981018066,
+  "warnings": [],
+  "failures": [],
+  "compression_errors": [],
+  "compression_complete": true
+}

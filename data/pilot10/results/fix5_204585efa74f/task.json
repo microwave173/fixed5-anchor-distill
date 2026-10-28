@@ -1,0 +1,19 @@
+{
+  "id": "fix5_204585efa74f",
+  "prompt": "A police car drives up a slight rise onto a plaza.",
+  "prompt_zh": "一辆警车沿微坡驶上广场。",
+  "dim": 3,
+  "total_frames": 5,
+  "category": "vehicle",
+  "category_zh": "交通工具",
+  "independent": false,
+  "locomotion": false,
+  "tags": [
+    "translation"
+  ],
+  "review_quality": 2,
+  "source_id": "gen3d_ea3237c619fc",
+  "source_file": "sketch3d_general5000_v2/tasks.json",
+  "source_dim": 3,
+  "title": "汽车上坡"
+}

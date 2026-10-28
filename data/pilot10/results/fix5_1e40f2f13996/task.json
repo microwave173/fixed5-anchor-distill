@@ -1,0 +1,20 @@
+{
+  "id": "fix5_1e40f2f13996",
+  "prompt": "A person walks forward slowly with knees bent, keeping weight low and steady.",
+  "prompt_zh": "一个人屈膝缓慢前行，重心低而稳定。",
+  "dim": 3,
+  "total_frames": 5,
+  "category": "human",
+  "category_zh": "人物",
+  "independent": true,
+  "locomotion": true,
+  "tags": [
+    "translation",
+    "articulation"
+  ],
+  "review_quality": 2,
+  "source_id": "human800_a5000668dbea",
+  "source_file": "human_motion_800_v1/mixed500_v1/tasks_new400.json",
+  "source_dim": 2,
+  "title": "屈膝行走"
+}

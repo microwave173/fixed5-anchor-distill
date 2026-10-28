@@ -1,0 +1,20 @@
+{
+  "id": "fix5_8808009d3b29",
+  "prompt": "A dog walks forward with ears perked.",
+  "prompt_zh": "一只狗竖起耳朵向前走。",
+  "dim": 3,
+  "total_frames": 5,
+  "category": "animal",
+  "category_zh": "动物",
+  "independent": true,
+  "locomotion": true,
+  "tags": [
+    "translation",
+    "articulation"
+  ],
+  "review_quality": 2,
+  "source_id": "gen3d_e30fd6929a12",
+  "source_file": "sketch3d_general5000_v2/tasks.json",
+  "source_dim": 3,
+  "title": "狗走路"
+}

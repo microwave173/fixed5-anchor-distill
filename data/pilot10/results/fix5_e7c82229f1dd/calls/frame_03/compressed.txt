@@ -1,0 +1,160 @@
+At \(t=0.5\) (frame 3), keep the table fixed and the third domino upright. Use the orthonormal horizontal basis
+\[
+w=(0.34,-0.94,0),\qquad t=(0.94,0.34,0),
+\]
+with \(z=(0,0,1)\). Each domino is a thin prism of width \(0.12\) along \(w\), thickness \(d=0.035\) along \(t\), and height \(H=0.22\), standing from \(z=-0.20\) to \(z=0.02\). The ball remains at its previous center \((-0.3656,-0.15,-0.13)\), radius \(0.07\), with the same great-circle orientation: it has stopped just behind the first base after contact, so no further rolling rotation is introduced.
+
+For a domino tipping in the \(+t\) direction about a bottom edge, choose the pivot \(E\) on the \(+t\) bottom edge. For any point \(p\), write
+\[
+q=p-E,\quad a=q\cdot w,\quad s=q\cdot t,\quad h=q\cdot z.
+\]
+Rotation by angle \(\theta\) about the pivot line \(E+aw\) gives
+\[
+s'=s\cos\theta+h\sin\theta,\qquad
+h'=-s\sin\theta+h\cos\theta,
+\]
+\[
+p'=E+a\,w+s'\,t+h'\,z.
+\]
+This sign moves \(+z\) toward \(+t\). The opposite axis would tip the domino backward.
+
+The first pivot is
+\[
+E_1=(-0.30395,-0.01765,-0.20),
+\]
+and the second pivot is
+\[
+E_2=(-0.10395,0.04735,-0.20).
+\]
+Along \(t\),
+\[
+(E_2-E_1)\cdot t=(0.2,0.065,0)\cdot(0.94,0.34)=0.2101.
+\]
+For the first upright domino, the leading top edge has local coordinates \(s=0,\ h=H=0.22\). After rotation its \(t\)-coordinate is \(H\sin\theta_1\), while the second domino’s near face is at \(0.2101-0.035=0.1751\). Thus initial contact would satisfy
+\[
+0.22\sin\theta_1=0.1751,
+\]
+giving \(\theta_1\approx 52.8^\circ\).
+
+To show the second beginning to tip, choose \(\theta_2=8^\circ\). The contact condition with the tipped second domino is
+\[
+\frac{H\sin(\theta_1-\theta_2)}{\cos\theta_2}
+=0.2101-d\cos\theta_2 .
+\]
+Substituting \(H=0.22,\ d=0.035,\ \theta_2=8^\circ\):
+\[
+\sin(\theta_1-8^\circ)
+=\frac{(0.2101-0.035\cos8^\circ)\cos8^\circ}{0.22}
+\approx 0.7897,
+\]
+so \(\theta_1-8^\circ\approx 52.2^\circ\), hence \(\theta_1\approx 60.2^\circ\). Use \(\theta_1=60^\circ\), \(\theta_2=8^\circ\). The contact height is then
+\[
+h=\frac{H\cos60^\circ}{\cos8^\circ}
+=\frac{0.22\cdot0.5}{0.9903}\approx0.1111,
+\]
+giving contact \(z=-0.20+h\cos8^\circ\approx-0.09\).
+
+For the first domino, \(\theta_1=60^\circ\), \(\cos\theta_1=0.5\), \(\sin\theta_1=0.866025\). The near bottom edge has \(s=-d=-0.035,\ h=0\):
+\[
+s'=-0.035(0.5)+0=-0.0175,\qquad
+h'=-(-0.035)(0.866025)+0=0.0303109.
+\]
+The near top edge has \(s=-0.035,\ h=0.22\):
+\[
+s'=-0.0175+0.22(0.866025)=0.173026,
+\]
+\[
+h'=0.0303109+0.22(0.5)=0.140311.
+\]
+The far top edge has \(s=0,\ h=0.22\):
+\[
+s'=0.190526,\qquad h'=0.11.
+\]
+As a representative point, the near bottom vertex with \(a=0\) is
+\[
+x=-0.30395+0.94(-0.0175)=-0.3204,
+\]
+\[
+y=-0.01765+0.34(-0.0175)=-0.0236,
+\]
+\[
+z=-0.20+0.0303109=-0.1696891.
+\]
+The transformed first-domino vertices are:
+\[
+A=(-0.3204,-0.0236,-0.1696891),
+\]
+\[
+B=(-0.2796,-0.1364,-0.1696891),
+\]
+\[
+A_t=(-0.1413056,0.0411788,-0.0596891),
+\]
+\[
+B_t=(-0.1005056,-0.0716212,-0.0596891),
+\]
+\[
+E_t=(-0.1248556,0.0471288,-0.09),
+\]
+\[
+D_t=(-0.0840556,-0.0656712,-0.09),
+\]
+with the pivot-edge vertices unchanged:
+\[
+E_1=(-0.30395,-0.01765,-0.20),\qquad
+D_1=(-0.26315,-0.13045,-0.20).
+\]
+
+For the second domino, \(\theta_2=8^\circ\), \(\cos8^\circ=0.990268\), \(\sin8^\circ=0.139173\). The near bottom edge \(s=-0.035,\ h=0\) gives
+\[
+s'=-0.035(0.990268)=-0.0346594,
+\]
+\[
+h'=0.035(0.139173)=0.00487106.
+\]
+The near top edge \(s=-0.035,\ h=0.22\) gives
+\[
+s'=-0.0346594+0.22(0.139173)=-0.00404130,
+\]
+\[
+h'=0.00487106+0.22(0.990268)=0.222730.
+\]
+The far top edge \(s=0,\ h=0.22\) gives
+\[
+s'=0.0306181,\qquad h'=0.217859.
+\]
+As a representative substitution, the near bottom vertex with \(a=0\) is
+\[
+x=-0.10395+0.94(-0.0346594)=-0.1365298,
+\]
+\[
+y=0.04735+0.34(-0.0346594)=0.0355658,
+\]
+\[
+z=-0.20+0.00487106=-0.1951289.
+\]
+The transformed second-domino vertices are:
+\[
+A=(-0.1365298,0.0355658,-0.1951289),
+\]
+\[
+B=(-0.0957298,-0.0772342,-0.1951289),
+\]
+\[
+A_t=(-0.1077488,0.0459760,0.0227300),
+\]
+\[
+B_t=(-0.0669488,-0.0668240,0.0227300),
+\]
+\[
+E_t=(-0.0751690,0.0577601,0.0178590),
+\]
+\[
+D_t=(-0.0343690,-0.0550399,0.0178590),
+\]
+with
+\[
+E_2=(-0.10395,0.04735,-0.20),\qquad
+D_2=(-0.06315,-0.06545,-0.20)
+\]
+unchanged on the pivot edge. The first domino’s leading top edge lies near \(z=-0.09\), matching the second’s near-face contact at the chosen angles. The third domino and the table retain their original coordinates.

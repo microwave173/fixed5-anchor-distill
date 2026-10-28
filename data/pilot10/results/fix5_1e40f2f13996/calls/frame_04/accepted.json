@@ -1,0 +1,55 @@
+{
+  "reason": "At t=0.75 the body advances slightly leftward-to-rightward; the right leg remains planted with a bent knee while the left leg swings through lifted and bent; arms counter-swing with the right arm forward and left arm back.",
+  "frames": [
+    {
+      "i": 4,
+      "strokes": [
+        {
+          "id": "torso_anchors",
+          "path": "M -0.20 0 -0.14 Q3 -0.18 0 0 -0.14 0 0.13 M -0.15 0.065 0.11 L -0.15 -0.065 0.11 M -0.20 0.075 -0.14 L -0.20 -0.075 -0.14",
+          "description": "short forward-leaning torso centerline with shoulder and hip anchor bars"
+        },
+        {
+          "id": "head_xz",
+          "path": "M -0.01 0 0.25 C3 -0.01 0 0.41 -0.25 0 0.41 -0.25 0 0.25 C3 -0.25 0 0.09 -0.01 0 0.09 -0.01 0 0.25",
+          "description": "head great circle in the vertical x-z plane"
+        },
+        {
+          "id": "head_yz",
+          "path": "M -0.13 0.12 0.25 C3 -0.13 0.12 0.41 -0.13 -0.12 0.41 -0.13 -0.12 0.25 C3 -0.13 -0.12 0.09 -0.13 0.12 0.09 -0.13 0.12 0.25",
+          "description": "head great circle in the vertical y-z plane"
+        },
+        {
+          "id": "head_xy",
+          "path": "M -0.01 0 0.25 C3 -0.01 0.16 0.25 -0.25 0.16 0.25 -0.25 0 0.25 C3 -0.25 -0.16 0.25 -0.01 -0.16 0.25 -0.01 0 0.25",
+          "description": "head great circle in the horizontal x-y plane"
+        },
+        {
+          "id": "arm_right",
+          "path": "M -0.15 -0.065 0.11 Q3 -0.04 -0.09 0.01 0.08 -0.10 -0.08",
+          "description": "right arm swinging forward with a relaxed bend"
+        },
+        {
+          "id": "arm_left",
+          "path": "M -0.15 0.065 0.11 Q3 -0.25 0.09 0.01 -0.37 0.10 -0.08",
+          "description": "left arm counter-swinging backward"
+        },
+        {
+          "id": "leg_left",
+          "path": "M -0.20 0.075 -0.14 Q3 -0.15 0.09 -0.24 -0.06 0.10 -0.33 Q3 -0.13 0.10 -0.47 -0.20 0.10 -0.53",
+          "description": "left leg swinging through with a bent knee and lifted foot"
+        },
+        {
+          "id": "leg_right",
+          "path": "M -0.20 -0.075 -0.14 Q3 -0.15 -0.08 -0.25 -0.08 -0.09 -0.35 Q3 -0.07 -0.10 -0.48 -0.08 -0.10 -0.60",
+          "description": "right leg supporting the low body with a bent knee and planted foot"
+        },
+        {
+          "id": "floor_line",
+          "path": "M -0.75 0 -0.60 L 0.05 0 -0.60",
+          "description": "minimal fixed floor line supporting the foot contacts"
+        }
+      ]
+    }
+  ]
+}

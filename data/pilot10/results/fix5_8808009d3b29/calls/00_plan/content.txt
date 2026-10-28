@@ -1,0 +1,9 @@
+{
+  "reason": "A minimal 3D dog crosses the floor in a short walk cycle; the plan fixes body proportions and visible foot contacts so the motion reads clearly in five frames.",
+  "total_plan": {
+    "scene": "Open white space with a fixed ground plane at z=-0.6. The dog faces +x, starts near x=-0.45 and finishes near x=+0.45, staying within [-0.8,0.8]. Fixed three-quarter side view; no props or scenery.",
+    "parts": "One friendly dog: compact rounded torso with a short spine contour and a few depth curves; small head at +x with short snout and two upright perked ears; thin tail at -x rising slightly; four connected single-line legs attached at shoulder/hip positions, near-side pair offset in +y and far-side pair in -y; small paws as ground contacts. Keep head, body, ears, tail and limb lengths rigid.",
+    "motion": "A short forward walk: the body translates along +x with a subtle vertical bob. Legs alternate in a clear walk-like cycle: at t=0 the dog is in a stable planted stance; at t=.25 opposite legs begin to swing while other paws hold contact; at t=.5 the swing legs pass through neutral; at t=.75 the next support contacts; at t=1 the dog settles into a supported stride. Head stays forward, ears remain perked, tail sways minimally.",
+    "constraints": "At least two paws remain on z=-0.6 in every frame; a paw stays fixed once planted and lifts only after the body passes over it. Do not stretch limbs, bob the torso through the legs, slide planted paws, or change the dog’s rigid proportions. Keep ears perked and all shapes within the drawing bounds from start to finish."
+  }
+}

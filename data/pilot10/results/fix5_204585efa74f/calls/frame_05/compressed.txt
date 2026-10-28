@@ -1,0 +1,69 @@
+Use \(+x\) right, \(+y\) depth/forward, \(+z\) up. The ramp top runs from \(y=-0.22,z=-0.60\) to \(y=0.10,z=-0.38\):
+\[
+(-0.35,-0.22,-0.60)\to(0.25,-0.22,-0.60)\to(0.25,0.10,-0.38)\to(-0.35,0.10,-0.38).
+\]
+The flat plaza top is at \(z=-0.38\) with corners
+\[
+(-0.35,0.10,-0.38),\ (0.25,0.10,-0.38),\ (0.65,0.55,-0.38),\ (-0.35,0.55,-0.38).
+\]
+Its visible right depth and the ramp side depth stay unchanged: ramp right side connects \((0.25,0.10,-0.38)\), \((0.25,0.10,-0.60)\), \((0.25,-0.22,-0.60)\); plaza right depth connects \((0.25,0.10,-0.60)\), \((0.65,0.55,-0.60)\), \((0.65,0.55,-0.38)\).
+
+The first-frame car is level on the lower floor \(z=-0.60\). Its body box spans \(y=-0.62\) to \(-0.22\), \(x=\pm0.12\); the body top deck is at \(z=-0.38\), and the near-side body face runs down to \(z=-0.50\). The wheel paths lie in \(y\)-\(z\) planes at \(x=\pm0.13\). For the near-front wheel, the path’s \(y\)-extremes are \(-0.245\) and \(-0.355\), so the center is
+\[
+y_c=\frac{-0.245+(-0.355)}{2}=-0.300,
+\]
+with radius \((0.355-0.245)/2=0.055\). Its \(z\)-extremes are \(-0.490\) and \(-0.600\), giving
+\[
+z_c=\frac{-0.490+(-0.600)}{2}=-0.545.
+\]
+The path start \(y=-0.245\) is a rim point, not the center. Similarly the near-rear wheel center has
+\[
+y_c=\frac{-0.525+(-0.635)}{2}=-0.580,\quad z_c=-0.545,
+\]
+so the first-frame wheelbase in \(y\) is \(0.280\). In the previous frame the near-front center was \((0.13,0.206736,-0.325)\) and the near-rear center was \((0.13,-0.056378,-0.420766)\), i.e. still pitched; the final frame must complete the climb into a level pose.
+
+In the final frame all four wheels sit on the plaza top \(z=-0.38\). The wheel radius remains \(0.055\), so the final wheel center height is
+\[
+z_{\text{wheel}}=-0.38+0.055=-0.325,
+\]
+and the vertical translation from the first frame is
+\[
+\Delta z=-0.325-(-0.545)=+0.220.
+\]
+Choose the final front wheel center at \(y=0.450\), so
+\[
+\Delta y=0.450-(-0.300)=+0.750.
+\]
+Then the rear wheel center is \(-0.580+0.750=0.170\). The wheel extremes are \(0.450+0.055=0.505\) at the front and \(0.170-0.055=0.115\) at the rear; the body front is \(-0.220+0.750=0.530\) and the body rear is \(-0.620+0.750=0.130\). These lie within the plaza’s \(y\in[0.10,0.55]\), and the unchanged \(x=\pm0.13\) lies within the plaza width. Since the final car is level, the rigid car transform is the translation
+\[
+T=(0,+0.750,+0.220),
+\]
+with no rotation and no \(x\)-shift.
+
+Apply \(T\) to every car point. For example the body-top corner \((-0.12,-0.22,-0.38)\) becomes
+\[
+(-0.12,-0.22,-0.38)+(0,0.750,0.220)=(-0.12,0.530,-0.160),
+\]
+so the final body top corners are
+\[
+(-0.12,0.53,-0.16),\ (0.12,0.53,-0.16),\ (0.12,0.13,-0.16),\ (-0.12,0.13,-0.16).
+\]
+The near-side body face at \(x=0.12\) runs from \(y=0.53,z=-0.16\) to \(y=0.13,z=-0.16\) and down to \(z=-0.28\); the rear face is at \(y=0.13\), with \(z=-0.16\) to \(-0.28\) and \(x=\pm0.12\). The cabin roof first corners \(y=-0.34,-0.52\), \(z=-0.30\) become \(y=0.41,0.23\), \(z=-0.08\):
+\[
+(-0.09,0.41,-0.08),\ (0.09,0.41,-0.08),\ (0.09,0.23,-0.08),\ (-0.09,0.23,-0.08).
+\]
+The cabin near side at \(x=0.09\) uses \(y=0.41,0.23\) and \(z=-0.16,-0.08\); the cabin rear face is at \(y=0.23\). The roof-light blocks first had \(y=-0.46,-0.40\) and \(z=-0.26,-0.30\), becoming \(y=0.29,0.35\) and \(z=-0.04,-0.08\); left block \(x=-0.06\) to \(-0.005\), right block \(x=0.005\) to \(0.06\), with the lower edges meeting the roof at \(z=-0.08\).
+
+For the wheels, the same translation gives final centers
+\[
+(0.13,0.45,-0.325),\quad (0.13,0.17,-0.325),\quad (-0.13,0.45,-0.325),\quad (-0.13,0.17,-0.325).
+\]
+Representatively, the near-front wheel start \((0.13,-0.245,-0.545)\) maps to
+\[
+(0.13,-0.245,-0.545)+(0,0.750,0.220)=(0.13,0.505,-0.325),
+\]
+and its first control \((0.13,-0.245,-0.514625)\) maps to
+\[
+(0.13,0.505,-0.294625).
+\]
+The remaining wheel controls use the same \(T\); the circular paths keep their radius \(0.055\), so wheel spin is not separately visible without spokes. The stationary ramp and plaza strokes keep the coordinates above, and the final car is the level first-frame car translated by \(T\) onto the plaza.

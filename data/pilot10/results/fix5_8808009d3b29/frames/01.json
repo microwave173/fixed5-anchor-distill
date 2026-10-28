@@ -1,0 +1,85 @@
+{
+  "i": 1,
+  "strokes": [
+    {
+      "id": "body_spine",
+      "path": "M -0.68 0 0.10 C3 -0.61 0 0.18 -0.39 0 0.19 -0.23 0 0.11",
+      "description": "top spine contour of the torso"
+    },
+    {
+      "id": "body_belly",
+      "path": "M -0.67 0 -0.13 C3 -0.55 0 -0.18 -0.35 0 -0.18 -0.22 0 -0.11",
+      "description": "belly contour of the torso"
+    },
+    {
+      "id": "body_near_side",
+      "path": "M -0.66 0.10 0.00 C3 -0.54 0.12 0.06 -0.36 0.12 0.06 -0.24 0.10 0.00",
+      "description": "near-side longitudinal body contour showing depth"
+    },
+    {
+      "id": "body_rump_arc",
+      "path": "M -0.65 0 0.10 C3 -0.65 -0.10 0.05 -0.65 -0.10 -0.08 -0.65 0 -0.13 C3 -0.65 0.10 -0.08 -0.65 0.10 0.05 -0.65 0 0.10",
+      "description": "rear cross-section arc of the torso"
+    },
+    {
+      "id": "body_shoulder_arc",
+      "path": "M -0.25 0 0.11 C3 -0.25 -0.10 0.06 -0.25 -0.10 -0.08 -0.25 0 -0.12 C3 -0.25 0.10 -0.08 -0.25 0.10 0.06 -0.25 0 0.11",
+      "description": "shoulder cross-section arc of the torso"
+    },
+    {
+      "id": "head_sagittal",
+      "path": "M -0.26 0 0.22 C3 -0.26 0 0.35 -0.02 0 0.35 0.00 0 0.22 C3 0.00 0 0.09 -0.26 0 0.09 -0.26 0 0.22",
+      "description": "sagittal great-circle contour of the round head"
+    },
+    {
+      "id": "head_transverse",
+      "path": "M -0.26 0 0.22 C3 -0.26 -0.13 0.22 0.00 -0.13 0.22 0.00 0 0.22 C3 0.00 0.13 0.22 -0.26 0.13 0.22 -0.26 0 0.22",
+      "description": "horizontal great-circle contour of the round head"
+    },
+    {
+      "id": "head_coronal",
+      "path": "M -0.13 0 0.09 C3 -0.13 -0.12 0.13 -0.13 -0.12 0.31 -0.13 0 0.35 C3 -0.13 0.12 0.31 -0.13 0.12 0.13 -0.13 0 0.09",
+      "description": "front cross-section contour of the round head"
+    },
+    {
+      "id": "muzzle_profile",
+      "path": "M -0.04 0 0.27 C3 0.02 0 0.26 0.08 0 0.22 0.10 0 0.19 C3 0.08 0 0.16 0.03 0 0.14 -0.04 0 0.14",
+      "description": "short rounded snout profile"
+    },
+    {
+      "id": "ear_near",
+      "path": "M -0.18 0.06 0.32 C3 -0.20 0.07 0.43 -0.17 0.07 0.48 -0.11 0.05 0.36 C3 -0.12 0.05 0.33 -0.15 0.06 0.32 -0.18 0.06 0.32",
+      "description": "near perked ear"
+    },
+    {
+      "id": "ear_far",
+      "path": "M -0.18 -0.06 0.32 C3 -0.20 -0.07 0.43 -0.17 -0.07 0.48 -0.11 -0.05 0.36 C3 -0.12 -0.05 0.33 -0.15 -0.06 0.32 -0.18 -0.06 0.32",
+      "description": "far perked ear"
+    },
+    {
+      "id": "tail",
+      "path": "M -0.68 0.02 0.12 C3 -0.75 0.04 0.18 -0.78 0.05 0.26 -0.75 0.06 0.31",
+      "description": "short rising tail at the rump"
+    },
+    {
+      "id": "leg_front_near",
+      "path": "M -0.25 0.09 -0.10 C3 -0.26 0.09 -0.25 -0.24 0.09 -0.43 -0.25 0.09 -0.59 L -0.19 0.09 -0.60",
+      "description": "near front leg with planted paw"
+    },
+    {
+      "id": "leg_front_far",
+      "path": "M -0.21 -0.09 -0.10 C3 -0.20 -0.09 -0.27 -0.18 -0.09 -0.45 -0.17 -0.09 -0.60 L -0.11 -0.09 -0.60",
+      "description": "far front leg with planted paw"
+    },
+    {
+      "id": "leg_hind_near",
+      "path": "M -0.61 0.09 -0.08 C3 -0.63 0.09 -0.25 -0.65 0.09 -0.43 -0.63 0.09 -0.59 L -0.57 0.09 -0.60",
+      "description": "near hind leg with planted paw"
+    },
+    {
+      "id": "leg_hind_far",
+      "path": "M -0.58 -0.09 -0.08 C3 -0.56 -0.09 -0.26 -0.54 -0.09 -0.44 -0.55 -0.09 -0.60 L -0.49 -0.09 -0.60",
+      "description": "far hind leg with planted paw"
+    }
+  ]
+}

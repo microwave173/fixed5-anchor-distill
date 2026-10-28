@@ -1,0 +1,50 @@
+Using \(+x\) right, \(+y\) depth, \(+z\) up, the initial cube has bottom-square vertices  
+\(A=(0.209185,0.4486,-0.6)\),  
+\(B=(0.4486,-0.209185,-0.6)\),  
+\(C=(-0.209185,-0.4486,-0.6)\),  
+\(D=(-0.4486,0.209185,-0.6)\).  
+The top vertices have the same \(x,y\) at \(z=0.1\). The square is centered on the vertical axis \(x=y=0\), with radius  
+\(\sqrt{0.209185^2+0.4486^2}\approx0.495\), so its side is about \(0.7\).
+
+For frame 2, \(t=.25\), the cube yaws by \(22.5^\circ\) about the fixed vertical center axis. Choose positive yaw as counterclockwise viewed from \(+z\), so every vertex keeps its \(z\)-coordinate and obeys  
+\[
+x'=x\cos\theta-y\sin\theta,\qquad
+y'=x\sin\theta+y\cos\theta,
+\]
+with  
+\[
+\theta=22.5^\circ,\quad \cos\theta=0.9238795325,\quad \sin\theta=0.3826834324.
+\]
+
+For vertex \(A\), the numerical substitution is  
+\[
+x_A'=0.209185(0.9238795325)-0.4486(0.3826834324)
+=0.1932617395-0.1716717878
+=0.0215899517,
+\]
+\[
+y_A'=0.209185(0.3826834324)+0.4486(0.9238795325)
+=0.080051633+0.414452358
+=0.494503991.
+\]
+Thus  
+\[
+A'=(0.021589952,\;0.494503991,\;-0.6).
+\]
+
+Applying the same rotation to the other three corners gives  
+\[
+B'=(0.494503991,\;-0.021589952,\;-0.6),
+\]
+\[
+C'=(-0.021589952,\;-0.494503991,\;-0.6),
+\]
+\[
+D'=(-0.494503991,\;0.021589952,\;-0.6).
+\]
+The top vertices are the same \(A',B',C',D'\) with \(z=0.1\).
+
+The bottom edges connect \(A'B'\), \(B'C'\), \(C'D'\), \(D'A'\); the top edges connect the corresponding top vertices; four vertical edges connect each bottom vertex to its top counterpart from \(z=-0.6\) to \(z=0.1\). The floor line remains fixed at  
+\[
+(-0.55,0.15,-0.6)\ \text{to}\ (0.55,0.15,-0.6).
+\]

@@ -1,0 +1,20 @@
+{
+  "id": "fix5_92cac896589c",
+  "prompt": "A helicopter lifts off while its rotor spins, moving backward slightly as it rises.",
+  "prompt_zh": "一架直升机起飞，旋翼旋转，上升时略微向后移动。",
+  "dim": 3,
+  "total_frames": 5,
+  "category": "vehicle",
+  "category_zh": "交通工具",
+  "independent": false,
+  "locomotion": false,
+  "tags": [
+    "translation",
+    "rotation"
+  ],
+  "review_quality": 2,
+  "source_id": "atom_4d0abcec6d81",
+  "source_file": "ar_high_weakness600_v1/tasks.json",
+  "source_dim": 3,
+  "title": "直升机起飞"
+}

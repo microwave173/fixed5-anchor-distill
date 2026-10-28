@@ -1,0 +1,20 @@
+{
+  "id": "fix5_faaaf59d32b9",
+  "prompt": "A cat walks past in profile with its tail held level.",
+  "prompt_zh": "一只猫以侧面姿态走过，尾巴保持水平。",
+  "dim": 3,
+  "total_frames": 5,
+  "category": "animal",
+  "category_zh": "动物",
+  "independent": true,
+  "locomotion": true,
+  "tags": [
+    "translation",
+    "articulation"
+  ],
+  "review_quality": 2,
+  "source_id": "gen3d_4be4f607dc21",
+  "source_file": "sketch3d_general5000_v2/tasks.json",
+  "source_dim": 3,
+  "title": "猫走路"
+}

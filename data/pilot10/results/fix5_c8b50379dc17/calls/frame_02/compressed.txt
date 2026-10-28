@@ -1,0 +1,39 @@
+Use \(+x\) right, \(+y\) depth, \(+z\) up. The wall stays at \(y=0.55\), the floor at \(z=-0.60\), and the figure near the origin. For frame 2 at \(t=.25\), the wall, floor, torso, spherical head, left arm, and both planted legs are kept unchanged because the figure remains braced against the wall with feet fixed. Only the ball and the right arm change.
+
+The initial ball center read from the intersecting great circles is \((0.50,0.10,0.05)\) with radius about \(0.09\). At \(t=.25\) the ball should be centered near \(z=-0.25\), so translate it by
+\[
+\Delta=(0,0,-0.30).
+\]
+For the vertical great circle this sends the rightmost point
+\[
+(0.59,0.10,0.05)\to(0.59,0.10,0.05-0.30)=(0.59,0.10,-0.25),
+\]
+the top
+\[
+(0.50,0.10,0.14)\to(0.50,0.10,-0.16),
+\]
+and the bottom
+\[
+(0.50,0.10,-0.04)\to(0.50,0.10,-0.34).
+\]
+Intermediate values become \(0.0997\to-0.2003\) and \(0.0003\to-0.2997\). The horizontal great circle has constant \(z=0.05\), so it becomes \(z=-0.25\). The sagittal great circle top and bottom likewise become \(z=-0.16\) and \(z=-0.34\), giving the new center \((0.50,0.10,-0.25)\).
+
+The right arm keeps its shoulder at \((0.13,0.46,0.20)\). Initially its hand is at \((0.41,0.10,0.05)\). At \(t=.25\), with ball center \((0.50,0.10,-0.25)\) and radius \(0.09\), choose the hand contact point on the upper-left ball surface as
+\[
+(0.44,0.10,-0.18).
+\]
+The contact distance is
+\[
+\sqrt{(0.50-0.44)^2+(-0.25+0.18)^2}
+=\sqrt{0.06^2+0.07^2}
+=\sqrt{0.0085}\approx0.092,
+\]
+matching the ball radius. Bend the arm through an elbow near \((0.33,0.30,0.02)\), giving the single-line path
+\[
+\begin{aligned}
+M&\ 0.13\ 0.46\ 0.20\\
+C3&\ 0.18\ 0.42\ 0.18\quad 0.28\ 0.34\ 0.10\quad 0.33\ 0.30\ 0.02\\
+C3&\ 0.37\ 0.26\ -0.02\quad 0.43\ 0.18\ -0.10\quad 0.44\ 0.10\ -0.18.
+\end{aligned}
+\]
+This keeps the shoulder attachment, bends the side arm downward, and places the hand on the descending ball.

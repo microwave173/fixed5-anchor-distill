@@ -1,0 +1,248 @@
+We need answer JSON only. Need create first frame helicopter. Need follow strict geometry. Need minimal friendly black-line sketch true 3D. Need strokes. Need camera fixed irrelevant. Need coordinates within [-0.8,0.8], floor z=-0.6. Initial skids contact floor. Nose toward +x. Body centered maybe cabin center around (0,0,-0.28)? Need skids at z=-0.6 contacting floor. Helicopter small, skids below cabin. We need render visible strokes complete. Need use Path3D absolute commands numeric. Need include strokes for cabin contours (intersecting ellipsoid), tail boom, fin, tail rotor, mast, main rotor blades crossing horizontal x-y plane. Skids parallel y separated, struts.
+
+Need decide coordinate system and geometry. Let's design helicopter rigid. Ground z=-0.6. Skids contact at z=-0.6; skids are horizontal along x, separated y ±0.18. Cabin body roughly centered at (0,0,-0.30?) with radius x .24, y .15, z .18. Lower skid struts to z=-0.6. Need nose +x. Cabin front +x perhaps x .25. Tail boom extends -x to -0.6. Tail rotor at back x=-0.6, z=-0.22 maybe. Main rotor mast on cabin roof z=-0.10? rotor plane horizontal at z=0.02 perhaps. Blades in x-y plane crossing at hub. Need 3D ellipsoid curves: cabin rounded with maybe 3 great-circle contours. Need a few spatial contours. Use strokes:
+- cabin longitudinal outline in x-z plane: curve around ellipsoid from nose (+x) around bottom/top/back? M front etc. But 3D with y. We can use C3.
+- cabin cross-section loop in y-z plane at center x maybe 0: ellipse. But for closed path can use cubic approximations. Need do not use arc. Use C3 for ellipse halves maybe.
+- cabin horizontal equator in x-y plane at z center: ellipse.
+Could draw multiple curves. Need recognizable helicopter, minimal.
+
+Maybe body as rounded cabin with a windshield slant? But no face/clothes. Use simple shape.
+
+Need tail boom: single line from back cabin (-0.2,0,-0.30) to (-0.62,0,-0.20), plus tail rotor circle/line at end? A small vertical fin and tail rotor. Tail rotor in y-z plane at x=-0.64 perhaps, axis along x? Tail rotor blades could be one line or cross, rotate? In first frame static. Main rotor blades: two crossing single-line blades lying horizontal x-y plane, rotation angle maybe 25°: blade1 endpoints (0.38 cosθ,0.38 sinθ,0.04) and opposite; blade2 perpendicular. Need hub at (0,0,0.08? mast top). Let's set mast from cabin roof z=-0.15 to hub z=0.08, main rotor blades z=0.09. But if skids at -0.6, cabin bottom around -0.45, top around -0.15, mast up to 0.04, blades z=0.05. All within.
+
+Need contact skids at floor z=-0.6. Skid tubes maybe thin lines along x at y ±0.16, z=-0.6, length from x=-0.25 to .28. Contacting floor. Struts from skid to cabin bottom: at x ±0.12, y ±0.16, from z=-0.6 up to cabin lower z=-0.42. Need maybe front/back struts. Each strut single line. Coherent.
+
+Need body around center (0,0,-0.31), x radius .26, y radius .16, z radius .16. So bottom z=-0.47, top -0.15. Skid struts length .13 to -0.6. Tail boom from back of cabin x=-0.24 z=-0.27 to x=-0.62 z=-0.22, maybe line. Tail boom could be two lines forming 3D tube? Minimal single line okay? Need recognizable. A tail boom is rigid prop maybe thin stick; can be single line. Add fin at tail: from (-0.58,0,-0.22) to (-0.64,0,-0.05)? Vertical fin? But helicopter tail fin vertical, maybe line from tail end at -0.62,-0.22 up to -0.60,-0.06. Tail rotor at (-0.65,0,-0.12) with cross in y-z plane? If tail rotor axis along x, blades in y-z plane. Need small vertical fin and tail rotor. We can draw tail rotor as two crossing lines in y-z plane at x=-0.66: one vertical line z±0.07, one along y ±0.07. But tail rotor spinning not in first? Static. Maybe one blade line and hub dot? No dots? Joint dots allowed not? Instructions no joint dots? "No ... joint dots" for people? For all? It says People have compact ..., no face, clothes, joint dots... For objects maybe avoid dots. Use cross lines to indicate rotor. Maybe tail rotor as ellipse? Could use two crossing lines. Main rotor cross.
+
+Need closed cabin ellipsoid contours. Let's formulate precise coordinates.
+
+Coordinate bounds. Floor z=-0.6. Initial skids touch floor.
+
+Cabin center C=(0.02,0,-0.30). Radii a=0.28 (x), b=0.16 (y), c=0.16 (z). Front nose x=0.30, rear x=-0.26, top z=-0.14, bottom z=-0.46. We need outline in x-z plane at y=0: ellipse-ish via cubic. A single closed curve in x-z plane (centerline silhouette). Use four cubic segments? Need smooth. Could do:
+M 0.30 0 -0.30 (nose)
+C3 0.30 0 -0.18, 0.18 0 -0.14, 0.02 0 -0.14 (top front)
+C3 -0.14 0 -0.14, -0.26 0 -0.20, -0.26 0 -0.30 (rear upper)
+C3 -0.26 0 -0.40, -0.14 0 -0.46, 0.02 0 -0.46 (bottom rear)
+C3 0.18 0 -0.46, 0.30 0 -0.42, 0.30 0 -0.30 (bottom front to nose)
+Z? A subpath with Z closes maybe. Need path syntax supports Z; yes. But Z line from last to start? It would connect nose bottom? Wait last returns to start exactly (0.30,0,-0.30), so Z no issue. Good. This is planar x-z silhouette. But true 3D need cross contours.
+Add horizontal equator ellipse at z=-0.31, x-y:
+M 0.30 0 -0.31
+C3 0.30 0.16 -0.31, 0.02 0.16 -0.31, -0.26 0 -0.31? Wait ellipse centered 0.02 with radii a .28, b .16. Need full closed. Use 4 cubic maybe. For ellipse:
+M (cx+a,0,z)
+C (cx+a, +k*b,z) (cx + k*a? no) standard cubic ellipse with control points. For ellipse full using four quadrants:
+M x0+a,0,z
+C3 x0+a, k*b, z, x0+k*a, b, z, x0, b, z
+C3 x0-k*a, b, z, x0-a, k*b, z, x0-a,0,z
+C3 x0-a,-k*b,z, x0-k*a,-b,z, x0,-b,z
+C3 x0+k*a,-b,z, x0+a,-k*b,z, x0+a,0,z
+where k=0.5523. Need numeric. Here a=.28,b=.16,k*b=.08837,k*a=.15464. x0=.02,z=-.31.
+M .30 0 -.31
+C3 .30 .088 -.31, .1746 .16 -.31, .02 .16 -.31
+C3 -.1346 .16 -.31, -.26 .088 -.31, -.26 0 -.31
+C3 -.26 -.088 -.31, -.1346 -.16 -.31, .02 -.16 -.31
+C3 .1746 -.16 -.31, .30 -.088 -.31, .30 0 -.31
+Z? It ends at start. This is horizontal contour. Good.
+
+Add vertical cross-section y-z at x=0.02? center x. Ellipse in y-z plane: center (0.02,0,-0.30), b=.16,c=.16. M 0.02 .16 -0.30? Actually front? We want loop cross-section around cabin at x=0.02, y-z. Use 4 cubic:
+M 0.02 0.16 -0.30
+C3 -0.0684? Wait ellipse in y-z plane with y radius b=.16, z radius c=.16. Coordinates (x0, y=b cos?, z=c sin?). Use standard: start at y=b,z=0. Let x0=.02,z0=-.30.
+M .02 .16 -.30
+C3 .02 .16? No need first quadrant from (b,0) to (0,c). Cubic:
+M x0, b, z0
+C3 x0, b, z0 + k*c, x0, k*b, z0+c, x0,0,z0+c
+Then C3 x0, -k*b, z0+c, x0, -b, z0+k*c, x0, -b,z0
+Then C3 x0, -b, z0-k*c, x0,-k*b,z0-c, x0,0,z0-c
+Then C3 x0,k*b,z0-c, x0,b,z0-k*c, x0,b,z0.
+Use c=.16, k*c=.08837, k*b=.08837. Thus:
+M .02 .16 -.30
+C3 .02 .16 -.2116, .02 .0884 -.14, .02 0 -.14
+C3 .02 -.0884 -.14, .02 -.16 -.2116, .02 -.16 -.30
+C3 .02 -.16 -.3884, .02 -.0884 -.46, .02 0 -.46
+C3 .02 .0884 -.46, .02 .16 -.3884, .02 .16 -.30
+Z. Good. This expresses 3D volume.
+
+Need maybe window/cockpit? But no extra? Could add a curved front windshield line on side? Minimal maybe not. But recognizable as helicopter with rotor and tail. Body contour enough.
+
+Tail boom: Need attach to rear of cabin at (-0.24,0,-.30) maybe. Draw single line from (-0.24,0,-.31) to (-0.62,0,-.22). But in 3D single line. Maybe add upper line for slight tube volume? Could draw two lines forming tapered boom: from cabin rear top (-0.24,0,-.22) to tail (-0.62,0,-.18) and from lower (-0.24,0,-.38) to tail (-0.62,0,-0.26), plus end vertical line connecting? But "very few meaningful strokes". One centerline maybe enough. However tail boom is visual. Better two converging lines to depict boom. But a thin stick limb may be planar. For rigid tail boom, use maybe single line plus fin.
+Tail fin: vertical at tail: line from (-0.61,0,-.21) to (-0.60,0,-.06); maybe another parallel? A small vertical fin as a quadrilateral? Could draw a triangular fin outline: M -0.65 0 -0.22 L -0.60 0 -0.05 L -0.55 0 -0.18 L -0.65 0 -0.22? This is planar x-z, but fin vertical plane x-z. Could be too much. Use one fin stroke: M -0.63 0 -0.23 L -0.61 0 -0.07 L -0.55 0 -0.16 maybe? Hmm.
+
+Tail rotor: at tail end (-0.65,0,-0.13?) Actually tail rotor often on side of fin with axis horizontal (y or x). Since nose +x, tail rotor plane likely y-z, axis x. Place hub at (-0.65,0,-0.12), blades in y-z plane. Draw two crossing lines: vertical from z=-0.19 to -0.05, horizontal in y from -0.07 to .07 at z=-.12. Since fixed first. This adds recognizability. Need attach to tail boom/fin. Tail boom ends around x=-.64,z=-.20; fin extends up; tail rotor at x=-.66,z=-.12. It may float unless fin connects. Draw fin from (-.64,0,-.23) to (-.64,0,-.05), then rotor hub at (-.65,0,-.14) attached to fin? If fin line passes through hub? Let's set tail rotor hub at (-.66,0,-.14). Fin line vertical at x=-.64 from z=-.23 to -.05. Rotor axis x, so hub near fin, connected. Could draw tail rotor cross centered (-.66,0,-.14). Fine.
+
+Main rotor mast: from cabin roof center (0.02,0,-.14) to hub (0.02,0,0.02). Maybe mast line. Main rotor blades at z=0.04. Two crossing single-line blades. Need some projected angle. Use θ=30° from x-axis in horizontal plane. Blade1 from hub plus length .45 along direction (cosθ,sinθ) to opposite. Blade2 perpendicular. Let hub H=(0.02,0,0.04). Blade length L=.42. Direction d1=(cos30=.866, sin30=.5). Endpoint1 H + L*d1 = (0.02+0.364, 0.21, 0.04) = (0.384,0.21,.04). Endpoint2 H - L*d1 = (-.344,-.21,.04). Blade2 dir=(-sin30=-.5, cos30=.866). Endpoints H + L*d2 = (0.02-.21,0.364,.04)=(-.19,.364,.04); H - =(.23,-.364,.04). Need within [-.8,.8]. Good. But a single line from endpoint to endpoint crossing at hub; one stroke per blade. For 3D depth, maybe rotor blades are thin planar; okay. Need hub maybe small ellipse/circle? Avoid dot? Could use small ellipse in x-y plane? But main mast line and blades cross at hub enough. Maybe no hub dot. But "hub attached". We can draw mast to H. The blades cross at H.
+
+Skids: two parallel skids along x, y=±0.18, z=-0.60. Length from x=-0.28 to x=0.30 maybe. Since floor z=-.6 and skids contact. Draw each as line:
+M -0.28 0.18 -0.60 L 0.30 0.18 -0.60
+M -0.28 -0.18 -0.60 L 0.30 -0.18 -0.60
+Need maybe upswept front? Single-line skids are stick props, okay. But "solid objects coherent depth". Skids are thin rods, can be lines. Need struts. At x ±0.14, y ±0.18 from z=-.60 to cabin lower around z=-.44 (maybe at y ±.12? but attachment to cabin sides). Need four struts:
+front left to cabin side lower (x=.14,y=.14,z=-.42)
+front right to (x=.14,y=-.14,z=-.42)
+rear left (x=-.16,y=.14,z=-.40)
+rear right (x=-.16,y=-.14,z=-.40). But cabin lower at x ±.14, z maybe -0.44, y ±0.12. Good. Single lines. Need maintain contact. The skids at y ±.18, struts to cabin ±.12, angled in y and z. Good. Could also have cross tubes between skids? Not necessary. Need support.
+
+Need make sure cabin bottom (-.46) above skid (-.60), struts connect. Yes.
+
+Potential issue stroke count high but okay. Need exactly one frame i=1. Need JSON with reason. Include only strokes. No style. IDs stable semantic. Need path strings with numeric coords. Need maybe path uses Z? Accepted. Need ensure no functions. Use L and C3. Q3 maybe not. Good.
+
+Let's refine geometry aesthetics.
+
+Cabin silhouette: Center x=0.02,z=-0.30. Use x radius 0.27, z radius .16. Nose +x at 0.29. Tail -x at -0.25. Body is rounded. Need nose maybe more rounded. We'll use previous.
+
+Cabin x-z outline at y=0:
+M 0.29 0 -0.30
+C3 0.29 0 -0.19, 0.18 0 -0.14, 0.02 0 -0.14
+C3 -0.12 0 -0.14, -0.25 0 -0.20, -0.25 0 -0.30
+C3 -0.25 0 -0.40, -0.12 0 -0.46, 0.02 0 -0.46
+C3 0.18 0 -0.46, 0.29 0 -0.41, 0.29 0 -0.30
+Z
+This shape maybe bottom flat? Fine.
+
+Horizontal equator at z=-0.30 with x radius .27, y radius .16, center x=.02. Use cubic. M .29 0 -.30
+C3 .29 .088 -.30, .169? Let's compute x0+k*a = .02 + .1491 = .1691. Wait a=.27, k*a=.1491. x0 - k*a = -.1291. y=b=.16. Use:
+C3 .29 .0884 -.30, .1691 .16 -.30, .02 .16 -.30
+C3 -.1291 .16 -.30, -.25 .0884 -.30, -.25 0 -.30
+C3 -.25 -.0884 -.30, -.1291 -.16 -.30, .02 -.16 -.30
+C3 .1691 -.16 -.30, .29 -.0884 -.30, .29 0 -.30
+Z.
+Good.
+
+Vertical cross-section at x=.02:
+M .02 .16 -.30
+C3 .02 .16 -.2116, .02 .0884 -.14, .02 0 -.14
+C3 .02 -.0884 -.14, .02 -.16 -.2116, .02 -.16 -.30
+C3 .02 -.16 -.3884, .02 -.0884 -.46, .02 0 -.46
+C3 .02 .0884 -.46, .02 .16 -.3884, .02 .16 -.30
+Z.
+This is okay. It crosses silhouette at top/bottom and equator at side? Actually at x=.02 plane, y-z ellipse; visible.
+
+Need maybe cabin front cockpit line? Another 3D contour could be vertical cross-section near front x=.19. But maybe not. "rounded cabin/cockpit built from intersecting ellipsoid contours" we have 3. Good.
+
+Tail boom: Cabin rear at x=-.25,z=-.30. Tail boom perhaps from x=-.22,z=-.30 to x=-.63,z=-.20. But maybe top line and lower line to shape. Let's do two converging lines:
+M -0.22 0 -0.34 L -0.64 0 -0.24
+M -0.22 0 -0.26 L -0.63 0 -0.18
+M -0.64 0 -0.24 L -0.63 0 -0.18 (end cap) maybe. This forms tapered boom. But because y=0 planar, okay thin boom. The end cap connects. But if use separate strokes, could be three strokes. Maybe combine into one path with multiple subpaths:
+M -0.22 0 -0.34 L -0.64 0 -0.24
+M -0.22 0 -0.26 L -0.63 0 -0.18
+M -0.64 0 -0.24 L -0.63 0 -0.18
+This is one stroke. Description tail boom. Good.
+But rear of cabin at x=-.25, z=-.30. Our tail top starts -0.22,-0.26 (inside cabin), bottom -0.22,-0.34. Attached. Good.
+
+Fin: Need vertical fin at tail. Could use triangular outline on x-z plane y=0:
+M -0.63 0 -0.18 L -0.60 0 -0.04 L -0.54 0 -0.15 Z? Hmm fin should sweep back? Tail end at -0.63. Fin leading edge maybe from (-0.55,-0.16) to (-0.62,-0.04) then down to (-0.65,-0.20). But attached to tail boom. Let's design:
+M -0.60 0 -0.20 L -0.60 0 -0.05 L -0.53 0 -0.16 L -0.60 0 -0.20 Z. This is small triangular fin at rear, vertical plane. But tail boom end is -0.64,-0.24 to -0.63,-0.18. Fin maybe at x=-0.60. Better:
+M -0.64 0 -0.22 L -0.62 0 -0.05 L -0.55 0 -0.17 L -0.64 0 -0.22 Z. This includes tail end and fin. But as a closed triangular plane, okay. However it may overlap boom. That's fine.
+Tail rotor: plane y-z at x=-0.65. Hub center (-0.65,0,-0.13). Vertical line z from -.20 to -.06: M -0.65 0 -0.20 L -0.65 0 -0.06. Horizontal across y: M -0.65 -0.07 -0.13 L -0.65 0.07 -0.13. Two strokes or combine one path with two subpaths. Use one tail_rotor stroke with two subpaths. Need attach to fin: hub x=-.65 near fin at x=-.62..-.64, z=-.13, okay.
+Maybe tail rotor could be at x=-0.68, y? Slightly outboard to be visible. But must attach. Use x=-0.66, center z=-.13. Fin at x=-.64 to -.62. Close. Fine.
+
+Main rotor mast: from (0.02,0,-0.14) to (0.02,0,0.04). Need maybe hub cap? Could draw short horizontal cross? No. Main rotor blades at z=0.06? If mast top .04, blades at .04. Use H=(.02,0,.04). Mast top attaches. Main rotor blade line through H. Use L from endpoint to endpoint. But blade crosses hub; if stroke endpoint to endpoint, midpoint at H. Good. Need use z=.04 exactly for both blades. Since horizontal plane.
+
+Blade endpoints calculation using L=0.42, θ=30. H=(.02,0,.04)
+d1=(.866025,.5)
+p1=(.3839,.21,.04)
+p2=(-.3439,-.21,.04)
+d2=(-.5,.866025)
+p3=(-.19,.3637,.04)
+p4=(.23,-.3637,.04)
+Need maybe with controls? Single-line limbs can be straight, blades straight. Good. Use L commands.
+Maybe main rotor should be higher than cabin top -0.14. .04, yes.
+
+Skids:
+left? y=+0.18 and y=-0.18. Need dimensions from x=-0.30 to .32. z=-.60. Maybe slight upward curve at front? But initial skids contact floor, if front curves up not contact? Could draw flat. Good. Use line with maybe small upturn? A straight skid is recognizable. But "smooth curves for organic bodies; clear straight edges for rigid props." Skids rigid, straight okay. Two parallel skids.
+Struts: Cabin lower sides. Since cabin cross-section at y±.16, bottom around z=-.46. Struts from skids y±.18 at x=.14/z-.60 to cabin y±.12 at x=.14,z=-.44. Similarly rear x=-.16 to z=-.42. Need maybe left/right. Each as line. Four strokes? Could combine into one path with four subpaths. ID skid_struts. Use M for each.
+Front left: M 0.15 0.18 -0.60 L 0.15 0.12 -0.43. Front right: M 0.15 -0.18 -0.60 L 0.15 -0.12 -0.43.
+Rear left: M -0.17 0.18 -0.60 L -0.17 0.12 -0.42.
+Rear right: M -0.17 -0.18 -0.60 L -0.17 -0.12 -0.42.
+Do these attach to cabin? At x=.15, cabin lower z? The cabin silhouette at x=.15 bottom maybe -0.45. The vertical cross-section at y=.12, z? Okay inside. Good.
+Skids maybe x from -0.30 to .32. The struts at x=.15, -.17 within. Good.
+
+Potential issue the skid line at y=+0.18, z=-0.60 and floor at z=-0.6 exactly. It may be drawn; okay. Rendered line thickness extends below? But okay.
+
+Need maybe main rotor blades and tail rotor maybe strokes cross at hub; no hub dot.
+
+Need "true 3D world space" all coordinates. Good.
+
+Need reason brief public geometry/motion rationale. Since FIRST initial state. "Initial helicopter rests on skids at floor; main rotor at 30° crossing." Good.
+
+Need output exactly JSON. Ensure no trailing commas. Path strings valid. Need include descriptions. Need unique stable stroke IDs. We can use cabin_outline, cabin_equator, cabin_cross, tail_boom, tail_fin, tail_rotor, rotor_mast, main_blade_a, main_blade_b, skid_left, skid_right, skid_struts. 12 strokes. Good.
+
+Need ensure Path3D syntax: "M x y z; L x y z; ..." The JSON path string with semicolons and spaces. Use Z maybe. For path with multiple subpaths, separate by semicolon. Valid. Use only M,L,C3. No style. Good.
+
+Let's revisit coordinate limits and 3D volume. The tail rotor x=-0.66, z=-.05 maybe within. Main blade endpoints y ±.364, x .384/- .344. Within [-0.8,0.8]. Good. Floor -0.6. Cabin top -0.14, mast .04, blades .04. All within.
+
+Potential issue "No decorative scenery" floor line? Scene fixed floor around z=-0.6 when needed. We could draw floor line? The instructions say fixed floor around z=-0.6 when needed. For helicopter initial contact, maybe include a short floor line? But "No decorative scenery"; floor support necessary maybe. We can include floor line stroke? It says "Use ... fixed floor around z=-0.6 when needed". The initial skids touch floor. A short floor line would show support. Could include one stroke "floor" maybe. But "draw only requested current 3D frame" and no decorative scenery. Floor line is support. However in scene description: Fixed white space with a short floor line at z=-0.6. It might be expected. Need include? The constraints mention floor. I think include short floor line at z=-0.6, maybe from x=-0.4 to .45 along y=0? But floor in 3D should be a line? "short floor line at z=-0.6". Could draw a line along x at y=0? But skids are parallel y ±.18, so floor line at y maybe 0? It might visually be under helicopter. But flat props may be planar. Since scene says short floor line at z=-0.6. We'll include floor as a horizontal line from x=-0.45,y=0,z=-0.60 to x=0.45,y=0,z=-0.60. But if camera angled, floor line. This may help show contact. But "No decorative scenery" floor line is support. The instruction says "Fixed white space with a short floor line at z=-0.6." for scene. Include. However "Keep every requested subject and necessary support." Floor line is necessary support for initial. Add stroke id floor. Need ensure not too much. Let's include short floor line at y=0? In 3D, a floor line is a line. It should be at z=-0.6. It can be along x. Since skids y ±.18 and z=-.6, contact line may be above floor line? Actually floor line at y=0 doesn't touch skids but indicates ground plane. Fine. Could draw floor line along x at y=0. Maybe camera sees it; skids at y ±.18, z=-.60. The floor line y=0 might be occluded? It's okay.
+
+But the prompt: "Use ... fixed floor around z=-0.6 when needed and room for full action." It doesn't mandate. But scene says short floor line. I'll include floor. Need maybe it's a "flat prop" and thin line. Good.
+
+Need maintain "solid objects need coherent depth: a ball or spherical head uses ...; box..." We do for cabin. Skids are thin rods; okay. Tail boom two lines. Main rotor blades single lines. Good.
+
+Potential hidden issue: The first frame should be "complete visible strokes" not code/2D projection. We use 3D coordinates. Good.
+
+Need maybe cabin ellipse horizon uses y= ±.16 at center x=.02. It lies on same z as center. But the body silhouette at z=-.30 has x from -.25 to .29; horizon ellipse at x max .29, x min -.25. Good. It crosses silhouette. Vertical cross-section at x=.02 with y±.16,z±.16. Good. Crosses silhouette top/bottom and horizon sides. Nice.
+
+Let's verify cabin x-z outline and vertical cross-section: At x=.02, top z=-.14, bottom -0.46. Vertical cross-section top at (x=.02,y=0,z=-.14) and bottom (x=.02,0,-.46). Good. The cross-section ellipse at x=.02 between y±.16,z center -0.30. It intersects the cabin silhouette at top/bottom but also horizontal equator at y=±.16,z=-.30. Good.
+
+Need maybe make cabin slightly higher? It's okay.
+
+Tail boom may start within cabin. Two lines from -0.22 to -0.64. At x=-0.22, z=-.34 and -.26, both inside cabin rear. Good. The tail boom end z=-.24 to -.18. fin at x=-.64 z=-.22 to -.05. Attached.
+
+Tail rotor cross: central hub (-.65,0,-.13). Vertical line from z=-.20 to -.06, horizontal y ±.07. The vertical blade below up to -.20 near tail boom; top to -.06 near fin. Good. It is in y-z plane at x=-.65. Since camera from (2.8,-3.2,2.4) looks, the tail rotor plane may be visible edge-on? Wait camera x positive, y negative, z positive. Tail rotor plane y-z at x=-.65, axis along x. Camera has x component positive, so it will see plane somewhat. Good.
+
+Main rotor plane horizontal x-y at z=.04. Camera above, visible. Crossing blades at 30°/120°. Good.
+
+Potential issue rotor blade line passing through hub and mast top. Mast top at H; blades at z=.04. Good. But mast line ends at H. The blades cross at H. Good.
+
+Need maybe main rotor hub maybe not visible as a point; intersection of strokes indicates. Fine.
+
+Need maybe line thickness uniform; no style.
+
+Let's construct JSON.
+
+Path strings:
+floor: "M -0.45 0 -0.60 L 0.45 0 -0.60"
+cabin_outline: "M 0.29 0 -0.30 C3 0.29 0 -0.19 0.18 0 -0.14 0.02 0 -0.14 C3 -0.12 0 -0.14 -0.25 0 -0.20 -0.25 0 -0.30 C3 -0.25 0 -0.40 -0.12 0 -0.46 0.02 0 -0.46 C3 0.18 0 -0.46 0.29 0 -0.41 0.29 0 -0.30 Z"
+Note C3 syntax: "C3 cx cy cz x y z" then next C3. The string after first C3 has 6 coordinates? "0.29 0 -0.19 0.18 0 -0.14 0.02 0 -0.14" yes cx,cy,cz,x,y,z. Good.
+cabin_equator: M .29 0 -.30 C3 .29 .0884 -.30 .1691 .16 -.30 .02 .16 -.30 C3 -.1291 .16 -.30 -.25 .0884 -.30 -.25 0 -.30 C3 -.25 -.0884 -.30 -.1291 -.16 -.30 .02 -.16 -.30 C3 .1691 -.16 -.30 .29 -.0884 -.30 .29 0 -.30 Z
+cabin_cross: M .02 .16 -.30 C3 .02 .16 -.2116 .02 .0884 -.14 .02 0 -.14 C3 .02 -.0884 -.14 .02 -.16 -.2116 .02 -.16 -.30 C3 .02 -.16 -.3884 .02 -.0884 -.46 .02 0 -.46 C3 .02 .0884 -.46 .02 .16 -.3884 .02 .16 -.30 Z
+tail_boom: "M -0.22 0 -0.34 L -0.64 0 -0.24 M -0.22 0 -0.26 L -0.63 0 -0.18 M -0.64 0 -0.24 L -0.63 0 -0.18" Note multiple M no semicolon? Path3D says a path may contain several M subpaths. Can use semicolons between? In examples they use ";". Usually path string uses semicolons between commands. Need separate subpaths by semicolon? They said "A path may contain several M subpaths." It doesn't explicitly require semicolon, but syntax uses semicolon separators. We'll use semicolons: "M ... L ...; M ... L ...; M ... L ...". That's fine.
+tail_fin: "M -0.64 0 -0.22 L -0.62 0 -0.05 L -0.55 0 -0.17 L -0.64 0 -0.22 Z" This is closed triangle. Good. But path includes Z after returning to start. Fine.
+tail_rotor: "M -0.65 0 -0.20 L -0.65 0 -0.06; M -0.65 -0.07 -0.13 L -0.65 0.07 -0.13"
+rotor_mast: "M 0.02 0 -0.14 L 0.02 0 0.04"
+main_blade_a: "M 0.3839 0.21 0.04 L -0.3439 -0.21 0.04"
+main_blade_b: "M -0.19 0.3637 0.04 L 0.23 -0.3637 0.04"
+skid_left: "M -0.30 0.18 -0.60 L 0.32 0.18 -0.60"
+skid_right: "M -0.30 -0.18 -0.60 L 0.32 -0.18 -0.60"
+skid_struts: "M 0.15 0.18 -0.60 L 0.15 0.12 -0.43; M 0.15 -0.18 -0.60 L 0.15 -0.12 -0.43; M -0.17 0.18 -0.60 L -0.17 0.12 -0.42; M -0.17 -0.18 -0.60 L -0.17 -0.12 -0.42"
+
+Need maybe the skid struts attach to cabin at z=-.43 etc. The cabin lower outline at x=.15 maybe z around -.45. Good.
+
+Potential issue main rotor blades in horizontal plane: They are single straight lines. But "crossing single-line main rotor blades lying in horizontal x-y plane" yes.
+
+Need no Q3? Fine.
+
+Need include exactly one frame with i=1. The JSON object:
+{
+ "reason": "...",
+ "frames": [
+  {"i":1, "strokes":[ ... ]}
+ ]
+}
+Need no extra text. Ensure valid JSON. Use descriptions concise.
+
+Let's ensure no unescaped characters. Fine.
+
+Need maybe "main_blade_a" line passes through hub? It endpoints at opposite directions. Midpoint: ((.3839 + -.3439)/2=.02, (0.21 + -.21)/2=0, z=.04). Good. Blade B midpoint: ((-.19+.23)/2=.02, (.3637-.3637)/2=0). Good.
+
+Tail rotor vertical/horizontal cross midpoint (-.65,0,-.13). Vertical line centered z=-.13 (from -.20 to -.06). Horizontal centered y=0. Good.
+
+Tail fin closed triangle: vertices (-.64,0,-.22),(-.62,0,-.05),(-.55,0,-.17), close. This triangle includes tail rotor hub (-.65,-.13) slightly outside fin, but attached near. Maybe hub x=-.65, fin plane x between -.64 and -.55, so not exactly attached. The tail rotor at x=-.65 just behind fin leading edge. Fine. Could set fin front at x=-.66 to include hub? But tail rotor axis x, hub should attach to side of fin. It can be at x=-.65 and fin at x=-.64. Close enough.
+
+Need maybe tail rotor x=-.65 with tail boom end at x=-.64. Good.
+
+Potential issue "No joint dots" but struts lines meet skids/cabin at endpoints, no dots. Fine.
+
+Need maybe "No shading, hatching, textures, motion trails, arrows, text or decorative scenery." We have no shading. Floor line okay.
+
+Reason should mention initial contact and rotor angle. "Initial frame: helicopter rests on parallel skids at z=-0.60; nose +x; main rotor horizontal at 30°/120° crossing; tail boom/fin and tail rotor attached." Good.
+
+Need maybe specify no motion. Fine.
+
+Let's output.

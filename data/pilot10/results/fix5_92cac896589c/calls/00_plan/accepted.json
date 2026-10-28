@@ -1,0 +1,9 @@
+{
+  "reason": "The animation is a compact helicopter takeoff: the rotor spins while the skids are supported on the ground, then the helicopter rises and drifts slightly backward without changing shape.",
+  "total_plan": {
+    "scene": "Fixed white space with a short floor line at z=-0.6. A small helicopter sits initially centered and supported on its skids, nose toward +x, with room above and slightly backward (-x) for liftoff.",
+    "parts": "Recognizable 3D helicopter: rounded cabin/cockpit built from intersecting ellipsoid contours, tail boom extending opposite the nose (-x), small vertical fin and tail rotor at the back, main rotor mast on the cabin roof, and two crossing single-line main rotor blades lying in the horizontal x-y plane. Two parallel skids under the cabin attach by short struts and are separated in y. No extra props.",
+    "motion": "At t=0 the skids contact the floor and the main rotor has one clear blade crossing angle. Over t=.25,.5,.75,1 the main rotor turns continuously around its vertical mast, with the projected blade angle changing each frame; the skids clear the floor, and the whole helicopter rises in z while drifting slightly backward along -x. The body remains level and rigid, with the tail boom, fin, rotor, and skids staying attached.",
+    "constraints": "Keep the camera and floor fixed. Maintain rigid cabin/tail/skid dimensions and parallel skids. Initial skids touch z=-0.6 without penetration; after liftoff all parts remain above the floor. Use monotonic rise plus only a small backward drift within [-0.8,0.8]. The final state is a stable airborne hover, supported by rotor thrust, with no motion trails, arrows, text, or decorative scenery."
+  }
+}

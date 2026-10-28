@@ -1,0 +1,43 @@
+The cube is rigid and rotates only by yaw about the fixed vertical center axis through \(x=y=0\), whose midpoint is \(z=(-0.6+0.1)/2=-0.25\). The bottom face remains at \(z=-0.6\), the top face at \(z=0.1\), so every vertex keeps its \(z\)-coordinate. Frame 3 is at normalized time \(0.5\), an absolute yaw of \(45^\circ\) from the first frame; the previous frame 2 already has \(v_0\) at \(87.5^\circ\), i.e. \(+22.5^\circ\), so another \(+22.5^\circ\) gives frame 3.
+
+From the first frame, the bottom square vertices in order are
+\[
+v_0=(0.209185,0.4486),\quad
+v_1=(0.4486,-0.209185),\quad
+v_2=(-0.209185,-0.4486),\quad
+v_3=(-0.4486,0.209185)
+\]
+at \(z=-0.6\). The edge \(v_1-v_0=(0.239415,-0.657785)\) has length
+\[
+\sqrt{0.239415^2+(-0.657785)^2}=0.7,
+\]
+so the horizontal circumradius is \(r=0.7/\sqrt2=0.4949747468\). Equivalently, the initial polar angles are \(65^\circ,-25^\circ,-115^\circ,155^\circ\); adding \(45^\circ\) gives \(110^\circ,20^\circ,-70^\circ,200^\circ\).
+
+Using the \(z\)-axis rotation formula for \(+45^\circ\),
+\[
+x'=\frac{x-y}{\sqrt2},\qquad
+y'=\frac{x+y}{\sqrt2},
+\]
+for \(v_0\):
+\[
+x'=\frac{0.209185-0.4486}{\sqrt2}
+=\frac{-0.239415}{1.41421356}
+=-0.169291,
+\]
+\[
+y'=\frac{0.209185+0.4486}{\sqrt2}
+=\frac{0.657785}{1.41421356}
+=0.465124.
+\]
+Thus \(v_0'=(-0.169291,0.465124)\). Applying the same rotation to the other vertices gives
+\[
+v_1'=(0.465124,0.169291),\quad
+v_2'=(0.169291,-0.465124),\quad
+v_3'=(-0.465124,-0.169291).
+\]
+The top vertices use these same \(xy\) coordinates at \(z=0.1\).
+
+The twelve edges are the bottom square \(v_0'v_1'v_2'v_3'v_0'\) at \(z=-0.6\), the corresponding top square at \(z=0.1\), and the four vertical edges joining each bottom vertex to the top vertex with the same \(xy\). The fixed floor support line is unchanged:
+\[
+M(-0.55,0.15,-0.6)\;L(0.55,0.15,-0.6).
+\]

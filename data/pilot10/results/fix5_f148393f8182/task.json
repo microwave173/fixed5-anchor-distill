@@ -1,0 +1,20 @@
+{
+  "id": "fix5_f148393f8182",
+  "prompt": "A bird pecks the top of a cone and it topples over.",
+  "prompt_zh": "一只鸟啄圆锥顶部，使它倒下。",
+  "dim": 3,
+  "total_frames": 5,
+  "category": "animal",
+  "category_zh": "动物",
+  "independent": false,
+  "locomotion": false,
+  "tags": [
+    "contact",
+    "rotation"
+  ],
+  "review_quality": 2,
+  "source_id": "atom_11768e3b9742",
+  "source_file": "sketch3d_general5000_v2/source_tasks_4000.json",
+  "source_dim": 3,
+  "title": "鸟啄倒圆锥"
+}

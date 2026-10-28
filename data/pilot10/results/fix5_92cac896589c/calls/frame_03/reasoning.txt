@@ -1,0 +1,248 @@
+We need answer JSON only. Need create frame 3 at t=0.5. Need infer motion from first and previous, total plan. We have first frame index1 at t=0, previous frame index2 at t=.25. Need target index3 t=.5. Need apply whole helicopter rise and backward drift and rotor rotation. Need maintain identities, dimensions, attachments. Need compute absolute pose relative first perhaps based on total plan. Need know transform between first and prev to infer. Let's analyze geometry.
+
+First frame helicopter body: cabin center? Main mast base around (0.02,0,-0.14) to top (0.02,0,0.04). Skids at z=-0.60 touching floor, cabin bottom around z=-0.46. In prev index2: cabin outline z range roughly -0.36 to 0? Wait cabin_outline path shifted z +0.10? Let's compare. First cabin_outline M 0.29 0 -0.30 ... bottom -0.46... prev M 0.27 0 -0.20 ... bottom -0.36. x shifted -0.02, z +0.10. Tail boom first x -0.22..-0.64 z -0.34/-0.18 etc. Prev tail boom x -0.24..-0.66 z -0.24/-0.08 = shift x -0.02, z +0.10. Skids first z=-0.60, prev z=-0.50 = +0.10. So whole helicopter translated (-0.02, 0, +0.10) between frame1 and 2. Rotor rotated from 30° to? First blades: blade a from (0.3839,0.21) to (-0.3439,-0.21). This is angle atan(y/x)=~28.7 deg from +x in x-y. Prev blade a endpoints (0,0.4201) and (0,-0.4201): vertical along y, i.e 90 deg. That's +60 deg around z. Blade b perpendicular. Yes rotor advances 60° per frame (t=.25). At t=.5 (frame3), rotor likely +120° total from initial. Need determine direction and maybe sign. From frame1 angle ~30° to prev angle 90° corresponds +60° (counterclockwise in x-y viewed +z). At t=.5, add another 60° from prev => 150° from +x, i.e blade a along (-x? x=-0.3639, y=0.21) relative? Need preserve blade length. Initial blade a half-length around 0.42? Let's compute: endpoints symmetric? First M 0.3839 0.21, L -0.3439 -0.21: not symmetric? Midpoint (0.02, 0). Hub at mast x=0.02 y=0. That's length half=sqrt(0.3639^2+0.21^2)=0.4202. End at +: 0.3839=0.02+0.3639; y=0.21. other x=0.02-0.3639; y=-0.21. angle 30°. Blade b first M -0.19 0.3637 to 0.23 -0.3637; midpoint 0.02,0; half 0.420? angle 120°? x difference -0.21,y .3637. Perpendicular. Rotor center hub at (0.02,0,0.04). Prev hub at (0,0,0.14), rotation center translated with body. Prev blade a M 0 0.4201 to 0 -0.4201 centered 0,0 (hub at x0), angle 90. This matches 60° rotation of first rotor around pivot (0.02? Wait hub shifted). If body translated (-.02,+0.1), hub from (0.02,0,0.04) to (0,0,0.14). Rotor rotation relative local center.
+
+At frame3, body likely continues rise +0.10 each frame? Plan says over t=.25,.5,.75,1 rises gradually drifting backward. Frames 5 at t=1. Need maybe lift z progression: frame2 z +.10, frame3 +.20, frame4 +.28, frame5 +.34? Small helicopter final within [-0.8,0.8]. Need use smooth liftoff? We have only two frames. Could infer linear: frame1 z=0 shift, frame2 +0.10. t=.5 maybe +0.20. Backward drift x: frame2 -0.02. t=.5 maybe -0.04, t=.75 -0.06, t=1 -0.08. That seems okay. Need maintain within. We can choose shift dx=-0.04, dz=+0.20 from first. But check previous already -0.02/+0.10; applying increment -0.02/+0.10 -> likely consistent. Need transform all body paths and attached skids/tail by dx=-0.04, dz=+0.20 from first. Rotor: take first rotor geometry and rotate by +120° about local hub? Need compute accurately. Body translation: first main mast from (0.02,0,-0.14) to (0.02,0,0.04). After dx=-0.04,dz=.20 => mast base (-.02,0,.06), top (-.02,0,.24). Rotor hub at (-.02,0,.24). Blade half length 0.4201? Let's use exact from first half length depending angle. Let's compute using rotation 120° from initial. Better derive blade endpoints from previous frame (already +60°) then rotate by +60° around hub at previous? Since body translated. For frame3 we can take prev blade endpoints relative to prev hub and rotate +60°, then add body translation increment? But easier absolute from first with total rotor angle +120° around hub center after body translation. Need choose blade length consistent. First blade a half vector (0.3639,0.21), length sqrt(0.1324+0.0441)=sqrt(0.1765)=0.42012. Its angle arctan(0.21/0.3639)=29.98? Let's compute tan 0.21/0.3639=0.57708 => 30.0. Yes exactly 30°. Good. At +120° total => angle 150°. Cos 150=-0.866025, sin=0.5. Half length L=0.4201. vector = (-0.3638, 0.21005). Endpoint a+ = hub + ( -0.3638, +0.2101 ) = (-0.3838,0.2101). Other endpoint = hub - vector = (0.3238,-0.2101). But check previous blade a at angle 90 with endpoints (0,±0.4201) hub (0,0). At frame3 hub (-0.02,0,0.24) and endpoints (-.3838,.2101,.24) and (.3238,-.2101,.24). That is angle 150. Blade b at angle 60° from +x? Initial blade b half vector (-0.21,0.3637) angle 120°. Add 120 => angle 240°? Or perpendicular to blade a: blade b angle 150+90=240° (or 60° line). Since blades are lines, endpoints opposite; angle 60° line same as 240. Half vector at angle 240: (-0.2101,-0.3638) or opposite (0.2101,0.3638). Endpoints = hub ±(0.2101,0.3638) => (0.1901,0.3638) and (-0.2301,-0.3638). But careful initial blade b M -0.19 0.3637 to 0.23 -0.3637 centered (0.02,0). Half vector from hub to first endpoint (-0.21,0.3637) angle 120. Add 120 = 240. In path can choose M (-.2301,-.3638) to (.1901,.3638) or M (0.1901,0.3638) L (-0.2301,-0.3638). Need preserve shape. Either.
+
+Need transform all rigid body paths. We should create full paths for all strokes. Need consistent shift dx=-0.04, dz=+0.20 from first for entire helicopter body except rotor blades? Blades rotate around hub and translate with body. Tail rotor? Plan says main rotor spins, tail rotor maybe attached but not necessarily spins. It says main rotor turns; tail rotor can remain as same relative body orientation. In previous, tail rotor geometry shifted with body (x -0.02,z+.10) and not rotated? Compare first tail_rotor M -0.65 0 -0.20 L -0.65 0 -0.06 M -0.65 -0.07 -0.13 L -0.65 .07 -.13. Prev M -0.67 0 -.10 L -0.67 0 .04 M -0.67 -.07 -.03 L -.67 .07 -.03. That's shift dx=-.02, dz+.10. No rotation? It's in y-z plane around x axis, maybe unchanged. Good.
+
+Need shift cabin, tail boom, fin, tail rotor, mast, skids, struts by dx=-.04,dz=.20 from first. Rotor blades: angle +120° from first and translate dx=-.04,dz=.20. Need maybe body x drift maybe not -0.04? Let's check previous frame cabin x shift -0.02. If linear, frame3 -0.04. But previous cabin_outline path coordinates not exactly all x shifted by -0.02? Compare first M 0.29 to prev 0.27 shift -0.02. Control points also -0.02? First control 0.29 -> prev 0.27, first y -0.19? etc. z -0.30 -> -0.20 shift .10. yes.
+
+Cabin_cross first M 0.02 0.16 -0.30. Prev M 0.00 0.16 -0.20 = -0.02, +.10. Good.
+
+Struts first M 0.15 0.18 -0.60 L 0.15 0.12 -0.43. Prev M .13 .18 -.50 L .13 .12 -.33 = dx-.02,dz+.10. The other -0.17 -> -0.19. yes.
+
+Need apply dx=-.04,dz=.20 to all non-rotor positions. Let's list first strokes and transform.
+
+Floor unchanged.
+
+cabin_outline first:
+M 0.29 0 -0.30
+C3 0.29 0 -0.19 0.18 0 -0.14 0.02 0 -0.14
+C3 -0.12 0 -0.14 -0.25 0 -0.20 -0.25 0 -0.30
+C3 -0.25 0 -0.40 -0.12 0 -0.46 0.02 0 -0.46
+C3 0.18 0 -0.46 0.29 0 -0.41 0.29 0 -0.30 Z
+Wait ensure exact path from first: "M 0.29 0 -0.30 C3 0.29 0 -0.19 0.18 0 -0.14 0.02 0 -0.14 C3 -0.12 0 -0.14 -0.25 0 -0.20 -0.25 0 -0.30 C3 -0.25 0 -0.40 -0.12 0 -0.46 0.02 0 -0.46 C3 0.18 0 -0.46 0.29 0 -0.41 0.29 0 -0.30 Z"
+
+Apply dx -0.04, dz +0.20:
+M 0.25 0 -0.10
+C3 0.25 0 0.01 0.14 0 0.06 -0.02 0 0.06
+C3 -0.16 0 0.06 -0.29 0 0.00 -0.29 0 -0.10
+C3 -0.29 0 -0.20 -0.16 0 -0.26 -0.02 0 -0.26
+C3 0.14 0 -0.26 0.25 0 -0.21 0.25 0 -0.10 Z
+Need be careful z control: first -0.19 + .20 = .01, -0.14 +.20=.06. Good. z -0.30+.2=-0.10. bottom -0.46+.2=-0.26. x 0.29-.04=.25, 0.18-.04=.14, 0.02-.04=-.02, -0.12-.04=-.16, -0.25-.04=-.29.
+
+cabin_equator first:
+M 0.29 0 -0.30
+C3 0.29 0.0884 -0.30 0.1691 0.16 -0.30 0.02 0.16 -0.30
+C3 -0.1291 0.16 -0.30 -0.25 0.0884 -0.30 -0.25 0 -0.30
+C3 -0.25 -0.0884 -0.30 -0.1291 -0.16 -0.30 0.02 -0.16 -0.30
+C3 0.1691 -0.16 -0.30 0.29 -0.0884 -0.30 0.29 0 -0.30 Z
+Apply x-.04,z+.20:
+M 0.25 0 -0.10
+C3 0.25 0.0884 -0.10 0.1291? Wait 0.1691-.04 = 0.1291 yes. 0.16. 0.02-.04=-0.02.
+C3 (0.25,0.0884,-.10) (0.1291,0.16,-.10) (-0.02,0.16,-.10)
+C3 (-0.1691? -0.1291-.04=-.1691,0.16,-.10) (-0.29,0.0884,-.10) (-0.29,0,-.10)
+C3 (-0.29,-0.0884,-.10) (-0.1691,-0.16,-.10) (-0.02,-0.16,-.10)
+C3 (0.1291,-0.16,-.10) (0.25,-0.0884,-.10) (0.25,0,-.10) Z.
+
+cabin_cross first:
+M 0.02 0.16 -0.30
+C3 0.02 0.16 -0.2116 0.02 0.0884 -0.14 0.02 0 -0.14
+C3 0.02 -0.0884 -0.14 0.02 -0.16 -0.2116 0.02 -0.16 -0.30
+C3 0.02 -0.16 -0.3884 0.02 -0.0884 -0.46 0.02 0 -0.46
+C3 0.02 0.0884 -0.46 0.02 0.16 -0.3884 0.02 0.16 -0.30 Z
+Apply dx -.04 => x -0.02 all; z +.20:
+M -0.02 0.16 -0.10
+C3 -0.02 0.16 -0.0116? Wait -0.2116+.20=-0.0116. -0.02 0.0884 0.06 -0.02 0 0.06
+C3 -0.02 -0.0884 0.06 -0.02 -0.16 -0.0116 -0.02 -0.16 -0.10
+C3 -0.02 -0.16 -0.1884 -0.02 -0.0884 -0.26 -0.02 0 -0.26
+C3 -0.02 0.0884 -0.26 -0.02 0.16 -0.1884 -0.02 0.16 -0.10 Z
+Check first control for C3? Original path first "M 0.02 0.16 -0.30 C3 0.02 0.16 -0.2116 0.02 0.0884 -0.14 0.02 0 -0.14 ..." yes.
+
+tail_boom first:
+M -0.22 0 -0.34 L -0.64 0 -0.24
+M -0.22 0 -0.26 L -0.63 0 -0.18
+M -0.64 0 -0.24 L -0.63 0 -0.18
+Wait first has "M -0.22 0 -0.34 L -0.64 0 -0.24  M -0.22 0 -0.26 L -0.63 0 -0.18  M -0.64 0 -0.24 L -0.63 0 -0.18". It represents top/bottom edges and tip connector? Apply dx -.04, dz +.20:
+M -0.26 0 -0.14 L -0.68 0 -0.04
+M -0.26 0 -0.06 L -0.67 0 0.02
+M -0.68 0 -0.04 L -0.67 0 0.02
+Need check x -0.64-.04=-.68, -0.63-.04=-.67; z -0.24+.2=-.04, -0.18+.2=.02. Good. But is x within [-.8,.8], yes.
+
+tail_fin first:
+M -0.64 0 -0.22 L -0.62 0 -0.05 L -0.55 0 -0.17 L -0.64 0 -0.22 Z
+Apply dx -.04,dz +.20:
+M -0.68 0 -0.02 L -0.66 0 0.15 L -0.59 0 0.03 L -0.68 0 -0.02 Z
+Check z: -0.22+.2=-.02, -0.05+.2=.15, -0.17+.2=.03.
+
+tail_rotor first:
+M -0.65 0 -0.20 L -0.65 0 -0.06
+M -0.65 -0.07 -0.13 L -0.65 0.07 -0.13
+Apply dx -.04,dz+.20:
+M -0.69 0 0.00 L -0.69 0 0.14
+M -0.69 -0.07 0.07 L -0.69 0.07 0.07
+Wait x -0.65-.04=-0.69. z -0.20+.2=0, -0.06+.2=.14, -0.13+.2=.07. Good. But note hub at boom tip? Prev tail rotor x -0.67 z -0.10..0.04. yes.
+
+rotor_mast first:
+M 0.02 0 -0.14 L 0.02 0 0.04
+Apply dx -.04,dz+.20:
+M -0.02 0 0.06 L -0.02 0 0.24.
+
+main blades: Need define after +120 from first and translation dx=-.04,dz=.20. Hub center at first (0.02,0,0.04). After translation (-.02,0,.24). Half length 0.4201. For blade a angle 150 degrees. endpoints:
+p1 = hub + L*(cos150,sin150) = (-.02 + .4201*(-0.866025) = -.02 - .36383 = -.38383, y=0.21005, z=.24)
+p2 = hub - vector = (-.02 + .36383 = .34383? Wait hub plus opposite: if p1 uses +v, p2 uses -v => x=-.02 + .36383 = .34383, y=-.21005. Earlier I wrote 0.3238 mistakenly using hub at 0? Let's recalc: v = L cos150 = 0.4201 * -0.866025 = -0.3638. Hub x=-0.02. p1=-0.3838. p2 = -0.02 -(-0.3638)=0.3438. Yes. Need check first initial blade a endpoints: hub (0.02,0), vector (0.3639,0.21), p1=0.3839, p2=-0.3439. After translation dx=-.04 => if no rotation p1=.3439, p2=-.3839. After +120 p1=-.3838 (close), p2=.3438. Good.
+Blade a path: M -0.3838 0.2101 0.24 L 0.3438 -0.2101 0.24. Maybe use L. Could also order as M 0.3438 -0.2101 L -0.3838 0.2101. Initial path M positive x positive y to negative. At angle 150, positive endpoint is p1? The endpoint originally positive along blade (angle 30) rotates to angle 150 => x negative y positive. So M -0.3838 0.2101 0.24 L 0.3438 -0.2101 0.24. Good.
+
+Blade b initial half vector angle 120: (-.21,.3637). Add 120 => angle 240: cos=-.5, sin=-.8660. v = (-.21005,-.3638). p1 = hub+v = (-.23005, -0.3638, .24); p2=hub-v=(.19005,.3638,.24). Initial path M -0.19 0.3637 to 0.23 -0.3637, which endpoint is hub + (-.21,.3637). Rotated to angle 240 gives p1 negative x negative y. So path M -0.2301 -0.3638 0.24 L 0.1901 0.3638 0.24. Could preserve stroke orientation? It doesn't matter. But need "crossing main rotor blade perpendicular". At angle 60 line from p1 to p2. Wait line angle could be 60° (from negative to positive). It crosses blade a at hub. Good.
+
+But note blade a and b both z=.24, horizontal plane. Good.
+
+skids first:
+skid_left M -0.30 0.18 -0.60 L 0.32 0.18 -0.60
+Apply dx -.04,dz+.20:
+M -0.34 0.18 -0.40 L 0.28 0.18 -0.40
+skid_right M -0.34 -0.18 -0.40 L 0.28 -0.18 -0.40
+Wait initial skids x -0.30 to .32; prev x -0.32 to .30 (dx-.02). At dz +.10 z=-.50. Our at frame3 z=-.40, x=-.34 to .28. Good.
+
+skid_struts first:
+M 0.15 0.18 -0.60 L 0.15 0.12 -0.43
+M 0.15 -0.18 -0.60 L 0.15 -0.12 -0.43
+M -0.17 0.18 -0.60 L -0.17 0.12 -0.42
+M -0.17 -0.18 -0.60 L -0.17 -0.12 -0.42
+Apply dx-.04,dz+.20:
+M 0.11 0.18 -0.40 L 0.11 0.12 -0.23
+M 0.11 -0.18 -0.40 L 0.11 -0.12 -0.23
+M -0.21 0.18 -0.40 L -0.21 0.12 -0.22
+M -0.21 -0.18 -0.40 L -0.21 -0.12 -0.22
+Check top attach z -0.43+.2=-.23, -0.42+.2=-.22. Cabin bottom now -0.26, struts top -0.23/-0.22 attach to bottom? In first struts top -0.43/-0.42, cabin bottom -0.46. They attach inside maybe slightly above bottom? Prev struts top -0.33/-0.32, cabin bottom -0.36. yes consistent. Good.
+
+Need perhaps body level and rigid. We shifted entire body.
+
+Need "complete visible strokes" include all strokes same IDs. Use no style. JSON only with reason. Need exactly one frame i=3. Ensure numeric coordinates no functions, no variables. Path3D syntax. Use C3 etc. We must ensure not include comments. IDs stable.
+
+Let's double-check calculations for all paths and coordinate syntax. Need no commas. Paths with multiple M okay. We'll render.
+
+Let's maybe recompute with precision. Use constants:
+dx = -0.04, dz = +0.20.
+
+Transform table:
+
+Floor unchanged.
+
+cabin_outline:
+Original:
+M 0.29 0 -0.30
+C3 0.29 0 -0.19 0.18 0 -0.14 0.02 0 -0.14
+C3 -0.12 0 -0.14 -0.25 0 -0.20 -0.25 0 -0.30
+C3 -0.25 0 -0.40 -0.12 0 -0.46 0.02 0 -0.46
+C3 0.18 0 -0.46 0.29 0 -0.41 0.29 0 -0.30 Z
+
+Transform:
+M 0.25 0 -0.10
+C3 0.25 0 0.01 0.14 0 0.06 -0.02 0 0.06
+C3 -0.16 0 0.06 -0.29 0 0.00 -0.29 0 -0.10
+C3 -0.29 0 -0.20 -0.16 0 -0.26 -0.02 0 -0.26
+C3 0.14 0 -0.26 0.25 0 -0.21 0.25 0 -0.10 Z
+Need note 0.00 can be 0. Use 0. maybe fine. Use 0 to avoid weird.
+
+cabin_equator transform:
+Original:
+M 0.29 0 -0.30
+C3 0.29 0.0884 -0.30 0.1691 0.16 -0.30 0.02 0.16 -0.30
+C3 -0.1291 0.16 -0.30 -0.25 0.0884 -0.30 -0.25 0 -0.30
+C3 -0.25 -0.0884 -0.30 -0.1291 -0.16 -0.30 0.02 -0.16 -0.30
+C3 0.1691 -0.16 -0.30 0.29 -0.0884 -0.30 0.29 0 -0.30 Z
+Transform:
+M 0.25 0 -0.10
+C3 0.25 0.0884 -0.10 0.1291 0.16 -0.10 -0.02 0.16 -0.10
+C3 -0.1691 0.16 -0.10 -0.29 0.0884 -0.10 -0.29 0 -0.10
+C3 -0.29 -0.0884 -0.10 -0.1691 -0.16 -0.10 -0.02 -0.16 -0.10
+C3 0.1291 -0.16 -0.10 0.25 -0.0884 -0.10 0.25 0 -0.10 Z
+Check -0.1291-.04=-.1691. Good. 0.1691-.04=.1291. 0.02-.04=-.02. z all -0.10.
+
+cabin_cross:
+Original:
+M 0.02 0.16 -0.30
+C3 0.02 0.16 -0.2116 0.02 0.0884 -0.14 0.02 0 -0.14
+C3 0.02 -0.0884 -0.14 0.02 -0.16 -0.2116 0.02 -0.16 -0.30
+C3 0.02 -0.16 -0.3884 0.02 -0.0884 -0.46 0.02 0 -0.46
+C3 0.02 0.0884 -0.46 0.02 0.16 -0.3884 0.02 0.16 -0.30 Z
+Transform x -.04:
+M -0.02 0.16 -0.10
+C3 -0.02 0.16 -0.0116 -0.02 0.0884 0.06 -0.02 0 0.06
+C3 -0.02 -0.0884 0.06 -0.02 -0.16 -0.0116 -0.02 -0.16 -0.10
+C3 -0.02 -0.16 -0.1884 -0.02 -0.0884 -0.26 -0.02 0 -0.26
+C3 -0.02 0.0884 -0.26 -0.02 0.16 -0.1884 -0.02 0.16 -0.10 Z
+Check -0.2116+.2=-0.0116. Good.
+tail_boom transform:
+Original M -0.22 0 -0.34 L -0.64 0 -0.24 M -0.22 0 -0.26 L -0.63 0 -0.18 M -0.64 0 -0.24 L -0.63 0 -0.18
+Transform:
+M -0.26 0 -0.14 L -0.68 0 -0.04
+M -0.26 0 -0.06 L -0.67 0 0.02
+M -0.68 0 -0.04 L -0.67 0 0.02
+Need maybe path concatenation: "M -0.26 0 -0.14 L -0.68 0 -0.04 M -0.26 0 -0.06 L -0.67 0 0.02 M -0.68 0 -0.04 L -0.67 0 0.02". Good.
+
+tail_fin:
+M -0.68 0 -0.02 L -0.66 0 0.15 L -0.59 0 0.03 L -0.68 0 -0.02 Z
+Check original x -0.55-.04=-.59. z -0.17+.2=.03. Good.
+
+tail_rotor:
+M -0.69 0 0 L -0.69 0 0.14 M -0.69 -0.07 0.07 L -0.69 0.07 0.07
+Wait original blade vertical in z from -0.20 to -0.06, yes at z=0 to .14. The cross blade in y at z=-0.13+0.2=.07. Good. Need maybe tail rotor hub at x -0.69. okay.
+
+rotor_mast:
+M -0.02 0 0.06 L -0.02 0 0.24
+
+main_blade_a:
+Let's decide precision. Use L=0.4201, angle 150:
+cos150=-0.8660254; L*cos = -0.363839? 0.4201*0.866025 = 0.363827? Calculate: 0.42*0.866025=0.3637305; plus 0.0001*0.866025=0.0000866 =>0.363817. Wait 0.4201*0.866025 = 0.363817? Let's do exact: 4201*866025 =? approximate. 0.4200*0.8660=0.36372. yes. Use -0.3638. Hub x -0.02 => -0.3838. p2 0.3438. y half = L*0.5=0.21005. Use 0.2101. So path M -0.3838 0.2101 0.24 L 0.3438 -0.2101 0.24.
+Need if initial first blade half length based endpoints: first endpoint x .3839 - hub .02 = .3639, y .21. length 0.4201. At angle 150 exact using .3639/.2100 maybe p1=-.3439? Wait let's compute using rotation of initial vector exactly: v=(0.3639,0.21). Rotate +120:
+x'=vx cos120 - vy sin120 = .3639*(-.5) - .21*(.866025)= -0.18195 -0.181865= -0.363815. y'=vx sin120 + vy cos120 = .3639*.866025 + .21*(-.5)= .315162 + (-.105)= .210162. So p1 = hub(-.02,0)+v' = -0.383815, .210162. p2 = -0.02 - (-0.363815)=0.343815, -0.210162. Use -0.3838/0.3438 and 0.2102. Good.
+
+Blade b initial v = (-0.21,0.3637). Rotate +120:
+x'=(-.21)*(-.5) - .3637*(.866025)= .105 - .31497 = -0.20997.
+y'=(-.21)*(.866025)+ .3637*(-.5)= -0.181865 -0.18185= -0.363715.
+p1=hub+(-.20997,-.363715)=(-.22997,-.363715). p2=hub- => (0.18997,0.363715). Use (-0.2300,-0.3637) to (0.1900,0.3637). Good.
+
+Alternatively derive from previous blade a angle 90. Prev blade a endpoints (0, ±0.4201) hub (0,0). Rotate +60 and translate body increment? Prev body translated (dx=-.02,dz=.10). Frame3 body dx=-.04,dz=.20, rotor incremental +60. Relative to prev hub: blade a v=(0,0.4201). Rotate +60: x = -0.4201*sin60=-0.3638, y=0.4201*cos60=0.21005. New hub (-.02,0,.24). endpoints (-.3838,.2101),( .3438,-.2101). Matches.
+
+Blade b prev endpoints (-.4201,0) to (.4201,0) around hub. Rotate +60: v=(-.4201,0) => x=-.21005,y=-.3638. hub plus => -0.23005,-.3638. other .19005,.3638. Matches.
+
+skid_left/right/struts as above.
+
+Need consider whether frame3 should be at time 0.5 but animation total_frames 5 target index 3 normalized time .5. Yes.
+
+Need answer JSON only. Reason brief.
+
+Let's ensure no style fields. Strokes have id, path, description. Use valid JSON with escaped maybe none. The path strings include only characters, no quotes.
+
+Potential issue: path syntax requires spaces around commands. We have. Use C3 with 6 coords, okay.
+
+Let's inspect overall vertical positions: cabin now extends z -0.26 to .06, tail fin up to .15, rotor hub .24, blades at .24. Skids at z=-0.40, floor -0.60. Clearance .20. Good. Body at +0.20, x -0.04. Back drift small. All within [-0.8,0.8]. Tail boom to x -0.68, within. Rotor blade x -0.3838,y .2101; x .3438. fine. y coordinates ±.36 max.
+
+Need maybe include all 16 strokes? Count first: floor, cabin_outline, cabin_equator, cabin_cross, tail_boom, tail_fin, tail_rotor, rotor_mast, main_blade_a, main_blade_b, skid_left, skid_right, skid_struts = 13? Let's count: 1 floor, 2 cabin outline, 3 equator, 4 cross, 5 tail boom, 6 fin, 7 tail rotor, 8 mast, 9 blade a, 10 blade b, 11 skid left, 12 skid right, 13 struts. Yes 13.
+
+Need preserve exact ids.
+
+Let's decide descriptions. Fine.
+
+Check cabin_outline first C3 transformed: control 0.18-.04=.14; endpoint 0.02-.04=-.02. z endpoint -0.14+.2=.06. C3 z control -0.19+.2=.01. Good.
+
+Cabin_cross control -0.2116+.2 = -0.0116. Use -0.0116. bottom -0.3884+.2=-0.1884. Fine.
+
+Potential "rounded cabin/cockpit built from intersecting ellipsoid contours" our cross section is at x=-0.02 (center along x). But body shifted; main rotor hub x -0.02. Good.
+
+Could include tail rotor attached to tail fin/boom? In first tail rotor at x=-0.65, boom tip -0.64; fin etc. Our tail rotor x=-0.69, boom tip x=-0.68. Attached. z rotor center maybe 0.07 between fin; good.
+
+Maybe body translated by dz=.20 but rotor blades translated with hub z=.24. Mast top .24. Good.
+
+One subtlety: global body rotation none. Our cabins and tail all shifted same. Rotor rotation only main blades. Skid parallel.
+
+Need "NEXT advances using previous and total plan" no future. We used linear.
+
+Let's craft final JSON. Include reason brief. Ensure exactly one frame i=3. Use no trailing comma. Valid JSON with newline? fine. Need no code fences.
+
+Let's produce compact path strings. Need ensure JSON string path with "M ...". Use decimal coordinates without leading zero? Allowed. Use -0.02 etc. Use 0. We can use 0.0? no issue.
+
+Let's final.

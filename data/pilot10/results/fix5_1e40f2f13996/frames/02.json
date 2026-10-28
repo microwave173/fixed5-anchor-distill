@@ -1,0 +1,50 @@
+{
+  "i": 2,
+  "strokes": [
+    {
+      "id": "torso_anchors",
+      "path": "M -0.31 0 -0.14 Q3 -0.29 0 0.0 -0.25 0 0.13 M -0.26 0.065 0.11 L -0.26 -0.065 0.11 M -0.31 0.075 -0.14 L -0.31 -0.075 -0.14",
+      "description": "short forward-leaning torso centerline with shoulder and hip anchor bars"
+    },
+    {
+      "id": "head_xz",
+      "path": "M -0.12 0 0.25 C3 -0.12 0 0.41 -0.36 0 0.41 -0.36 0 0.25 C3 -0.36 0 0.09 -0.12 0 0.09 -0.12 0 0.25",
+      "description": "head great circle in the vertical x-z plane"
+    },
+    {
+      "id": "head_yz",
+      "path": "M -0.24 0.12 0.25 C3 -0.24 0.12 0.41 -0.24 -0.12 0.41 -0.24 -0.12 0.25 C3 -0.24 -0.12 0.09 -0.24 0.12 0.09 -0.24 0.12 0.25",
+      "description": "head great circle in the vertical y-z plane"
+    },
+    {
+      "id": "head_xy",
+      "path": "M -0.12 0 0.25 C3 -0.12 0.16 0.25 -0.36 0.16 0.25 -0.36 0 0.25 C3 -0.36 -0.16 0.25 -0.12 -0.16 0.25 -0.12 0 0.25",
+      "description": "head great circle in the horizontal x-y plane"
+    },
+    {
+      "id": "arm_right",
+      "path": "M -0.26 -0.065 0.11 Q3 -0.29 -0.08 0.00 -0.28 -0.10 -0.09",
+      "description": "right arm moving back near vertical as the right leg swings forward"
+    },
+    {
+      "id": "arm_left",
+      "path": "M -0.26 0.065 0.11 Q3 -0.18 0.09 0.02 -0.13 0.10 -0.08",
+      "description": "left arm counter-swinging forward with a relaxed bend"
+    },
+    {
+      "id": "leg_left",
+      "path": "M -0.31 0.075 -0.14 Q3 -0.25 0.09 -0.24 -0.23 0.10 -0.34 Q3 -0.17 0.10 -0.46 -0.08 0.10 -0.60",
+      "description": "left support leg planted forward with a bent knee"
+    },
+    {
+      "id": "leg_right",
+      "path": "M -0.31 -0.075 -0.14 Q3 -0.34 -0.08 -0.24 -0.24 -0.09 -0.35 Q3 -0.21 -0.10 -0.42 -0.28 -0.10 -0.47",
+      "description": "right leg swinging under the body with a bent knee and lifted foot"
+    },
+    {
+      "id": "floor_line",
+      "path": "M -0.75 0 -0.60 L 0.05 0 -0.60",
+      "description": "minimal fixed floor line supporting the foot contacts"
+    }
+  ]
+}

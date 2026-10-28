@@ -1,0 +1,96 @@
+At \(t=0.5\) the car is treated as one rigid part transformed from the first frame, not as an increment from the previous frame. With \(+x\) right, \(+y\) depth and \(+z\) up, the ramp rises along \(+y\), so a positive pitch about \(+x\) raises the front. The ramp slope is
+\[
+m=\frac{-0.38-(-0.60)}{0.10-(-0.22)}=\frac{0.22}{0.32}=0.6875,
+\]
+so
+\[
+\theta=\tan^{-1}(0.6875)\approx 0.6023\ \mathrm{rad},\quad
+c=\cos\theta=\frac{16}{\sqrt{377}}\approx0.82404192,\quad
+s=\sin\theta=\frac{11}{\sqrt{377}}\approx0.56652882.
+\]
+The ramp surface is
+\[
+z=-0.60+m(y+0.22)=0.6875y-0.44875.
+\]
+
+In the first frame the wheel centers are at \(y=-0.30\) (front), \(y=-0.58\) (rear), \(z=-0.545\), with radius \(0.055\); the wheel-bottom contact points have local \(z=-0.60\). A rigid pitch about \(x\) plus translation is
+\[
+y'=cy-sz+T_y,\qquad z'=sy+cz+T_z.
+\]
+Choose \(T_y,T_z\) so all four wheel bottoms lie on the ramp and the wheelbase contact midpoint is centered at \(y=-0.06\). For local contact \(z=-0.60\), the front and rear base \(y\)-values before translation are
+\[
+c(-0.30)-s(-0.60)=0.09270472,
+\]
+\[
+c(-0.58)-s(-0.60)=-0.13802702.
+\]
+Their midpoint is \(-0.02266115\), hence
+\[
+T_y=-0.06-(-0.02266115)=-0.03733885.
+\]
+The front contact then has
+\[
+y'=0.09270472-0.03733885=0.05536587,
+\]
+and the ramp there requires
+\[
+z'=0.6875(0.05536587)-0.44875=-0.41068597.
+\]
+The corresponding base \(z\)-value is
+\[
+s(-0.30)+c(-0.60)=-0.66438380,
+\]
+so
+\[
+T_z=-0.41068597-(-0.66438380)=0.25369783.
+\]
+The negative \(T_y\) is not backward travel; it compensates for the large positive pitch contribution to the wheel-bottom coordinates.
+
+A representative body point is local \((y,z)=(-0.22,-0.38)\):
+\[
+y'=0.82404192(-0.22)-0.56652882(-0.38)-0.03733885
+=-0.00334712,
+\]
+\[
+z'=0.56652882(-0.22)+0.82404192(-0.38)+0.25369783
+=-0.18407444.
+\]
+Applying the same formulas to the other first-frame pairs gives:
+
+\[
+\begin{array}{c|c|c}
+\text{pair} & (y,z) & (y',z')\\ \hline
+A&(-0.22,-0.38)&(-0.00334712,-0.18407444)\\
+B&(-0.62,-0.38)&(-0.33296389,-0.41068597)\\
+C&(-0.62,-0.50)&(-0.26498043,-0.50957100)\\
+D&(-0.22,-0.50)&(0.06463634,-0.28295947)\\
+E&(-0.34,-0.30)&(-0.14755446,-0.18613454)\\
+F&(-0.52,-0.30)&(-0.29588200,-0.28810973)\\
+G&(-0.34,-0.38)&(-0.10223215,-0.25205790)\\
+H&(-0.52,-0.38)&(-0.25055970,-0.35403309)\\
+I&(-0.46,-0.26)&(-0.26910064,-0.22115633)\\
+J&(-0.40,-0.26)&(-0.21965812,-0.18716460)\\
+K&(-0.46,-0.30)&(-0.24643949,-0.25411800)
+\end{array}
+\]
+The body top uses \(A,B\); the near side uses \(A,B,C,D\); the rear face uses \(B,C\). The cabin roof uses \(E,F\); the cabin near side uses \(G,H,F,E\); the cabin rear uses \(H,F\). The light blocks use \(I,J,K\) with their original \(x\)-order unchanged.
+
+For the wheel centers, the front center transforms as
+\[
+y'=0.82404192(-0.30)-0.56652882(-0.545)-0.03733885
+=0.02420678,
+\]
+\[
+z'=0.56652882(-0.30)+0.82404192(-0.545)+0.25369783
+=-0.36536366,
+\]
+and the rear center as
+\[
+y'=0.82404192(-0.58)-0.56652882(-0.545)-0.03733885
+=-0.20652496,
+\]
+\[
+z'=0.56652882(-0.58)+0.82404192(-0.545)+0.25369783
+=-0.52399173.
+\]
+Thus the four wheel centers are \((\pm0.13,\,0.02420678,\,-0.36536366)\) at the front and \((\pm0.13,\,-0.20652496,\,-0.52399173)\) at the rear. Since a wheel is a circle of radius \(0.055\) in a plane of constant \(x\), the pitch moves its center and leaves its radius; the cubic control offset remains \(0.030375\). The resulting wheel contacts are front \((y,z)=(0.05536587,-0.41068597)\) and rear \((-0.17536587,-0.56931404)\), both on the ramp. The ramp and plaza strokes remain exactly as in the first frame, and all \(x\)-coordinates of the car remain unchanged.

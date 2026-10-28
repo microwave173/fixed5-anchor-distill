@@ -1,0 +1,60 @@
+Coordinates use \(+x\) right, \(+y\) depth, \(+z\) up, with a fixed floor at \(z=-0.60\). The first frame places the level helicopter with nose toward \(+x\), tail boom toward \(-x\), two parallel skids separated in \(y\), and the main rotor in the \(x\)-\(y\) plane with hub at \(z=0.04\). The recognizable layout is: rounded cabin, rear tail boom with fin and tail rotor, roof mast, two crossing main blades, and two skids joined by short struts. Body, tail, skids and mast stay rigid; only the main rotor spins about the vertical mast.
+
+Frame \(i=3\) is at \(t=0.5\). Comparing the first and previous cabin extents gives the whole-body translation from first to previous:
+\[
+\Delta_{\text{first}\to3}=(-0.04,\,0,\,+0.20).
+\]
+Since this covers two quarter-frame intervals, the uniform increment is
+\[
+\delta=(-0.02,\,0,\,+0.10)
+\]
+from \(i=3\) to \(i=4\), equivalently first-to-frame-4 translation \((-0.06,0,+0.30)\). Apply \(\delta\) to every rigid body stroke. For example, the mast top goes from \((-0.02,0,0.24)\) to
+\[
+(-0.02,0,0.24)+(-0.02,0,0.10)=(-0.04,0,0.34).
+\]
+The left skid goes from \(M\,-0.34\,0.18\,-0.40\;L\,0.28\,0.18\,-0.40\) to
+\[
+M\,-0.36\,0.18\,-0.30\;L\,0.26\,0.18\,-0.30.
+\]
+The cabin outline start becomes
+\[
+(0.25,0,-0.10)+(-0.02,0,0.10)=(0.23,0,0.00),
+\]
+with top \(z=0.16\) and bottom \(z=-0.16\). A strut top \((0.11,0.12,-0.23)\) becomes \((0.09,0.12,-0.13)\). The tail boom rear \((-0.68,0,-0.04)\) becomes \((-0.70,0,0.06)\); the fin top becomes \((-0.68,0,0.25)\); the tail rotor is only translated, at \(x=-0.71\), spanning \(z=0.10\) to \(0.24\). The floor is unchanged.
+
+The main rotor rotates about the vertical mast axis. Measure blade angles relative to the hub, not the world origin. In the first frame, blade-a relative to hub \((0.02,0)\) has direction \((0.3639,0.21)\), angle about \(30^\circ\). In the previous frame, blade-a relative to previous hub \((-0.02,0)\) has direction \((-0.3638,0.2102)\), angle about \(150^\circ\). The advance is \(+120^\circ\) over two frame intervals, so \(+60^\circ\) per interval. For frame 4, rotate the previous blades by \(+60^\circ\) about previous hub \((-0.02,0,0.24)\), using
+\[
+x'=x\cos60^\circ-y\sin60^\circ,\qquad
+y'=x\sin60^\circ+y\cos60^\circ,
+\]
+with \(\cos60^\circ=0.5\), \(\sin60^\circ=0.8660254\), then add \(\delta\).
+
+For blade-a, previous endpoint \(A=(-0.3838,0.2102,0.24)\) has relative vector
+\[
+r=A-(-0.02,0)=(-0.3638,\,0.2102).
+\]
+Then
+\[
+r'_x=0.5(-0.3638)-0.8660254(0.2102)=-0.36394,
+\]
+\[
+r'_y=0.8660254(-0.3638)+0.5(0.2102)=-0.20996.
+\]
+Adding the previous hub gives \((-0.38394,-0.20996)\), and adding \(\delta\) gives
+\[
+(-0.40394,-0.20996,0.34)\approx(-0.4039,-0.2100,0.34).
+\]
+The opposite blade-a endpoint becomes \((0.3239,0.2100,0.34)\).
+
+For blade-b, previous endpoint \((-0.2300,-0.3637,0.24)\) has relative vector \((-0.21,-0.3637)\). The same rotation gives
+\[
+r'_x=0.5(-0.21)-0.8660254(-0.3637)=0.20997,
+\]
+\[
+r'_y=0.8660254(-0.21)+0.5(-0.3637)=-0.36372.
+\]
+Adding the previous hub and then \(\delta\) gives
+\[
+(0.16997,-0.36372,0.34)\approx(0.1700,-0.3637,0.34),
+\]
+with opposite endpoint \((-0.2500,0.3637,0.34)\). The two blades remain perpendicular in the horizontal plane, and the body remains level with the tail, fin, tail rotor, mast and skids attached.

@@ -1,0 +1,83 @@
+We need answer JSON only. Need compute frame 2 at t=.25 yaw 22.5° from initial. Need preserve cube geometry, floor fixed. Need determine initial vertices: bottom edges coordinates. It looks square centered at origin? Bottom z=-0.6, top z=0.1. Vertices:
+A (0.209185,0.4486,-0.6) front-right? Let's label.
+B (0.4486,-0.209185,-0.6)
+C (-0.209185,-0.4486,-0.6)
+D (-0.4486,0.209185,-0.6)
+Top same xy z=0.1.
+
+These coordinates suggest square side length? Difference A-B = (-0.239415,0.657785) length sqrt(.0573+.4327)=0.7? Let's compute maybe square side 0.7, rotated initial yaw. Center at 0,0. Initial vertices are four corners of square radius sqrt(0.209^2+0.4486^2)=0.495. Square side = radius*sqrt2 ≈0.7. Initial orientation: A angle atan2(y,x)=atan2(.4486,.209185)=65°. B angle -25°, C -115°? etc.
+
+Rotation about vertical z axis by +22.5° (probably CCW viewed from +z? The plan says t=.25 is 22.5°, likely positive yaw). Need decide direction. "rotates about vertical center axis through a quarter turn". Could use positive yaw by +22.5 degrees. Since no specified direction, choose CCW. Need apply rotation to xy coordinates of all cube vertices, pivot (0,0), z unchanged. Floor unchanged.
+
+Compute rotation θ=22.5° = π/8. cos = 0.9238795325112867, sin=0.3826834323650898.
+x' = x cos - y sin
+y' = x sin + y cos.
+
+Need compute for four xy vertices. Could use exact identities maybe coordinates from initial are at angles. Let's calculate accurately enough 6 decimals.
+
+Initial corners:
+A: x=0.209185, y=0.4486. Rotate +22.5°:
+cos=0.9238795325; sin=0.3826834324.
+xA' = 0.209185*0.9238795 - 0.4486*0.3826834.
+Compute: 0.209185*0.9238795. 0.209185*0.9=0.1882665; *0.0238795=0.004994? Let's precise.
+0.9238795325 * 0.209185:
+0.9238795325*(0.2 + 0.009185)
+=0.1847759065 + 0.9238795325*0.009185
+0.9238795325*0.009 =0.00831491579
+*0.000185=0.000170? 0.9238795325*0.000185=0.000170917? Sum 0.008485833. total =0.1932617395.
+0.4486*0.3826834324: 0.3826834324*(0.4+0.0486)
+=0.15307337296 + 0.018599? 0.3826834324*0.0486 = 0.3826834324*(0.05 -0.0014)=0.01913417162 -0.0005357568=0.0185984148. Sum=0.1716717878.
+xA' = 0.19326174 - 0.17167179 = 0.02158995.
+yA' = x sin + y cos = 0.209185*0.3826834324 + 0.4486*0.9238795325.
+0.209185*0.3826834324: 0.3826834324*(0.2+0.009185)=0.07653668648 + (0.3826834324*0.009185). *0.009=0.00344415089; *0.000185=0.000070795? Sum 0.003514946. total=0.080051633.
+0.4486*0.9238795325: 0.9238795325*(0.4+0.0486)=0.369551813+ (0.9238795325*0.0486). *0.05=0.0461939766 - *0.0014=0.00129343135 =>0.0449005453. total=0.414452358.
+yA'=0.080051633+0.414452358=0.494503991.
+
+But note initial A radius 0.495, angle 65°, plus 22.5 =87.5°, so x≈r cos87.5 ≈0.0216, y≈r sin87.5≈0.4945. Good.
+
+B: x=0.4486, y=-0.209185. angle -25°, +22.5 = -2.5°. Radius 0.495. x≈0.494529, y≈-0.021596? Let's compute rotation:
+xB' = x cos - y sin = 0.4486*0.9238795325 - (-0.209185)*0.3826834324 = 0.414452358 + 0.080051633 = 0.494503991.
+yB' = x sin + y cos = 0.4486*0.3826834324 + (-0.209185)*0.9238795325 = 0.1716717878 - 0.1932617395 = -0.0215899517.
+Interesting same x as A y etc. So B' (0.494503991, -0.0215899517).
+
+C: x=-0.209185, y=-0.4486. Rotate:
+xC' = x cos - y sin = -0.1932617395 - (-0.1716717878)= -0.0215899517.
+yC' = x sin + y cos = -0.080051633 + (-0.414452358)= -0.494503991.
+D: x=-0.4486, y=0.209185:
+xD' = -0.414452358 - 0.080051633 = -0.494503991.
+yD' = -0.1716717878 + 0.1932617395 = 0.0215899517.
+
+So new bottom vertices:
+A' = (0.021589952, 0.494503991, -0.6)
+B' = (0.494503991, -0.021589952, -0.6)
+C' = (-0.021589952, -0.494503991, -0.6)
+D' = (-0.494503991, 0.021589952, -0.6)
+Top same xy z=0.1.
+
+Need update strokes bottom_edge_a from A to B, b B->C, c C->D, d D->A. Top similarly. Vertical edges at each corner.
+
+Need ensure IDs same and descriptions. Floor unchanged.
+
+Question says "Return JSON only". Need include reason and frames. Exactly one frame with i=2, strokes. Use numbers. Could round to 6 decimals. Need no style.
+
+Need maybe initial frame at t=0 has yaw initial maybe 65°, but t=.25 target 22.5° relative. We are applying +22.5° CCW. Fine.
+
+Need consider "wireframe cube rotates about its vertical center axis through a quarter turn." At t=.25 the index 2, target_normalized_time .25. Yes 22.5°. Good.
+
+Let's produce path strings with L straightforward. Need use coordinates in path. All 12 cube edges plus floor. Ensure complete. Let's list:
+bottom_edge_a: M 0.021589952 0.494503991 -0.6 L 0.494503991 -0.021589952 -0.6
+bottom_edge_b: M 0.494503991 -0.021589952 -0.6 L -0.021589952 -0.494503991 -0.6
+bottom_edge_c: M -0.021589952 -0.494503991 -0.6 L -0.494503991 0.021589952 -0.6
+bottom_edge_d: M -0.494503991 0.021589952 -0.6 L 0.021589952 0.494503991 -0.6
+top a etc z=0.1.
+vertical_a: M 0.021589952 0.494503991 -0.6 L 0.021589952 0.494503991 0.1
+vertical_b: M 0.494503991 -0.021589952 -0.6 L 0.494503991 -0.021589952 0.1
+vertical_c: M -0.021589952 -0.494503991 -0.6 L -0.021589952 -0.494503991 0.1
+vertical_d: M -0.494503991 0.021589952 -0.6 L -0.494503991 0.021589952 0.1
+floor: M -0.55 0.15 -0.6 L 0.55 0.15 -0.6.
+
+Need maybe support floor line near origin, unchanged. Note cube bottom face in contact with floor plane z=-0.6; floor line is at y=0.15, x -0.55 to .55; after rotation cube bottom still at z -0.6; does any edge cross floor line? floor line is just support representation. Fine.
+
+Need "reason": brief public geometry/motion rationale. Could mention "Rigid cube yawed +22.5° about fixed vertical center axis; z and floor fixed." JSON only.
+
+Need ensure no extra whitespace? Fine.

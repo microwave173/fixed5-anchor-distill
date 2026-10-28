@@ -1,0 +1,141 @@
+The table remains fixed at \(z=-0.20\), with the same planar top and four support legs. A domino is a thin prism of height \(h=0.22\), thickness \(d=|(0.0329,0.0119,0)|=0.034986\), and width vector
+\[
+w=(0.0408,-0.1128,0),\qquad |w|=0.119952,
+\]
+with unit vectors
+\[
+\hat t=(0.94038,0.34014,0),\qquad \hat w=(0.34014,-0.94038,0).
+\]
+The falling pivot is the bottom front edge through \(F\) and \(E=F+w\); the rotation axis is \(\hat w\), and positive angle tips the top toward \(+\hat t\). For a point
+\[
+P=F+a\hat t+b\hat w+c z,
+\]
+rotation by \(\theta\) about the pivot gives
+\[
+a'=a\cos\theta+c\sin\theta,\qquad
+c'=-a\sin\theta+c\cos\theta,\qquad b'=b,
+\]
+so
+\[
+P'=F+a'\hat t+b'\hat w+c'z.
+\]
+
+From the previous frame, the first domino had already rotated by about \(60^\circ\), and the second by about \(8^\circ\). At \(t=0.75\), advance the first to \(72^\circ\), the second to \(60^\circ\), and start the third at \(8^\circ\). The second-to-third contact sets \(\theta_2=60^\circ\): with
+\[
+F_2=(-0.10395,0.04735,-0.20),\qquad
+F_3=(0.09605,0.11235,-0.20),
+\]
+the along-\(\hat t\) separation is
+\[
+\Delta=(F_3-F_2)\cdot\hat t
+=(0.2,0.065)\cdot(0.94038,0.34014)=0.21019.
+\]
+The second top edge has
+\[
+a_2=h\sin60^\circ=0.19053,\qquad
+z_2=h\cos60^\circ=0.11000,
+\]
+so relative to \(F_3\) along \(\hat t\) it is \(a_2-\Delta=-0.01966\). For the third back face at \(\theta_3=8^\circ\),
+\[
+z_3=d\sin8^\circ+c\cos8^\circ.
+\]
+Setting \(z_3=0.11000\),
+\[
+c=\frac{0.11000-0.034986\sin8^\circ}{\cos8^\circ}
+=\frac{0.11000-0.00487}{0.99027}=0.10616,
+\]
+and then
+\[
+a_3=-d\cos8^\circ+c\sin8^\circ
+=-0.03465+0.10616(0.13917)=-0.01988,
+\]
+matching the second top edge at contact.
+
+For numerical placement, use the same substitution for each prism. For the first domino, \(F_1=(-0.30395,-0.01765,-0.20)\), \(\theta_1=72^\circ\), \(\cos72^\circ=0.3090\), \(\sin72^\circ=0.9511\). For its front-top point, \(a=0,c=0.22\):
+\[
+a'=0.22\sin72^\circ=0.20923,\qquad
+c'=0.22\cos72^\circ=0.06798,
+\]
+\[
+F_{1,\text{top}}=
+F_1+a'\hat t+c'z
+=(-0.10719,\;0.05352,\;-0.13202).
+\]
+For the back-bottom corner, \(a=-d,c=0\):
+\[
+a'=-d\cos72^\circ=-0.01081,\qquad
+c'=d\sin72^\circ=0.03327,
+\]
+\[
+A_1'=
+F_1+a'\hat t+c'z
+=(-0.31412,\;-0.02133,\;-0.16673).
+\]
+For the back-top corner, \(a=-d,c=0.22\):
+\[
+a'=0.19842,\qquad c'=0.10126,
+\]
+\[
+A_{1,\text{top}}'=
+(-0.11736,\;0.04984,\;-0.09874).
+\]
+The remaining corners follow from the same offsets; the opposite top edge becomes \(B_{1,\text{top}}'=(-0.07656,-0.06296,-0.09874)\) and the front-top edge endpoint is \(E_{1,\text{top}}'=(-0.06639,-0.05929,-0.13202)\).
+
+For the second domino, \(F_2=(-0.10395,0.04735,-0.20)\), \(\theta_2=60^\circ\), \(\cos60^\circ=0.5\), \(\sin60^\circ=0.86603\). Its front-top point is
+\[
+a'=0.22(0.86603)=0.19053,\qquad
+c'=0.22(0.5)=0.11000,
+\]
+\[
+F_{2,\text{top}}'=(0.07522,\;0.11215,\;-0.09000).
+\]
+Its back-bottom corner is
+\[
+a'=-d(0.5)=-0.01749,\qquad
+c'=d(0.86603)=0.03030,
+\]
+\[
+A_2'=(-0.12040,\;0.04140,\;-0.16970),
+\]
+and its back-top corner is
+\[
+a'=0.17303,\qquad c'=0.14030,
+\]
+\[
+A_{2,\text{top}}'=(0.05817,\;0.10620,\;-0.05970).
+\]
+The corresponding opposite top edge is \(B_{2,\text{top}}'=(0.09897,-0.00660,-0.05970)\), and \(E_{2,\text{top}}'=(0.11602,-0.00065,-0.09000)\).
+
+For the third domino, \(F_3=(0.09605,0.11235,-0.20)\), \(\theta_3=8^\circ\), \(\cos8^\circ=0.99027\), \(\sin8^\circ=0.13917\). Its front-top point is
+\[
+a'=0.22(0.13917)=0.03062,\qquad
+c'=0.22(0.99027)=0.21786,
+\]
+\[
+F_{3,\text{top}}'=(0.12484,\;0.12276,\;0.01786).
+\]
+Its back-bottom corner is
+\[
+a'=-d\cos8^\circ=-0.03465,\qquad
+c'=d\sin8^\circ=0.00487,
+\]
+\[
+A_3'=(0.06347,\;0.10057,\;-0.19513),
+\]
+and its back-top corner is
+\[
+a'= -0.03465+0.22(0.13917)=-0.00403,
+\]
+\[
+c'=0.00487+0.22(0.99027)=0.22273,
+\]
+\[
+A_{3,\text{top}}'=(0.09226,\;0.11098,\;0.02273).
+\]
+The opposite top edge is \(B_{3,\text{top}}'=(0.13306,-0.00182,0.02273)\), and \(E_{3,\text{top}}'=(0.16564,0.00996,0.01786)\).
+
+The ball remains stopped just behind the first base. Its previous center is
+\[
+c=(-0.3656,-0.15,-0.13),
+\]
+which is table height \(-0.20\) plus the radius \(0.07\). It therefore keeps the same center and the same rolled great-circle orientation as the previous frame, with no additional translation or spin.

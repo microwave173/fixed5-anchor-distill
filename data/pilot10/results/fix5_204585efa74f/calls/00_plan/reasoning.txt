@@ -1,0 +1,51 @@
+We need answer JSON only. Need plan for animation prompt. Need think through action and essential geometry. Five normalized times 0,.25,.5,.75,1. Police car drives up slight rise onto plaza. Need short atomic animation with car moving up slight rise onto plaza. Need include scene initial spatial layout, parts essential, motion, constraints. Drawing style black-line minimal true 3D. Need maybe include ramp/rise, plaza flat. Police car recognizable with compact box body, roof light bar, wheels. Need car motion up slight rise then onto plaza. Need stable dimensions, wheels contact ramp/plaza, contact before reaction? Maybe suspension tilt as wheels follow slope? We need plan unchanged during drawing.
+
+We need output JSON with reason, total_plan. Need concise. Need include only useful anchors, not full coordinates for every stroke. Need identify frames at five times. Need maybe describe car path from lower left/back to center plaza. Camera fixed. Use +x right, +y depth, +z up. Coordinates roughly within [-0.8,0.8] floor z=-0.6.
+
+Need "slight rise onto a plaza": maybe inclined access ramp rising from z=-0.6 at y? Need decide orientation. Since camera looking from (2.8,-3.2,2.4) origin. We can have ramp up along +y? Need car moving into scene? Let's set plaza flat platform at z=-0.35 maybe, ramp sloping down toward front-right? Coordinates. Need plan not exact every stroke. Need ensure in five frames car climbs ramp, reaches plaza by final. Stationary props? Plaza edge/ramp support. Police car moves; wheels contact surface; body remains rigid and tilts with slope while on ramp, levels on plaza. The ramp/plaza is a solid geometry: low front edge/ramp inclines upward to a flat plaza at rear/center. Maybe car travels from lower-front (x=-0.45,y=-0.25,z=-0.6) up ramp toward center (x=0.05,y=0.20,z=-0.35?). Need within range.
+
+But coordinates in [-1,1]. Camera fixed. Need use true 3D. Plan can mention "ramp rises along +y from front floor to plaza plane; plaza flat behind at higher z." Car facing +y maybe. Need wheels contact. Motion: frame 0 car at foot of ramp, body level on lower floor; frame .25 front wheels on ramp, car pitches slightly, rear still floor; .5 all wheels on ramp, car climbing centered; .75 front wheels reach plaza, car levels partially, rear on ramp; frame 1 all wheels on plaza, body level, stops. Need maybe not too detailed? The user asks plan. Good.
+
+Need include parts: police car as compact rigid body in 3D: lower chassis box, cabin/roof, two visible side wheels? In 3D car should have four wheels but minimal; maybe two near wheels visible and two far wheels partially, but need coherent depth: connect front/back corners. For car: box body with front/rear corners; four wheels as short cylinders? Need recognizable. Minimal: 3D box body with slightly tapered cabin, roof light bar (blue/red? no color, just two small boxes), four wheels as thin cylinders contacting surface. Camera fixed from (2.8,-3.2,2.4); car maybe side/three-quarter view. We can frame car moving up ramp in depth maybe visible from front-left? Need ensure recognizable.
+
+The prompt only mentions police car; no people. The drawing style mentions people/animals only if needed. No need.
+
+Need mention plaza: a flat quadrilateral slab with visible front edge/ramp and side edges; slight rise. Need maybe one short ramp surface.
+
+Need maintain stable rigid dimensions: car rigid; wheelbase constant; wheels roll without sliding? Plausible. Suspension minimal. Body pitch changes only with ramp/plaza contact. Contact before reaction: wheels contact ramp before pitch. Need final supported: all four wheels on plaza, stationary.
+
+Need "total_frames": 5, normalized times. We can include in plan "at t=0..." etc. The JSON fields only reason and total_plan with scene, parts, motion, constraints. "total_plan" may contain arrays/frames? It says return JSON {"reason":"...", "total_plan":{"scene":"...", "parts":"...", "motion":"...", "constraints":"..."}}. Need adhere exactly those keys maybe strings. Could include timings in motion string. Good.
+
+Need "compact shared plan". Desired oververbose 5. We can make brief but include the essential.
+
+Need reason public explanation. "Plan uses a compact rigid police car and a short ramp/plaza slab; five poses track wheels contacting and following the incline, then level final state." Ensure no hidden coordinates? It's fine.
+
+Need be careful with "action unfolds" and "physics plausible trajectories, contact before reaction, stable rigid dimensions, supported final states." In constraints mention "wheels meet ramp before body pitch; car dimensions/wheelbase constant; no sliding/skew; final car fully on flat plaza with all wheels supported." "Ramp/plaza remains stationary."
+
+Need include "limb motion" for locomotion? Car doesn't have limbs; wheels rotate. Mention wheels rotate consistent with translation. Good.
+
+Need "Stationary props may remain still." The ramp/plaza remains still. Good.
+
+Need "Keep a domino row short..." irrelevant.
+
+Need return only JSON. Let's craft.
+
+Potential plan:
+
+scene: white space with a compact plaza slab centered slightly behind origin: flat top plane above front floor, short broad access ramp sloping down toward lower front/right; plaza side edges visible for depth. Police car starts at foot of ramp facing +y/plaza, within bounds; no other props.
+
+parts: Police car as rigid 3D sketch: rounded lower body box with paired front/rear corners, short cabin roof, roof light bar with two small blocks, four thin cylindrical wheels (near/far pairs) at constant wheelbase; single strokes for windows/doors maybe not necessary. Plaza: flat quadrilateral top, front lip/ramp, side edges. Need "front lip"? The ramp is the lip. Maybe "short access ramp rising to flat quadrilateral plaza".
+
+motion: at t=0 car sits level on lower floor at ramp foot, wheels on floor. At .25 front wheels contact and roll up ramp; body begins pitching to ramp angle as rear wheels remain near floor. At .5 car centered on ramp, all wheels follow incline, body pitched. At .75 front wheels reach plaza and body begins leveling while rear wheels still on ramp. At 1 whole car on flat plaza, body level, wheels stopped and supported; ramp remains stationary. Wheel rotation matches travel; no extra skids.
+
+constraints: keep wheelbase/height fixed; all wheels touch surface before pitch/reaction; ramp and plaza rigid/stationary; car stays within [-.8,.8]; final all wheels on flat plaza; no camera move; no trails/arrows/text. Use smooth body curves and straight slab edges.
+
+Maybe mention "slight rise" enough. Good.
+
+Need maybe align coordinates: "ramp slopes from lower front (z≈-0.6) to plaza top (z≈-0.38)." Is that too coordinate? It's a spatial anchor useful. Include maybe. The user says include only useful spatial anchors, not complete coords. A few coordinates okay? It says do not list complete coordinates for every stroke. We can mention z≈-0.6 and -0.38. Good.
+
+Need "true 3D world space" mention car uses box depth and paired corners. Fine.
+
+Need make JSON valid. Use escaped quotes? We'll output JSON.
+
+Let's ensure no extra markdown.

@@ -1,0 +1,43 @@
+Use +x right, +y depth, +z up. The cone is upright with base plane z=-0.6, base center (0.12,0,-0.6), radius 0.14, and apex (0.12,0,-0.20). Its floor-contact base rim is the +x rim P0=(0.26,0,-0.6). After the beak contacts the apex, pushing toward +x rotates the cone clockwise in the x-z plane about the y-axis through P0. For rotation angle φ, let dx=x-0.26 and dz=z+0.6. Then
+
+dx' = dx cosφ + dz sinφ,  dz' = -dx sinφ + dz cosφ,
+x' = 0.26 + dx',  z' = -0.6 + dz',
+
+with y unchanged. A clear partial topple at t=0.75 is φ=30°, so cosφ=0.8660254 and sinφ=0.5.
+
+For the apex, dx=-0.14, dz=0.4:
+
+dx' = -0.14(0.866025) + 0.4(0.5) = -0.121244 + 0.2 = 0.078756,
+dz' = -(-0.14)(0.5) + 0.4(0.866025) = 0.07 + 0.346410 = 0.416410.
+
+Thus the moved apex is A=(0.338756,0,-0.18359). For the base center, dx=-0.14, dz=0, giving x=0.26-0.121244=0.138756 and z=-0.6+0.07=-0.53. The left rim (-0.02,0,-0.6), dx=-0.28, moves to x=0.26-0.242488=0.017512, z=-0.6+0.14=-0.46. The depth rim (0.12,-0.14,-0.6) moves to (0.138756,-0.14,-0.53). The pivot (0.26,0,-0.6) stays fixed.
+
+Applying the same formula to the base-ellipse control points gives the tilted base contour:
+
+(0.26,0,-0.6),
+(0.26,0.077,-0.6),
+(0.198512,0.14,-0.5645),
+(0.138756,0.14,-0.53),
+(0.079001,0.14,-0.4955),
+(0.017512,0.077,-0.46),
+(0.017512,0,-0.46),
+(0.017512,-0.077,-0.46),
+(0.079001,-0.14,-0.4955),
+(0.138756,-0.14,-0.53),
+(0.198512,-0.14,-0.5645),
+(0.26,-0.077,-0.6),
+
+then back to (0.26,0,-0.6). Draw the cone sides as straight generators from A to the transformed right rim (0.26,0,-0.6), left rim (0.017512,0,-0.46), and depth rim (0.138756,-0.14,-0.53). This rigidly preserves the base radius and height while lifting the opposite rim.
+
+The beak tip remains at the moving apex A. Keep the head radius 0.055 and beak length 0.105, so the head center is 0.160 behind the tip in x. The beak slopes down by 0.040 from head center to tip, giving head center
+
+C = (A_x - 0.160, 0, A_z + 0.040)
+  = (0.178756,0,-0.14359).
+
+The beak base is at x=C_x+0.055=0.233756, with upper base z=C_z+0.010=-0.13359 and lower base z=C_z-0.020=-0.16359. The beak is therefore
+
+M 0.233756 0.005 -0.13359
+L 0.338756 0 -0.18359
+L 0.233756 -0.005 -0.16359.
+
+The head’s sagittal spherical contour is centered at C with radius 0.055 in the x-z plane: endpoints x=0.123756 and 0.233756, top/bottom z=-0.08859 and -0.19859. Its depth contour is the corresponding circle at x=0.178756 with y=±0.055 and the same z extents. The neck runs as a single cubic from the body shoulder (-0.313,0.010,-0.236) to the head back (0.124,0,-0.144), for example with controls near (-0.210,0.010,-0.225) and (-0.050,0.005,-0.165). Keep the body outline, body depth contour, folded-wing strokes, tail, and the two planted legs fixed as in the previous frame, with feet on z=-0.6. The floor support line remains from (-0.72,-0.20,-0.6) to (0.72,-0.20,-0.6).

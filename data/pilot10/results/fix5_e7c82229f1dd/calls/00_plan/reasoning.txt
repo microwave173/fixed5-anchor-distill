@@ -1,0 +1,59 @@
+We need answer only JSON with reason, total_plan. Need produce compact shared plan for animation described. Need include scene initial spatial layout, parts essential subjects and contours, motion five frames? They request plan at five normalized times 0,.25,.5,.75,1. Need plan remains unchanged during drawing. JSON. We need think through atomic 3D sketch: ball rolling on table into three dominoes in gentle curve, toppling cascade. Need true 3D in coords [-1,1], camera fixed. Need concise.
+
+We need formulate plan with initial spatial layout, parts, motion, constraints. The animation has no human/animal, so no limb. Ball spherical with great-circle curves. Dominoes thin boxes with front/back corners. Table/ground support? Table surface maybe around z=0? Need stable. Ball rolls across table, hits first domino, then cascade. Three dominoes gentle curve. Need short row enough for five frames. Frame times 0 initial ball at maybe x=-0.65,y=0? dominoes along curve in +x; table plane z=-0.2? Need coordinate convention z up, fixed floor z=-0.6 if needed. We can set tabletop at z=-0.1, ball radius 0.07 center z=-0.03 (since tabletop -0.1, center -0.03). Dominoes stand on tabletop, height 0.22, thickness 0.035, width 0.12. Need gentle curve: positions first (-0.1,-0.05), second (0.13,0.06), third (0.32,0.18)? But within [-0.8,0.8]. Need a small table? Could indicate table surface with two or three straight lines? The prompt says ball rolls across table; include necessary support. Drawing style minimal. Plan can include tabletop plane as a few straight edge lines, not complete coordinates every stroke. Need mention table remains fixed.
+
+Need motion: t=0 ball left of first domino on table, all upright. t=.25 ball closer/contact first domino, maybe first tips; t=.5 first falls contacting second, second begins tipping; t=.75 second falls contacting third, third tipping; t=1 all three fallen in arc, ball at rest after contact? Need ball trajectory plausible: rolls in slight curve? Ball can roll along table straight toward first domino while dominoes curve. Reaction after contact: ball contacts first at .25, first rotates; dominoes fall one after another along chain. Need ensure contact before reaction. At t=1 stable final dominoes lying on table with slight arc; ball stopped near first after impact. To show cascade in five frames, three dominoes enough. Need maybe "small ball rolls across table into first of three dominoes set in gentle curve". Total duration 2.5s. Need plan at times maybe within motion field.
+
+Need "compact shared plan" with scene, parts, motion, constraints. Could include frame correspondence within motion string. Need JSON valid. Use no markdown? final should be JSON. Need public explanation brief. Let's craft.
+
+Need include "reason" brief public explanation. Example: "A short three-domino curve lets the rolling ball trigger a readable cascade within five frames while the fixed camera and table keep support and contacts clear."
+
+Total_plan fields exactly scene, parts, motion, constraints. Need ensure "plan remains unchanged during drawing" maybe state in reason? But JSON only.
+
+Let's design precise but not too much.
+
+Scene: "Fixed tabletop slab at z≈-0.10, receding in x/y; white space; ball starts left; three slim dominoes stand in gentle arc from near front-left toward back-right, all on table." Maybe include camera fixed. Could mention table edges as few straight support lines.
+
+Parts: 
+- Ball: small sphere radius ~0.07 at z=-0.03, drawn by 2-3 intersecting great-circle arcs; outline maybe circle plus arcs.
+- Dominoes: three rigid thin rectangular prisms ~0.12 wide x 0.035 thick x 0.22 high, each with front/back corner edges, standing on table along gentle arc. 
+- Table: minimal straight top plane and maybe front edge.
+
+Need not list complete coords every stroke, but "recognizable parts".
+
+Motion: "At t=0 ball at left (-0.65,-0.05) on table, dominoes upright, first at (-0.15,-0.05) facing ball; t=.25 ball contacts first's lower face; t=.5 first rotates +x about bottom front edge and contacts second; t=.75 second contacts third while first lies flatter; t=1 third lies on table, all three fallen in curved chain, ball resting just behind first." Need "limb motion" not applicable. Need maybe "rolling rotation" of ball indicated by rotating great-circle curves; no motion trails. The ball's trajectory maybe straight line. Contact before reaction: at .25 ball touches first before first tips; .5 first contact second before second tips; etc. Ball remains on table surface; dominoes pivot about table-contact edges, heights constant. Final all supported by table.
+
+Need mention "gentle curve" of dominoes: domino orientations turn slightly along arc; fall direction follows neighbor contacts. At final, they may not be perfectly flat? Domino lying on table should be flat, supported. Since curved row, falling dominoes lie along arc. Need stable final.
+
+Constraints: rigid dimensions unchanged; domino bases stay in contact/sliding? When falling, bottom edge remains in contact with table and maybe shifts? A toppling domino pivots about base edge, fixed bottom point until impact; then lies flat. This is plausible. Ball ball radius constant; rolls without slipping? Not necessary but plausible; center at tabletop + radius, stays on surface until impact, stops. Contacts: ball-first at t .25, first-second at .5, second-third at .75; no overlap; no extra props move. Keep all within bounds -0.8..0.8; tabletop fixed at z=-0.10. Camera fixed.
+
+Need maybe include "stationary props may remain still": table.
+
+Need "Draw a minimal friendly black-line sketch..." Not necessary in plan but can align. We need no arrows/text. Plan may mention no text. But JSON allowed.
+
+Need perhaps "at five normalized times 0,.25,.5,.75,1" include explicit. Let's structure motion as object with each time? But total_plan.motion can be string. The requested schema: {"reason":"brief public explanation","total_plan":{"scene":"initial spatial layout","parts":"essential subjects and spatial contours","motion":"how the action unfolds","constraints":"necessary invariants and contacts"}}. They might expect strings, not nested. We can put motion as string with semicolons and times. Keep compact.
+
+Need valid JSON. Ensure no unescaped quotes. Use ≈ and × maybe okay. JSON supports Unicode. We can avoid special? Use ~ and x.
+
+Need decide coordinates. Let's set tabletop z=-0.15? Need ball radius 0.07, center -0.08. Domino height 0.24, base z=-0.15, top z=0.09. But z within [-1,1], fine. The prompt says fixed floor around z=-0.6 when needed; since table not floor maybe tabletop at -0.20. Ball center -0.13. Need camera from above sees tabletop. If tabletop z=-0.15, ball center -0.08, okay. Domino height 0.20, top at 0.05. Need enough.
+
+Maybe better tabletop z=-0.2. Ball radius 0.07, center -0.13. Dominoes base -0.2, height 0.22, top 0.02. The scene within z [-0.2,0.02]. Camera looking from z=2.4 down at origin, so visible. But objects near z=0 maybe at center. Fine.
+
+Need tabletop support: maybe a rectangular tabletop line in perspective, but plan doesn't need full. Since "table" might be a plane in 3D, drawing few straight edges. Initial spatial layout: "minimal tabletop at z=-0.20 with ball and dominoes on it; table extends left to right; no scenery."
+
+Domino positions along gentle arc:
+First at (-0.12, -0.10), orientation face normal roughly along +x? It should stand with broad face perpendicular to ball path. Ball rolls +x, hits first's left face. Domino orientation: broad face normal along -x (toward ball). Thus thickness along x, width along y, height z. First center (-0.10, -0.05). Second at (0.10, 0.05), slightly angled (normal rotated +20°). Third at (0.27, 0.18), angled +40°. Fallen direction roughly +x/+y along curve. Ball from (-0.65,-0.1) to (-0.22, -0.1). Contact at first left face x=-0.10 - thickness/2 - radius = -0.10 -0.0175 -0.07 = -0.1875. So ball center at -0.19 contact. Good. Domino width along y maybe 0.12, so ball y=-0.08 aligns near first center y=-0.05. Good.
+
+Second contact: first falls forward +x, top reaches second? Domino height 0.22, gap between first and second ~0.2 centers? Need contact when falling: first pivot at base, top moves along +x; to hit second base/body as it falls. Distance between bases maybe 0.18. A domino falling length 0.22 can reach next if center distance <0.22. First center (-0.10,-0.05), second (0.08,0.06) distance ~0.21, okay. When first tips toward second, top contacts second upper/mid. Third at (0.25,0.18), distance from second ~0.21. Good. The row gentle curve.
+
+Need final: first lying across x between -0.10 and 0.12? Its top hits second at .5 then continues to table at t1, second falls. All final lying on table, supported. Ball stopped near first base at x≈-0.18, center z=-0.13. Since first falls away from ball, ball stays.
+
+Could include ball's rolling rotation. At t=0, ball at (-0.55,-0.10). t=.25 at contact (-0.19,-0.08). It travels ~0.36 in 0.625s; plausible. t=0.5 ball almost stationary near contact, not moving with dominoes. At t=.5, first has toppled into second. The ball rolls a bit to x=-0.17? But if first base pivot, ball might push? Could be stopped at contact. Keep ball at rest after contact, no unrealistic sliding. At t=.25 contact; at t=.5 ball remains just touching first's base? Actually first has rotated away, ball remains at contact point, maybe rolls slightly due to impulse. But final just left of first fallen domino, on table.
+
+Need "contact before reaction": ball touches first at t=.25, first begins tipping; first contacts second at t=.5, second begins tipping; second contacts third at t=.75, third begins tipping. In five frames, at t=0 no contact; .25 initial contact and slight tilt first? To show reaction after contact, at .25 maybe just touch, first still upright? But frame at .25 should show contact and maybe first begins tip. The plan can say contact occurs by .25 then first starts tipping, avoiding pre-contact. At .5 first leaning into second, second starts; etc. Need "toppling them one after another." At t=1 all fallen. Good.
+
+Need maybe mention "domino bottoms remain on table, pivoting on bottom edge; the ball stays supported by tabletop at center height radius above it."
+
+Need "Stationary props may remain still." Table fixed.
+
+Let's formulate final JSON. We can include all in strings. Need compact. Ensure no line breaks? It's okay. Valid JSON. We need no markdown code fence? final should be exactly JSON. Let's produce.

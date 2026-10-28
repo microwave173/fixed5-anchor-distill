@@ -1,0 +1,19 @@
+A single wireframe cube is placed in true 3D space with side length \(0.8\), so its half-height is \(0.4\). To keep it supported, choose the floor at \(z=-0.6\); then the cube center is at \(z=-0.6+0.4=-0.2\), its bottom face lies on the floor at \(z=-0.6\), and its top face is at \(z=0.2\). The cube is centered horizontally near the origin, and the vertical rotation axis passes through its center \((0,0,z)\). This axis is implied by the motion and is not drawn as an extra guide line. A short fixed floor line under the cube supplies the necessary support; no other objects or decorative geometry are added.
+
+The cube has eight spatial vertices and twelve straight edges, including top and bottom square faces and four vertical edges. All twelve edges are drawn as connected uniform black wireframe lines, with no shading, labels, arrows, or back-face suppression. The floor line stays fixed.
+
+The cube rotates only about its fixed vertical center axis through a quarter turn. Let the yaw be
+\[
+\theta(t)=90^\circ\,t,
+\]
+so the five sampled poses are
+\[
+t=0,\ .25,\ .5,\ .75,\ 1
+\quad\Rightarrow\quad
+\theta=0^\circ,\ 22.5^\circ,\ 45^\circ,\ 67.5^\circ,\ 90^\circ.
+\]
+Every vertex follows a horizontal circular arc under
+\[
+(x,y,z)\mapsto (x\cos\theta-y\sin\theta,\;x\sin\theta+y\cos\theta,\;z),
+\]
+so \(z\) coordinates and cube dimensions remain unchanged. The bottom face remains in the floor plane throughout, and the final \(90^\circ\) pose is settled with no translation, tilt, roll, pitch, bounce, or deformation. The camera stays fixed. Rigid-cube constraints hold: all edge lengths and face angles remain constant, opposite edges remain parallel, vertical edges remain vertical, and all twelve edges stay connected at the eight vertices.

@@ -1,0 +1,73 @@
+Use \(+x\) forward/right, \(+y\) depth, \(+z\) up; near-side limbs have \(y=+0.09\), far-side limbs \(y=-0.09\), and the ground is \(z=-0.60\). The dog faces \(+x\). In the first frame the torso runs from rump \(x\approx -0.68\) to chest \(x\approx -0.23\). The head sagittal endpoints are \(-0.26\) and \(0.00\), so the head center is near \(x=-0.13\), not at either endpoint; the muzzle reaches about \(x=0.10\).
+
+The previous frame \(i=4\) is the first-frame rigid dog translated by \(+0.675\) in \(x\): rump arc \(-0.65\to0.025\), shoulder arc \(-0.25\to0.425\), head sagittal \(-0.26\to0.415\), and muzzle maximum \(0.10\to0.775\). In that frame the far front and near hind paws are planted at \((0.595,-0.09,-0.60)\) and \((0.165,0.09,-0.60)\); the near front and far hind toes are lifted at \(z=-0.56\).
+
+For frame 5, use the previous frame as the current pose and apply a small rigid forward settle to the body, head, ears, and tail:
+\[
+(x,y,z)\mapsto (x+0.020,\;y,\;z+0.004).
+\]
+This keeps the dog inside the \(x\)-bounds: the muzzle maximum becomes \(0.775+0.020=0.795\), and the tail minimum becomes \(-0.105+0.020=-0.085\). For example, the body spine start transforms as
+\[
+(-0.005,0,0.12)\to(0.015,0,0.124),
+\]
+a control point transforms as
+\[
+(0.065,0,0.20)\to(0.085,0,0.204),
+\]
+and the spine end transforms as
+\[
+(0.445,0,0.13)\to(0.465,0,0.134).
+\]
+The shoulder arc moves from \(x=0.425\) to \(x=0.445\). The head sagittal start becomes \((0.435,0,0.244)\); the muzzle maximum becomes \((0.795,0,0.214)\); the near ear tip becomes \((0.585,0.05,0.384)\); and the tail tip becomes \((-0.055,0.06,0.334)\). The tail follows the body translation with only minimal sway.
+
+Keep the previous support pair planted because each paw is still ahead of its attachment. For the far front leg, the previous shoulder-to-paw vector is
+\[
+(0.465,-0.09,-0.08)\to(0.595,-0.09,-0.60):
+\quad \Delta x=0.130,\ \Delta z=-0.520,
+\]
+with length
+\[
+\sqrt{0.130^2+0.520^2}=0.536.
+\]
+After the body transform the shoulder is \((0.485,-0.09,-0.076)\), while the paw stays fixed at \((0.595,-0.09,-0.60)\). The final vector has
+\[
+\Delta x=0.110,\quad \Delta z=-0.524,\quad
+\sqrt{0.110^2+0.524^2}=0.535,
+\]
+so draw the knee near \((0.555,-0.09,-0.595)\) and the foot ending at the planted paw.
+
+For the near hind leg, the previous shoulder-to-paw vector is
+\[
+(0.065,0.09,-0.07)\to(0.165,0.09,-0.60):
+\quad \Delta x=0.100,\ \Delta z=-0.530,
+\]
+with length \(0.539\). The final shoulder is \((0.085,0.09,-0.066)\), giving
+\[
+\Delta x=0.080,\quad \Delta z=-0.534,\quad
+\sqrt{0.080^2+0.534^2}=0.540,
+\]
+with the paw still at \((0.165,0.09,-0.60)\); use a knee near \((0.125,0.09,-0.60)\).
+
+The lifted near front leg swings forward. Its previous shoulder-to-toe vector is
+\[
+(0.425,0.09,-0.08)\to(0.29,0.09,-0.56):
+\quad \Delta x=-0.135,\ \Delta z=-0.480,
+\]
+length \(0.499\). Its final shoulder is \((0.445,0.09,-0.076)\). Choose the final toe \((0.562,0.09,-0.56)\):
+\[
+\Delta x=0.117,\quad \Delta z=-0.484,\quad
+\sqrt{0.117^2+0.484^2}=0.498,
+\]
+with a knee/control near \((0.505,0.09,-0.555)\).
+
+The lifted far hind leg similarly swings forward. Its previous shoulder-to-toe vector is
+\[
+(0.095,-0.09,-0.06)\to(0.04,-0.09,-0.56):
+\quad \Delta x=-0.055,\ \Delta z=-0.500,
+\]
+length \(0.503\). Its final shoulder is \((0.115,-0.09,-0.056)\). Choose the final toe \((0.147,-0.09,-0.558)\):
+\[
+\Delta x=0.032,\quad \Delta z=-0.502,\quad
+\sqrt{0.032^2+0.502^2}=0.503,
+\]
+with a knee near \((0.100,-0.09,-0.553)\). Thus the far front and near hind paws remain fixed on \(z=-0.60\), while the near front and far hind legs advance through their swing; the body, head, ears, and tail move coherently, with the ears staying perked.

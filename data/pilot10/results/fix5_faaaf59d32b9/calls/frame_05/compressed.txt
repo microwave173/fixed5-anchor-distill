@@ -1,0 +1,44 @@
+Use \(+x\) right, \(+y\) depth, \(+z\) up, with floor \(z=-0.6\). The first-to-previous translation is read from the head-neck start: \(0.37-0.01=0.36\), so the previous pose is the first pose translated \(+0.36\) in \(x\). Continuing by \(+0.12\) would put the previous head maximum \(0.70+0.12=0.82\) outside the intended range, so use a final increment \(\Delta x=+0.10\). The total first-to-final displacement is \(0.36+0.10=0.46\). All rigid torso, head, ear, and tail points therefore transform by
+\[
+T(x,y,z)=(x+0.10,\;y,\;z),
+\]
+with no rotation.
+
+Representative rigid-point calculations are
+\[
+(-0.18,-0.11,-0.07)+T=(-0.08,-0.11,-0.07)
+\]
+for the near-back start,
+\[
+(0.37,-0.10,-0.10)+T=(0.47,-0.10,-0.10)
+\]
+for the head-neck start, and
+\[
+(0.70,-0.10,-0.11)+T=(0.80,-0.10,-0.11)
+\]
+for the nose. The tail root becomes
+\[
+(-0.18,-0.05,-0.10)+T=(-0.08,-0.05,-0.10),
+\]
+and the tail tip becomes
+\[
+(-0.43,-0.02,-0.10)+T=(-0.33,-0.02,-0.10),
+\]
+so the tail stays level at \(z=-0.10\).
+
+Applying the same \(T\) to the previous body controls gives the final rigid contours. Near side: back \(M(-0.08,-0.11,-0.07)\) with quadratic control \((0.18,-0.13,-0.02)\) to \((0.47,-0.11,-0.10)\); chest from \((0.47,-0.11,-0.10)\) via \((0.51,-0.12,-0.16)\) to \((0.47,-0.12,-0.25)\); belly from \((0.47,-0.12,-0.25)\) via \((0.19,-0.14,-0.32)\) to \((-0.04,-0.12,-0.28)\); rump from \((-0.04,-0.12,-0.28)\) via \((-0.16,-0.12,-0.18)\) to \((-0.08,-0.11,-0.07)\). Far side: back \(M(-0.04,0.10,-0.06)\) via \((0.19,0.13,-0.02)\) to \((0.45,0.09,-0.11)\); belly \(M(0.00,0.10,-0.27)\) via \((0.22,0.13,-0.31)\) to \((0.46,0.10,-0.24)\); rump \(M(-0.08,0.06,-0.08)\) via \((-0.14,0.08,-0.18)\) to \((-0.04,0.10,-0.27)\). The near ear becomes \(M(0.56,-0.10,-0.02)L(0.58,-0.10,0.07)L(0.63,-0.10,-0.02)\); the far ear \(M(0.58,0.02,-0.02)L(0.60,0.03,0.06)L(0.65,0.02,-0.03)\); and the far cheek \(M(0.57,0.03,-0.02)\) with quadratic control \((0.66,0.04,-0.06)\) to \((0.73,0.02,-0.10)\). The head profile begins at \((0.47,-0.10,-0.10)\), reaches the nose at \((0.80,-0.10,-0.11)\), and returns to the neck at \((0.48,-0.10,-0.15)\), preserving the profile and attachments.
+
+At the final phase, switch to the opposite diagonal support: near-front and far-rear paws plant on \(z=-0.60\), while far-front and near-rear legs lift clear. The shifted attachment points are
+\[
+(0.36,-0.12,-0.13)+T=(0.46,-0.12,-0.13),
+\]
+\[
+(0.38,0.10,-0.13)+T=(0.48,0.10,-0.13),
+\]
+\[
+(-0.07,-0.12,-0.13)+T=(0.03,-0.12,-0.13),
+\]
+\[
+(-0.08,0.10,-0.12)+T=(0.02,0.10,-0.12).
+\]
+The near-front support leg runs from \((0.46,-0.12,-0.13)\) through cubic controls \((0.49,-0.12,-0.26)\), \((0.52,-0.12,-0.44)\) to the floor contact \((0.55,-0.12,-0.60)\). The far-rear support leg runs from \((0.02,0.10,-0.12)\) through \((0.06,0.10,-0.28)\), \((0.11,0.10,-0.46)\) to \((0.15,0.10,-0.60)\). The far-front lifted leg starts at \((0.48,0.10,-0.13)\), passes through controls \((0.52,0.10,-0.23)\), \((0.59,0.10,-0.37)\), and ends at \((0.69,0.10,-0.48)\) with a small quadratic finish via \((0.67,0.10,-0.49)\). The near-rear lifted leg starts at \((0.03,-0.12,-0.13)\), passes through \((0.08,-0.12,-0.24)\), \((0.13,-0.12,-0.38)\), and ends at \((0.21,-0.12,-0.49)\) with a small quadratic finish via \((0.19,-0.12,-0.50)\). The two lifted paws remain above \(z=-0.60\), while only the near-front and far-rear paws make floor contact.

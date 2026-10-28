@@ -1,0 +1,29 @@
+Use coordinates with +x as the forward walking direction, +y depth, +z up, and the fixed floor at z=-0.60. Frame 4 supplies the immediate pose: torso centerline from hip \(H_4=(-0.20,0,-0.14)\) to shoulder \(S_4=(-0.14,0,0.13)\), with control \((-0.18,0,0)\); head center \(C_4=(-0.13,0,0.25)\). At the final phase the left foot plants forward, the right support foot remains planted, and the body advances only slightly. The right foot is fixed at \(F_R=(-0.08,-0.10,-0.60)\). A full first-frame translation would push the left foot past the fixed floor line ending at \(x=0.05\), so use a smaller forward body shift \(\Delta x=0.10\).
+
+Applying that shift:
+\[
+H=H_4+(0.10,0,0)=(-0.20,0,-0.14)+(0.10,0,0)=(-0.10,0,-0.14),
+\]
+\[
+S=S_4+(0.10,0,0)=(-0.14,0,0.13)+(0.10,0,0)=(-0.04,0,0.13),
+\]
+\[
+C=C_4+(0.10,0,0)=(-0.13,0,0.25)+(0.10,0,0)=(-0.03,0,0.25).
+\]
+Thus the torso centerline runs from \((-0.10,0,-0.14)\) with control \((-0.08,0,0)\) to \((-0.04,0,0.13)\). The shoulder anchor bar is at \(x=-0.05\), \(y=\pm0.065\), \(z=0.11\); the hip anchor bar is at \(x=-0.10\), \(y=\pm0.075\), \(z=-0.14\).
+
+The head keeps the frame-4 radii and great-circle structure, shifted by the same \(+0.10\) in x. Its xz great circle starts at \((0.09,0,0.25)\), runs through controls at \(z=0.41\) and \(z=0.09\), and ends at \((-0.15,0,0.25)\). The yz great circle is centered at \(x=-0.03\) with \(y=\pm0.12\) and \(z=0.25\pm0.16\). The xy great circle uses \(y=\pm0.16\) with the same endpoints.
+
+The arms counter-swing with the planted left foot. The right arm starts at \((-0.05,-0.065,0.11)\), uses control \((0.06,-0.09,0.01)\), and ends at \((0.18,-0.10,-0.08)\). The left arm starts at \((-0.05,0.065,0.11)\), uses control \((-0.15,0.09,0.01)\), and ends at \((-0.27,0.10,-0.08)\). These are the frame-4 arm controls and endpoints shifted by \(+0.10\) in x.
+
+For the planted left leg, the hip is \((-0.10,0.075,-0.14)\) and the foot is \((0.05,0.10,-0.60)\). Use a bent-knee path
+\[
+M(-0.10,0.075,-0.14)\;Q3(-0.05,0.08,-0.28)\;(-0.01,0.09,-0.36)
+\;Q3(0.07,0.10,-0.48)\;(0.05,0.10,-0.60).
+\]
+For the trailing right leg, keep the frame-4 contact \(F_R=(-0.08,-0.10,-0.60)\) and use the bent-knee path
+\[
+M(-0.10,-0.075,-0.14)\;Q3(-0.04,-0.08,-0.27)\;(-0.02,-0.09,-0.36)
+\;Q3(-0.02,-0.10,-0.49)\;(-0.08,-0.10,-0.60).
+\]
+Both feet therefore reach the floor at \(z=-0.60\); the left foot lands at \(x=0.05\), the right foot is at \(x=-0.08\), and the fixed floor line remains \(M(-0.75,0,-0.60)\;L(0.05,0,-0.60)\), supporting the left-foot plant at its endpoint.

@@ -1,0 +1,75 @@
+{
+  "reason": "At the second frame the complete helicopter has risen 0.10 and drifted 0.02 backward; the main rotor has advanced 60 degrees around the vertical mast while all body, tail, and skid geometry remains rigidly attached.",
+  "frames": [
+    {
+      "i": 2,
+      "strokes": [
+        {
+          "id": "floor",
+          "path": "M -0.45 0 -0.60 L 0.45 0 -0.60",
+          "description": "fixed floor line"
+        },
+        {
+          "id": "cabin_outline",
+          "path": "M 0.27 0 -0.20 C3 0.27 0 -0.09 0.16 0 -0.04 0.00 0 -0.04 C3 -0.14 0 -0.04 -0.27 0 -0.10 -0.27 0 -0.20 C3 -0.27 0 -0.30 -0.14 0 -0.36 0.00 0 -0.36 C3 0.16 0 -0.36 0.27 0 -0.31 0.27 0 -0.20 Z",
+          "description": "rounded cabin longitudinal outline in the x-z plane"
+        },
+        {
+          "id": "cabin_equator",
+          "path": "M 0.27 0 -0.20 C3 0.27 0.0884 -0.20 0.1491 0.16 -0.20 0.00 0.16 -0.20 C3 -0.1491 0.16 -0.20 -0.27 0.0884 -0.20 -0.27 0 -0.20 C3 -0.27 -0.0884 -0.20 -0.1491 -0.16 -0.20 0.00 -0.16 -0.20 C3 0.1491 -0.16 -0.20 0.27 -0.0884 -0.20 0.27 0 -0.20 Z",
+          "description": "horizontal cabin equator contour in the x-y plane"
+        },
+        {
+          "id": "cabin_cross",
+          "path": "M 0.00 0.16 -0.20 C3 0.00 0.16 -0.1116 0.00 0.0884 -0.04 0.00 0 -0.04 C3 0.00 -0.0884 -0.04 0.00 -0.16 -0.1116 0.00 -0.16 -0.20 C3 0.00 -0.16 -0.2884 0.00 -0.0884 -0.36 0.00 0 -0.36 C3 0.00 0.0884 -0.36 0.00 0.16 -0.2884 0.00 0.16 -0.20 Z",
+          "description": "vertical cabin cross-section contour in the y-z plane"
+        },
+        {
+          "id": "tail_boom",
+          "path": "M -0.24 0 -0.24 L -0.66 0 -0.14 M -0.24 0 -0.16 L -0.65 0 -0.08 M -0.66 0 -0.14 L -0.65 0 -0.08",
+          "description": "tapered rigid tail boom attached to the cabin rear"
+        },
+        {
+          "id": "tail_fin",
+          "path": "M -0.66 0 -0.12 L -0.64 0 0.05 L -0.57 0 -0.07 L -0.66 0 -0.12 Z",
+          "description": "small vertical tail fin at the boom end"
+        },
+        {
+          "id": "tail_rotor",
+          "path": "M -0.67 0 -0.10 L -0.67 0 0.04 M -0.67 -0.07 -0.03 L -0.67 0.07 -0.03",
+          "description": "crossed tail-rotor blades in the y-z plane"
+        },
+        {
+          "id": "rotor_mast",
+          "path": "M 0.00 0 -0.04 L 0.00 0 0.14",
+          "description": "vertical main-rotor mast on the cabin roof"
+        },
+        {
+          "id": "main_blade_a",
+          "path": "M 0.0000 0.4201 0.14 L 0.0000 -0.4201 0.14",
+          "description": "main rotor blade after a 60-degree advance around the mast"
+        },
+        {
+          "id": "main_blade_b",
+          "path": "M -0.4201 0 0.14 L 0.4201 0 0.14",
+          "description": "crossing main rotor blade after a 60-degree advance around the mast"
+        },
+        {
+          "id": "skid_left",
+          "path": "M -0.32 0.18 -0.50 L 0.30 0.18 -0.50",
+          "description": "left landing skid now clear of the floor"
+        },
+        {
+          "id": "skid_right",
+          "path": "M -0.32 -0.18 -0.50 L 0.30 -0.18 -0.50",
+          "description": "right landing skid now clear of the floor"
+        },
+        {
+          "id": "skid_struts",
+          "path": "M 0.13 0.18 -0.50 L 0.13 0.12 -0.33 M 0.13 -0.18 -0.50 L 0.13 -0.12 -0.33 M -0.19 0.18 -0.50 L -0.19 0.12 -0.32 M -0.19 -0.18 -0.50 L -0.19 -0.12 -0.32",
+          "description": "four short struts attaching parallel skids to the cabin underside"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "reason": "A single figure keeps a stable back-lean against a fixed wall while one side arm drives a ball through one down-up bounce; five poses show hand push, floor contact, rebound, and return.",
+  "total_plan": {
+    "scene": "Fixed floor plane at z≈-0.6 and a plain vertical wall at y≈0.55 behind the figure. Person stands near the origin with feet set apart on the floor; torso reclines so upper back/shoulder presses the wall. Ball is at the person's side near x≈0.45 in a vertical bounce lane. Camera fixed.",
+    "parts": "Compact person: spherical head, short torso centerline, two single-line arms and two single-line legs; one side arm hangs/drives near the ball. Minimal wall as a vertical flat prop with clear straight edges; floor line as support. Small ball uses intersecting great-circle curves. No extra scenery.",
+    "motion": "t=0: person settled in the lean, side hand at ball height, ball resting at hand (z≈0.05). t=.25: hand pushes ball downward; side arm bends and ball descends in its lane (z≈-0.25), body remains braced. t=.5: ball contacts the floor under the side hand (center near z≈-0.55); floor contact occurs before the rebound, hand follows above. t=.75: ball rebounds upward (z≈-0.20); side arm rises to meet it. t=1: ball returns to the hand at side (z≈0.05), person holds the supported final lean. Other arm, legs, wall, and floor stay nearly still.",
+    "constraints": "Feet remain on the floor and upper back/shoulder remains in contact with the wall throughout, supporting the lean without sliding. Person dimensions and attachments stay rigid; ball radius is constant. Ball moves vertically at the side and reverses direction only after floor contact at t=.5; hand contact is maintained at the start and return. Final pose is balanced, supported, and stable."
+  }
+}

@@ -1,0 +1,202 @@
+[
+  {
+    "id": "fix5_e7c82229f1dd",
+    "prompt": "A small ball rolls across the table into the first of three dominoes set in a gentle curve, toppling them one after another.",
+    "prompt_zh": "一个小球沿桌面滚向呈平缓弧线排列的三张多米诺骨牌中的第一张，使它们接连倒下。",
+    "dim": 3,
+    "total_frames": 5,
+    "category": "physics",
+    "category_zh": "物理运动",
+    "independent": false,
+    "locomotion": false,
+    "tags": [
+      "translation",
+      "contact",
+      "domino"
+    ],
+    "review_quality": 2,
+    "source_id": "atom_1a3497ab6e9d",
+    "source_file": "ar_high_weakness600_v1/tasks.json",
+    "source_dim": 3,
+    "title": "球推三张骨牌"
+  },
+  {
+    "id": "fix5_39cefceafbf6",
+    "prompt": "A fixed-length pendulum bob swings into a fixed rubber stop and rebounds.",
+    "prompt_zh": "一个定长摆锤摆向固定的橡胶挡块并反弹。",
+    "dim": 3,
+    "total_frames": 5,
+    "category": "physics",
+    "category_zh": "物理运动",
+    "independent": false,
+    "locomotion": false,
+    "tags": [
+      "translation",
+      "rotation",
+      "contact"
+    ],
+    "review_quality": 2,
+    "source_id": "atom_f6e53a82264c",
+    "source_file": "ar_high_weakness600_v1/tasks.json",
+    "source_dim": 3,
+    "title": "摆球撞限位"
+  },
+  {
+    "id": "fix5_faaaf59d32b9",
+    "prompt": "A cat walks past in profile with its tail held level.",
+    "prompt_zh": "一只猫以侧面姿态走过，尾巴保持水平。",
+    "dim": 3,
+    "total_frames": 5,
+    "category": "animal",
+    "category_zh": "动物",
+    "independent": true,
+    "locomotion": true,
+    "tags": [
+      "translation",
+      "articulation"
+    ],
+    "review_quality": 2,
+    "source_id": "gen3d_4be4f607dc21",
+    "source_file": "sketch3d_general5000_v2/tasks.json",
+    "source_dim": 3,
+    "title": "猫走路"
+  },
+  {
+    "id": "fix5_8808009d3b29",
+    "prompt": "A dog walks forward with ears perked.",
+    "prompt_zh": "一只狗竖起耳朵向前走。",
+    "dim": 3,
+    "total_frames": 5,
+    "category": "animal",
+    "category_zh": "动物",
+    "independent": true,
+    "locomotion": true,
+    "tags": [
+      "translation",
+      "articulation"
+    ],
+    "review_quality": 2,
+    "source_id": "gen3d_e30fd6929a12",
+    "source_file": "sketch3d_general5000_v2/tasks.json",
+    "source_dim": 3,
+    "title": "狗走路"
+  },
+  {
+    "id": "fix5_f148393f8182",
+    "prompt": "A bird pecks the top of a cone and it topples over.",
+    "prompt_zh": "一只鸟啄圆锥顶部，使它倒下。",
+    "dim": 3,
+    "total_frames": 5,
+    "category": "animal",
+    "category_zh": "动物",
+    "independent": false,
+    "locomotion": false,
+    "tags": [
+      "contact",
+      "rotation"
+    ],
+    "review_quality": 2,
+    "source_id": "atom_11768e3b9742",
+    "source_file": "sketch3d_general5000_v2/source_tasks_4000.json",
+    "source_dim": 3,
+    "title": "鸟啄倒圆锥"
+  },
+  {
+    "id": "fix5_1e40f2f13996",
+    "prompt": "A person walks forward slowly with knees bent, keeping weight low and steady.",
+    "prompt_zh": "一个人屈膝缓慢前行，重心低而稳定。",
+    "dim": 3,
+    "total_frames": 5,
+    "category": "human",
+    "category_zh": "人物",
+    "independent": true,
+    "locomotion": true,
+    "tags": [
+      "translation",
+      "articulation"
+    ],
+    "review_quality": 2,
+    "source_id": "human800_a5000668dbea",
+    "source_file": "human_motion_800_v1/mixed500_v1/tasks_new400.json",
+    "source_dim": 2,
+    "title": "屈膝行走"
+  },
+  {
+    "id": "fix5_c8b50379dc17",
+    "prompt": "A person leans against a wall and bounces a ball at their side.",
+    "prompt_zh": "一个人靠墙站立，在身侧拍球。",
+    "dim": 3,
+    "total_frames": 5,
+    "category": "human",
+    "category_zh": "人物",
+    "independent": false,
+    "locomotion": false,
+    "tags": [
+      "contact",
+      "translation"
+    ],
+    "review_quality": 2,
+    "source_id": "atom_d7635c95c1f7",
+    "source_file": "ar_high_weakness600_v1/tasks.json",
+    "source_dim": 3,
+    "title": "人拍球"
+  },
+  {
+    "id": "fix5_92cac896589c",
+    "prompt": "A helicopter lifts off while its rotor spins, moving backward slightly as it rises.",
+    "prompt_zh": "一架直升机起飞，旋翼旋转，上升时略微向后移动。",
+    "dim": 3,
+    "total_frames": 5,
+    "category": "vehicle",
+    "category_zh": "交通工具",
+    "independent": false,
+    "locomotion": false,
+    "tags": [
+      "translation",
+      "rotation"
+    ],
+    "review_quality": 2,
+    "source_id": "atom_4d0abcec6d81",
+    "source_file": "ar_high_weakness600_v1/tasks.json",
+    "source_dim": 3,
+    "title": "直升机起飞"
+  },
+  {
+    "id": "fix5_204585efa74f",
+    "prompt": "A police car drives up a slight rise onto a plaza.",
+    "prompt_zh": "一辆警车沿微坡驶上广场。",
+    "dim": 3,
+    "total_frames": 5,
+    "category": "vehicle",
+    "category_zh": "交通工具",
+    "independent": false,
+    "locomotion": false,
+    "tags": [
+      "translation"
+    ],
+    "review_quality": 2,
+    "source_id": "gen3d_ea3237c619fc",
+    "source_file": "sketch3d_general5000_v2/tasks.json",
+    "source_dim": 3,
+    "title": "汽车上坡"
+  },
+  {
+    "id": "fix5_1bdc75323f5b",
+    "prompt": "A wireframe cube rotates about its vertical center axis through a quarter turn.",
+    "prompt_zh": "",
+    "dim": 3,
+    "total_frames": 5,
+    "category": "geometry",
+    "category_zh": "几何与空间运动",
+    "independent": false,
+    "locomotion": false,
+    "tags": [
+      "rotation"
+    ],
+    "review_quality": 2,
+    "source_id": "fix5_1bdc75323f5b",
+    "source_file": "fixed5_anchor_v1/tasks5000_v1/topup/candidates.json",
+    "source_dim": 3,
+    "title": "立方体旋转"
+  }
+]

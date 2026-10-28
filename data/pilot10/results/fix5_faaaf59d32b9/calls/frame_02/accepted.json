@@ -1,0 +1,90 @@
+{
+  "reason": "At t=.25 the cat has advanced +x by 0.12 while the near-front and far-rear support paws remain planted at z=-0.60. The torso, head, ears, and level tail are translated rigidly; the far-front leg is descending forward and the near-rear leg is swinging forward clear of the floor.",
+  "frames": [
+    {
+      "i": 2,
+      "strokes": [
+        {
+          "id": "torso_back_near",
+          "path": "M -0.42 -0.11 -0.07 Q3 -0.16 -0.13 -0.02 0.13 -0.11 -0.10",
+          "description": "near-side back contour of the torso"
+        },
+        {
+          "id": "torso_chest_near",
+          "path": "M 0.13 -0.11 -0.10 Q3 0.17 -0.12 -0.16 0.13 -0.12 -0.25",
+          "description": "near-side chest and neck attachment contour"
+        },
+        {
+          "id": "torso_belly_near",
+          "path": "M 0.13 -0.12 -0.25 Q3 -0.15 -0.14 -0.32 -0.38 -0.12 -0.28",
+          "description": "near-side belly contour"
+        },
+        {
+          "id": "torso_rump_near",
+          "path": "M -0.38 -0.12 -0.28 Q3 -0.50 -0.12 -0.18 -0.42 -0.11 -0.07",
+          "description": "near-side rounded rump contour"
+        },
+        {
+          "id": "torso_back_far",
+          "path": "M -0.38 0.10 -0.06 Q3 -0.15 0.13 -0.02 0.11 0.09 -0.11",
+          "description": "far-side back contour giving body depth"
+        },
+        {
+          "id": "torso_belly_far",
+          "path": "M -0.34 0.10 -0.27 Q3 -0.12 0.13 -0.31 0.12 0.10 -0.24",
+          "description": "far-side belly contour giving body depth"
+        },
+        {
+          "id": "torso_rump_far",
+          "path": "M -0.42 0.06 -0.08 Q3 -0.48 0.08 -0.18 -0.38 0.10 -0.27",
+          "description": "far-side rump contour connecting body depth"
+        },
+        {
+          "id": "head_profile",
+          "path": "M 0.13 -0.10 -0.10 C3 0.17 -0.10 -0.04 0.23 -0.10 -0.01 0.28 -0.10 -0.01 C3 0.36 -0.10 -0.02 0.41 -0.10 -0.05 0.43 -0.10 -0.09 Q3 0.46 -0.10 -0.11 0.44 -0.10 -0.15 C3 0.38 -0.10 -0.20 0.30 -0.10 -0.23 0.23 -0.10 -0.22 Q3 0.16 -0.10 -0.20 0.14 -0.10 -0.15",
+          "description": "cat head in profile with short muzzle and attached neck"
+        },
+        {
+          "id": "ear_near",
+          "path": "M 0.22 -0.10 -0.02 L 0.24 -0.10 0.07 L 0.29 -0.10 -0.02",
+          "description": "near pointed ear"
+        },
+        {
+          "id": "ear_far",
+          "path": "M 0.24 0.02 -0.02 L 0.26 0.03 0.06 L 0.31 0.02 -0.03",
+          "description": "far pointed ear showing head depth"
+        },
+        {
+          "id": "head_far_cheek",
+          "path": "M 0.23 0.03 -0.02 Q3 0.32 0.04 -0.06 0.39 0.02 -0.10",
+          "description": "far-side cheek contour of the head"
+        },
+        {
+          "id": "leg_front_near_plant",
+          "path": "M 0.12 -0.12 -0.13 C3 0.16 -0.12 -0.22 0.18 -0.12 -0.38 0.14 -0.12 -0.60",
+          "description": "near front leg planted on the floor"
+        },
+        {
+          "id": "leg_front_far_swing",
+          "path": "M 0.14 0.10 -0.13 C3 0.19 0.10 -0.22 0.24 0.10 -0.33 0.28 0.10 -0.46 Q3 0.29 0.10 -0.49 0.31 0.10 -0.49",
+          "description": "far front leg swinging forward clear of the floor"
+        },
+        {
+          "id": "leg_rear_near_swing",
+          "path": "M -0.31 -0.12 -0.13 C3 -0.37 -0.12 -0.23 -0.45 -0.12 -0.34 -0.46 -0.12 -0.44 Q3 -0.45 -0.12 -0.47 -0.43 -0.12 -0.47",
+          "description": "near rear leg swinging forward clear of the floor"
+        },
+        {
+          "id": "leg_rear_far_plant",
+          "path": "M -0.32 0.10 -0.12 C3 -0.33 0.10 -0.28 -0.35 0.10 -0.44 -0.35 0.10 -0.60",
+          "description": "far rear leg planted on the floor as diagonal support"
+        },
+        {
+          "id": "tail_level",
+          "path": "M -0.42 -0.05 -0.10 C3 -0.50 -0.03 -0.10 -0.58 -0.02 -0.10 -0.67 -0.02 -0.10",
+          "description": "level tail extending backward with a gentle curve"
+        }
+      ]
+    }
+  ]
+}

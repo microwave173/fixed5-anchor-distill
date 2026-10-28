@@ -1,0 +1,53 @@
+Use \(+x\) forward/right, \(+y\) depth, \(+z\) up; the floor is \(z=-0.6\). The dog faces \(+x\), with near-side limbs at \(y\approx+0.09\) and far-side limbs at \(y\approx-0.09\). Frames 1–5 correspond to \(t=0,.25,.5,.75,1\), so frame 2 is \(t=.25\). The supplied first and previous frames are identical, so frame 2 must advance the \(t=0\) pose by the frame-2 increment rather than reset the pose.
+
+Taking the plan’s body-center start and finish as \(x=-0.45\) and \(x=+0.45\), the total forward translation is
+\[
+\Delta x=0.45-(-0.45)=0.90.
+\]
+At \(t=.25\),
+\[
+\Delta x=.25(0.90)=0.225.
+\]
+Choose a subtle upward bob \(\Delta z=+0.01\), giving the rigid body translation vector
+\[
+T=(.225,0,.01).
+\]
+For any rigid body/head/ear/muzzle/tail point \(P=(x,y,z)\),
+\[
+P'=P+T=(x+.225,\;y,\;z+.01).
+\]
+For example, the body-spine start
+\[
+(-0.68,0,0.10)\mapsto(-0.68+.225,0,0.10+.01)=(-0.455,0,0.11),
+\]
+its first control
+\[
+(-0.61,0,0.18)\mapsto(-0.385,0,0.19),
+\]
+and its end
+\[
+(-0.23,0,0.11)\mapsto(-0.005,0,0.12).
+\]
+Applying the same addition gives the rump cross-section plane \(x=-0.65+.225=-0.425\), the shoulder plane \(x=-0.25+.225=-0.025\), and the head sagittal start \((-0.26,0,.22)\mapsto(-.035,0,.23)\). The rightmost head point becomes \(0+.225=.225\), the muzzle maximum becomes \(.10+.225=.325\), the upper ear control \((-.17,.07,.48)\mapsto(.055,.07,.49)\), the tail base \((-.68,.02,.12)\mapsto(-.455,.02,.13)\), and the tail end \((-.75,.06,.31)\mapsto(-.525,.06,.32)\).
+
+Legs attach to the translated body but articulate independently. The moved shoulder/hip points are
+\[
+(-.25,.09,-.10)+T=(-.025,.09,-.09)
+\]
+for the front near leg,
+\[
+(-.21,-.09,-.10)+T=(.015,-.09,-.09)
+\]
+for the front far leg,
+\[
+(-.61,.09,-.08)+T=(-.385,.09,-.07)
+\]
+for the hind near leg, and
+\[
+(-.58,-.09,-.08)+T=(-.355,-.09,-.07)
+\]
+for the hind far leg. At \(t=.25\), take the diagonal near-front and far-hind legs as beginning to swing, while the far-front and near-hind legs remain support. Planted paws stay at their first-frame ground contacts.
+
+For the support legs, the front far leg runs from \((0.015,-.09,-.09)\) through controls \((-.03,-.09,-.24),(-.08,-.09,-.42)\) to the fixed paw \((-.11,-.09,-.60)\). The hind near leg runs from \((-.385,.09,-.07)\) through controls \((-.44,.09,-.25),(-.52,.09,-.44)\) to \((-.60,.09,-.59)\), then \(L\) to its fixed paw \((-.57,.09,-.60)\). Thus both support paws remain on \(z=-.6\) while the body has moved forward over them.
+
+The swing legs lift off the floor. The near front leg uses \(M(-.025,.09,-.09)\) with controls \((-.10,.09,-.22),(-.20,.09,-.34)\) to \((-.14,.09,-.52)\), then \(L\) to its lifted paw \((-.10,.09,-.54)\), which is \(0.06\) above the floor. The far hind leg uses \(M(-.355,-.09,-.07)\) with controls \((-.47,-.09,-.22),(-.55,-.09,-.42)\) to \((-.43,-.09,-.56)\), then \(L\) to \((-.39,-.09,-.56)\), which is \(0.04\) above the floor. Head, muzzle, ears and tail use the body translation above, so the head stays forward, the ears remain perked, and the tail has no extra large rotation.

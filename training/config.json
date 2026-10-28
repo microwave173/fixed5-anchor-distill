@@ -1,0 +1,24 @@
+{
+  "seed": 20261026,
+  "epochs": 1,
+  "micro_batch": 1,
+  "gradient_accumulation": 8,
+  "max_micro_tokens": 12000,
+  "max_sequence_tokens": 32768,
+  "learning_rate": 0.0001,
+  "lora_rank": 64,
+  "lora_alpha": 128,
+  "checkpoint_every_steps": 10,
+  "validation_monitor_rows": 6,
+  "pad_to_multiple_of": 256,
+  "keep_epoch_checkpoints": [
+    1
+  ],
+  "epoch_probe_epochs": [],
+  "train_fraction": 0.95,
+  "initialization": "base_model_fresh_lora",
+  "teacher_reasoning_effort": "high",
+  "smoke_train_rows": 8,
+  "smoke_validation_rows": 2,
+  "smoke_optimizer_steps": 1
+}

@@ -1,0 +1,75 @@
+We need answer only JSON. Need draw first frame of wireframe cube in true 3D, with floor line. Need coordinate within [-.8,.8], z up, floor z=-0.6. Cube supported bottom face on floor? "sits on short fixed floor line near origin", bottom face stays on floor plane throughout. Need cube dimensions small maybe half-size 0.35, center z = -0.6 + 0.35 = -0.25 (if half side 0.35). Initial yaw? Need choose initial yaw consistent. First frame target t=0 initial yaw. We can choose initial yaw maybe 20°? But plan says at t=0 initial yaw, quarter turn total 90 from t0 to t1. Need make a cube in perspective. Camera fixed (2.8,-3.2,2.4) looking origin. Coordinates world. Need use +x right, +y depth (positive away? They define x right, y depth, z up; camera at (2.8,-3.2,2.4) looking to origin, so positive y? likely depth). We can set cube centered at origin x=0,y=0, bottom z=-0.6. Side length perhaps 0.6 (half=0.3). Top z=-0.0? floor at -0.6; top -0.0. That's okay within. Initial yaw maybe 25° to show depth. But total rotation 90 over frames. For FIRST only need t=0. Need draw 12 edges as straight L paths, perhaps each edge separate stroke. Need true 3D, not hidden removed? wireframe all edges visible. Need floor line support: short fixed floor line maybe from (-0.5,-0.45,-0.6) to (0.5,-0.45,-0.6)? But cube bottom face on z=-0.6, floor line should support bottom face maybe passes near bottom center. Short fixed floor line perhaps under cube from x=-0.45 to 0.45 at y maybe 0.2? The floor is horizontal? "short fixed floor line" in 3D. Need no extra guide. Should we draw floor line as support. Maybe floor line along x at y=0? If cube bottom face sits on floor plane, the line could be segment at z=-0.6 from (-0.55, -0.15,-0.6) to (0.55,-0.15,-0.6) or maybe just under. Need clear support, not intersect cube? It can be a line along floor touching/supporting bottom. Use fixed line from -0.55,0.15,-0.6 to 0.55,0.15,-0.6, maybe behind cube? But camera sees. However if it intersects cube bottom face, okay as floor contact. Maybe use a short line spanning under cube with y=-0.15? Hmm.
+
+Need define cube vertices. Need initial yaw. Let's pick initial yaw φ = 20°? Since motion quarter turn over 4 intervals, frames at 0,22.5,45,67.5,90. At frame1 initial yaw φ=20? But then total final=110. Plan says t=1 is 90, likely from initial orientation. Could set initial yaw 0 for simplicity. But to show cube recognizable in true 3D, yaw 0 aligned axes might be simple perspective. Since camera at (2.8,-3.2,2.4), cube with aligned edges still appears 3D. But a yaw 20 gives depth. Need final quarter turn. If initial yaw 0, at t=0 cube faces axes. Fine. But a wireframe cube with axes aligned, camera oblique, visible. Use side s=0.7? Coordinates center x=0,y=0, bottom z=-0.6 top z=0.1? That's side 0.7, within. But top z 0.1, bottom -0.6. Good. Half=0.35. Center z=-0.25. With yaw φ, vertices for bottom and top:
+local (±h, ±h, ±h), h=0.35, center (0,0,-0.25). bottom z=-0.6, top z=0.1. Rotate about z by φ.
+
+Need choose φ0 maybe 20°. But if final rotation quarter turn = 90 from t0, at t=.25 22.5 relative. Frame1 at φ=15? Doesn't matter. Need initial state. Let's choose φ0=20° = 0.34906585. Then vertices:
+h=0.35. cos=0.9396926, sin=0.3420201.
+For local (h,h): x=h(c-s)=0.35*0.597672=0.209185, y=h(s+c)=0.35*1.281713=0.448600.
+(h,-h): x=0.35*(c + s?) Wait rotate (x,y): X=x c - y s, Y=x s + y c.
+For h=0.35:
+(+,+): X=0.35(c-s)=0.209185, Y=0.35(s+c)=0.448600
+(+,-): X=0.35(c+s)=0.448600, Y=0.35(s-c)= -0.209185
+(-,+): X=-0.448600, Y=0.209185
+(-,-): X=-0.209185, Y=-0.448600
+At z bottom -0.6 and top 0.1.
+
+Need maybe floor line at z=-0.6, y maybe 0? If line under cube, can be from x=-0.55 to 0.55, y=0, z=-0.6. But cube bottom vertices not all on line; "supported by floor plane" and line is representative. A line under cube perhaps y=0 passes through bottom face. But if line drawn through cube bottom face at z=-0.6, it may coincide with edges? It's okay. Better floor line from (-0.55, -0.2, -0.6) to (0.55, -0.2, -0.6). It touches bottom face area. But support is plane, line is enough.
+
+Need output strokes with id and path. Could make each cube edge separate. 12 edges + floor line. Or combine edges into fewer paths with multiple M subpaths? "Use simple unique stable stroke IDs" maybe each stroke can have multiple subpaths, but to maintain edges maybe separate strokes per edge better. Need each path M x y z L x y z. Use numeric precision. Need maybe all edges visible. Need descriptions. "reason" brief.
+
+Need ensure cube wireframe true 3D with all 12 edges. Let's label vertices:
+bottom B0=(0.209185,0.448600,-0.6) local (+,+)
+B1=(0.448600,-0.209185,-0.6) (+,-)
+B2=(-0.209185,-0.448600,-0.6) (-,-)
+B3=(-0.448600,0.209185,-0.6) (-,+)
+Top T0=(0.209185,0.448600,0.1)
+T1=(0.448600,-0.209185,0.1)
+T2=(-0.209185,-0.448600,0.1)
+T3=(-0.448600,0.209185,0.1)
+Bottom edges: B0-B1, B1-B2, B2-B3, B3-B0.
+Top: T0-T1, T1-T2, T2-T3, T3-T0.
+Vertical: B0-T0, B1-T1, B2-T2, B3-T3.
+Need floor line maybe from (-0.55,-0.2,-0.6) to (0.55,-0.2,-0.6). But cube bottom center at z=-0.6, y values range -0.448 to .448. Line at y=-0.2 intersects bottom face. Fine. It might be hidden? all lines drawn uniform. It's fine.
+
+Need maybe choose initial yaw = 20 deg, but if final rotation +90, yes. FIRST only. Need no motion trails. Use id like cube_bottom_front etc. Need stable semantic. Use simple unique stable IDs. Since only one frame, okay.
+
+Need "reason":"Initial supported wireframe cube at t=0, yaw 20°, all 12 edges and floor support line." But public rationale. JSON only.
+
+Need check coordinate convention: +y depth. Camera from (2.8,-3.2,2.4) looks toward origin. The cube yaw 20 might be okay. Need ensure within [-.8,.8]. Yes x/y ~.45, z .1, floor -0.6.
+
+Potential issue: "A short fixed floor line supports the bottom face." If line is just at z=-0.6, y=-0.2, it is inside bottom face, not maybe a support. It "supports" bottom face. Fine.
+
+Could also include line under cube along x through the center y=0 at z=-0.6. But if at y=0, it lies within bottom face; bottom face is a square with edges. The floor line might visually cross through bottom face which is okay. Maybe draw floor line slightly outside cube toward front so it doesn't overlap? But then not supporting. The instructions: "sits on a short fixed floor line near the origin" maybe floor line under it. Let's set line y=0.15, z=-0.6, from x=-0.55 to 0.55. It touches bottom face. The cube bottom face extends in x/y after rotation. At y=0.15, likely within. Fine.
+
+Need maybe add "floor_line" path. Good.
+
+Need final JSON exactly. Ensure no style fields. Use paths numeric. Use 3px lines applied by renderer, no style. Use C3? Straight edges use L. Good. Use Q? no.
+
+Let's compose.
+
+Need maybe include "frames":[{"i":1,"strokes":[...]}]. Exactly one frame. The first frame index is 1. Since stage FIRST current_frame_index 1. Good.
+
+Let's ensure path syntax "M x y z; L x y z" but JSON string can contain semicolons. They gave syntax with semicolons separating commands? Actually "M x y z; L x y z" likely yes. Need path string with spaces and semicolons? Examples show `M ... C3 ...`. We can use semicolons. For each edge: `"M 0.209185 0.4486 -0.6 L 0.4486 -0.209185 -0.6"` maybe no semicolon needed before L? Path syntax says M x y z; L x y z; with semicolons as command separators. Use semicolon. For multi subpath, `M ... L ...; M ... L ...`. But we use single edges each. Fine.
+
+Need maybe "cube_bottom_0" etc. Use descriptions.
+
+Double-check vertices rotation: local corners order:
+A=(+h,+h) -> B0 top? Actually z bottom.
+B=(+h,-h) -> B1
+C=(-h,-h) -> B2
+D=(-h,+h) -> B3
+Edges order around square: A-B, B-C, C-D, D-A. Yes.
+Top same.
+
+Vertical B0-T0 etc. Good.
+
+Need floor line length 1.1 within [-.55,.55]. Good.
+
+Potential hidden edges? "all edges visible as uniform black wireframe lines", yes.
+
+Need maybe height side 0.7. z top 0.1, bottom -0.6. Good.
+
+Use exact values maybe 0.209185,0.4486. Rounding okay.
+
+Let's produce final JSON.

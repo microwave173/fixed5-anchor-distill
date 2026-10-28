@@ -1,0 +1,34 @@
+Use world coordinates \(+x\) right, \(+y\) depth, \(+z\) up, with a fixed floor at \(z=-0.60\) and a vertical wall plane at \(y=0.55\). The wall spans \(z=-0.60\) to \(0.55\), and the floor support line is at \(y=-0.05,\ z=-0.60\). The person is compact: a short torso centerline from hip \((0,-0.08,-0.20)\) to neck/upper-back \((0,0.48,0.23)\), a spherical head made from three intersecting great circles of radius \(0.10\) centered at \((0,0.45,0.33)\) in the \(x\)-\(z\), \(x\)-\(y\), and \(y\)-\(z\) planes, a hanging left arm, and two planted legs whose foot endpoints are \((-0.22,-0.05,-0.60)\) and \((0.22,-0.05,-0.60)\). The wall, floor line, torso, head, left arm, and legs are copied unchanged from the first frame; only the side arm and ball move.
+
+The ball has radius \(0.09\). Its first-frame center is \((0.50,0.10,0.05)\). In the preceding floor-contact frame its center was at
+\[
+z_{\text{center}} = z_{\text{floor}} + r = -0.60 + 0.09 = -0.51,
+\]
+so the contact center was \((0.50,0.10,-0.51)\). The contact center is \( -0.51\), not \( -0.55\), because the ball radius lifts the center \(0.09\) above the floor.
+
+At \(t=0.75\) the ball rebounds to target center height \(z=-0.20\). Treating the ball as one rigid part, the vertical translation is
+\[
+\Delta z = z_{\text{target}} - z_{\text{previous}}
+= -0.20 - (-0.51) = +0.31,
+\]
+so \(\Delta=(0,0,+0.31)\). For example, the previous top point \((0.50,0.10,-0.42)\) becomes
+\[
+(0.50,0.10,-0.42)+(0,0,0.31)=(0.50,0.10,-0.11),
+\]
+and the previous bottom point \((0.50,0.10,-0.60)\) becomes
+\[
+(0.50,0.10,-0.60)+(0,0,0.31)=(0.50,0.10,-0.29).
+\]
+Thus the new ball center is \((0.50,0.10,-0.20)\), with vertical extent \(z=-0.29\) to \(-0.11\). The horizontal great circle, previously at constant \(z=-0.51\), moves to constant \(z=-0.20\); the sagittal and vertical great circles have all their \(z\)-coordinates increased by \(0.31\). The \(x,y\) lane and the ball radius are unchanged.
+
+The right arm must rise from its previous hand position \((0.46,0.10,-0.35)\) to meet the ball on its smaller-\(x\) side. The ball side-contact point at center height is
+\[
+x_{\text{hand}} = x_{\text{ball}} - r = 0.50 - 0.09 = 0.41,
+\]
+with \(y=0.10\) and \(z=-0.20\), giving the chosen hand endpoint \((0.41,0.10,-0.20)\). The final arm uses the fixed shoulder \((0.13,0.46,0.20)\) and two cubic segments:
+\[
+\text{M }0.13\,0.46\,0.20
+\ \text{C3 }0.20\,0.42\,0.12\ \ 0.31\,0.33\,0.02\ \ 0.34\,0.28\,-0.04
+\ \text{C3 }0.38\,0.22\,-0.12\ \ 0.41\,0.14\,-0.20\ \ 0.41\,0.10\,-0.20.
+\]
+This keeps the shoulder attachment fixed, bends the elbow, and places the hand exactly on the ball’s side surface at \(z=-0.20\), rather than slightly above it.

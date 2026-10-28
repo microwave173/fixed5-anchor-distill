@@ -1,0 +1,90 @@
+{
+  "reason": "First frame establishes the rigid ramp/plaza and the police car level at the ramp foot, with all four wheels on the lower floor and the car facing the plaza.",
+  "frames": [
+    {
+      "i": 1,
+      "strokes": [
+        {
+          "id": "ramp_surface",
+          "path": "M -0.35 -0.22 -0.60 L 0.25 -0.22 -0.60 L 0.25 0.10 -0.38 L -0.35 0.10 -0.38 Z",
+          "description": "ramp top surface outline"
+        },
+        {
+          "id": "ramp_right_depth",
+          "path": "M 0.25 0.10 -0.38 L 0.25 0.10 -0.60 L 0.25 -0.22 -0.60",
+          "description": "ramp right side depth"
+        },
+        {
+          "id": "plaza_top",
+          "path": "M -0.35 0.10 -0.38 L 0.25 0.10 -0.38 L 0.65 0.55 -0.38 L -0.35 0.55 -0.38 Z",
+          "description": "plaza flat top outline"
+        },
+        {
+          "id": "plaza_right_depth",
+          "path": "M 0.25 0.10 -0.60 L 0.65 0.55 -0.60 L 0.65 0.55 -0.38",
+          "description": "plaza right side depth"
+        },
+        {
+          "id": "car_body_top",
+          "path": "M -0.12 -0.22 -0.38 L 0.12 -0.22 -0.38 L 0.12 -0.62 -0.38 L -0.12 -0.62 -0.38 Z",
+          "description": "car lower body top deck"
+        },
+        {
+          "id": "car_body_near_side",
+          "path": "M 0.12 -0.22 -0.38 L 0.12 -0.62 -0.38 L 0.12 -0.62 -0.50 L 0.12 -0.22 -0.50 Z",
+          "description": "car near side body face"
+        },
+        {
+          "id": "car_body_rear",
+          "path": "M -0.12 -0.62 -0.38 L 0.12 -0.62 -0.38 L 0.12 -0.62 -0.50 L -0.12 -0.62 -0.50 Z",
+          "description": "car rear body face"
+        },
+        {
+          "id": "car_cabin_roof",
+          "path": "M -0.09 -0.34 -0.30 L 0.09 -0.34 -0.30 L 0.09 -0.52 -0.30 L -0.09 -0.52 -0.30 Z",
+          "description": "car cabin roof"
+        },
+        {
+          "id": "car_cabin_near_side",
+          "path": "M 0.09 -0.34 -0.38 L 0.09 -0.52 -0.38 L 0.09 -0.52 -0.30 L 0.09 -0.34 -0.30 Z",
+          "description": "car cabin near side"
+        },
+        {
+          "id": "car_cabin_rear",
+          "path": "M -0.09 -0.52 -0.38 L 0.09 -0.52 -0.38 L 0.09 -0.52 -0.30 L -0.09 -0.52 -0.30 Z",
+          "description": "car cabin rear window face"
+        },
+        {
+          "id": "car_light_left",
+          "path": "M -0.06 -0.46 -0.26 L -0.005 -0.46 -0.26 L -0.005 -0.40 -0.26 L -0.06 -0.40 -0.26 Z M -0.06 -0.46 -0.26 L -0.005 -0.46 -0.26 L -0.005 -0.46 -0.30 L -0.06 -0.46 -0.30 Z",
+          "description": "left roof light block"
+        },
+        {
+          "id": "car_light_right",
+          "path": "M 0.005 -0.46 -0.26 L 0.06 -0.46 -0.26 L 0.06 -0.40 -0.26 L 0.005 -0.40 -0.26 Z M 0.005 -0.46 -0.26 L 0.06 -0.46 -0.26 L 0.06 -0.46 -0.30 L 0.005 -0.46 -0.30 Z",
+          "description": "right roof light block"
+        },
+        {
+          "id": "wheel_near_front",
+          "path": "M 0.13 -0.245 -0.545 C3 0.13 -0.245 -0.514625 0.13 -0.269625 -0.490 0.13 -0.30 -0.490 C3 0.13 -0.330375 -0.490 0.13 -0.355 -0.514625 0.13 -0.355 -0.545 C3 0.13 -0.355 -0.575375 0.13 -0.330375 -0.600 0.13 -0.30 -0.600 C3 0.13 -0.269625 -0.600 0.13 -0.245 -0.575375 0.13 -0.245 -0.545 Z",
+          "description": "near front wheel"
+        },
+        {
+          "id": "wheel_near_rear",
+          "path": "M 0.13 -0.525 -0.545 C3 0.13 -0.525 -0.514625 0.13 -0.549625 -0.490 0.13 -0.58 -0.490 C3 0.13 -0.610375 -0.490 0.13 -0.635 -0.514625 0.13 -0.635 -0.545 C3 0.13 -0.635 -0.575375 0.13 -0.610375 -0.600 0.13 -0.58 -0.600 C3 0.13 -0.549625 -0.600 0.13 -0.525 -0.575375 0.13 -0.525 -0.545 Z",
+          "description": "near rear wheel"
+        },
+        {
+          "id": "wheel_far_front",
+          "path": "M -0.13 -0.245 -0.545 C3 -0.13 -0.245 -0.514625 -0.13 -0.269625 -0.490 -0.13 -0.30 -0.490 C3 -0.13 -0.330375 -0.490 -0.13 -0.355 -0.514625 -0.13 -0.355 -0.545 C3 -0.13 -0.355 -0.575375 -0.13 -0.330375 -0.600 -0.13 -0.30 -0.600 C3 -0.13 -0.269625 -0.600 -0.13 -0.245 -0.575375 -0.13 -0.245 -0.545 Z",
+          "description": "far front wheel"
+        },
+        {
+          "id": "wheel_far_rear",
+          "path": "M -0.13 -0.525 -0.545 C3 -0.13 -0.525 -0.514625 -0.13 -0.549625 -0.490 -0.13 -0.58 -0.490 C3 -0.13 -0.610375 -0.490 -0.13 -0.635 -0.514625 -0.13 -0.635 -0.545 C3 -0.13 -0.635 -0.575375 -0.13 -0.610375 -0.600 -0.13 -0.58 -0.600 C3 -0.13 -0.549625 -0.600 -0.13 -0.525 -0.575375 -0.13 -0.525 -0.545 Z",
+          "description": "far rear wheel"
+        }
+      ]
+    }
+  ]
+}

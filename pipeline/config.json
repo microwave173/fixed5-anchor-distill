@@ -1,0 +1,6 @@
+{
+  "model": "deepseek-flash",
+  "endpoint": "https://api.deepseek.com/chat/completions",
+  "reasoning_effort": "high",
+  "teacher_max_tokens": 65536
+}

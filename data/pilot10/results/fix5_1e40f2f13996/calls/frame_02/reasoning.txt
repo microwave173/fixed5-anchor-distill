@@ -1,0 +1,159 @@
+We need answer only JSON, exact one frame i=2. Need create geometry advancing from frame1 to normalized .25. Need understand scene. Need output strokes complete. Need maintain identities. We need design pose: at .25 weight shifts onto left foot, right knee bends and swings under body, arms counter-swing. Person walking +x from -0.35. Need maybe translate body slightly +x and adjust limbs. Must keep feet contact. Need draw true 3D. Need coordinate system.
+
+We have first frame coordinates. Need reconstruct skeleton. Head centered around x=-0.29? Actually head spheres center (-0.29,0,0.26) radius 0.12? torso from hip (-0.36,0,-0.13) to shoulder? path M -0.36 0 -0.13 Q3 -0.34 0 0.0 -0.30 0 0.14. So torso curved from hip to shoulder/neck at (-0.30,0,0.14). Shoulder bar from x=-0.31 y +/-0.065 z=.12. Hip bar x=-.36 y +/- .075 z=-.13. Head at (-.29,0,.26). Fine.
+
+At .25 body can translate +0.05 or +0.08 along x. Low pelvis maybe z=-.14? Weight over left foot. Left leg planted forward (which is +x since walking +x). In first frame left leg: hip(-.36,.075,-.13) -> knee(-.23,.09,-.34) -> foot(-.10,.10,-.60). Right leg: hip(-.36,-.075,-.13)->knee(-.48,-.09,-.36)->foot(-.60,-.10,-.60) (trailing behind to -x). At .25, weight shifts onto left foot; right knee bends and swings under body. The right foot may lift off floor? "At least one foot maintains firm floor contact"; "right knee bends and swings under body" likely right foot off floor. Need foot-ground contact left remains at maybe (-.08,.1,-.60). Body moves forward slightly, left leg more vertical? Let's think timeline: frame0 left foot planted forward, right trails. Frame1 .25 weight shifts onto left, right knee bends and swings under body. Right foot lifts. Frame2 .5 right foot plants forward as left leg bends beneath low pelvis. Here requested index 2 corresponds target_normalized_time .25. So pose .25.
+
+Need modify arms counter-swing: at first right arm forward (hand x=-.08) while right leg trailing? Walking counter: left leg forward, right arm forward, yes. At .25 weight shift onto left, right knee swings under, arms transition maybe less swing, right arm starting back? Counter swing perhaps right arm still slightly forward, left arm slightly back. Need "arms counter-swing" maybe right arm moves backward, left forward as right leg swings forward? Standard: left leg forward + right arm forward. As right leg swings forward, right arm goes back. At .25, right arm may be near body, left arm near body. But instruction says "arms counter-swing" generic. We can create plausible mid-swing: right arm almost vertical slightly back, left arm almost vertical slightly forward. Need not overdo.
+
+Need head follows torso, maintain attachment. Torso translation maybe +.06 x, pelvis z lower? "weight shifts onto left foot, right knee bends and swings under body" pelvis low and steady. Keep pelvis z around -0.14, x shift +0.04. Torso lean maybe same. Head center shifts +.04 (or +.05). Need legs limbs attached to hip anchors.
+
+Need produce all strokes: torso_anchors, head three great circles, arms, legs, floor. If translating entire body head/torso/arms mostly x shift. But limbs need articulation.
+
+Let's design coordinates carefully.
+
+Global body translation at .25: shift torso and head by dx=+0.05 maybe, dz=-0.01? Keep low. Start x=-.36 hip. Weight over left foot at x≈-0.10. If hip x=-0.31 (shift +.05), left foot x=-.08, leg slanted but okay. Right hip x=-.31 too. Right knee swinging under body maybe x=-0.25, z=-0.34, foot lifted x=-0.18,z=-0.46? Hmm "swings under body" from trailing x=-.60 to under body x ~ -0.2. At .25, right knee more forward than trailing, foot off ground at maybe (x=-0.25,y=-0.10,z=-0.43), knee bent. Need leg connected with single path from hip to knee to foot. "knees bent" visible. If knee at -0.30, z=-.38, foot at -0.20,z=-.45, hip -0.31,z=-.13. Not sharply bent? Actually knee bend at knee angle. Need draw as one continuous path with Q. Could use path M hip Q knee control? Wait Path3D syntax: Q3 cx cy cz x y z (quadratic with control point then endpoint). The existing leg has two Q segments: M hip Q3 kcontrol? Actually `M -0.36 0.075 -0.13 Q3 -0.30 0.08 -0.25 -0.23 0.09 -0.34 Q3 ...` Interpret Q3 control (-0.30,.08,-.25), endpoint (-.23,.09,-.34) for thigh; then second Q control(-.16,.10,-.48) endpoint(-.10,.10,-.60) for shin. So control and endpoint. We can redo similarly with smooth thigh/shin curves.
+
+For right leg swing: hip (-.31,-.075,-.14), thigh to knee (-.20,-.09,-.34) with control maybe (-.30,-.08,-.24) (knee forward under). Then shin bends back? To swing foot under body with bent knee, knee forward, foot behind knee? Actually in walking swing, right knee bent, foot lifted under body, lower leg trailing behind knee or tucked. For leg swinging forward from behind, knee flexed so foot is below/behind knee. Need foot lifted not contact. If hip x=-0.31, knee x=-.22 z=-.34, foot x=-.26 z=-.43. That shows knee bent: thigh forward/down, shin backward/down. Good. But "swings under body" maybe foot near x=-.35? Let's use knee at -0.28,z=-.34, foot at -0.29,z=-.46 (lifted). But knee bent with hip x=-.31, knee -0.28, foot -0.32? Not dramatic. Existing right leg trailing foot at -0.60; at .25 knee swings under body, likely foot near -0.34. Let's design hip (-0.31,-.075,-.14); thigh control (-0.34,-.08,-.24) endpoint knee (-0.24,-.09,-.35); shin control (-0.22,-.10,-.42) endpoint foot (-0.28,-.10,-0.47). Foot off floor z=-.47. Knee bent (thigh forward, shin down-back). Good.
+
+Left leg planted forward: foot stays around x=-.10 or slightly shift x=-.07, z=-.60, y=.10. Hip at (-.31,.075,-.14). Need knee bent. Knee maybe x=-.23,z=-.35? Existing knee x=-.23,z=-.34. With hip -0.31, foot -0.10, knee could be -0.22,z=-.34 (forward). That's bent. At .25 weight shift onto left: perhaps hip over foot more, knee slightly more vertical. Keep foot planted same or maybe x=-0.08 (slight forward). If hip x=-0.31, foot -0.10, knee x=-0.20,z=-.34. That is okay. But need left leg supports, foot on floor. Path: M -0.31 0.075 -0.14 Q3 -0.24 0.09 -0.27? Wait control earlier. Let's create:
+`M -0.31 0.075 -0.14 Q3 -0.26 0.09 -0.25 -0.23 0.10 -0.34 Q3 -0.18 0.10 -0.48 -0.08 0.10 -0.60`
+This gives knee at (-.23,.10,-.34), foot (-.08,.10,-.60). Good.
+
+Torso: translate existing forward +0.05. Hips maybe x=-.31, shoulder x=-.25. Path:
+`M -0.31 0 -0.14 Q3 -0.29 0 0.0 -0.25 0 0.13`
+shoulder/neck at -0.25,.13. Head center would be -0.24? Existing head center x=-.29, while shoulder end x=-.30; head center approximately -0.29. So shift +0.05 gives center -0.24. Head z .26 maybe same or +.01. Head curves need center (-0.24,0,0.26), radius .12. Existing head_xz path for center? M -0.17 0 0.26 C -0.17 0 0.42 -0.41 0 0.42 -0.41 0 0.26 C ... This is ellipse? center x=-0.29? radius x .12, z .16? Wait M (-0.17,0,0.26) to (-0.41,0,0.42) control(-0.17,0,.42), etc. It seems not centered at z=.26? It starts left? Let's parse: M rightmost point? Head ellipse in x-z: x from -0.41 to -0.17, z from 0.10 to 0.42. Center (-0.29,0,.26), radius .12 x and .16 z? Hmm head should round spatial. But not perfect sphere? It uses ellipse. We should translate all x +0.05. For y-z path center x=-0.29 constant; y from -.12 to .12, z .10-.42. Translate x +.05 => x=-0.24. x-y horizontal plane at z .26: center (-.29,0,.26), radii .12 x/.16 y? Actually path M -0.17 0 .26 C -0.17 .16 .26 -0.41 .16 .26 -0.41 0 .26 etc, ellipse. Translate x +.05.
+
+Torso anchors path: translate all x +0.05 and maybe z -0.01? Let's select shift dx=0.05, dz=-0.01 maybe not necessary. "weight shifts" pelvis low. Frame1 pelvis z=-.13. At .25 maybe pelvis z=-.14. If lower, feet still floor, knees more bent. Let's set torso hip z=-.14, shoulder z=.13 (same length). Head center z=.25? Original head center z=.26 and shoulder .14; relation center z .26, shoulder .14, so if shoulder .13, head center .25. But neck? Existing head bottom z=.10, not directly attached? Head center .26. Torso top .14. Gap between head bottom .10 overlaps torso. Hmm head curves bottom z=.10, top .42. In next, translate x +.05, maybe z=-.01 => head center z=.25, bottom .09, top .41. Good.
+
+Torso path translate x+0.05 z-0.01: hip (-0.31,0,-0.14) Q3 (-0.29,0,0.0) endpoint (-0.25,0,0.13). Shoulder bar: x -0.26? original shoulder bar x -0.31? Wait path `M -0.31 0.065 0.12 L -0.31 -0.065 0.12` is at x=-.31,z=.12, not at neck x=-.30, maybe crossbar behind neck. Translate x+0.05,z-.01 => x=-.26,z=.11. Hip bar original x=-.36,z=-.13 -> translate => x=-.31,z=-.14. So anchors: M -0.31 0.075 -0.14 L -0.31 -0.075 -0.14. Hmm shoulder bar at x=-.26 while torso top x=-.25; fine.
+
+Arms attach at shoulder anchors y=±.065,z=.11,x=-.26. Right arm (y=-.065) at frame1 forward hand (-.08,-.10,-.08). At .25 maybe move toward neutral/back. We need right arm counter to right leg swinging forward? Right leg swings forward, so right arm should swing backward. But at .25 right leg is mid-swing, arm might be near body or moving back. Let's design right arm from shoulder (-.26,-.065,.11) to hand (-.31,-.09,-.10) (slightly back under). Use Q control (-.22,-.08,-.02). Left arm from shoulder (-.26,.065,.11) to hand (-.18,.10,-.08) (slightly forward). That gives counter-swing: left forward while right back. But original left arm back hand x=-.53. At .25 weight on left? Maybe left arm moving forward. Good.
+
+Need ensure arm lengths roughly consistent. Original arm right from shoulder x=-.31,z=.12 to hand x=-.08,z=-.08, length ~.26. New right shoulder x=-.26,z=.11 to hand x=-.31,z=-.10 length .22; left to hand x=-.15,z=-.08 length .23. Fine.
+
+Need floor line. Fixed floor from -0.75 to 0.05 maybe can same. But person shifted +x; foot at -0.08 still within. floor line unchanged. Maybe floor extends -0.75 to 0.15. Keep first frame floor identity unchanged. Do not translate floor. Good.
+
+Need head strokes translation dx +0.05, dz -0.01:
+head_xz original:
+M -0.17 0 0.26
+C -0.17 0 0.42 -0.41 0 0.42 -0.41 0 0.26
+C -0.41 0 0.10 -0.17 0 0.10 -0.17 0 0.26
+Translate x+.05,z-.01:
+M -0.12 0 0.25
+C -0.12 0 0.41 -0.36 0 0.41 -0.36 0 0.25
+C -0.36 0 0.09 -0.12 0 0.09 -0.12 0 0.25
+Yes.
+
+head_yz original:
+M -0.29 0.12 0.26
+C -0.29 0.12 0.42 -0.29 -0.12 0.42 -0.29 -0.12 0.26
+C -0.29 -0.12 0.10 -0.29 0.12 0.10 -0.29 0.12 0.26
+Translate x +.05,z-.01:
+M -0.24 0.12 0.25
+C -0.24 0.12 0.41 -0.24 -0.12 0.41 -0.24 -0.12 0.25
+C -0.24 -0.12 0.09 -0.24 0.12 0.09 -0.24 0.12 0.25
+Good.
+
+head_xy original at z=.26, center x=-.29. Translate x+.05, z-.01 => z=.25:
+M -0.12 0 0.25
+C -0.12 0.16 0.25 -0.36 0.16 0.25 -0.36 0 0.25
+C -0.36 -0.16 0.25 -0.12 -0.16 0.25 -0.12 0 0.25
+Wait original M -0.17 0 .26; after x+.05: M -0.12 0 .25. Controls x unchanged +.05: -0.12? Original controls: C3 -0.17 0.16 0.26 -0.41 0.16 0.26 -0.41 0 0.26. Yes first control -0.12 .16 .25, second -0.36 .16 .25, endpoint -0.36 0 .25. Then C -0.36 -0.16 .25 -0.12 -0.16 .25 -0.12 0 .25. Good. Head is not sphere exactly but okay.
+
+Need torso anchors path:
+Original:
+M -0.36 0 -0.13
+Q3 -0.34 0 0.0 -0.30 0 0.14
+M -0.31 0.065 0.12
+L -0.31 -0.065 0.12
+M -0.36 0.075 -0.13
+L -0.36 -0.075 -0.13
+
+Translate x +0.05,z -0.01:
+M -0.31 0 -0.14
+Q3 -0.29 0 0.0 -0.25 0 0.13
+M -0.26 0.065 0.11
+L -0.26 -0.065 0.11
+M -0.31 0.075 -0.14
+L -0.31 -0.075 -0.14
+This is fine.
+
+Arms: Need attach to shoulder bar endpoints at x=-0.26,y±.065,z=.11. Right arm control and hand:
+`M -0.26 -0.065 0.11 Q3 -0.29 -0.09 0.00 -0.31 -0.10 -0.10`? Need control to make relaxed bend. Maybe right arm back: shoulder(-.26,-.065,.11), control (-.30,-.09,.02), hand(-.31,-.10,-.10). Stroke length 0.21. Description right arm swinging back. Left arm: shoulder(-.26,.065,.11), control(-.18,.09,.02), hand(-.14,.10,-.08). That is forward. At .25, counter-swing with right leg swinging forward: right arm back, left arm forward. But first frame right arm forward, at .25 it might be crossing neutral? We can set right hand x=-.22, control -0.19 maybe. Hmm if right arm still forward partially, then not counter? The pose at .25 weight shifts onto left; right leg begins swing under; arms maybe moving opposite. In walking, when right leg is trailing and starts swing, right arm is forward? Let's check gait: At heel strike left forward, right arm forward (contralateral). Then during left stance, right leg swings forward; right arm swings backward. At .25 (left stance early), right arm begins back. Our initial right arm hand x=-.08. At .25 right hand maybe x=-.20 (toward back? back means -x since forward is +x). Shoulder x=-.26, original hand forward x=-.08. Back from shoulder would be x=-.40. Mid neutral hand x=-.26. So at .25 right hand could be -0.18 (still slightly forward) or -0.30 (slightly back). "arms counter-swing" likely should show swing. Let's set right hand x=-0.27,z=-.08 (near vertical/slightly back) and left hand x=-0.12,z=-.08 (forward). Need keep torso. Is left hand x=-0.12 (forward +x) from shoulder -0.26. Good. This is counter to right leg? Right leg swing under body forward; right arm neutral/back. Good.
+
+But body translation +.05; original left arm back hand x=-.53; at .25 left arm swinging forward, hand maybe -0.20? Need avoid weird. Use left hand -0.13. Fine.
+
+Right arm path:
+M -0.26 -0.065 0.11 Q3 -0.22 -0.09 0.02 -0.27 -0.10 -0.10
+Control x=-0.22 slightly forward, endpoint x=-0.27. Hmm curve. Better control(-.29,-.08,.00) endpoint(-.28,-.10,-.09). A relaxed arm mostly vertical. Description "right arm moving back near vertical". Left arm path:
+M -0.26 0.065 0.11 Q3 -0.18 0.09 0.02 -0.13 0.10 -0.08
+Control forward. Good.
+
+Legs: left support. Hip anchor left y=.075. Start at (-.31,.075,-.14). Knee maybe (-.23,.095,-.34). Foot stays (-.08,.10,-.60). Path:
+M -0.31 0.075 -0.14
+Q3 -0.24 0.09 -0.24? Wait syntax control then endpoint. We need control for thigh. Use Q3 -0.25 0.09 -0.24 -0.23 0.10 -0.34. Then second Q for shin: Q3 -0.17 0.10 -0.46 -0.08 0.10 -0.60. This gives left knee at (-.23,.10,-.34), foot(-.08,.10,-.60). Control points smooth. Good.
+
+Right swing leg: hip (-.31,-.075,-.14). Knee at (-.24,-.09,-.35). Foot lifted (-.28,-.10,-.47). Need bend knee. Path:
+M -0.31 -0.075 -0.14
+Q3 -0.34 -0.08 -0.24 -0.24 -0.09 -0.35
+Q3 -0.21 -0.10 -0.42 -0.28 -0.10 -0.47
+This thigh control (-.34,-.08,-.24), endpoint knee (-.24,-.09,-.35). Shin control (-.21,-.10,-.42), endpoint foot (-.28,-.10,-.47). At knee, tangent from thigh control to knee points right/down; shin control left/down, making bend. Good. Foot not floor contact. At least left foot contact.
+
+Need ensure torso and head attachments: shoulder bar at x=-.26,z=.11. Arm starts exactly. Head bottom overlaps top? head curve bottom z=.09, torso top .13, gap? Actually head bottom z=.09 and torso top z=.13, gap? Head encompasses; torso top at .13 inside head? The head curves are surface; torso top inside. In first frame head bottom z=.10, torso top .14; yes head bottom lower than torso top. Fine.
+
+Need floor line. "M -0.75 0 -0.60 L 0.05 0 -0.60". Maybe person moved x +.05, foot x=-.08 still over. Fine.
+
+Need maybe body shifted forward +0.05 but floor line unchanged. Good. Could shift floor line? No fixed.
+
+Need ensure all coordinates in [-1,1], ok.
+
+Need output with reason brief. Exactly one frame i=2. Need no style fields. Each stroke id stable. Use same ids. Need paths only with M Q3 C3 L. Use spaces.
+
+Let's verify Path3D syntax: `Q3 cx cy cz x y z`; `C3 c1x c1y c1z c2x c2y c2z x y z`. Existing uses `Q3 -0.34 0 0.0 -0.30 0 0.14` (control and end). So my paths correct.
+
+Need maybe use `C3` with six control/end numbers. Head paths repeated. Fine.
+
+Need reason mention .25 weight on left, right knee lifting/swinging under low pelvis, arms counter-swing, floor contact. Good.
+
+Potential issue: "Return JSON only" no markdown. Should be valid JSON. Use double quotes.
+
+Need consider if frame index REQUESTED_INDEX is current_frame_index=2. Yes.
+
+Need maybe include floor_line in frame. Yes all strokes.
+
+Let's craft final JSON.
+
+Wait need determine if "previous_frame" is same as first_frame, so advancing one step. Our pose should be at .25. Good.
+
+Need maybe preserve torso orientation unchanged? Slight translate. Rigid transform of torso/head. We moved x +.05, z -.01. This is whole upper body translation, okay. Should we lean torso? The torso centerline unchanged orientation. Fine.
+
+Should head center and torso move together? Torso top moved x+.05,z-.01; head moved same. Shoulder bar moved same. Arms attach at shoulder bar. Good.
+
+Need ensure left leg hip attaches to hip bar at (-.31,.075,-.14) yes. Right leg hip at (-.31,-.075,-.14). Arm shoulders at (-.26,±.065,.11), but shoulder bar endpoints at x=-.26,y±.065,z=.11. Good.
+
+Floor line maybe extends to x=.05, left foot x=-.08. Good.
+
+Need maybe left leg foot contact at z=-.60 exactly. yes.
+
+Need maybe right foot lifted z=-.47, plausible not floor. At .25 weight shift onto left, right knee bends and swings. Good.
+
+Potential concern: "Do not redraw a different story or merely translate a frozen walking pose." We changed limbs. Good.
+
+Need final.
+
+But let's consider if line "At .25 weight shifts onto the left foot, the right knee bends and swings under the body, and arms counter-swing." At .25, right knee is not yet under body? We set right knee x=-.24 (under/near body), foot x=-.28. Hip x=-.31. Good. Left foot planted x=-.08. Body hip x=-.31, not over left foot yet but weight shifted maybe hip should move more forward to -0.25? Hmm torso translated +.05 from -0.36 hip to -0.31. The left foot x=-.08, large offset. In first frame hip x=-.36, left foot -0.10. At .25 weight shift onto left could mean pelvis moves forward toward foot, maybe hip x=-0.25. But total small step, body near center. Could translate torso/head +0.08 or +0.10 instead of +.05. The first frame at start near x=-.35; walking +x slowly. At .25 maybe body moved +0.05. Weight shift is more rotation/lean over left. But we keep torso centered. Need not overcomplicate.
+
+Maybe to show weight shift, pelvis could be x=-0.29 (shift .07), not huge. Head x=-.22. The foot x=-.08 still ahead. Fine. Should we update? Our hip -0.31; not much shift. In first frame hip x=-.36; shifted +.05. Okay.
+
+Potential issue left leg in first frame knee at -0.23, foot -0.10; at .25 left support leg should perhaps become more vertical with knee over foot? Our knee still -0.23, foot -0.08, hip -0.31. Good.
+
+Right leg in first frame trailing foot -0.60; at .25 swinging under body foot -0.28 means large movement: knee from -0.48 to -0.24. That's perhaps too fast? But normalized .25 of 2.5s with slow walk maybe okay. The plan says by .25 right knee bends and swings under body. Fine.
+
+Need maybe arms: right arm from hand -0.08 to -0.28, left from -0.53 to -0.13. Large movement but okay.
+
+Let's maybe make arms less extreme: right hand -0.27, left hand -0.14. Good.
+
+Now final JSON. Ensure no trailing commas. Use numeric coordinates with leading minus etc. Use "0.0" allowed. Need descriptions. Use id names.
+
+Let's produce.

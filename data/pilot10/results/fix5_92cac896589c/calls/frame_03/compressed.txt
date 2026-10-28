@@ -1,0 +1,58 @@
+Use \(+x\) right, \(+y\) depth, and \(+z\) up, with a fixed floor at \(z=-0.60\). The first frame establishes the helicopter’s identity: a rounded cabin along the \(x\)-axis with nose toward \(+x\), a tail boom toward \(-x\), a vertical fin and small tail rotor at the rear, a main-rotor mast on the roof, two crossing main-rotor blades in the horizontal \(x\)-\(y\) plane, and two parallel skids under the cabin. The initial skids touch \(z=-0.60\). The first-frame main-rotor hub is at \((0.02,0,0.04)\), the mast base is \((0.02,0,-0.14)\), the cabin bottom reaches \(z=-0.46\), and the tail boom extends to about \(x=-0.64\).
+
+The previous frame at \(t=.25\) shows the whole rigid body shifted by \(dx=-0.02\), \(dz=+0.10\): for example the hub moves from \((0.02,0,0.04)\) to \((0,0,0.14)\), the skids move from \(z=-0.60\) to \(z=-0.50\), and the cabin outline start moves from \((0.29,0,-0.30)\) to \((0.27,0,-0.20)\). Thus the liftoff motion is linear in this interval. For frame \(i=3\) at \(t=.5\), continue that motion to the absolute shift
+\[
+T(P)=P+(-0.04,0,0.20)
+\]
+from the first frame, with no global rotation of the body. Representative substitutions are
+\[
+(0.29,0,-0.30)\mapsto(0.25,0,-0.10),
+\]
+\[
+(0.02,0,-0.46)\mapsto(-0.02,0,-0.26),
+\]
+\[
+(-0.30,0.18,-0.60)\mapsto(-0.34,0.18,-0.40),
+\]
+and
+\[
+(0.02,0,0.04)\mapsto(-0.02,0,0.24).
+\]
+All non-rotor cabin, tail-boom, fin, tail-rotor, mast, skid, and strut control points receive the same shift, preserving rigid dimensions and attachments. The skid endpoints become \((-0.34,\pm0.18,-0.40)\) to \((0.28,\pm0.18,-0.40)\); the strut x-positions \(0.15,-0.17\) become \(0.11,-0.21\), with lower ends at \(z=-0.40\) and upper ends near \(z=-0.23,-0.22\). The cabin cross-section plane \(x=0.02\) moves to \(x=-0.02\), and the cabin equator plane \(z=-0.30\) moves to \(z=-0.10\).
+
+The tail boom tip upper point \((-0.64,0,-0.24)\) becomes \((-0.68,0,-0.04)\), and the lower point \((-0.63,0,-0.18)\) becomes \((-0.67,0,0.02)\). The tail-fin vertices
+\[
+(-0.64,0,-0.22),\ (-0.62,0,-0.05),\ (-0.55,0,-0.17)
+\]
+become
+\[
+(-0.68,0,-0.02),\ (-0.66,0,0.15),\ (-0.59,0,0.03).
+\]
+The tail-rotor plane moves from \(x=-0.65\) to \(x=-0.69\), with vertical blade ends \(z=0.00\) and \(z=0.14\), and the crossing blade at \(z=0.07\).
+
+For the main rotor, use the previous frame as the local reference and rotate the blade half-vectors about the vertical mast axis, \(+z\), by another \(+60^\circ\). The half-length is
+\[
+L=\sqrt{0.3639^2+0.21^2}\approx0.4201.
+\]
+In the first frame the blade-a half-vector is \((0.3639,0.21)\), angle \(\arctan(0.21/0.3639)\approx30^\circ\); in the previous frame it is at \(90^\circ\), so the increment is \(+60^\circ\) and the frame-3 cumulative angle is \(150^\circ\). Equivalently, from the previous hub \((0,0,0.14)\) and half-vector \(u=(0,0.4201)\),
+\[
+R_z(60^\circ)u=
+\begin{pmatrix}
+0\cos60^\circ-0.4201\sin60^\circ\\
+0\sin60^\circ+0.4201\cos60^\circ
+\end{pmatrix}
+=(-0.3638,0.2101).
+\]
+Adding the new hub \((-0.02,0,0.24)\) gives blade-a endpoints
+\[
+(-0.3838,0.2101,0.24),\qquad(0.3438,-0.2101,0.24).
+\]
+For the perpendicular blade, previous half-vector \((-0.4201,0)\) rotates to
+\[
+R_z(60^\circ)(-0.4201,0)=(-0.2101,-0.3638),
+\]
+so its endpoints are
+\[
+(-0.2301,-0.3638,0.24),\qquad(0.1901,0.3638,0.24).
+\]
+Thus the blades preserve length \(0.4201\), remain perpendicular, cross at the translated hub, and lie in the horizontal plane \(z=0.24\).

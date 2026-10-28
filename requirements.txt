@@ -1,0 +1,9 @@
+transformers==5.8.0
+peft==0.18.1
+accelerate==1.11.0
+liger-kernel==0.8.3
+numpy==2.3.2
+Pillow==11.3.0
+httpx==0.28.1
+safetensors==0.8.0
+huggingface-hub==1.31.0

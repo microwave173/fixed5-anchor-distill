@@ -1,0 +1,23 @@
+Frame \(3\) is advanced from the preceding frame, not reset to the first-frame pose. The walk is along \(+x\), with \(y\) as depth and \(z\) up. The first hip is at \(x=-0.36\); the previous hip is at \(x=-0.31\), so the next equal forward step is
+\[
+x_{\text{hip}}=-0.31+0.05=-0.26.
+\]
+The previous torso top \(x=-0.25\) becomes \(-0.20\), the shoulder anchor \(x=-0.26\) becomes \(-0.21\), and the hip anchor \(x=-0.31\) becomes \(-0.26\). The head is translated rigidly by the same shift:
+\[
+(-0.24,0,0.25)+(0.05,0,0)=(-0.19,0,0.25).
+\]
+
+The torso centerline is therefore
+\[
+M\;(-0.26,0,-0.14)\;Q_3\;(-0.24,0,0.0)\;(-0.20,0,0.13),
+\]
+with shoulder bar at \(x=-0.21,\;z=0.11,\;y=\pm0.065\) and hip bar at \(x=-0.26,\;z=-0.14,\;y=\pm0.075\). Keep the compact forward lean and low pelvis.
+
+The head keeps the same ellipsoid dimensions: \(x\)-semi-axis \(0.12\), \(y\)- and \(z\)-semi-axes \(0.16\). Use three great-circle strokes centered at \((-0.19,0,0.25)\). For the \(xz\) circle, endpoints are \((-0.07,0,0.25)\) and \((-0.31,0,0.25)\), with controls at \(z=0.41\) and \(z=0.09\); for the \(yz\) circle, endpoints are \((-0.19,\pm0.12,0.25)\), with the same \(z=0.41,0.09\) controls; for the \(xy\) circle, endpoints are again \((-0.07,0,0.25)\) and \((-0.31,0,0.25)\), with \(y=\pm0.16\) controls.
+
+Arms counter-swing the planted right leg. The right arm goes from shoulder \((-0.21,-0.065,0.11)\) through control \((-0.26,-0.09,0.03)\) to hand \((-0.32,-0.10,-0.08)\). The left arm goes from shoulder \((-0.21,0.065,0.11)\) through control \((-0.13,0.09,0.02)\) to hand \((-0.10,0.10,-0.08)\). These are single-line limbs attached at the shoulder bar; the depth offsets keep left/right separation without random \(y\) jitter.
+
+The right leg is the support leg and plants forward. From hip \((-0.26,-0.075,-0.14)\), use control \((-0.22,-0.08,-0.30)\) to knee \((-0.18,-0.09,-0.36)\), then control \((-0.14,-0.10,-0.48)\) to foot \((-0.08,-0.10,-0.60)\). Thus the right foot reaches the floor at \(z=-0.60\). The left leg bends beneath the low pelvis and lifts: from hip \((-0.26,0.075,-0.14)\), control \((-0.28,0.09,-0.28)\) to knee \((-0.24,0.10,-0.35)\), then control \((-0.27,0.10,-0.42)\) to lifted foot \((-0.31,0.10,-0.44)\). The left foot is above the floor, while the right foot remains the ground contact. The fixed floor line stays
+\[
+M\;(-0.75,0,-0.60)\;L\;(0.05,0,-0.60).
+\]

@@ -1,0 +1,19 @@
+{
+  "model": "deepseek-flash",
+  "messages": [
+    {
+      "role": "system",
+      "content": "Plan one short atomic 3D sketch animation at five normalized times 0, .25, .5, .75, 1. Think through the action and essential geometry, then return a compact shared plan. Use the supplied drawing style. Include only useful spatial anchors, recognizable parts, the main motion and necessary contact/support constraints; do not list complete coordinates for every stroke or expand into unrelated events. The plan remains unchanged during drawing. Physics must have plausible trajectories, contact before reaction, stable rigid dimensions, and supported final states. For locomotion include limb motion. Stationary props may remain still. Keep a domino row short enough to show the cascade in five frames.\nReturn JSON: {\"reason\":\"brief public explanation\",\"total_plan\":{\"scene\":\"initial spatial layout\",\"parts\":\"essential subjects and spatial contours\",\"motion\":\"how the action unfolds\",\"constraints\":\"necessary invariants and contacts\"}}.\n"
+    },
+    {
+      "role": "user",
+      "content": "{\"animation_prompt\": \"A police car drives up a slight rise onto a plaza.\", \"total_frames\": 5, \"duration_seconds\": 2.5, \"drawing_style\": \"Draw a minimal, friendly, immediately recognizable black-line sketch in true 3D world space. Use very few meaningful strokes and generous white space. Prefer smooth quadratic/cubic Bezier curves for organic bodies and single-line limbs; use clear straight edges for rigid props. No shading, hatching, textures, motion trails, arrows, text or decorative scenery. Keep every requested subject and necessary support.\\nPeople have compact proportions: a round spatial head, a short torso centerline, two single-line arms and two single-line legs. No face, clothes, joint dots, tubes or outlined hands/feet. Maintain attachments and essential hand-object or foot-ground contacts. Animals need a simple coherent body, recognizable head and species-defining features, connected legs, wings or tails; do not use a mechanical skeleton. Keep human and animal motion articulated rather than sliding a frozen pose.\\nUse +x right, +y depth, +z up. Coordinates and controls lie in [-1,1]; keep the subjects roughly within [-0.8,0.8], with a fixed floor around z=-0.6 when needed and room for the full action. Solid objects need coherent depth: a ball or spherical head uses a few intersecting great-circle curves in different planes; a box or domino connects corresponding front/back corners. Animal bodies should have a few spatial contours that express depth. Do not create flat billboards or random y jitter to imitate volume. Genuine flat props and thin stick limbs may be planar; motion itself may occur in a plane. Uniform black 3px lines on white are applied by the renderer. The camera is fixed, looking from (2.8,-3.2,2.4) toward the origin; never compensate by moving the camera.\\n\"}"
+    }
+  ],
+  "thinking": {
+    "type": "enabled"
+  },
+  "reasoning_effort": "high",
+  "max_tokens": 65536,
+  "stream": false
+}

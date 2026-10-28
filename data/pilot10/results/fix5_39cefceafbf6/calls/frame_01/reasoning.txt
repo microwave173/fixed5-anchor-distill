@@ -1,0 +1,285 @@
+We need answer only JSON. Need draw first frame scene. Need interpret fixed camera from (2.8,-3.2,2.4) toward origin. Coordinates in [-1,1], floor z=-0.6. Need pendulum in vertical x-z plane at constant depth y maybe 0. Let's design.
+
+We need overhead bracket/pivot above center, low floor, rubber stop mounted on base near bottom-right of pendulum arc. First frame t=0: bob held high on left with taut rod. Need fixed pivot above center, rod straight to bob sphere. Bob high left. Need sphere with intersecting great-circle curves, plausible 3D. Rod thin line. Stop fixed bottom-right. Floor line perhaps perspective but can be simple line across x at y? Need 3D. Camera fixed; floor around z=-0.6. Could draw floor as front edge line and maybe side depth? But minimal. Need show floor with a line maybe x from -0.75 to 0.75 at y=-0.15? Hmm scene is vertical x-z plane at y=0. Floor as horizontal line at z=-0.6, spanning x. Add small depth line for floor? Since 3D sketch, floor can be a simple line/plane. Use line from (-0.75,0,-0.6) to (0.75,0,-0.6) at y=0 maybe. But stop base on floor near bottom-right. If floor plane line at y=0 and stop at y=0, good. Could add slight y offset to show depth? But keep simple.
+
+Need pivot support above center: fixed overhead bracket/pivot above center. Maybe an L-shaped bracket: vertical support line from top? But coordinates limited [-1,1]. Put pivot at (0, 0, 0.7). Support bracket: horizontal from x=-0.35,z=0.88 to pivot? Or a ceiling bracket. "fixed overhead bracket/pivot above center" Could draw a simple horizontal bar from (-0.25,0,0.82) to (0.25,0,0.82) and pivot joint at (0,0,0.7) connected vertical short to bar. But if pivot at center above? Need rod from pivot to bob high left. Pivot should be fixed.
+
+Let's define pivot P = (0.0, 0.0, 0.62). Overhead bracket: a horizontal fixed line at z=0.8 from x=-0.32 to 0.32, and short vertical drop to P. Maybe pivot small circle? Use a small circular arc or short line? Pivot can be represented by a small ring: two crossing arcs? But user asks simple. Could use short line for axle? We need fixed pivot. Use a small circle? Path with two Q curves? Fine. But "black-line sketch" minimal.
+
+Bob at high left. Rod length constant. Let rod length L = 0.75? Pivot at (0,0,0.62). Bob high left at angle 50° from vertical down? At t=0 "held high on the left" with taut rod. Bob center should be left and maybe above bottom. Need not collide stop. Let's set bob center B = (-0.55, 0, 0.12). Vector from pivot: (-0.55,0,-0.50), length sqrt(0.3025+0.25)=sqrt0.5525=0.743. Good L≈0.743. Bob radius r=0.115. Rod from P to B. Bob sphere at B. Sphere high left. The stop near bottom-right of arc. If pivot at z=.62, bottom of arc z≈ -0.123 if L=.743. Floor z=-.6 so bob doesn't floor. Stop face maybe at x=0.40, z=-0.05? Need contact at bottom of swing at t=.5. Let's design arc: pendulum length L=0.74. Bottom at (0,0,-0.12). Stop mounted on base near bottom-right, its contact face should be at bottom-right of arc. At t=.5 bob touches rubber stop face at bottom of swing. Maybe stop is a bumper at x=0.26,z=-0.18 with face angled left? The bob at bottom-right contact? Hmm "bob swings into a fixed rubber stop and rebounds" Low floor, stop mounted on short fixed base near bottom-right of pendulum arc. At t=.5 bob touches rubber stop face at bottom of swing. It may hit stop just right of lowest point. At t=0 high left. At .25 down toward bottom. At .5 touches stop face at bottom of swing (could be at right side). At .75 rebound left/up. At 1 near left slightly lower. For first frame, stop fixed, untouched. Need spawn full scene.
+
+Let's choose pivot P=(0,0,0.62), L=0.74. Bob at t=0 angle -50° from vertical? x = -L sin50 = -0.567, z = P_z - L cos50 =0.62 -0.476=0.144. So B=(-0.57,0,0.14). Good.
+
+At bottom/contact maybe angle +20° to right: x=0.253, z=0.62-0.695= -0.075. Stop face around x=0.37,z=-0.08, so bob radius .11 reaches stop at x=0.36. That fits. Stop near bottom-right. Base from floor z=-0.6 up to stop center? If stop at z=-0.08, base is tall? "short fixed base near bottom-right", maybe stop is a small block at z=-0.35? But bob bottom at -0.12; contact with stop center perhaps -0.10. Base height from floor -0.6 to -0.20? ~0.4, not super short. Could adjust pivot lower or floor higher? Floor fixed low at -0.6, stop near bottom of pendulum arc. Let stop at x=0.38,z=-0.12, base from floor to z=-0.22, with bumper centered at z=-0.12. That's height .48 from floor. Hmm.
+
+Maybe pivot z=0.75, L=0.9? Bottom z=-0.15. Still. floor -0.6. Stop base height .3 maybe. Fine.
+
+Let's make stop a small rounded rubber block with front face at x≈0.37, z≈-0.10, dimensions maybe width x 0.10, height 0.14, depth 0.12. Base under it is short rigid pedestal from z=-0.6 to -0.20 at x=0.42. But "rubber stop" itself should be soft rounded block. Use a rounded rectangular-ish shape (maybe 3D block) and base. Need coherent depth for solid. Could draw bumper as a small rounded box with front/back corners. But minimal. Need fixed stop near bottom-right. Use a small block with curved left face (contact face) and top/bottom edges; base as straight rectangle/pedestal. We can draw box using a few strokes: front face rounded square, side depth via corresponding corners. But likely adequate.
+
+Need floor. Maybe line with slight perspective? We can draw floor as two long lines at z=-0.6: one from x=-0.75,y=0.15 to x=0.75,y=0.15 (back edge?) and one from -0.75,-0.15 to 0.75,-0.15 front edge? But stage vertical plane y=0. A floor plane could be indicated by a trapezoid? Need not too much. "low floor" necessary support. Since stop base touches floor, draw floor line and base. A single line at y=0 z=-0.6 from -0.8 to 0.8 is enough, but 3D? Maybe add a shorter depth line from (0.0,0,-0.6) to (0.0,-0.25,-0.68)? Hmm.
+
+Need pivot bracket. Could draw overhead fixed bracket as a horizontal beam at z=0.82 plus vertical support to pivot. Use straight lines. Maybe bracket anchored to top edge? Since coordinates max 1, we can draw a top horizontal line from x=-0.35,z=0.92 to x=0.35,z=0.92 and short vertical drop to pivot z=0.62. The rod attaches to pivot. Pivot might be a small circle (two arcs) at P. But if we draw circle, it may look like ring. Use small Q curve arc in vertical plane? Or two lines crossing? For a pivot, a small circular eye with rod attached. We can represent with a small circle using two cubic Beziers? But minimal. Maybe a short horizontal axle line centered at P from x=-0.04 to 0.04 at y=0, z=0.62, plus rod starts at P. This conveys pivot. But top bracket has vertical line to P. Could use a tiny circle? The instructions allow smooth curves. We need not overdo.
+
+Potential issue: Path3D commands C3 etc. Need all paths absolute. Need unique IDs. No style fields. Return JSON only with reason, frames[{i, strokes}]. Exactly one frame. Need all strokes. Since this is FIRST, no previous.
+
+Let's carefully write coordinates. Use y=0 for pendulum plane and most scene. Need depth for bob sphere: sphere center B=(-0.57,0,0.14), radius .11. Great-circle curves in different planes:
+- Circle in x-z plane (meridian): use cubic approximations. Need in 3D. At center B. For radius r in x-z plane, path: M (cx-r,cy,cz) C3 (cx-r,cy,cz+r*0.5523) (cx-r*0.5523,cy,cz+r) (cx,cy,cz+r) C3 (cx+r*0.5523,cy,cz+r) (cx+r,cy,cz+r*0.5523) (cx+r,cy,cz) C3 ... back. But we need a few intersecting curves. Could do three arcs/great circles, not necessarily full circle? "spherical head uses a few intersecting great-circle curves in different planes." For ball, draw maybe 2-3 ellipses. Need visible strokes. Use full circle in vertical plane x-z and another in y-z? For bob at y=0, great circle in y-z plane is vertical, visible as ellipse due camera. But path coordinates 3D. Use:
+1. vertical meridian in x-z plane: full circle around center. 
+2. horizontal great circle in x-y plane at z=cz: full ellipse? In 3D, circle in x-y plane. 
+3. another vertical circle in y-z plane.
+
+But with black 3px, full circles crossing may be busy. Maybe 2 full circles plus one arc. The prompt demands spherical bob drawn with intersecting great-circle curves. Good to use three circles. Minimal friendly. Need ensure bob high left. Use radius 0.105 maybe.
+
+Let's compute exact coordinates for circles. Use approximate cubic Bezier circle with k=0.5522847498. Radius r=0.11. Center cx=-0.57, cy=0, cz=0.14.
+
+Circle in x-z plane (plane y=0):
+M (cx-r, cy, cz) = (-0.68,0,0.14)
+C3 (cx-r, cy, cz+k*r) = (-0.68,0,0.20075) ; (cx-k*r, cy, cz+r)=(-0.63075,0,0.25) ; (cx, cy, cz+r)=(-0.57,0,0.25)
+C3 (cx+k*r,0,cz+r)=(-0.50925,0,0.25); (cx+r,0,cz+k*r)=(-0.46,0,0.20075); (cx+r,0,cz)=(-0.46,0,0.14)
+C3 (cx+r,0,cz-k*r)=(-0.46,0,0.07925); (cx+k*r,0,cz-r)=(-0.50925,0,0.03); (cx,0,cz-r)=(-0.57,0,0.03)
+C3 (cx-k*r,0,cz-r)=(-0.63075,0,0.03); (cx-r,0,cz-k*r)=(-0.68,0,0.07925); (cx-r,0,cz)=(-0.68,0,0.14). Good.
+
+Circle in x-y plane (horizontal) at z=cz:
+M (cx-r, cy, cz) = (-0.68,0,0.14)
+C3 (cx-r, cy+k*r, cz)=(-0.68,0.06075,0.14); (cx-k*r, cy+r, cz)=(-0.63075,0.11,0.14); (cx, cy+r, cz)=(-0.57,0.11,0.14)
+C3 (cx+k*r, cy+r, cz)=(-0.50925,0.11,0.14); (cx+r, cy+k*r, cz)=(-0.46,0.06075,0.14); (cx+r, cy, cz)=(-0.46,0,0.14)
+C3 (cx+r, cy-k*r, cz)=(-0.46,-0.06075,0.14); (cx+k*r, cy-r, cz)=(-0.50925,-0.11,0.14); (cx, cy-r, cz)=(-0.57,-0.11,0.14)
+C3 (cx-k*r, cy-r, cz)=(-0.63075,-0.11,0.14); (cx-r, cy-k*r, cz)=(-0.68,-0.06075,0.14); (cx-r, cy, cz)=(-0.68,0,0.14). This is horizontal great circle. Good.
+
+Circle in y-z plane at x=cx:
+M (cx, cy-r, cz)=(-0.57,-0.11,0.14)
+C3 (cx, cy-r, cz+k*r)=(-0.57,-0.11,0.20075); (cx, cy-k*r, cz+r)=(-0.57,-0.06075,0.25); (cx, cy, cz+r)=(-0.57,0,0.25)
+C3 (cx, cy+k*r, cz+r)=(-0.57,0.06075,0.25); (cx, cy+r, cz+k*r)=(-0.57,0.11,0.20075); (cx, cy+r, cz)=(-0.57,0.11,0.14)
+C3 (cx, cy+r, cz-k*r)=(-0.57,0.11,0.07925); (cx, cy+k*r, cz-r)=(-0.57,0.06075,0.03); (cx, cy, cz-r)=(-0.57,0,0.03)
+C3 (cx, cy-k*r, cz-r)=(-0.57,-0.06075,0.03); (cx, cy-r, cz-k*r)=(-0.57,-0.11,0.07925); (cx, cy-r, cz)=(-0.57,-0.11,0.14). Great.
+
+Rod: from pivot P=(0,0,0.62) to bob top? It should attach to bob surface, not center? "thin straight pendulum rod from fixed pivot to spherical bob" Usually rod goes to bob center or surface. If line ends at center, it crosses sphere and may look like it enters. Could end at sphere surface along rod direction. Need taut rod. Since P to B distance L=0.743, sphere radius .11, rod endpoint at surface along P->B. Vector from P to B = (-0.57,0,-0.48). length sqrt(.3249+.2304)=sqrt.5553=.745. Unit approx (-0.765,0,-0.644). Surface point at distance L-r=0.635 from P along unit: P + 0.635*(-0.765,0,-0.644)=(-0.486,0,0.211). This is near top-right of bob. Or rod can go to center and sphere drawn over? Since line strokes overlap, crossing sphere not ideal. Better end at surface: rod M (0,0,0.62) L (-0.486,0,0.211). But the rod length plus radius equals pivot-center distance. That is a taut rod. Good. However rod attached to bob surface at that point, visually okay. Need maybe line continues? no.
+
+Pivot bracket: Need fixed overhead bracket. Let's define horizontal overhead beam from (-0.34,0,0.86) to (0.34,0,0.86). Short stem from pivot P(0,0,0.62) to beam center (0,0,0.86). Pivot small circle around P maybe radius .035, using two arcs? But if rod starts at P, small circle will show. Need bracket maybe use straight line down to P. Could draw pivot as small circle using two Q curves:
+M (-0.035,0,0.62) Q3 (0,0.035,0.655) (0.035,0,0.62)? But if in x-z plane, circle: M (-0.035,0,0.62) C3 (-0.035,0,0.6393) (-0.0193,0,0.655) (0,0,0.655) C3 (0.0193,0,0.655) (0.035,0,0.6393) (0.035,0,0.62) C3 (0.035,0,0.6007) (0.0193,0,0.585) (0,0,0.585) C3 (-0.0193,0,0.585) (-0.035,0,0.6007) (-0.035,0,0.62) Z. But path syntax allows Z, but maybe better full closed. That's a small circle. But pivot radius .035 and rod starts at center; rod goes through circle? If rod from center to bob, it will start at center and cross lower-left part of circle. That's fine. But maybe pivot drawn as small filled? No shading. Maybe use a short horizontal axle line instead to avoid clutter. The prompt says fixed overhead bracket/pivot; a bracket and rod meeting at point is enough. Add small circle for pivot. Could be okay.
+
+Overhead bracket should be fixed to "overhead". We can draw a top support beam and a stem. Beam line from -0.3,0,0.88 to 0.3,0,0.88. Maybe add two short vertical hangers from beam to top? But coordinates max 0.88, room. Add a short horizontal axle at P? Hmm.
+
+Stop: Need fixed rubber stop near bottom-right. Place at x=0.34? Let's compute possible contact with bob at bottom. Pivot (0,0,0.62), L center distance .745, bob radius .11. At bottom-right angle ~+20°: center x = 0.745 sin20=0.255, z=0.62 -0.745 cos20=0.62-0.700=-0.080. Bob rightmost point x=0.365 if y=0. Stop contact face should be at x≈0.365, z≈-0.08. So stop bumper centered maybe x=0.43, z=-0.08, with left rounded face at x=0.365. Its body extends right to x=0.51, height from z=-0.16 to 0.0, depth y maybe ±0.07. Base under it from z=-0.6 to -0.16, at x=0.43, y=0. But "short fixed base" maybe pedestal from floor -0.6 to -0.16 is 0.44, not very short but okay. Could lower stop? Bob bottom is -0.08. Floor -0.6. It's tall. To make base shorter, make floor higher? Prompt says low floor around z=-0.6 when needed. Fixed floor around z=-0.6. We can't change. Stop near bottom of arc at z=-0.1; base height 0.5. Could be a "short fixed base" relative? Eh. Could set pivot lower, L smaller, bottom around z=-0.35. But bob should swing near floor? Let's reassess: pivot above center at z=0.62. L=.745 yields bottom -0.125. Stop at z=-0.08. Base height 0.52. "short fixed base near bottom-right" maybe the base is just a short block under the bumper, not necessarily from floor? But must be supported by base; base can be a post. We could draw a thin pedestal, not too prominent. Or put stop on a short base on floor, with stop body at z=-0.32 instead, and adjust pendulum arc to hit there. If pivot z=0.55, L=0.8, bottom -0.25. Stop center -0.25, base height 0.35. Bob high left at angle -50°: center x=-0.613, z=0.55-0.514=0.036. That's high left. At contact angle +25°: x=0.338, z=0.55-0.725=-0.175. Stop face at x~0.448, z=-0.175. Base from floor -0.6 to -0.25 (height .35). Better. Pivot above center z=0.55. L=0.80. Bob radius .11. Floor -0.6. Bottom of bob at -0.36 at bottom, still above floor. Good. Stop center z=-0.18, base height .42? Wait floor -0.6 to stop bottom -0.24: base height .36. Okay. Let's use pivot P=(0,0,0.58) maybe L=.78, bottom -0.20. Stop center z=-0.12. Hmm.
+
+We need t=0 high left. Let's set P=(0,0,0.62), L=0.78. Bob center at angle -48°: x=-0.78 sin48=-0.580, z=0.62-0.78 cos48=0.62-0.522=0.098. Bob radius .11. Good high left. Bottom z=-0.16. Contact at +20°: x=0.267, z=0.62-0.733=-0.113. Bob rightmost x=.377. Stop contact face at .38. Stop center maybe x=.45,z=-0.11, base height from -0.6 to -0.17=0.43. Not too bad. Could pitch stop as a bumper on a post. Fine.
+
+Let's define stop as a small rounded block centered at S=(0.45,0,-0.10). Bumper dimensions: x half-width .07 (from .38 to .52), z half-height .09 (from -.19 to -.01), y half-depth .07. Rounded left face (contact) and perhaps rounded edges. We'll draw a 3D rounded box with front face? The camera is from +x,-y,+z, so front-facing side? Hmm. Need coherent depth. We can draw a block with visible front face (towards camera) and side depth. Since camera at +x,-y, front is +x? Wait camera looking from (2.8,-3.2,2.4). Object coordinate: camera at +x,-y,+z, looking at origin. Visible surfaces are +x (right side) and -y (front) and +z top. The stop at x=0.45, y=0, z=-0.10. Its left contact face is -x (away from camera partly), but we can still draw outline. Need not exact shading. Use a 3D block with front face maybe at y=-0.07 (near camera), back face at y=+0.07. Connect corners. But stop's contact face is left (-x). We can draw a rounded rectangle in x-z at y=-0.07 (front face), and another at y=+0.07 (back face), connect top/bottom/right/left corners. But user wants minimal. Could draw bumper as a rounded pill shape in the x-z plane with depth indicated by a side parallelogram. Use few strokes.
+
+Maybe represent rubber stop as a small vertical rounded slab facing left, with base under. Use a rounded left edge (contact face) in x-z plane at y=-0.06? Hmm.
+
+Alternative: Draw bumper as a small sphere? But "rubber bumper/block" could be a rounded block. Need distinguish from bob. Use a short cylinder? A rubber stop can be a small cylinder with axis horizontal x? But contact face? Simpler: a rounded rectangular block. Let's draw front face at y=-0.07 as a rounded rectangle from x=0.38 to 0.52, z=-0.20 to -0.01, with rounded left side. Then draw back top edge and back vertical? Maybe add three depth lines to corresponding back corners. That conveys solid.
+
+But maybe because stop is on the right and less central, a side view in x-z plane is enough. The prompt says solid objects need coherent depth, but thin props can be planar. A rubber stop block is solid. We can use a 3D block with front/back corners. Let's do a box-ish bumper:
+Visible front face (towards camera y=-0.07) rounded rectangle:
+M (0.52,-0.07,-0.19) L (0.41,-0.07,-0.19) Q3 (0.38,-0.07,-0.19) (0.38,-0.07,-0.16) L (0.38,-0.07,-0.04) Q3 (0.38,-0.07,-0.01) (0.41,-0.07,-0.01) L (0.52,-0.07,-0.01) L (0.52,-0.07,-0.19). This is front face, rounded left edge. But Q3 with control point? Need syntax Q3 cx cy cz x y z. For rounded corner: from (0.41,-0.07,-0.19) Q3 (0.38,-0.07,-0.19) (0.38,-0.07,-0.16). Good. But the left face is contact, rounded. Add back face at y=+0.07 perhaps partially visible: M (0.52,0.07,-0.19) L (0.41,0.07,-0.19) Q3 ... etc. But we only need visible edges: from front top-right to back top-right, front bottom-right to back bottom-right, and maybe back top-left? Since camera sees -y front, +x right, +z top. The back face is farther, mostly hidden. But to show depth, draw a rear top edge from front top-right (0.52,-.07,-.01) to back top-right (0.52,.07,-.01), and bottom/right vertical? Hmm, front face already at y=-.07. The right side x=0.52 visible because camera +x. So draw right face: front-right vertical at x=.52 y=-.07 from z=-.19 to -.01, top front-right to back-right (x=.52,y=.07,z=-.01), and back-right vertical? Could draw side quad: M (0.52,-0.07,-0.19) L (0.52,0.07,-0.19) L (0.52,0.07,-0.01) L (0.52,-0.07,-0.01). That's a thin side face. But rounded left face not extended. Add top depth edge from left top? The top face visible (+z). The top left contact curve to back? Hmm. Minimal: draw front rounded rectangle, plus top/right depth lines: from (0.41,-.07,-.01) to (0.41,.07,-.01) maybe, from (0.52,-.07,-.01) to (0.52,.07,-.01), and from (0.52,-.07,-.19) to (0.52,.07,-.19). That's enough.
+
+But if we draw full back face, clutter. Maybe not.
+
+Base: a simple rectangular pedestal under bumper from z=-0.6 to -0.20 at x=0.45. Base maybe x half-width .05, y depth .05. To show 3D, draw a vertical post: front-left/right lines and top/bottom? Or just a single vertical thick line? But solid support. Could draw a small rectangular column: front face from x=0.40 to 0.50, y=-0.05, z=-0.6 to -0.19; and connect top to bumper. Actually bumper bottom at z=-0.19, base top at -0.19. Need base under bumper. Maybe base is a rectangular block with front face and side depth:
+Front face (y=-0.06): rectangle x=0.40 to 0.50, z=-0.60 to -0.19. Draw M(0.40,-0.06,-0.60) L(0.50,-0.06,-0.60) L(0.50,-0.06,-0.19) L(0.40,-0.06,-0.19) Z. But a closed rectangle might be okay. Add side depth: from (0.50,-0.06,-0.60) to (0.50,0.06,-0.60), to (0.50,0.06,-0.19), to (0.50,-0.06,-0.19). This makes right side. Maybe also top face: from (0.40,-0.06,-0.19) to (0.40,0.06,-0.19) to (0.50,0.06,-0.19) to (0.50,-0.06,-0.19). But bumper covers top. We can draw base top edge connecting to bumper bottom.
+
+Floor: Draw floor line at z=-0.60 across x. Since floor is a plane, maybe draw front edge at y=-0.25 and back edge? But base at y around 0. Need floor line under base. Use a long line from x=-0.8,y=0,z=-0.60 to x=0.8,y=0,z=-0.60. That is a line on floor plane. Maybe add short perspective ticks? But no decorative. Could draw floor as two lines forming a shallow V? Hmm. A single line is enough "low floor". The base touches it at x~0.45. Bob is above. Need floor support. We can make a floor line slightly behind? Keep y=0.
+
+Pivot support: Overhead bracket. Use beam line from (-0.32,0,0.86) to (0.32,0,0.86). Stem from (0,0,0.86) to (0,0,0.62). Pivot circle at P. But if bracket is at y=0, same plane, okay. Maybe add depth to bracket? Rigid prop, can be thin (planar). Add a small axle line across y at P: from (0,-0.06,0.62) to (0,0.06,0.62). This gives pivot depth. Then rod in x-z plane starts at P. The pivot circle maybe not needed if axle line. But "fixed overhead bracket/pivot above center" could be a horizontal beam and small vertical stem. Use small circle maybe.
+
+Need ensure rod not hidden by pivot circle? Fine.
+
+Let's set pivot P=(0,0,0.62). Rod endpoint to bob surface. Need compute accurately. Bob center B=(-0.58,0,0.10) maybe. Let's choose B=(-0.58,0,0.10). P->B = (-0.58,0,-0.52). Length = sqrt(0.3364+0.2704)=sqrt(0.6068)=0.779. Good. Rod L=0.779. Bob radius .11. Unit = (-0.7445,0,-0.6676). Surface point = P + (L-r)*unit = P + 0.669*unit = (-0.498,0,0.62-0.446)=(-0.498,0,0.174). Rod from P to (-0.498,0,0.174). The rod will be taut and attaches to upper-right side of bob. Good. Bob center z=0.10, radius .11, top .21, bottom -.01. At t=0 high left, bob near z .1. Good. Pivot z .62. Rod length .779. At bottom, bob center z=-0.159 (0.62-.779). Bob bottom -.269. Floor -.6. Stop center z maybe -0.14. Good. At contact angle +20°, center x=.266, z=.62-.732=-.112. B radius .11, rightmost x=.376. Stop left face at x=.38. Good. Stop center x=.46, z=-.112. Base height from -.6 to -.202. Good.
+
+For first frame, bob at (-0.58,0,0.10), stop fixed at x=.46,z=-.11. The bob is far left, no contact. Good.
+
+Need draw bob circle with center B=(-0.58,0,0.10), radius .11. Let's recompute all bob coordinates with cx=-0.58, cy=0, cz=0.10, r=0.11, k=0.5523, kr=0.06075. Coordinates:
+cx-r=-0.69
+cx+r=-0.47
+cz+r=0.21
+cz-r=-0.01
+cx+kr=-0.51925
+cx-kr=-0.64075
+z+kr=0.16075
+z-kr=0.03925
+Cy values ±0.11, ±0.06075.
+
+Circle x-z plane:
+M (-0.69,0,0.10)
+C3 (-0.69,0,0.16075) (-0.64075,0,0.21) (-0.58,0,0.21)
+C3 (-0.51925,0,0.21) (-0.47,0,0.16075) (-0.47,0,0.10)
+C3 (-0.47,0,0.03925) (-0.51925,0,-0.01) (-0.58,0,-0.01)
+C3 (-0.64075,0,-0.01) (-0.69,0,0.03925) (-0.69,0,0.10)
+Good.
+
+Circle x-y plane:
+M (-0.69,0,0.10)
+C3 (-0.69,0.06075,0.10) (-0.64075,0.11,0.10) (-0.58,0.11,0.10)
+C3 (-0.51925,0.11,0.10) (-0.47,0.06075,0.10) (-0.47,0,0.10)
+C3 (-0.47,-0.06075,0.10) (-0.51925,-0.11,0.10) (-0.58,-0.11,0.10)
+C3 (-0.64075,-0.11,0.10) (-0.69,-0.06075,0.10) (-0.69,0,0.10)
+Good.
+
+Circle y-z plane:
+M (-0.58,-0.11,0.10)
+C3 (-0.58,-0.11,0.16075) (-0.58,-0.06075,0.21) (-0.58,0,0.21)
+C3 (-0.58,0.06075,0.21) (-0.58,0.11,0.16075) (-0.58,0.11,0.10)
+C3 (-0.58,0.11,0.03925) (-0.58,0.06075,-0.01) (-0.58,0,-0.01)
+C3 (-0.58,-0.06075,-0.01) (-0.58,-0.11,0.03925) (-0.58,-0.11,0.10)
+Good.
+
+Rod endpoint surface: B=(-0.58,0,0.10), P=(0,0,0.62). L=0.7787. r=0.11. Unit (-0.7448,0,-0.6674). L-r=0.6687. Multiply: x=-0.498, z=0.62-0.446=0.174. So rod M 0 0 0.62 L -0.498 0 0.174. Good.
+
+Pivot bracket: beam at z=0.86. M -0.32 0 0.86 L 0.32 0 0.86. Stem M 0 0 0.86 L 0 0 0.62. Pivot circle radius .035 at P. Maybe use two arcs? Path:
+M 0.035 0 0.62 C3 0.035 0 0.6393 0.0193 0 0.655 0 0 0.655 C3 -0.0193 0 0.655 -0.035 0 0.6393 -0.035 0 0.62 C3 -0.035 0 0.6007 -0.0193 0 0.585 0 0 0.585 C3 0.0193 0 0.585 0.035 0 0.6007 0.035 0 0.62. Good. This is in x-z plane. But rod starts at center, so circle around pivot. Good.
+
+Axle line across y: M 0 -0.055 0.62 L 0 0.055 0.62. This gives depth. Maybe not necessary but nice.
+
+Floor: M -0.8 0 -0.6 L 0.8 0 -0.6. Maybe add a couple depth? Hmm. "fixed floor" maybe line. We can also draw a short floor front depth line? No.
+
+Stop: Let's define bumper center S=(0.46,0,-0.11). Dimensions: x left=0.38, right=0.54; z bottom=-0.20, top=-0.02; y front=-0.07, back=0.07. Rounded left corners radius .03. Front face at y=-0.07 (towards camera). Draw rounded rectangle:
+M 0.54 -0.07 -0.20
+L 0.41 -0.07 -0.20
+Q3 0.38 -0.07 -0.20 0.38 -0.07 -0.17
+L 0.38 -0.07 -0.05
+Q3 0.38 -0.07 -0.02 0.41 -0.07 -0.02
+L 0.54 -0.07 -0.02
+L 0.54 -0.07 -0.20
+Z? The path can be closed with Z but need absolute. Use L back to start or Z. "Z" allowed. We can use Z. But maybe we need no style. Fine.
+
+Depth lines/side: right face at x=0.54. Draw M 0.54 -0.07 -0.20 L 0.54 0.07 -0.20 L 0.54 0.07 -0.02 L 0.54 -0.07 -0.02. This is right side (visible +x). Top face? Since camera above, top face visible. Draw top depth from left top rounded to back? Maybe from (0.41,-0.07,-0.02) L (0.41,0.07,-0.02) L (0.54,0.07,-0.02) L (0.54,-0.07,-0.02). The right side shares. But top face can be indicated by two top depth lines from front left top and right top to back. We already have right top edge in side. Draw front top edge in front face. Add back top edge? Maybe not.
+
+Contact face is left rounded at x=0.38. To convey depth of rounded left face, maybe draw back-left vertical line? But mostly hidden. Add a second rounded left curve at y=0.07? Could be visible through? Not needed.
+
+Stop base: pedestal under bumper. Bumper bottom z=-0.20. Base from z=-0.60 to -0.20, x center .46 width .10. Let's define front face y=-0.06:
+M 0.41 -0.06 -0.60
+L 0.51 -0.06 -0.60
+L 0.51 -0.06 -0.20
+L 0.41 -0.06 -0.20
+Z. This closed rectangle. Add right side depth:
+M 0.51 -0.06 -0.60 L 0.51 0.06 -0.60 L 0.51 0.06 -0.20 L 0.51 -0.06 -0.20.
+Add top depth maybe M 0.41 -0.06 -0.20 L 0.41 0.06 -0.20 L 0.51 0.06 -0.20. But bumper covers. Base top at z=-0.20, bumper bottom at z=-0.20. Fine.
+Maybe base should mount to floor; the bottom line coincides with floor and base. Good.
+
+Need maybe add floor line with depth? The base front at y=-0.06, floor line y=0 passes through base? If floor line y=0, base at y=-.06 in front. It may look okay. But base bottom at z=-.6 from y=-.06 to .06, floor line y=0 at z=-.6, so base sits on floor. Good.
+
+Pivot bracket maybe support beam at y=0. Could add small depth lines? not necessary.
+
+Need "overhead bracket/pivot above center" maybe beam should be anchored to ceiling? We can add a short top vertical from beam up? But top at 0.86, room to 1.0. Could draw a top plate line from (-0.12,0,0.93) to (0.12,0,0.93) and vertical to beam? Hmm. Maybe not needed; beam is bracket. Maybe bracket fixed to something overhead. Add a short vertical support from beam center up to top? But no overhead surface. Could draw a small mount rectangle above beam: M -0.08 0 0.86 L -0.08 0 0.94 L 0.08 0 0.94 L 0.08 0 0.86. That's a ceiling mount. But maybe too much. The prompt: "A fixed overhead bracket/pivot above center" It can be a horizontal bar with a stem. Good.
+
+Need ensure all subjects requested: pendulum bob, rod, pivot bracket, rubber stop, base, floor. Good.
+
+Need keep strokes ids stable semantic. IDs like "floor", "pivot_beam", "pivot_stem", "pivot_ring", "pivot_axle", "pendulum_rod", "bob_equator_xz", "bob_equator_xy", "bob_meridian_yz", "stop_front", "stop_right_side", "stop_base_front", "stop_base_side". Descriptions short.
+
+Need maybe no hatching etc. Good.
+
+Check Path3D syntax: C3 requires 6 numbers after? Actually "C3 c1x c1y c1z c2x c2y c2z x y z". We have. Q3: "Q3 cx cy cz x y z". We use. L and M. Z okay. Need no commas. Good.
+
+Potential issue with Z in path after rounded rectangle: We can use "Z" to close. Allowed. But final JSON string must escape? No.
+
+Let's consider if draw pivot ring with C3 controls all in 3D. Yes.
+
+Need maybe use only one frame with i=1. target time 0.0. Reason brief public rationale. Should mention first frame establishes high left bob, fixed pivot/stop, taut rod. Good.
+
+Need ensure coordinates within [-0.8,0.8] roughly. We have floor -0.8 to 0.8, stop x 0.54, beam -0.32 to .32, bob -0.69 to -.47. Good. z top .94 if ceiling? We're not adding ceiling. Beam .86. Pivot .62. Floor -.6. All within. If add ceiling mount .94, within. Maybe we can add. But maybe no.
+
+Let's refine geometry. The stop at x=.38 left face, bob at first frame x=-.69..-.47. The stop base is on right. At t=.5 contact. Good.
+
+Maybe the stop should be "near bottom-right of pendulum arc"; with pivot at x=0, L=.779, bottom-right contact at x~.27, z=-.11. Stop left face at .38, gap .11 (bob radius). Contact bob center x=.27, rightmost .38. Good.
+
+At first frame, bob held high on left. It might look like it's hanging from rod at an angle. Good.
+
+Need "fixed-length pendulum bob swings into a fixed rubber stop and rebounds." First frame no motion trail. Good.
+
+Let's maybe draw floor as a line with slight 3D plane: a horizontal line at y=0, z=-.6 from x=-.8 to .8, plus a short depth line at left? But "floor" could be a single line. Maybe to show ground plane, draw a second line parallel at y=0.15 z=-0.6? That might be confusing. Single line is okay.
+
+But since camera from (2.8,-3.2,2.4), a line along x at y=0,z=-.6 will appear slanted? Actually camera projection of x-axis at floor will slope slightly due perspective. Fine.
+
+Need maybe stop base front at y=-.06, floor line y=0; base bottom at z=-.6 with y=-.06 to .06. The floor line passes through base at y=0, but base covers it. If floor line drawn before base, base strokes overlay. In JSON order matters; draw floor first, then base. Good.
+
+Order strokes: floor, pivot beam, stem, axle, pivot ring, rod, bob circles, stop base, stop bumper. Actually rod should be behind bob? Draw rod then bob circles to cover attachment? But rod ends at surface, no overlap. Pivot ring maybe after rod? Draw pivot ring before rod? If rod starts at center, it may cross ring. It's okay. Maybe draw rod after pivot ring so line visible. But ring at pivot. We can draw pivot ring after rod? It may overlay. Minimal. Let's order: floor, pivot_beam, pivot_stem, pivot_axle, pivot_ring, stop_base_front, stop_base_side, stop_bumper_front, stop_right_side, pendulum_rod, bob_xz, bob_xy, bob_yz. Maybe rod before bob. Good.
+
+Need maybe stop bumper should be drawn before rod? Stop is far right, no overlap. Fine.
+
+Let's consider if pivot ring plus rod start at center makes rod line cross ring interior, which might look like a line through a circle. That's common. Good.
+
+Could draw a small pivot dot? No.
+
+Now craft JSON. Ensure no markdown, only JSON.
+
+Let's write all paths carefully.
+
+Stroke floor:
+id "floor"
+path "M -0.8 0 -0.6 L 0.8 0 -0.6"
+desc "fixed low floor line"
+
+Pivot beam:
+"M -0.32 0 0.86 L 0.32 0 0.86"
+desc "fixed overhead bracket beam"
+
+Pivot stem:
+"M 0 0 0.86 L 0 0 0.62"
+desc "fixed drop stem to pendulum pivot"
+
+Pivot axle:
+"M 0 -0.055 0.62 L 0 0.055 0.62"
+desc "pivot axle across depth"
+
+Pivot ring:
+"M 0.035 0 0.62 C3 0.035 0 0.6393 0.0193 0 0.655 0 0 0.655 C3 -0.0193 0 0.655 -0.035 0 0.6393 -0.035 0 0.62 C3 -0.035 0 0.6007 -0.0193 0 0.585 0 0 0.585 C3 0.0193 0 0.585 0.035 0 0.6007 0.035 0 0.62"
+desc "small fixed pivot ring"
+
+Stop base front:
+"M 0.41 -0.06 -0.60 L 0.51 -0.06 -0.60 L 0.51 -0.06 -0.20 L 0.41 -0.06 -0.20 Z"
+desc "front face of fixed stop base"
+
+Stop base side:
+"M 0.51 -0.06 -0.60 L 0.51 0.06 -0.60 L 0.51 0.06 -0.20 L 0.51 -0.06 -0.20"
+desc "right side depth of fixed stop base"
+
+Stop bumper front:
+"M 0.54 -0.07 -0.20 L 0.41 -0.07 -0.20 Q3 0.38 -0.07 -0.20 0.38 -0.07 -0.17 L 0.38 -0.07 -0.05 Q3 0.38 -0.07 -0.02 0.41 -0.07 -0.02 L 0.54 -0.07 -0.02 L 0.54 -0.07 -0.20 Z"
+desc "rounded front face of rubber stop"
+
+Stop bumper side:
+"M 0.54 -0.07 -0.20 L 0.54 0.07 -0.20 L 0.54 0.07 -0.02 L 0.54 -0.07 -0.02"
+desc "right side depth of rubber stop"
+
+Pendulum rod:
+"M 0 0 0.62 L -0.498 0 0.174"
+desc "taut pendulum rod from pivot to bob surface"
+
+Bob xz:
+"M -0.69 0 0.10 C3 -0.69 0 0.16075 -0.64075 0 0.21 -0.58 0 0.21 C3 -0.51925 0 0.21 -0.47 0 0.16075 -0.47 0 0.10 C3 -0.47 0 0.03925 -0.51925 0 -0.01 -0.58 0 -0.01 C3 -0.64075 0 -0.01 -0.69 0 0.03925 -0.69 0 0.10"
+desc "bob great circle in vertical x-z plane"
+
+Bob xy:
+"M -0.69 0 0.10 C3 -0.69 0.06075 0.10 -0.64075 0.11 0.10 -0.58 0.11 0.10 C3 -0.51925 0.11 0.10 -0.47 0.06075 0.10 -0.47 0 0.10 C3 -0.47 -0.06075 0.10 -0.51925 -0.11 0.10 -0.58 -0.11 0.10 C3 -0.64075 -0.11 0.10 -0.69 -0.06075 0.10 -0.69 0 0.10"
+desc "bob horizontal great circle in x-y plane"
+
+Bob yz:
+"M -0.58 -0.11 0.10 C3 -0.58 -0.11 0.16075 -0.58 -0.06075 0.21 -0.58 0 0.21 C3 -0.58 0.06075 0.21 -0.58 0.11 0.16075 -0.58 0.11 0.10 C3 -0.58 0.11 0.03925 -0.58 0.06075 -0.01 -0.58 0 -0.01 C3 -0.58 -0.06075 -0.01 -0.58 -0.11 0.03925 -0.58 -0.11 0.10"
+desc "bob great circle in y-z plane"
+
+Check all C3 controls: For bob xz, first C3: c1 (-0.69,0,0.16075) c2 (-0.64075,0,0.21) end (-0.58,0,0.21). good. Last ends at start. Good.
+
+Potential issue: Bob circles at y=0 etc. The x-y plane circle uses z constant, but camera sees. Good.
+
+Maybe stop bumper front path uses Q3 with two consecutive Q3 after L. Syntax: "L 0.41 -0.07 -0.20 Q3 0.38 -0.07 -0.20 0.38 -0.07 -0.17 L ..." This is fine. Q3 command has 6 numbers, no comma. Good.
+
+Would the base front close with Z; allowed. It might be a closed rectangle. Good.
+
+Need maybe base side and bumper side order: If base side drawn after base front, okay. But bumper front overlaps base top? Bumper bottom at z=-.20, base top at -.20. Good. If base front drawn first, bumper front later covers top edge. Good.
+
+Maybe add a top depth line to bumper? It currently has front face and right side. That gives 3D block. Good.
+
+Need maybe add stop's left contact face depth? Not necessary.
+
+Need maybe the bumper front is at y=-.07, but base front at y=-.06. Slight difference; okay, bumper is thicker. Good.
+
+Need maybe rod endpoint at (-0.498,0,0.174) touches bob surface. Let's verify distance from B: B=(-0.58,0,0.10); difference (0.082,0,0.074); length sqrt(.006724+.005476)=sqrt(.0122)=.11045. Good. Rod from P to endpoint length sqrt(.498^2 + .446^2)=sqrt(.248+.199)=sqrt(.447)=.6686. P to B .779. Good.
+
+Pivot ring circle radius .035; rod starts at center. Good.
+
+Need perhaps "head" no, not human.
+
+Now final JSON with reason and frames. Ensure exactly one frame, i=1. Use requested index 1. Good.
+
+Let's produce.

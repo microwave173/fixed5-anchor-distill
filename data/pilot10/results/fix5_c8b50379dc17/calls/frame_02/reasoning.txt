@@ -1,0 +1,135 @@
+We need answer JSON only. Need generate frame 2 at t=.25. Need interpret geometry. First/previous frame identical (since previous is first). Need advance to frame 2 normalized .25. Need complete frame. Need preserve wall/floor, person mostly fixed leaning, right arm pushing ball downward, ball descends from z≈0.05 to ≈-0.25. Need compute transformations.
+
+We need think 3D coordinates. Camera fixed irrelevant. Coordinates -1..1. Need use Path3D absolute commands. Need update ball: translate downward by dz = -0.30 (from initial ball center z≈0.10? Wait description says ball resting at hand z≈0.05, but actual ball path coordinates center appears x 0.50, y 0.10, z 0.05? Let's inspect ball_vertical: M 0.59 0.10 0.05 then C3 ... center? Yes ball center likely (0.50,0.10,0.05), radius ~0.10. The vertical great circle path starts at rightmost (0.59,0.10,0.05), goes top? Let's parse. Coordinates x y z likely. ball_vertical: M 0.59 0.10 0.05 C3 0.59 0.10 0.0997 0.5497 0.10 0.14 0.50 0.10 0.14 ... This is great circle in x-z plane centered (0.50,0.10,0.05), radius .09? Starts x=0.59,z=0.05, goes to top z=0.14. Then left, bottom -0.04. So center (0.50,0.10,0.05), radius .09. Ball horizontal: starts (0.59,0.10,0.05) goes to y=0.19 etc. Ball sagittal: starts (0.50,0.10,0.14) etc. So center (0.50,0.10,0.05), radius .09. The plan says t0 z≈0.05 hand at ball height. At t=.25 ball descends z≈-0.25. Translation dz ≈ -0.30. So new center (0.50,0.10,-0.25). Translation all ball paths z -0.30. Need also right arm bends/follows above ball. Initial right arm path: M 0.13 0.46 0.20 C3 0.24 0.36 0.08 0.36 0.20 0.03 0.41 0.10 0.05. Need understand: starts shoulder (0.13,0.46,0.20). Control1 (0.24,0.36,0.08), control2 (0.36,0.20,0.03), end (0.41,0.10,0.05) = hand at ball? Yes hand at ball center? Actually hand at (0.41,0.10,0.05) near ball top-left? Ball center (0.50,0.10,0.05), radius .09, leftmost =0.41. Hand contacts left side. At t=.25, hand pushes ball downward, side arm bends and ball descends. Hand should follow above? Plan: "hand pushes ball downward; side arm bends and ball descends in its lane (z≈-0.25), body remains braced." "side hand at ball height" at t0. At t .25 hand pushes downward. Need maintain attachment? The ball moves down; hand likely remains at top/left of ball? Since pushing downward from above/left. Need set hand near ball top or left. Ball center z -0.25; top z=-0.16; left x=0.41. Hand maybe at (0.41,0.10,-0.16) or (0.42,0.10,-0.20). Arm endpoint should connect to ball. The arm path has 4 points: shoulder, c1, c2, hand. Need modify c1/c2/end to bend down. Start remains (0.13,0.46,0.20). End should be near (0.38,0.10,-0.10?) Hmm if hand presses ball down, hand could be above ball center, maybe at (0.50,0.10,-0.16) top, but arm from shoulder on right side to above ball. But initial hand at left of ball. We can keep hand at left/top side (0.42,0.10,-0.18) touch ball. Need arm bent: shoulder (0.13,0.46,0.20), elbow maybe (0.30,0.32,0.02), hand (0.42,0.10,-0.16). Need smooth cubic. The arm is single-line, can be curve. Ensure no joint dots. Could design path M 0.13 0.46 0.20 C3 0.25 0.38 0.10 0.34 0.24 -0.04 0.42 0.10 -0.16. This is a cubic from shoulder to hand, with controls. Does that look bent? It may curve down. Need maybe more natural: shoulder (0.13,0.46,0.20), control1 (0.22,0.36,0.18), control2 (0.38,0.18,-0.05), end (0.42,0.10,-0.16). That extends down and inward. But hand should be at ball surface; ball center (0.50,0.10,-0.25), radius .09. A point at left-upper: x=0.44, z=-0.18, y=0.10 is distance sqrt(0.06^2 +0^2+0.07^2)=0.092. Good. So end (0.44,0.10,-0.18). That is close to ball. Need path starting at shoulder. Use C3 controls: (0.22,0.40,0.16) and (0.38,0.22,-0.08) ending (0.44,0.10,-0.18). This curves. Alternatively arm bends at elbow but single cubic maybe enough. Need maintain smooth.
+
+Left arm, legs, torso, wall floor unchanged. Head unchanged. Ball all paths translate z -0.30. Need be careful ball horizontal/sagittal paths have z varied; just subtract 0.30 from every z coordinate (third coordinate). Check ball_vertical: all points z: 0.05, 0.0997,0.14,0.14,0.14,0.0997,0.05,0.0003,-0.04,-0.04,-0.04,0.0003,0.05. Subtract .30 -> -0.25,-0.2003,-0.16,-0.16,-0.16,-0.2003,-0.25,-0.2997,-0.34,-0.34,-0.34,-0.2997,-0.25. Wait ball center z becomes -0.25, radius .09. Bottom -0.34. But plan says at .25 ball descends z≈-0.25 (center maybe). Good. Floor at -0.60; ball bottom -0.34, not contact yet.
+
+Ball horizontal: original z values around 0.05 (center z) mostly constant z=0.05? Let's parse original ball_horizontal: M 0.59 0.10 0.05 C3 0.59 0.1497 0.05 0.5497 0.19 0.05 0.50 0.19 0.05 C3 0.4503 0.19 0.05 0.41 0.1497 0.05 0.41 0.10 0.05 C3 0.41 0.0503 0.05 0.4503 0.01 0.05 0.50 0.01 0.05 C3 0.5497 0.01 0.05 0.59 0.0503 0.05 0.59 0.10 0.05. z constant 0.05. Subtract .30 -> -0.25 all z. So ball horizontal path is at z=-0.25. Good.
+
+Ball sagittal: original M 0.50 0.10 0.14 C3 0.50 0.1497 0.14 0.50 0.19 0.0997 0.50 0.19 0.05 C3 0.50 0.19 0.0003 0.50 0.1497 -0.04 0.50 0.10 -0.04 C3 0.50 0.0503 -0.04 0.50 0.01 0.0003 0.50 0.01 0.05 C3 0.50 0.01 0.0997 0.50 0.0503 0.14 0.50 0.10 0.14. Wait z values include 0.14,0.0997,0.05,0.0003,-0.04,-0.04,-0.04,0.0003,0.05,0.0997,0.14. Subtract .30 -> -0.16,-0.2003,-0.25,-0.2997,-0.34,-0.34,-0.34,-0.2997,-0.25,-0.2003,-0.16. Good.
+
+Need maybe adjust ball x/y? Plan: ball descends in lane near x≈0.45. Keep x y same. Initial ball center x .50 maybe "near x≈0.45", okay. Could translate x slightly? Not required. Keep.
+
+Need right arm hand contact. At t=.25, ball center (0.50,0.10,-0.25). If hand (0.44,0.10,-0.18) distance sqrt(.06^2+.07^2)=.092, exactly radius. Good. But is hand above-left? Yes.
+
+Need left arm unchanged. Torso fixed. But note torso center ends at 0.34 0.10 0.48? Wait torso path: M 0 -0.08 -0.20 C3 0 0.10 -0.10 0 0.34 0.10 0 0.48 0.23. This is weird: start at hips (0,-0.08,-0.20), end at neck/shoulder (0,0.48,0.23). y increases toward wall .55. So torso leans back. Head center at (0,0.45,0.33) maybe. Shoulder z .20 and y .46? Right shoulder start (0.13,0.46,0.20). yes.
+
+Need ensure wall contact upper back/shoulder. Torso end (0,0.48,0.23) y .48 near wall .55 gap .07. Head center y .45. Okay.
+
+Need output JSON with exactly one frame i=2. Need include all strokes. IDs stable. Descriptions. Path syntax numeric. No style fields. Need ensure paths use spaces, commands. Use C3, Q3. For unchanged, copy exactly. For ball, transformed. For right arm, new path. Maybe use Q3 for arm with elbow? But a single quadratic might look like a bend; but arm needs shoulder->elbow->hand? Single line arm can be curve. The existing right arm uses cubic. We can use cubic. Need maybe maintain smooth and hand contact. Let's design right arm path: "M 0.13 0.46 0.20 C3 0.20 0.38 0.18 0.34 0.24 0.00 0.44 0.10 -0.18" Wait C3 requires c1x c1y c1z c2x c2y c2z x y z. So M 0.13 0.46 0.20 C3 0.20 0.38 0.18 0.34 0.24 0.00 0.44 0.10 -0.18. This starts shoulder, control1 near upper, control2 (0.34,0.24,0), end (0.44,0.10,-0.18). This cubic may curve smoothly. But c1 z .18, c2 z 0, end -0.18; okay. Maybe to show elbow bent, control1 should go outward/down, control2 more inward. Existing right arm at t0: M 0.13 0.46 0.20 C3 0.24 0.36 0.08 0.36 0.20 0.03 0.41 0.10 0.05. That is a smooth curve with controls. For t.25, we can adjust endpoint down and controls: M 0.13 0.46 0.20 C3 0.24 0.36 0.12 0.38 0.22 -0.02 0.44 0.10 -0.18. This extends downward more. But does arm bend? It might be almost straight from shoulder to hand. Let's compute rough curve. Start (0.13,0.46,0.20), c1 (0.24,0.36,0.12), c2 (0.38,0.22,-0.02), end (0.44,0.10,-0.18). This is smooth, maybe a bit curved. Need arm "bends". Since hand lower than shoulder, arm extends down and outward. Single cubic okay.
+
+Could use two-segment path via elbow: M shoulder L elbow L hand? But single-line arms can be simple. The prompt says "single-line arms" and "single-line limbs"; using one curve is fine. But elbow articulation should be visible. Could use Q3 with elbow control? A quadratic from shoulder to hand with control at elbow. But elbow as control doesn't pass through elbow; it's a smooth arc. A cubic can curve. We can use C3 with controls indicating elbow. Alternatively path with L elbow L hand would create sharp bend, but "single-line arms" may be okay. Existing uses smooth. To depict bending, use C3.
+
+Need maybe hand contact at ball. Ball center (0.50,0.10,-0.25), radius .09. Our hand (0.44,0.10,-0.18) distance .092. Good. But hand is above-left; pushing downward? It contacts upper-left surface, can push down? The force from hand could be downward. At t=.25 hand follows ball down. Fine.
+
+Need ensure ball not too low? At .25 center -0.25, bottom -0.34. Floor -0.60. Good.
+
+Need maybe update ball all paths. Let's meticulously transform each ball path.
+
+Original ball_vertical:
+M 0.59 0.10 0.05
+C3 0.59 0.10 0.0997 0.5497 0.10 0.14 0.50 0.10 0.14
+C3 0.4503 0.10 0.14 0.41 0.10 0.0997 0.41 0.10 0.05
+C3 0.41 0.10 0.0003 0.4503 0.10 -0.04 0.50 0.10 -0.04
+C3 0.5497 0.10 -0.04 0.59 0.10 0.0003 0.59 0.10 0.05
+
+Subtract z .30:
+M 0.59 0.10 -0.25
+C3 0.59 0.10 -0.2003 0.5497 0.10 -0.16 0.50 0.10 -0.16
+C3 0.4503 0.10 -0.16 0.41 0.10 -0.2003 0.41 0.10 -0.25
+C3 0.41 0.10 -0.2997 0.4503 0.10 -0.34 0.50 0.10 -0.34
+C3 0.5497 0.10 -0.34 0.59 0.10 -0.2997 0.59 0.10 -0.25
+
+Check original had -0.04 etc. Yes.
+
+Ball_horizontal original z constant .05. Subtract .30 -> -0.25. Path:
+M 0.59 0.10 -0.25
+C3 0.59 0.1497 -0.25 0.5497 0.19 -0.25 0.50 0.19 -0.25
+C3 0.4503 0.19 -0.25 0.41 0.1497 -0.25 0.41 0.10 -0.25
+C3 0.41 0.0503 -0.25 0.4503 0.01 -0.25 0.50 0.01 -0.25
+C3 0.5497 0.01 -0.25 0.59 0.0503 -0.25 0.59 0.10 -0.25
+Wait original has y values not z? Let's parse original: "M 0.59 0.10 0.05 C3 0.59 0.1497 0.05 0.5497 0.19 0.05 0.50 0.19 0.05 C3 0.4503 0.19 0.05 0.41 0.1497 0.05 0.41 0.10 0.05 C3 0.41 0.0503 0.05 0.4503 0.01 0.05 0.50 0.01 0.05 C3 0.5497 0.01 0.05 0.59 0.0503 0.05 0.59 0.10 0.05". Yes z constant. So transformed above.
+
+Ball_sagittal original:
+M 0.50 0.10 0.14
+C3 0.50 0.1497 0.14 0.50 0.19 0.0997 0.50 0.19 0.05
+C3 0.50 0.19 0.0003 0.50 0.1497 -0.04 0.50 0.10 -0.04
+C3 0.50 0.0503 -0.04 0.50 0.01 0.0003 0.50 0.01 0.05
+C3 0.50 0.01 0.0997 0.50 0.0503 0.14 0.50 0.10 0.14
+
+Subtract .30:
+M 0.50 0.10 -0.16
+C3 0.50 0.1497 -0.16 0.50 0.19 -0.2003 0.50 0.19 -0.25
+C3 0.50 0.19 -0.2997 0.50 0.1497 -0.34 0.50 0.10 -0.34
+C3 0.50 0.0503 -0.34 0.50 0.01 -0.2997 0.50 0.01 -0.25
+C3 0.50 0.01 -0.2003 0.50 0.0503 -0.16 0.50 0.10 -0.16
+
+Need check center: sagittal great circle in y-z plane at x=0.50, center (0.50,0.10,-0.25), radius .09. Starts top z=-0.16. Goes to y=0.19,z=-0.2003 etc. Good.
+
+Need maybe ball vertical path has y constant 0.10; horizontal path z constant -0.25. Good.
+
+Now right arm. Need perhaps transform endpoints and control points. Let's define:
+M 0.13 0.46 0.20
+C3 0.22 0.38 0.12
+   0.36 0.24 -0.04
+   0.44 0.10 -0.18
+This is one cubic. It starts at shoulder, ends at hand. Control1 (0.22,0.38,0.12), control2 (0.36,0.24,-0.04). The curve will be relatively smooth, maybe hand comes down. Does it "bend" enough? The tangent at shoulder points to c1: (0.09,-0.08,-0.08), down/out/back. At hand tangent from c2 to end: (0.08,-0.14,-0.14), down/out. It might be almost straight. To show elbow, use control1 to push elbow outward? Maybe:
+M 0.13 0.46 0.20
+C3 0.28 0.38 0.10
+   0.40 0.24 -0.02
+   0.44 0.10 -0.18
+This makes curve bulge outward. Hmm.
+
+Maybe use two cubic segments? Path can have multiple subpaths? But arm should be continuous. Could do M shoulder C3 ... elbow C3 ... hand. That gives more control over bend. For a single arm, path can have two C3 commands: M shoulder C3 c1 c2 elbow C3 c1 c2 hand. That is a smooth continuous curve with an inflection at elbow. It can show elbow bend. Need maintain single-line. Let's use two cubics with elbow at (0.33,0.30,0.02). Path:
+M 0.13 0.46 0.20
+C3 0.18 0.42 0.18 0.28 0.34 0.10 0.33 0.30 0.02
+C3 0.37 0.26 -0.02 0.43 0.18 -0.10 0.44 0.10 -0.18
+Wait elbow z .02. First segment from shoulder to elbow, controls (0.18,0.42,0.18), (0.28,0.34,0.10), end (0.33,0.30,0.02). Second from elbow to hand, controls (0.37,0.26,-0.02), (0.43,0.18,-0.10), end (0.44,0.10,-0.18). This creates a continuous curve (tangent continuity maybe not perfect but okay). But the elbow point is not a sharp joint; single-line arm can bend. The path uses C3 two segments. It may look more articulated. The prompt says "single-line arms" not necessarily one cubic. This is okay. Need ensure no joint dots. The arm is a single path with two C3. It bends at elbow. Is it too many strokes? It's one stroke. Good.
+
+But does it preserve attachment at shoulder? Start (0.13,0.46,0.20) same as torso shoulder. Good. Hand at (0.44,0.10,-0.18) contacts ball. Good.
+
+Need maybe update right arm description "right arm bent downward, hand following ball". Fine.
+
+What about left arm? It hangs; unchanged. Good.
+
+Need maybe update torso? Plan says body remains braced; no movement. Keep unchanged. Legs fixed. Wall/floor fixed. Head fixed. Good.
+
+Need maybe coordinate ball center x .50 but hand x .44. Contact okay.
+
+Need output JSON. Need exactly one frame with i=2. No extra text. Use numeric coordinates. Ensure no trailing commas. Use "reason" brief. Use "frames":[{"i":2,"strokes":[...]}].
+
+Need ensure descriptions. Use IDs stable: wall_plane, floor_line, torso_center, head_vertical, head_horizontal, head_sagittal, left_arm, right_arm, left_leg, right_leg, ball_vertical, ball_horizontal, ball_sagittal.
+
+Need maybe check all paths valid. Use C3 commands. For right arm with two C3:
+"M 0.13 0.46 0.20 C3 0.18 0.42 0.18 0.28 0.34 0.10 0.33 0.30 0.02 C3 0.37 0.26 -0.02 0.43 0.18 -0.10 0.44 0.10 -0.18"
+This is valid: after first C3 endpoint (0.33,0.30,0.02), then second C3 control1 (0.37,0.26,-0.02), control2 (0.43,0.18,-0.10), endpoint (0.44,0.10,-0.18). Good.
+
+Potential issue: C3 command syntax expects c1x c1y c1z c2x c2y c2z x y z. The path string has correct spaced triples. Good.
+
+Need maybe ball vertical path has "C3 0.59 0.10 -0.2003 0.5497 0.10 -0.16 0.50 0.10 -0.16" etc. Good.
+
+Let's consider if ball should be at z≈-0.25 center. The plan says t=.25 ball descends in lane z≈-0.25. It might mean ball center z≈-0.25. Yes.
+
+Need maybe floor contact at t=.5 center near z=-0.55. Our t=.25 center -0.25. Good.
+
+Need maybe right arm at t=.25 "hand pushes ball downward; side arm bends and ball descends". Our hand at upper-left of ball; maybe pushing from above? It is at z=-0.18 vs center -0.25, above. Good.
+
+Need maybe "hand contact is maintained at start and return" only start/return, not necessarily t=.25? But plan says hand pushes ball downward, so contact likely. We maintain contact.
+
+Need maybe left arm hanging "relaxed side line"; unchanged. Good.
+
+Need maybe head unchanged; the person leans against wall, upper back/shoulder contact. Fine.
+
+Need final JSON. Use no markdown. Ensure valid JSON: no comments. Reason string brief. Include exactly one frame. Good.
+
+Double-check original torso path weird: "M 0 -0.08 -0.20 C3 0 0.10 -0.10 0 0.34 0.10 0 0.48 0.23". That is valid: start (0,-0.08,-0.20), c1 (0,0.10,-0.10), c2 (0,0.34,0.10), end (0,0.48,0.23). Good.
+
+Head paths unchanged; they are complex but valid. Need copy exactly. Check head_vertical original: "M 0.10 0.45 0.33 C3 0.10 0.45 0.38523 0.05523 0.45 0.43 0 0.45 0.43 C3 -0.05523 0.45 0.43 -0.10 0.45 0.38523 -0.10 0.45 0.33 C3 -0.10 0.45 0.27477 -0.05523 0.45 0.23 0 0.45 0.23 C3 0.05523 0.45 0.23 0.10 0.45 0.27477 0.10 0.45 0.33". Wait parse: start (0.10,0.45,0.33). C3 c1 (0.10,0.45,0.38523), c2 (0.05523,0.45,0.43), end (0,0.45,0.43). Then C3 c1 (-0.05523,0.45,0.43), c2 (-0.10,0.45,0.38523), end (-0.10,0.45,0.33). Then C3 c1 (-0.10,0.45,0.27477), c2 (-0.05523,0.45,0.23), end (0,0.45,0.23). Then C3 c1 (0.05523,0.45,0.23), c2 (0.10,0.45,0.27477), end (0.10,0.45,0.33). Good.
+
+Head_horizontal original: "M 0.10 0.45 0.33 C3 0.10 0.50523 0.33 0.05523 0.55 0.33 0 0.55 0.33 C3 -0.05523 0.55 0.33 -0.10 0.50523 0.33 -0.10 0.45 0.33 C3 -0.10 0.39477 0.33 -0.05523 0.35 0.33 0 0.35 0.33 C3 0.05523 0.35 0.33 0.10 0.39477 0.33 0.10 0.45 0.33". Good.
+
+Head_sagittal original: "M 0 0.45 0.43 C3 0 0.50523 0.43 0 0.55 0.38523 0 0.55 0.33 C3 0 0.55 0.27477 0 0.50523 0.23 0 0.45 0.23 C3 0 0.39477 0.23 0 0.35 0.27477 0 0.35 0.33 C3 0 0.35 0.38523 0 0.39477 0.43 0 0.45 0.43". Good.
+
+Need maybe wall plane path uses Z. Fine.
+
+Now answer. Ensure no "style". Good.

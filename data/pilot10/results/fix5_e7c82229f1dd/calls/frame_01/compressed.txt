@@ -1,0 +1,52 @@
+Use +x right, +y depth, +z up. The fixed tabletop plane is at z=-0.20. The ball has radius 0.07, so its center sits at z=-0.13. Each domino is 0.12 wide, 0.035 thick, and 0.22 tall, giving base z=-0.20 and top z=0.02.
+
+Draw the table as one fixed planar support: top rectangle with corners  
+\((-0.72,-0.38,-0.20)\), \((0.72,-0.38,-0.20)\), \((0.72,0.38,-0.20)\), \((-0.72,0.38,-0.20)\), plus four straight legs from \((\pm0.62,\pm0.34,-0.20)\) down to \(z=-0.58\).
+
+Place three upright domino centers on a gentle front-left to back-right arc:  
+\(C_1=(-0.30,-0.08)\), \(C_2=(-0.10,-0.015)\), \(C_3=(0.10,0.05)\).  
+Use common thickness direction \(d=(0.94,0.34,0)\) along the chain and width direction \(w=(-0.34,0.94,0)\). Half-width is 0.06 and half-thickness is 0.0175. For a center \((c_x,c_y)\), the four base corners are obtained from
+\[
+A=(c_x-0.00395,\;c_y+0.06235),\quad
+B=(c_x-0.03685,\;c_y+0.05045),
+\]
+\[
+C=(c_x+0.00395,\;c_y-0.06235),\quad
+D=(c_x+0.03685,\;c_y-0.05045),
+\]
+with primed points at z=0.02 and unprimed at z=-0.20. The front face toward the ball is the \(-d\) face, using points \(B,C\).
+
+For \(C_1=(-0.30,-0.08)\), this gives
+\[
+A=(-0.30395,-0.01765),\quad B=(-0.33685,-0.02955),
+\]
+\[
+C=(-0.29605,-0.14235),\quad D=(-0.26315,-0.13045),
+\]
+at z=-0.20, with \(A',B',C',D'\) at the same \(x,y\) and z=0.02. Applying the same offsets to \(C_2=(-0.10,-0.015)\) gives \(A=(-0.10395,0.04735)\), \(B=(-0.13685,0.03545)\), \(C=(-0.09605,-0.07735)\), \(D=(-0.06315,-0.06545)\), and to \(C_3=(0.10,0.05)\) gives \(A=(0.09605,0.11235)\), \(B=(0.06315,0.10045)\), \(C=(0.10395,-0.01235)\), \(D=(0.13685,-0.00045)\), with corresponding primed points at z=0.02.
+
+Draw each domino as one multi-subpath stroke: front face \(B-C-C'-B'\), top face \(C'-D'-A'-B'\), back verticals \(A-A'\) and \(D-D'\), back base \(A-D\), and base side edges \(B-A\) and \(C-D\).
+
+Place the ball center at \((-0.52,-0.15,-0.13)\). Draw three great circles of radius 0.07 in the horizontal \(xy\) plane and the vertical \(xz\) and \(yz\) planes. For cubic circle approximation use \(k=0.5523r=0.03866\). For the horizontal circle, start at
+\[
+(-0.45,-0.15,-0.13)
+\]
+and use controls
+\[
+(-0.45,-0.11134,-0.13),\;(-0.48134,-0.08,-0.13)
+\]
+to reach \((-0.52,-0.08,-0.13)\); then controls
+\[
+(-0.55866,-0.08,-0.13),\;(-0.59,-0.11134,-0.13)
+\]
+to \((-0.59,-0.15,-0.13)\); then
+\[
+(-0.59,-0.18866,-0.13),\;(-0.55866,-0.22,-0.13)
+\]
+to \((-0.52,-0.22,-0.13)\); then
+\[
+(-0.48134,-0.22,-0.13),\;(-0.45,-0.18866,-0.13)
+\]
+back to \((-0.45,-0.15,-0.13)\). The vertical \(xz\) circle uses the same \(k\) with endpoints \((-0.45,-0.15,-0.13)\), \((-0.52,-0.15,-0.06)\), \((-0.59,-0.15,-0.13)\), \((-0.52,-0.15,-0.20)\). The vertical \(yz\) circle uses \((-0.52,-0.08,-0.13)\), \((-0.52,-0.15,-0.06)\), \((-0.52,-0.22,-0.13)\), \((-0.52,-0.15,-0.20)\).
+
+At this first frame the ball is on the left, all three dominoes are upright along the arc, and no contact has yet occurred.

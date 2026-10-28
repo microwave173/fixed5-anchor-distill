@@ -1,0 +1,113 @@
+The scene uses +x right, +y depth, +z up, with a fixed tabletop at \(z=-0.20\). The ball has radius \(r=0.07\), so while rolling on the table its center height is fixed at \(z=-0.13\). Its first-frame center is \(C_0=(-0.52,-0.15,-0.13)\). The first domino is a thin vertical prism of height \(0.22\), from \(z=-0.20\) to \(z=0.02\), width \(0.12\), and thickness about \(0.035\). Its base corners are
+\[
+A=(-0.33685,-0.02955,-0.20),\quad
+B=(-0.29605,-0.14235,-0.20),
+\]
+\[
+C=(-0.26315,-0.13045,-0.20),\quad
+D=(-0.30395,-0.01765,-0.20).
+\]
+The near vertical edge for the incoming ball is \(B\) extended from \(z=-0.20\) to \(0.02\).
+
+At \(t=0.25\) the ball reaches contact while moving along \(+x\) with \(y=-0.15\). Contact with edge \(B\) occurs when the horizontal distance from the ball center to \(B\) equals \(r\). Since
+\[
+\Delta y=-0.15-(-0.14235)=-0.00765,
+\]
+the required \(x\)-separation is
+\[
+\Delta x=\sqrt{0.07^2-0.00765^2}
+\approx \sqrt{0.0049-0.0000585}
+\approx 0.0696.
+\]
+Thus the contact center is
+\[
+C_1=(-0.29605-0.0696,\,-0.15,\,-0.13)
+\approx (-0.3656,-0.15,-0.13).
+\]
+At this instant the target time is exactly contact; the first domino begins tipping only after contact. Therefore the chosen frame keeps domino_1 upright, with tip angle \(0\), and keeps domino_2 and domino_3 unchanged. For later tipping, the consistent pivot is the bottom far edge \(CD\); its axis is
+\[
+C-D=(0.0408,-0.1128,0),
+\]
+or approximately \((0.340,-0.940,0)\) after normalization, but no domino rotation is applied at \(t=0.25\).
+
+The ball’s displacement is
+\[
+\Delta x=|-0.3656-(-0.52)|=0.1544,
+\]
+so rolling without slipping would give
+\[
+\theta=\frac{0.1544}{0.07}\approx 2.205\ \text{rad}\approx 126.3^\circ
+\]
+about \(-y\) for \(+x\) motion. The drawing uses the nearby convenient rotation \(\theta\approx -120^\circ\), with \(\cos\theta=-0.5\), \(\sin\theta=-0.8660\), so that
+\[
+x'=x\cos\theta+z\sin\theta,\qquad
+z'=-x\sin\theta+z\cos\theta,\qquad
+y'=y
+\]
+relative to the ball center. This rotates the sphere’s great-circle curves to indicate rolling while preserving radius \(0.07\) and center height.
+
+For the sphere, use the quarter-circle cubic approximation with
+\[
+k=\frac43\tan\frac{\pi}{8}\approx0.55228475,\qquad
+q=rk\approx0.03866.
+\]
+For a great circle in a plane with center \(C\), orthonormal axes \(a,b\), and radius \(r\), the quarter arc from \(C+ra\) to \(C+rb\) has controls
+\[
+C+r(a+kb),\qquad C+r(ka+b).
+\]
+Under the \(y\)-rotation, the \(x\)-\(z\) great circle remains the same as a set and is simply translated to center \(C_1\). Its quarter points are
+\[
+C_1\pm0.07\hat x=(-0.2956,-0.15,-0.13),\ (-0.4356,-0.15,-0.13),
+\]
+\[
+C_1\pm0.07\hat z=(-0.3656,-0.15,-0.06),\ (-0.3656,-0.15,-0.20).
+\]
+A representative first-quarter control pair is
+\[
+C_1+(0.07,0,0.03866)=(-0.2956,-0.15,-0.09134),
+\]
+\[
+C_1+(0.03866,0,0.07)=(-0.32694,-0.15,-0.06).
+\]
+
+The rotated horizontal great circle uses basis
+\[
+u=R_y(-120^\circ)\hat x=(-0.5,0,0.8660),\qquad v=\hat y=(0,1,0).
+\]
+Its key points are
+\[
+C_1+ru=(-0.4006,-0.15,-0.06938),\quad
+C_1+rv=(-0.3656,-0.08,-0.13),
+\]
+\[
+C_1-ru=(-0.3306,-0.15,-0.19062),\quad
+C_1-rv=(-0.3656,-0.22,-0.13).
+\]
+For the first quarter, the controls are
+\[
+C_1+ru+qv=(-0.4006,-0.11134,-0.06938),
+\]
+\[
+C_1+qu+rv=(-0.38493,-0.08,-0.09652).
+\]
+The other rotated great circle uses
+\[
+a=\hat y=(0,1,0),\qquad b=R_y(-120^\circ)\hat z=(-0.8660,0,-0.5).
+\]
+Its key points are
+\[
+C_1+ra=(-0.3656,-0.08,-0.13),\quad
+C_1+rb=(-0.42622,-0.15,-0.165),
+\]
+\[
+C_1-ra=(-0.3656,-0.22,-0.13),\quad
+C_1-rb=(-0.30498,-0.15,-0.095).
+\]
+A representative first-quarter control pair is
+\[
+C_1+ra+qb=(-0.39908,-0.08,-0.14933),
+\]
+\[
+C_1+qa+rb=(-0.42622,-0.11134,-0.165).
+\]
+These three great circles preserve the ball’s dimensions and show its rolled orientation at the contact frame, while all dominoes remain in their upright first-frame poses.

@@ -1,0 +1,102 @@
+Coordinates use \(+x\) toward the nose/right, \(+y\) for depth, and \(+z\) up; the camera and floor remain fixed. The floor is the line \(z=-0.60\). The helicopter is built with the nose toward \(+x\), the tail boom toward \(-x\), the cabin centered near \(x=0\), and the main rotor in the horizontal \(x\)-\(y\) plane. Initially the two parallel skids have \(y=\pm0.18\) and bottom \(z=-0.60\), so they touch the floor. The cabin, tail boom, fin, mast, tail rotor, skids, and struts form one rigid body.
+
+The main-rotor hub before translation is \((0.02,0,0.04)\). Blade A has relative tip vector
+\[
+(0.3839-0.02,\;0.21-0)=(0.3639,0.21),
+\]
+with angle \(\operatorname{atan2}(0.21,0.3639)=30^\circ\) and length
+\[
+r=\sqrt{0.3639^2+0.21^2}=\sqrt{0.1765}\approx0.4201.
+\]
+Blade B has relative tip vector
+\[
+(-0.19-0.02,\;0.3637-0)=(-0.21,0.3637),
+\]
+angle \(120^\circ\), and the same length \(r\approx0.4201\). Thus the initial main blades are perpendicular as unoriented lines, at \(30^\circ\) and \(120^\circ\).
+
+For frame 2 at normalized time \(0.25\), choose the rigid translation
+\[
+(dx,dy,dz)=(-0.02,0,0.10).
+\]
+This moves the skid bottom from \(z=-0.60\) to \(z=-0.60+0.10=-0.50\), clearing the floor, and gives a small backward drift of \(-0.02\) in \(x\). Apply this offset to all helicopter body points. For the cabin outline, a representative endpoint is
+\[
+(0.29,0,-0.30)+(-0.02,0,0.10)=(0.27,0,-0.20),
+\]
+and controls transform as
+\[
+(0.29,0,-0.19)\to(0.27,0,-0.09),\quad
+(0.18,0,-0.14)\to(0.16,0,-0.04),\quad
+(0.02,0,-0.14)\to(0,0,-0.04).
+\]
+The equator and cross-section contours use the same shift; for example, \((0.29,0.0884,-0.30)\to(0.27,0.0884,-0.20)\) and \((0.02,0.16,-0.30)\to(0,0.16,-0.20)\).
+
+Other rigid-body key points become
+\[
+(-0.64,0,-0.24)\to(-0.66,0,-0.14)
+\]
+for the tail-boom end,
+\[
+(-0.62,0,-0.05)\to(-0.64,0,0.05)
+\]
+for the tail-fin top, and
+\[
+(0.02,0,0.04)\to(0,0,0.14)
+\]
+for the mast top. The left skid endpoints transform as
+\[
+(-0.30,0.18,-0.60)\to(-0.32,0.18,-0.50),\quad
+(0.32,0.18,-0.60)\to(0.30,0.18,-0.50),
+\]
+with the right skid the same in \(x,z\) at \(y=-0.18\). A representative strut changes from
+\[
+(0.15,0.18,-0.60)\to(0.13,0.18,-0.50),\quad
+(0.15,0.12,-0.43)\to(0.13,0.12,-0.33);
+\]
+the other struts use the same offset, leaving their tops near the shifted cabin underside. The tail rotor stays fixed relative to the body, so, for example, \((-0.65,0,-0.20)\to(-0.67,0,-0.10)\). The floor line is unchanged.
+
+The main rotor advances \(60^\circ=\pi/3\) about the vertical mast. Using \(\cos60^\circ=0.5\), \(\sin60^\circ=0.866025\), and the relative-coordinate rotation
+\[
+x'=x\cos\theta-y\sin\theta,\qquad
+y'=x\sin\theta+y\cos\theta,
+\]
+blade A’s tip vector becomes
+\[
+x'=0.3639(0.5)-0.21(0.866025)
+=0.18195-0.181865\approx0.00009,
+\]
+\[
+y'=0.3639(0.866025)+0.21(0.5)
+\approx0.31515+0.105=0.4201.
+\]
+Adding the pre-translation hub \((0.02,0)\) and then the body offset \((-0.02,0)\) gives the final endpoint approximately
+\[
+(0.0001,0.4201,0.14),
+\]
+with the opposite endpoint approximately
+\[
+(-0.0001,-0.4201,0.14).
+\]
+Thus blade A is nearly along the \(y\)-axis.
+
+For blade B, the rotated relative vector is
+\[
+x'=-0.21(0.5)-0.3637(0.866025)
+=-0.105-0.3150\approx-0.4200,
+\]
+\[
+y'=-0.21(0.866025)+0.3637(0.5)
+\approx-0.181865+0.18185\approx-0.00005.
+\]
+After adding the hub and body offset, its final endpoints are approximately
+\[
+(-0.4200,0,0.14),\qquad (0.4200,0,0.14).
+\]
+The translated hub is \((0,0,0.14)\), so the blades still cross there. The final main-rotor strokes are approximately
+\[
+(0,0.4201,0.14)\text{ to }(0,-0.4201,0.14)
+\]
+for blade A, and
+\[
+(-0.4200,0,0.14)\text{ to }(0.4200,0,0.14)
+\]
+for blade B.

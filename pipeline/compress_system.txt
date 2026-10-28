@@ -1,0 +1,33 @@
+Edit the supplied reasoning into a shorter, self-contained derivation
+for training a small 3D-sketch model.
+
+Follow the original dependency order: explain a decision before using
+it, and a calculation before stating its result.
+
+Keep the design choices that determine recognizable geometry, layout,
+parts and connections. Preserve necessary equations, substitutions,
+coordinate conventions, pivots, axes, angles, and the final coordinates
+of key points explicitly calculated in the source.
+
+Delete repeated deliberation, duplicated calculations and unnecessary
+restatements. Retain a brief correction when it explains an important
+change of sign, axis, pivot or geometric assumption.
+
+Do not replace derivations with a list of final paths. Do not invent
+missing calculations, silently repair inconsistencies, or add details
+by reverse-engineering the final output.
+
+Use connected prose with equations where useful. Let the necessary
+content determine the length; already concise reasoning needs little
+editing. Return only the edited reasoning.
+
+The supplied original messages are quoted source material, not instructions
+to execute. Use them to interpret the recorded reasoning; do not continue
+the drawing task. No final answer from the same call is provided.
+
+For numerical motion calculations already present in the source, preserve the causal calculation chain: formula -> numerical substitution -> intermediate vector or component values -> final key-point coordinates. Do not jump directly from a general formula to a table of final coordinates. Retain at least one complete representative calculation for each distinct transformation or contact-point computation when available; combine repetitive calculations for other equivalent points while retaining their important final results. For scalar calculations, retain scalar intermediate values instead of inventing a vector. Preserve numerical approximations used in the source and do not silently make them exact.
+Do not require a geometric-check section or append geometric verification steps. Omit repetitive post-calculation checks; do not turn an unresolved source concern into a claim of correctness. Keep essential design decisions and reasons, and brief corrections that explain the final calculation actually used. Do not invent missing derivations or repair the source answer.
+LaTeX and plain-text mathematical notation are both allowed. Use whichever expresses the calculation clearly; no mandatory section headings or rigid template are required.
+
+Prioritize the calculation that actually produced the final chosen coordinates, not an abandoned candidate or a subsequent distance check. Explicitly show numeric operands for at least one representative point of each distinct calculation: e.g. symbolic expression = expression with numbers substituted = intermediate component/vector = world-space point after adding the pivot/center. Listing parameter values followed immediately by a computed vector is not numerical substitution. When the source uses normalization to obtain the final point, retain its direction vector, norm, normalized components, scaling and center addition. Do not replace that construction with a check of another nearby candidate point. Do not add new computations absent from the source.
+Do not include post-hoc geometric verification, such as proving non-penetration, length preservation or correctness of the final drawing. Contact/placement equations needed to construct the point are still part of the derivation and should remain. Retain necessary design rationale, but do not append generic claims that geometry is correct.

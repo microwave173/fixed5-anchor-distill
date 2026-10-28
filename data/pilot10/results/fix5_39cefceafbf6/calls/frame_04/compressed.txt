@@ -1,0 +1,97 @@
+The fixed scene uses \(+x\) right, \(+y\) depth, \(+z\) up, with the pendulum moving in the vertical plane \(y=0\). The pivot is fixed at \((0,0,0.62)\). The overhead bracket, pivot stem/axle/ring, floor \(z=-0.6\), and stop at the lower right remain unchanged. The bob radius is \(r=0.11\). The stop’s bumper face begins at \(x=0.38\), extending roughly from \(z=-0.17\) to \(z=-0.02\), supported by its base.
+
+The initial bob center is
+\[
+C_0=(-0.58,0,0.10).
+\]
+The rod length follows from the pivot-to-center vector \((-0.58,0,-0.52)\):
+\[
+R=\sqrt{0.58^2+0.52^2}=\sqrt{0.6068}\approx0.778974.
+\]
+Writing a bob-center angle \(\theta\) from downward vertical as
+\[
+x=R\sin\theta,\qquad z=0.62-R\cos\theta,
+\]
+the initial angle satisfies
+\[
+\sin\theta_0=\frac{-0.58}{0.778974}\approx-0.7446,\quad
+\cos\theta_0=\frac{0.52}{0.778974}\approx0.6675,
+\]
+so \(\theta_0\approx-48.1^\circ\).
+
+In the previous contact frame the bob center is \((0.27,0,-0.1106846)\). This has the same rod length:
+\[
+\sqrt{0.27^2+(0.62+0.1106846)^2}\approx0.778974,
+\]
+with angle
+\[
+\sin\theta=\frac{0.27}{0.778974}\approx0.3466,\qquad
+\cos\theta=\frac{0.7306846}{0.778974}\approx0.9380,
+\]
+so \(\theta\approx20.3^\circ\). At contact the bob reaches the stop because its right surface is \(0.27+0.11=0.38\), matching the stop face, at \(z\approx-0.1107\). The rod endpoint on the bob surface toward the pivot is
+\[
+(0.27,0,-0.1106846)+0.11\left(\frac{-0.27}{0.778974},0,\frac{0.7306846}{0.778974}\right)
+\approx(0.231873,0,-0.007504).
+\]
+
+For the requested \(t=0.75\) rebound frame, the bob must be left of the contact point and higher than contact. Moving left from \(\theta=20.3^\circ\) initially lowers the bob until bottom, so the “leftward and upward” phase is represented after it has passed bottom. Choose
+\[
+\theta=-30^\circ.
+\]
+Then
+\[
+x=R\sin(-30^\circ)=-0.778974\cdot0.5=-0.389487,
+\]
+\[
+z=0.62-R\cos(-30^\circ)
+=0.62-0.778974\cdot0.866025
+=0.62-0.674611
+=-0.054611.
+\]
+Thus the new bob center is
+\[
+C=(-0.389487,0,-0.054611),
+\]
+which is left of the stop and higher than contact. The rod endpoint toward the pivot uses the unit direction \((0.5,0,0.866025)\):
+\[
+C+0.11(0.5,0,0.866025)
+=(-0.389487+0.055,0,-0.054611+0.095263)
+=(-0.334487,0,0.040652).
+\]
+The rod is drawn from \((0,0,0.62)\) to this point.
+
+The spherical bob is represented by three intersecting great circles. Their orientation follows the pendulum rotation about the \(y\)-axis. The rotation angle consistent with the previous frame is
+\[
+\alpha=\theta_0-\theta.
+\]
+The previous contact used \(\alpha\approx-48.1^\circ-20.3^\circ=-68.4^\circ\), matching the tilted great-circle strokes there. At the new pose,
+\[
+\alpha\approx\theta_0-(-30^\circ)\approx-18.1^\circ,
+\]
+for which use \(c=\cos\alpha\approx0.951057\) and \(s=\sin\alpha\approx-0.309017\). Relative to the bob center, apply
+\[
+x'=cx+sz,\qquad y'=y,\qquad z'=-sx+cz,
+\]
+then add \(C\). For example, the \(x\)-\(z\) great circle’s canonical leftmost point \((-0.11,0,0)\) maps to
+\[
+x'=0.951057(-0.11)+(-0.309017)(0)=-0.1046163,
+\]
+\[
+z'=-(-0.11)(-0.309017)+0=-0.0339919,
+\]
+giving world point
+\[
+(-0.494103,0,-0.088603).
+\]
+For the horizontal great circle, a representative relative point \((0.11,0,0)\) maps to
+\[
+x'=0.1046163,\qquad y'=0,\qquad z'=0.0339919,
+\]
+or world point \((-0.284871,0,-0.020619)\). For the \(y\)-\(z\) great circle, the top relative point \((0,0,0.11)\) maps to
+\[
+x'=(-0.309017)(0.11)=-0.0339919,\qquad
+z'=0.951057(0.11)=0.1046163,
+\]
+or world point \((-0.423479,0,0.050005)\). The remaining endpoints and Bezier controls of all three great circles are obtained by the same transformation, preserving the bob radius and its coherent spherical depth.
+
+The stop, base, floor, pivot support, and pivot axle/ring keep their original coordinates; only the pendulum rod and the three bob great-circle strokes move to the calculated rebound pose.

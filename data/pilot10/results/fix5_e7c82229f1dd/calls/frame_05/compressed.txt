@@ -1,0 +1,63 @@
+Use \(+x\) right, \(+y\) depth, \(+z\) up. The fixed tabletop is unchanged: plane at \(z=-0.20\) spanning \(x\in[-0.72,0.72]\), \(y\in[-0.38,0.38]\), with four straight legs down to \(z=-0.58\). The ball radius is \(0.07\), so its center height is \(z=-0.20+0.07=-0.13\). In the previous frame its center is \((-0.3656,-0.15,-0.13)\), already stopped just behind the first base; retain its three intersecting great-circle arcs and apply no further rolling rotation at \(t=1\).
+
+The upright dominoes have width \(0.12\) along
+\[
+u=(0.34,-0.94,0),
+\]
+thickness \(0.035\) along
+\[
+n=(0.94,0.34,0),
+\]
+and height \(0.22\). For each domino, let \(v_3\) and \(v_2\) be the bottom edge about which it pivots. A \(90^\circ\) rotation about that edge sends the height direction \(z\) to \(+n\), and the original thickness direction \(-n\) to \(+z\). Therefore a fallen domino has bottom face \(z=-0.20\), top face \(z=-0.165\), and far edge
+\[
+v_3+0.22n,\qquad v_2+0.22n,
+\]
+while the width edge remains \(v_3v_2\). Each fallen domino is drawn as a thin rectangular prism: top face rectangle, bottom face rectangle, and four vertical thickness edges. This preserves its width \(0.12\), length \(0.22\), and thickness \(0.035\).
+
+For domino 1,
+\[
+v_3=(-0.30395,-0.01765,-0.20),\quad
+v_2=(-0.26315,-0.13045,-0.20),
+\]
+and
+\[
+0.22n=(0.2068,0.0748,0).
+\]
+Thus the far vertices are
+\[
+v_3+0.22n=(-0.09715,0.05715,-0.20),
+\]
+\[
+v_2+0.22n=(-0.05635,-0.05565,-0.20).
+\]
+The top-face vertices are the same \(x,y\) at \(z=-0.165\): \((-0.30395,-0.01765)\), \((-0.26315,-0.13045)\), \((-0.05635,-0.05565)\), \((-0.09715,0.05715)\).
+
+For domino 2,
+\[
+v_3=(-0.10395,0.04735,-0.20),\quad
+v_2=(-0.06315,-0.06545,-0.20),
+\]
+so
+\[
+v_3+0.22n=(0.10285,0.12215,-0.20),
+\]
+\[
+v_2+0.22n=(0.14365,0.00935,-0.20).
+\]
+Its top face uses the same \(x,y\) at \(z=-0.165\).
+
+For domino 3,
+\[
+v_3=(0.09605,0.11235,-0.20),\quad
+v_2=(0.13685,-0.00045,-0.20),
+\]
+so
+\[
+v_3+0.22n=(0.30285,0.18715,-0.20),
+\]
+\[
+v_2+0.22n=(0.34365,0.07435,-0.20).
+\]
+Its top face again uses the same \(x,y\) at \(z=-0.165\).
+
+The three fallen dominoes follow the original front-left to back-right arc and lie end-to-end along the tabletop. The ball remains behind the first base; the tabletop and ball geometry stay fixed while only the dominoes complete their pivot to the flat state.

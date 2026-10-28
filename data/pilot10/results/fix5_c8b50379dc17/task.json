@@ -1,0 +1,20 @@
+{
+  "id": "fix5_c8b50379dc17",
+  "prompt": "A person leans against a wall and bounces a ball at their side.",
+  "prompt_zh": "一个人靠墙站立，在身侧拍球。",
+  "dim": 3,
+  "total_frames": 5,
+  "category": "human",
+  "category_zh": "人物",
+  "independent": false,
+  "locomotion": false,
+  "tags": [
+    "contact",
+    "translation"
+  ],
+  "review_quality": 2,
+  "source_id": "atom_d7635c95c1f7",
+  "source_file": "ar_high_weakness600_v1/tasks.json",
+  "source_dim": 3,
+  "title": "人拍球"
+}

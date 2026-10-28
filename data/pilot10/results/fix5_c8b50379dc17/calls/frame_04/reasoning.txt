@@ -1,0 +1,147 @@
+We need answer JSON only. Need construct frame i=4 at target normalized time .75 (rebound upward z≈-0.20). Need use first/prev complete. Need maintain wall floor torso head left arm legs fixed. Right arm rises to meet ball. Ball moves from floor contact center approx z=-0.55? Let's understand coordinate system z up, floor z=-0.6. First ball center z 0.05 radius .09? Actually ball paths around x .50 y .10 z .05, radius .09. Previous floor contact center z=-0.51 (not -0.55?) with radius .09 tangent floor -0.60. At t .75 ball rebounds upward center z≈-0.20 as per plan. Need keep ball at side x ~0.45? first x center .50 y .10. We can translate ball great-circle strokes vertically from previous by +0.31 because previous center -0.51 to target -0.20. Ball horizontal/sagittal circles are centered at. Need shift all ball path z coordinates +0.31. Right hand follows above ball; need right arm shape. Need also person's upper back/shoulder against wall y=0.55. But current torso is fixed, at y? Torso centerline first: M 0 -0.08 -0.20 C3 0 0.10 -0.10 0 0.34 0.10 0 0.48 0.23 -> ends at (0,0.48,0.23), shoulder/back near y .48 not .55, close. Head at y .45 etc. Wall y .55 plane. Fine.
+
+Need right arm at t=.75 rising to meet ball at z≈-0.20. Shoulder (0.13,0.46,0.20). Need hand near ball top? Previous right arm path:
+M .13 .46 .20 C3 .20 .42 .14 .30 .34 .05 .34 .30 -.02 C3 .40 .25 -.12 .45 .17 -.25 .46 .10 -.35
+This is a cubic? Actually starts shoulder then C3 with 6 controls? Wait path syntax C3 c1x c1y c1z c2x c2y c2z x y z. It has "C3 0.20 0.42 0.14 0.30 0.34 0.05 0.34 0.30 -0.02" then another C3 "0.40 0.25 -0.12 0.45 0.17 -0.25 0.46 0.10 -0.35". So arm two cubics. Hand endpoint (.46,.10,-.35) (near ball at center .50,.10,-.51 + radius top -0.42, hand -0.35 above). At t .75 ball center z -0.20; radius top = -.11. Hand should meet side/upper? Plan says hand follows above at t.5 and rises to meet it at .75? It says t=.75 ball rebounds upward (z≈-0.20); side arm rises to meet it. At t=1 ball returns to hand at z=.05. Hmm at .75 hand maybe just below/touching? Need articulate arm rising from previous. The ball is at x .50 y .10 center z -0.20. Hand contact maybe on side/top? We need hand at ball? Actually ball is bouncing at side; hand can be near ball, maybe at z=-0.35? At t .75, hand could be at z=-0.20 on ball side, arm extended downward. Need visually recognizable. Since ball is around z -0.2, hand should be around x .46 y .10 z -0.15? The arm from shoulder (.13,.46,.20) to hand near (.45,.10,-.10 or -.15). We need not detach. Need use smooth line, bending elbow. We can design a two-segment cubic that reaches down and forward. Previous arm at t=.5 was deep down to z -.35. At t=.75 ball is higher, hand rises to maybe z=-.14? That's near top of ball center -0.20 + radius .09 = -0.11. "side arm rises to meet it" - contact maybe at side x .56? But hand object contact: ball center x .50, y .10. If hand contacts top-ish, endpoint x .50 y .10 z -0.11. But then arm is almost vertical downward to z -.11. From shoulder z .20 to -.11 is only .31 down, hand near ball top. At t=.5 ball contact floor z -.60, center -.51, hand z -.35 (above top? top -.42, hand -.35, still above by .07). At t=.75 ball center -.20 top -.11, hand could be .04? Hmm.
+
+Wait at t=0 hand at ball height z≈0.05, ball resting at hand. First right arm endpoint (0.41,0.10,0.05)? Check first right_arm path: M 0.13 0.46 0.20 C3 0.24 0.36 0.08 0.36 0.20 0.03 0.41 0.10 0.05. It has one C3: c1 (0.24,0.36,0.08), c2 (0.36,0.20,0.03), endpoint (0.41,0.10,0.05). So hand at (0.41,0.10,0.05), ball center (0.50,0.10,0.05); hand touches ball left side at x .41 (radius .09). Good.
+
+At t=.5 (previous), ball center z=-0.51, hand endpoint (.46,.10,-.35). That's hand above top? Difference z .16 hand above center, x diff .04, so maybe hand above but near top (top at -.42). Actually hand z -.35 is .16 above center; not contact (radius .09). But plan says hand follows above. Fine. At t=.75 ball rebounds to center -.20. To "rise to meet it", hand should be near ball maybe left side x .41 z -.20? At t=1 hand returns to side same as first at z .05. Need hand at maybe x .41 z -.17, that's left side contact for ball center -.20. Shoulder z .20. So arm from .13,.46,.20 to .41,.10,-.17. This is shorter than previous (endpoint z -.35) and lower? Actually z -.17 is above -.35, so hand rises. We can create arm with elbow bent. Need include shoulder. Maybe cubic: M .13 .46 .20 C3 .22 .38 .10 .33 .24 .02 .36 .17 -.08 C3 .41 .13 -.14 .43 .10 -.18 .41 .10 -.17. Need smooth plausible. At t=.75 hand contact with ball left side (ball center .50 .10 -.20, hand x .41 z -.20). Yes.
+
+Need ball strokes transform from previous by +0.31 z. Check previous ball vertical:
+M 0.59 0.10 -0.51 C3 ... z values: -0.51, -0.4603, -0.42, -0.42, -0.42, -0.4603, -0.51, -0.5597, -0.60, -0.60, -0.60, -0.5597, -0.51. Add .31 -> -0.20, -0.1503, -0.11, -0.11, -0.11, -0.1503, -0.20, -0.2497, -0.29, -0.29, -0.29, -0.2497, -0.20. Wait previous center was -0.51? The path ranges -0.42 to -0.60 center -0.51. Add .31 center -0.20, range -0.29 to -0.11. Yes. Need transform all z coordinates +0.31. For horizontal path previous z constant -0.51 for all? Actually previous ball_horizontal all z -0.51 (flat great-circle in horizontal plane through center). Add .31 -> -0.20 for all points. Good. Sagittal previous z range -0.42 to -0.60 center -.51. Add .31. Let's carefully construct ball paths.
+
+Need maintain x,y same. Ball horizontal previous path:
+M 0.59 0.10 -0.51
+C3 0.59 0.1497 -0.51 0.5497 0.19 -0.51 0.50 0.19 -0.51
+C3 0.4503 0.19 -0.51 0.41 0.1497 -0.51 0.41 0.10 -0.51
+C3 0.41 0.0503 -0.51 0.4503 0.01 -0.51 0.50 0.01 -0.51
+C3 0.5497 0.01 -0.51 0.59 0.0503 -0.51 0.59 0.10 -0.51
+Add z +.31 => -0.20 all. Good.
+
+Ball vertical previous:
+M 0.59 0.10 -0.51
+C3 0.59 0.10 -0.4603 0.5497 0.10 -0.42 0.50 0.10 -0.42
+C3 0.4503 0.10 -0.42 0.41 0.10 -0.4603 0.41 0.10 -0.51
+C3 0.41 0.10 -0.5597 0.4503 0.10 -0.60 0.50 0.10 -0.60
+C3 0.5497 0.10 -0.60 0.59 0.10 -0.5597 0.59 0.10 -0.51
+Add .31:
+-0.51 -> -0.20
+-0.4603 -> -0.1503
+-0.42 -> -0.11
+-0.42 -> -0.11
+-0.42 -> -0.11
+-0.4603 -> -0.1503
+-0.51 -> -0.20
+-0.5597 -> -0.2497
+-0.60 -> -0.29
+-0.60 -> -0.29
+-0.60 -> -0.29
+-0.5597 -> -0.2497
+-0.51 -> -0.20.
+
+Ball sagittal previous:
+M 0.50 0.10 -0.42
+C3 0.50 0.1497 -0.42 0.50 0.19 -0.4603 0.50 0.19 -0.51
+C3 0.50 0.19 -0.5597 0.50 0.1497 -0.60 0.50 0.10 -0.60
+C3 0.50 0.0503 -0.60 0.50 0.01 -0.5597 0.50 0.01 -0.51
+C3 0.50 0.01 -0.4603 0.50 0.0503 -0.42 0.50 0.10 -0.42
+Add .31:
+-0.42 -> -0.11
+-0.42 -> -0.11
+-0.4603 -> -0.1503
+-0.51 -> -0.20
+-0.5597 -> -0.2497
+-0.60 -> -0.29
+-0.60 -> -0.29
+-0.60 -> -0.29
+-0.5597 -> -0.2497
+-0.51 -> -0.20
+-0.4603 -> -0.1503
+-0.42 -> -0.11
+-0.42 -> -0.11.
+Good.
+
+Need check first frame ball center maybe (0.5,0.1,0.05), radius .09. Our target center -0.20. Yes.
+
+Need choose right arm. Need maybe endpoint contact ball at side. Because ball center x=0.50 y=0.10 z=-0.20. Leftmost point x=0.41 z=-0.20. Hand (wrist? endpoint) at (0.41,0.10,-0.20) exactly touches side. But previous hand at z=-.35, now higher. Make arm reaching down/out with elbow. From shoulder (0.13,0.46,0.20) to hand (0.41,0.10,-0.20). Need smooth two cubics. The line should not go through body. x increases. y decreases from 0.46 to 0.10 (toward front? wall behind y positive; arm extends forward/down). Need maybe elbow at (0.32,0.32,0.08)? Then wrist path. We can create:
+M 0.13 0.46 0.20
+C3 0.20 0.42 0.12 0.31 0.33 0.02 0.34 0.28 -0.04
+C3 0.38 0.22 -0.12 0.41 0.14 -0.20 0.41 0.10 -0.20
+This is smooth. But endpoint exactly touches leftmost of ball. Should maybe x .42 to overlap? Use .42 .10 -.20. Yet ball leftmost .41. Contact at .41. Good.
+
+Need possible line crosses ball? End at .41. Good.
+
+Need all unchanged geometry: wall_plane, floor_line, torso_center, head strokes, left_arm, legs. We can copy exactly from first/previous. Torso etc identical.
+
+Need note previous right arm has shape. We can change.
+
+Need descriptions. Need unique stable stroke IDs. Use same IDs. Return JSON only with reason and frames. No style. Ensure one frame i=4. Need no extraneous. Use numeric coords. The path data must be valid. Need inspect all paths for syntax. Let's write carefully. In first frame torso_center has "M 0 -0.08 -0.20 C3 0 0.10 -0.10 0 0.34 0.10 0 0.48 0.23" Wait C3 requires three points = 9 numbers after C3. It has "0 0.10 -0.10 0 0.34 0.10 0 0.48 0.23" yes: c1 (0,0.10,-0.10), c2 (0,0.34,0.10), end (0,0.48,0.23). Good.
+
+Head vertical/strokes are complex but copy exact. Need ensure no mistakes. We can copy from provided. They are valid? Let's parse head_vertical:
+M 0.10 0.45 0.33
+C3 0.10 0.45 0.38523 0.05523 0.45 0.43 0 0.45 0.43
+C3 -0.05523 0.45 0.43 -0.10 0.45 0.38523 -0.10 0.45 0.33
+C3 -0.10 0.45 0.27477 -0.05523 0.45 0.23 0 0.45 0.23
+C3 0.05523 0.45 0.23 0.10 0.45 0.27477 0.10 0.45 0.33
+Good. Head horizontal:
+M 0.10 0.45 0.33
+C3 0.10 0.50523 0.33 0.05523 0.55 0.33 0 0.55 0.33
+C3 -0.05523 0.55 0.33 -0.10 0.50523 0.33 -0.10 0.45 0.33
+C3 -0.10 0.39477 0.33 -0.05523 0.35 0.33 0 0.35 0.33
+C3 0.05523 0.35 0.33 0.10 0.39477 0.33 0.10 0.45 0.33
+Good. Head sagittal:
+M 0 0.45 0.43
+C3 0 0.50523 0.43 0 0.55 0.38523 0 0.55 0.33
+C3 0 0.55 0.27477 0 0.50523 0.23 0 0.45 0.23
+C3 0 0.39477 0.23 0 0.35 0.27477 0 0.35 0.33
+C3 0 0.35 0.38523 0 0.39477 0.43 0 0.45 0.43
+Good.
+
+Left arm: M -0.13 0.46 0.20 Q3 -0.26 0.30 0.05 -0.22 0.10 -0.10
+Parse Q3 c (-0.26,0.30,0.05) end (-0.22,0.10,-0.10). Good.
+Legs: M -0.08 -0.08 -0.20 Q3 -0.14 -0.12 -0.42 -0.22 -0.05 -0.60. Wait Q3 controls: c (-0.14,-0.12,-0.42) endpoint (-0.22,-0.05,-0.60). Good. Right leg: M 0.08 -0.08 -0.20 Q3 0.14 -0.02 -0.42 0.22 -0.05 -0.60. Good.
+
+Need final arm maybe include hand contact. Let's maybe make endpoint (0.41 0.10 -0.20). The ball leftmost at x .41. If hand endpoint is at surface, good. But the arm line terminates; hand not outlined. It touches at endpoint. Great.
+
+Could there be issue arm endpoint exactly same as ball edge point and ball path strokes; yes.
+
+Need "side arm rises to meet it" at t=.75; our hand at z -0.20, same as ball center; contact left side. Good.
+
+Should right arm's previous geometry to current be consistent? It rises upward from z -0.35 to -0.20, elbow maybe from previous (0.40,0.25,-0.12 etc) to current. Our path starts shoulder and curves down. Fine.
+
+Need maybe arm should be on right side of torso facing ball, not intersect head. It starts shoulder at y .46 z .20; head bottom z .23? Head center z .33 radius .1, shoulder below. Arm extends. Good.
+
+Need ensure ball center x .50, y .10, z -.20, radius .09. Right arm endpoint .41,.10,-.20. Fine.
+
+Need reason brief. "At t=.75, ball rebounds to center z=-.20; right arm lifts to touch its side; fixed wall/floor, braced torso/head/legs/left arm unchanged." Good.
+
+Return JSON. Need ensure no markdown. Use exactly one frame. The frames array with i 4. Include all 14 strokes? Count: wall_plane, floor_line, torso_center, head_vertical, head_horizontal, head_sagittal, left_arm, right_arm, left_leg, right_leg, ball_vertical, ball_horizontal, ball_sagittal = 13. Yes.
+
+Need verify ball vertical target path. Let's write:
+"M 0.59 0.10 -0.20 C3 0.59 0.10 -0.1503 0.5497 0.10 -0.11 0.50 0.10 -0.11 C3 0.4503 0.10 -0.11 0.41 0.10 -0.1503 0.41 0.10 -0.20 C3 0.41 0.10 -0.2497 0.4503 0.10 -0.29 0.50 0.10 -0.29 C3 0.5497 0.10 -0.29 0.59 0.10 -0.2497 0.59 0.10 -0.20"
+Good.
+
+Ball horizontal target:
+"M 0.59 0.10 -0.20 C3 0.59 0.1497 -0.20 0.5497 0.19 -0.20 0.50 0.19 -0.20 C3 0.4503 0.19 -0.20 0.41 0.1497 -0.20 0.41 0.10 -0.20 C3 0.41 0.0503 -0.20 0.4503 0.01 -0.20 0.50 0.01 -0.20 C3 0.5497 0.01 -0.20 0.59 0.0503 -0.20 0.59 0.10 -0.20"
+Good.
+
+Ball sagittal target:
+"M 0.50 0.10 -0.11 C3 0.50 0.1497 -0.11 0.50 0.19 -0.1503 0.50 0.19 -0.20 C3 0.50 0.19 -0.2497 0.50 0.1497 -0.29 0.50 0.10 -0.29 C3 0.50 0.0503 -0.29 0.50 0.01 -0.2497 0.50 0.01 -0.20 C3 0.50 0.01 -0.1503 0.50 0.0503 -0.11 0.50 0.10 -0.11"
+Good.
+
+Need maybe "ball at side near x≈0.45 in vertical bounce lane". Our x .50 center ok.
+
+Now arm:
+"M 0.13 0.46 0.20 C3 0.20 0.42 0.12 0.31 0.33 0.02 0.34 0.28 -0.04 C3 0.38 0.22 -0.12 0.41 0.14 -0.20 0.41 0.10 -0.20"
+Check segment: start shoulder, c1 (0.20,.42,.12), c2 (.31,.33,.02), end (.34,.28,-.04). Then second cubic c1 (.38,.22,-.12), c2 (.41,.14,-.20), end (.41,.10,-.20). Hmm second cubic control2 at same z as endpoint, okay. It may overshoot y? fine. The endpoint x .41 z -.20. Contact.
+
+Need "people compact proportions..." unchanged. Fine.
+
+Need if endpoint at (0.41,.10,-.20) and ball path left extreme point in horizontal at (0.41,.10,-.20); exact contact. Good.
+
+Potential issue: The arm is "single-line" but because two cubics, okay. No joint dots. "No outlined hands/feet." endpoint no hand outline.
+
+Need final answer JSON only. No additional. Ensure strings escaping? No. Reason string. Use numeric details. Fine.
+
+Let's produce.

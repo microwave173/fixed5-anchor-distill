@@ -1,0 +1,117 @@
+We need answer JSON only one frame i=3. Need generate geometry at t=0.5 where beak contacts cone apex exactly, cone still upright. Need use previous frame (i=2 at t=.25) and first. Current target normalized .5. Need complete strokes. Need preserve bird feet fixed, cone upright same as first/previous. Bird body lean/extend further so beak tip contacts cone apex at (0.12,0,-0.20). In previous frame beak tip? stroke bird_beak: M -0.030 -0.01 -0.145 L 0.080 -0.015 -0.195 L -0.030 -0.02 -0.175. This path is two lines? From -0.03,-0.01,-0.145 to (0.08,-.015,-.195) then to (-.03,-.02,-.175). Hmm beak tip maybe 0.08,-.015,-.195 not at apex. Need at t=.5 contact apex exactly. Need adjust head/neck/beak position so beak tip at (0.12,0,-0.20) maybe. Must keep body and feet planted; extend neck/head forward. Cone upright same coordinates. Need maintain bird identity dimensions. Need likely move head/beak/neck more forward to apex. The cone apex at (0.12,0,-0.20). Beak tip should reach x=0.12 y=0 z=-0.20. The beak is two lines representing upper/lower from head front. Need head around x~0.02? Let's design.
+
+Previous head center approx (-0.135? sagittal sphere around -0.135 with radius .105? Head center maybe -0.135,0,-0.155? Beak from -0.03,-0.01,-0.145 to 0.08,-0.015,-0.195. Tip at (0.08,-0.015,-0.195). Need move head forward +0.04 x and z maybe -0.005? Tip needs +0.04 x +0.015 y +0.005 z? Actually tip (0.08,-0.015,-0.195) to (0.12,0,-0.20): delta (0.04,0.015,-0.005). Small. Head can move forward 0.04, depth +0.015, down .005. But previous body lean already. Need articulate neck accordingly.
+
+Current at .5: cone still upright, contact. Need bird beak tip maybe apex exactly. Head forward. Bird body maybe a bit more leaned? The plan says t=.5 beak tip contacts apex, cone upright. Could keep body similar to previous with neck/head extended. Feet fixed.
+
+Need ensure cone unchanged exactly. Floor unchanged. Bird legs fixed? feet planted. Bird body perhaps moved slightly from i=2? Need body lean forward maybe more. But keep legs attachments? In previous, legs coordinates fixed same as first, body maybe leaning but leg tops? The legs paths fixed; body outline moved? Could still work. At t=.5, bird body maybe more lean, neck extended. Need use complete strokes.
+
+Need produce strokes JSON with IDs stable. Need perhaps use same IDs and update relevant paths. Need not include coding explanation. Need valid Path3D syntax.
+
+Let's inspect previous bird geometry and plan. Body outline currently M -0.575 0 -0.300 ... etc. We can modify slightly forward lean? But perhaps not necessary; only head/neck/beak. However body should lean forward at .25; at .5 maybe body still balanced, head extends. Need beak contact exact. The neck from body to head must connect. Need place head contours and beak.
+
+Let's define head center: previous head sagittal: M -0.135 0 -0.155 C3 ... This is a circle contour in xz plane at y=0? Actually sagittal sphere contour path from (-0.135,0,-0.155) to? Let's parse: M -0.135 0 -0.155 C3 -0.135 0 -0.100 -0.025 0 -0.100 -0.025 0 -0.155 C3 -0.025 0 -0.210 -0.135 0 -0.210 -0.135 0 -0.155 Z. This resembles a circle centered (-0.08? Wait coordinates: start leftmost? For circle in x-z plane at y=0, center maybe -0.08? Let's derive: points: (-0.135,0,-0.155), control (-0.135,0,-0.100), (-0.025,0,-0.100), endpoint (-0.025,0,-0.155); then controls (-0.025,0,-0.210), (-0.135,0,-0.210), back (-0.135,0,-0.155). Circle center (-0.08,0,-0.155), radius .055. Yes head center x=-0.08 z=-.155, radius .055. Depth contour: M -0.080 -0.055 -0.155 C3 -0.080 -0.055 -0.100 -0.080 0 -0.100 -0.080 0.055 -0.155 C3 -0.080 0.055 -0.210 -0.080 0 -0.210 -0.080 -0.055 -0.155 Z. This is circle in y-z plane at x=-0.08, center y=0,z=-.155,radius .055. So head center previous (-0.08,0,-0.155). Beak from (-0.03,-0.01,-0.145) to (0.08,-0.015,-0.195) to (-0.03,-0.02,-0.175). Tip at (0.08,-0.015,-0.195) which is about .08 right from center, slightly below. Good. Need head center maybe (0.04,0,-0.16)? Then beak tip offset to (0.16? too far). Let's calculate. If we shift head +0.04x, +0.015y, -0.005z, beak tip becomes (0.12,0.0,-0.20) exactly. So head center becomes (-0.04,0.015,-0.16). Need neck from body to head. Check head contours shifted accordingly. Beak shift by same delta: (-0.03+0.04=0.01, -0.01+0.015=0.005, -0.145-0.005=-0.15); L (0.12,0,-0.20); L (0.01, -0.005? y -0.02+0.015=-0.005, z -0.175-0.005=-0.18). Great. Head center x -0.04,y .015,z -.16, radius .055. Does neck reach? Body neck attach at maybe (-0.313,0.01,-0.236) previous. Head rear at x=-0.095? Neck path previous from body attach (-0.313, .01, -.236) Q3 control (-0.220,.005,-.115) endpoint (-0.185,0,-.185)? Wait previous neck: M -0.313 0.01 -0.236 Q3 -0.220 0.005 -0.115 -0.205 0 -0.185. Endpoint (-0.205,0,-.185) maybe connects near head? Head center -0.08 radius .055, left edge -0.135. Endpoint -0.205 is a bit left of head, not attached? Wait previous neck endpoint -0.205,0,-0.185, head left edge at -0.135; gap 0.07. Hmm maybe neck line ends at rear of head? Previous head leftmost -0.135, so there's a gap. Could be control? Actually stroke "bird_neck" path M ... Q3 ... endpoint -0.205 0 -0.185. That seems endpoint left of head by .07. Did they use a line from body to head? It might not attach due to previous design. Need at current ensure neck attaches to head, maybe set endpoint to head rear/left. For contact, draw neck from body to head at (-0.095,0.015,-0.16)? But head depth contour x fixed -0.04 and y/z circle; rear left? The sagittal sphere leftmost is x=-0.095,y=.015,z=-.16. So neck endpoint could be (-0.095,0.01,-0.18) or (-0.09,0.015,-0.16). Let's create neck from body top/neck base (-0.313,0.01,-0.236) curving to (-0.095,0.015,-0.16). Need attach. Path M -0.313 0.01 -0.236 Q3 -0.220 0.01 -0.100 -0.095 0.015 -0.160. That ends head leftmost. Good. Could use cubic. Need ensure single-line neck. Fine.
+
+Head sagittal shifted +0.04 x, +0.015 y, -0.005 z from previous. Original path coordinates:
+M -0.135 0 -0.155
+C3 -0.135 0 -0.100 -0.025 0 -0.100 -0.025 0 -0.155
+C3 -0.025 0 -0.210 -0.135 0 -0.210 -0.135 0 -0.155 Z
+Shift x+0.04 y+0.015 z-0.005:
+Start -0.095 0.015 -0.160
+C3 -0.095 0.015 -0.105 -0.025+0.04=0.015? Wait need parse controls: first control (-0.135,0,-0.100) -> (-0.095,0.015,-0.105). Second control (-0.025,0,-0.100)->(0.015,0.015,-0.105). Endpoint (-0.025,0,-0.155)->(0.015,0.015,-0.160). Then C3 (-0.025,0,-0.210)->(0.015,0.015,-0.215); second (-0.135,0,-0.210)->(-0.095,0.015,-0.215); end (-0.135,0,-0.155)->(-0.095,0.015,-0.160). Z. Good. Note y all .015, this is planar cross-section at y=.015. But head depth contour will vary y.
+
+Depth contour previous at x=-0.08, center y=0,z=-.155, radius .055:
+M -0.080 -0.055 -0.155
+C3 -0.080 -0.055 -0.100 -0.080 0 -0.100 -0.080 0.055 -0.155
+C3 -0.080 0.055 -0.210 -0.080 0 -0.210 -0.080 -0.055 -0.155 Z
+Shift x+0.04 -> x=-0.04, y+0.015, z-0.005. Coordinates:
+M -0.040 -0.040 -0.160? y start -0.055+0.015=-0.040; z -0.155-0.005=-0.160.
+C3 control1 (-0.080+0.04=-0.040, -0.055+0.015=-0.040, -0.100-0.005=-0.105)
+control2 (-0.040, 0+0.015=0.015, -0.105)
+endpoint (-0.040, 0.055+0.015=0.070, -0.160)
+C3 (-0.040,0.070,-0.215) (-0.040,0.015,-0.215) (-0.040,-0.040,-0.160). Z.
+This represents circle in y-z plane at x=-.04. Good.
+
+Beak shifted as above:
+M 0.010 0.005 -0.150 L 0.120 0.000 -0.200 L 0.010 -0.005 -0.180
+Need maybe beak lines connect to head front. Head rightmost at x=0.015,y=.015,z=-.16. Beak base x=0.010, y .005, z-.15, near front. Good. Tip at apex exact. Perfect.
+
+Need body maybe same as previous or slightly adjusted. In previous body outline; at t=.5 maybe body more forward lean? But if keep previous, okay? The plan at .5 beak contact. Could use body from previous. But maybe to maintain neck base? Body unchanged from previous; neck endpoint changed to head. Body outline previous has top around -0.285? The neck base -0.313 .01 -.236 maybe near body. Fine.
+
+Need cone unchanged upright. Cone base and sides exactly from first/previous. Note first cone sides apex (0.12,0,-0.20). Beak tip exactly that. Good.
+
+Need floor.
+
+Need ensure all requested subjects and supports. Use exact IDs stable. Need maybe wing/tail unchanged from previous. But body leaning? Use previous. Legs fixed same as first/previous, feet contact. Good.
+
+Could the beak tip at (0.12,0,-0.20) but cone apex also has side generators. There will be overlapping endpoint; okay.
+
+Need perhaps body still leaning from previous. If we keep body as previous and neck reaches head at (-0.095,0.015,-0.16), the neck length from -0.313 to -0.095 = .218; plausible extended. Head at x=-0.04. Beak tip x=0.12. This reaches. The bird beak tip exactly.
+
+Need possibly adjust body outline slightly to lean more? Current previous body outline had top? Let's parse: body outline M -0.575 0 -0.300 C3 -0.557 0 -0.171 -0.484 0 -0.161 -0.415 0 -0.171 C3 -0.326 0 -0.184 -0.285 0 -0.250 -0.297 0 -0.339 C3 -0.311 0 -0.438 -0.388 0 -0.478 -0.457 0 -0.468 C3 -0.556 0 -0.454 -0.586 0 -0.379 -0.575 0 -0.300 Z. That's odd, includes top? It is side contour. At t=.5 could be similar. Good.
+
+But maybe body should move forward as bird leans? Feet fixed, torso centerline short. Previous body outline mostly same x as first except shifted? At previous body outline x range -0.586 to -0.285; first -0.69? Actually first body outline range -0.59 to -0.31? Similar. It didn't lean much. At t=.5, if head extends to x=-0.04, neck length large. That is okay; bird extends neck. The plan says bird leans forward and extends neck. Body could remain balanced. Fine.
+
+Need perhaps a "bird_body_depth" from previous; if body unchanged, keep. But if body outline changed? We'll keep previous. Need maybe wing curves from previous. Tail from previous. Legs same. Good.
+
+Need maybe head contours have y offset .015. That means head not on centerline? Slight depth offset, okay. Beak tip y=0. Cone apex y=0. Nice.
+
+Could there be issue with neck endpoint at head leftmost but head center y .015; neck endpoint y .015. Good.
+
+Need return JSON with reason and exactly one frame. Need no style fields. Include description.
+
+Need ensure path syntax: All coordinates numeric. Use Q3 and C3. Use M/L/C3/Q3/Z. Use no commas? The syntax examples use spaces. Fine.
+
+Need validate all strokes. Need use stable IDs same. For head sagittal, depth, beak. Maybe body depth same.
+
+Let's produce.
+
+Need maybe include reason: "At t=.5 bird's beak tip reaches upright cone apex; feet planted, neck extended, cone unchanged." Good.
+
+Double-check path for bird_head_sagittal:
+M -0.095 0.015 -0.160
+C3 -0.095 0.015 -0.105 0.015 0.015 -0.105 0.015 0.015 -0.160
+C3 0.015 0.015 -0.215 -0.095 0.015 -0.215 -0.095 0.015 -0.160 Z
+Wait in C3 syntax: C3 cx cy cz x y z? Actually "C3 c1x c1y c1z c2x c2y c2z x y z" = 9 numbers. I wrote for first C3: -0.095 0.015 -0.105 0.015 0.015 -0.105 0.015 0.015 -0.160. That's three triplets: control1 (-.095,.015,-.105), control2 (.015,.015,-.105), endpoint (.015,.015,-.160). Correct. Good.
+
+Depth:
+M -0.040 -0.040 -0.160
+C3 -0.040 -0.040 -0.105 -0.040 0.015 -0.105 -0.040 0.070 -0.160
+C3 -0.040 0.070 -0.215 -0.040 0.015 -0.215 -0.040 -0.040 -0.160 Z
+Good.
+
+Beak:
+M 0.010 0.005 -0.150 L 0.120 0.000 -0.200 L 0.010 -0.005 -0.180
+This is two line segments. It doesn't explicitly connect to head? Base at x=.010, y .005 z-.150 near head front (rightmost x=.015). Good.
+
+Neck:
+M -0.313 0.010 -0.236 Q3 -0.220 0.010 -0.100 -0.095 0.015 -0.160
+Q3 control (-.220,.010,-.100), endpoint (-.095,.015,-.160). This goes upward/right. Good.
+
+Potential issue: head sagittal leftmost at -0.095,0.015,-0.160. Neck endpoint exactly. Good.
+
+Maybe body top at -0.313? Body outline has? Need if neck base (-.313,.01,-.236) is on body. Body outline previous includes points near -0.415? Let's inspect body outline. It seems body contour is from tail? Hmm maybe neck base is inside body. fine.
+
+Could update body outline to lean a little more? But not necessary. However, at t=.5 contact, the bird beak at x=.12 while body x≈-.4; neck length .2 plus head. The head at -.04; the neck from -.313 to -.095; beak extends to .12. That's quite a long neck/beak. Fine for bird.
+
+Need perhaps the body should be offset slightly toward cone as t=.5 relative to previous? But feet planted fixed. Body center could shift +0.02 x while feet fixed, lean forward. But previous body outline already at range -0.586 to -0.285. Could shift some upper points? Risks attachment. We can leave.
+
+The requested "NEXT advances to requested time using total_plan; complete first-frame geometry and previous." We have previous at .25, at .5. We changed only head/neck/beak. Cone same. This is plausible. The body did not move further, but head/neck articulate. Motion not frozen? It advances. Good.
+
+Need final JSON only. Ensure no markdown.
+
+Let's craft final with all strokes. Include "i":3.
+
+Need not include first frame. Exactly one frame. Use "reason" and "frames".
+
+Let's verify all paths valid. For cone_base path from previous. It uses C3 controls triplets. Good. Cone_sides path has multiple M? It is "M 0.12 0 -0.20 L 0.26 0 -0.6 M 0.12 0 -0.20 L -0.02 0 -0.6 M 0.12 0 -0.20 L 0.12 -0.14 -0.6". Good.
+
+Floor same.
+
+Need maybe preserve "cone_base" exact, "cone_sides" exact, "floor" exact. Good.
+
+One concern: The beak tip at cone apex (0.12,0,-0.20). But in stroke cone_sides, apex coordinate (0.12,0,-0.20). Great.
+
+All dimensions. Good.
+
+Return final.

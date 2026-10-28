@@ -1,0 +1,118 @@
+For frame 3 (normalized \(t=0.5\)), the pendulum first touches the fixed rubber stop and has not yet rebounded. Use \(+x\) right, \(+y\) depth, \(+z\) up; the motion remains in the vertical plane \(y=0\). The fixed pivot is \(P=(0,0,0.62)\), and the bob radius is \(r=0.11\). In the first frame the bob center is \(C_0=(-0.58,0,0.10)\), so the pivot-to-center length is
+
+\[
+L=\sqrt{0.58^2+0.52^2}=\sqrt{0.6068}=0.778974.
+\]
+
+Thus the taut rod from the pivot to the bob surface has length \(L-r=0.668974\).
+
+The rubber stop has a left vertical contact face at \(x=0.38\), with \(z\) between about \(-0.17\) and \(-0.05\), and depth \(y\in[-0.07,0.07]\). At first contact the bob center must be one radius to the left of that face:
+
+\[
+C_x=0.38-r=0.38-0.11=0.27.
+\]
+
+Enforcing the fixed pivot-to-center distance \(L\) gives
+
+\[
+(C_x)^2+(C_z-0.62)^2=L^2,
+\]
+
+so
+
+\[
+C_z=0.62-\sqrt{0.6068-0.27^2}
+=0.62-\sqrt{0.5339}
+=0.62-0.730685
+=-0.110685.
+\]
+
+The contact point is therefore \((0.38,0,-0.110685)\), and the bob center is \(C=(0.27,0,-0.110685)\).
+
+The rod endpoint is the sphere point on the pivot side, \(C-r u\), where \(u\) is the unit vector from the pivot to the bob center:
+
+\[
+u=\frac{(0.27,0,-0.110685-0.62)}{0.778974}
+=\frac{(0.27,0,-0.730685)}{0.778974}
+=(0.346609,0,-0.93801).
+\]
+
+Hence
+
+\[
+C-r u
+=(0.27,0,-0.110685)-0.11(0.346609,0,-0.93801)
+=(0.231873,0,-0.007504).
+\]
+
+So the rod is drawn from \((0,0,0.62)\) to \((0.231873,0,-0.007504)\).
+
+The bob’s great-circle strokes rotate with the pendulum about the \(y\)-axis through its center. The initial center direction from the pivot is \((-0.58,-0.52)\), at angle \(-138.1^\circ\). The contact center direction is \((0.27,-0.730685)\), at angle \(-69.7^\circ\). The rotation increment is therefore \(\theta=68.4^\circ\), with
+
+\[
+\cos\theta
+=\frac{(-0.58)(0.27)+(-0.52)(-0.730685)}{0.6068}
+=0.36809,
+\]
+
+\[
+\sin\theta
+=\frac{(-0.58)(-0.730685)-(-0.52)(0.27)}{0.6068}
+=0.92979.
+\]
+
+For a point with center-relative coordinates \((x_{\rm rel},y,z_{\rm rel})\), use the \(y\)-axis rotation
+
+\[
+x'_{\rm rel}=x_{\rm rel}\cos\theta-z_{\rm rel}\sin\theta,\qquad
+z'_{\rm rel}=x_{\rm rel}\sin\theta+z_{\rm rel}\cos\theta,
+\]
+
+then add \(C=(0.27,0,-0.110685)\).
+
+The \(x\)-\(z\) great circle lies in the rotation plane. As a set it is unchanged by the rotation, so its stroke is translated by
+
+\[
+C-C_0=(0.27-(-0.58),0,-0.110685-0.10)
+=(0.85,0,-0.210685).
+\]
+
+Thus its leftmost point becomes \((0.16,0,-0.110685)\), its top point becomes \((0.27,0,-0.000685)\), its bottom point becomes \((0.27,0,-0.220685)\), and its rightmost point is the contact point \((0.38,0,-0.110685)\). Representative translated controls include \((0.16,0,-0.049935)\), \((0.20925,0,-0.000685)\), and \((0.38,0,-0.049935)\).
+
+For the \(x\)-\(y\) great circle, the original center-relative \(x\) offsets are \(x_{\rm rel}\in\{-0.11,-0.06075,0,0.06075,0.11\}\), with \(z_{\rm rel}=0\), while the \(y\) values are unchanged. For the representative point \(x_{\rm rel}=-0.11,\ y=0\),
+
+\[
+x'_{\rm rel}=(-0.11)(0.36809)=-0.040490,
+\]
+
+\[
+z'_{\rm rel}=(-0.11)(0.92979)=-0.102277,
+\]
+
+so the world point is
+
+\[
+(0.27-0.040490,\ 0,\ -0.110685-0.102277)
+=(0.229510,0,-0.212962).
+\]
+
+The opposite point \(x_{\rm rel}=0.11,\ y=0\) becomes \((0.310490,0,-0.008408)\), and the point with \(x_{\rm rel}=0,\ y=0.11\) becomes \((0.27,0.11,-0.110685)\). The remaining controls use the same substitution with their listed \(y\) values.
+
+For the \(y\)-\(z\) great circle, the original \(x_{\rm rel}=0\), and the vertical relative offsets are \(z_{\rm rel}\in\{0,\pm0.06075,\pm0.11\}\). For the representative point \(z_{\rm rel}=0.11,\ y=0\),
+
+\[
+x'_{\rm rel}=-(0.11)(0.92979)=-0.102277,
+\]
+
+\[
+z'_{\rm rel}=(0.11)(0.36809)=0.040490,
+\]
+
+giving
+
+\[
+(0.27-0.102277,\ 0,\ -0.110685+0.040490)
+=(0.167723,0,-0.070195).
+\]
+
+The opposite point \(z_{\rm rel}=-0.11,\ y=0\) becomes \((0.372277,0,-0.151175)\). As another representative control, \(z_{\rm rel}=0.06075,\ y=-0.11\) becomes \((0.213515,-0.11,-0.088323)\), and \(z_{\rm rel}=0,\ y=\pm0.11\) remains \((0.27,\pm0.11,-0.110685)\). The remaining controls follow the same formulas. The fixed floor, overhead bracket, pivot stem, pivot axle, pivot ring, stop base, and rubber bumper remain unchanged.

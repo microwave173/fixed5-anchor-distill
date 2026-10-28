@@ -1,0 +1,90 @@
+The fixed setup is the pivot \(P=(0,0,0.62)\), a floor at \(z=-0.6\), and the rubber stop/base near the right side of the arc. The pendulum moves in the vertical plane \(y=0\). The bob radius is \(r=0.11\). In the first frame the bob center is
+\[
+C_1=(-0.58,0,0.10)
+\]
+so the pivot-to-center rod length is
+\[
+L=\sqrt{0.58^2+0.52^2}=\sqrt{0.6068}=0.77897.
+\]
+The first-frame center-to-pivot unit vector is
+\[
+\frac{(0.58,0,0.52)}{L}=(0.7446,0,0.6676),
+\]
+so the rod endpoint on the bob surface is
+\[
+C_1+0.11(0.7446,0,0.6676)=(-0.4981,0,0.1734),
+\]
+matching the first-frame rod stroke.
+
+At \(t=1\), the bob returns to the left side slightly lower than the first frame. The previous frame is at about \(30^\circ\) left, so the final pose continues left/up rather than resetting to the first pose. Choose a final pendulum angle of \(45^\circ\) left from downward. Then
+\[
+C_f=P+L(-\sin45^\circ,0,-\cos45^\circ).
+\]
+Using \(L/\sqrt2=0.550818\),
+\[
+C_f=(-0.550818,0,\;0.62-0.550818)
+   =(-0.550818,0,0.069182).
+\]
+This is slightly lower than the first center \(z=0.10\).
+
+The final rod endpoint is on the bob surface toward the pivot:
+\[
+C_f+\frac{0.11}{\sqrt2}(1,0,1)
+=(-0.550818+0.077782,0,0.069182+0.077782)
+=(-0.473036,0,0.146964).
+\]
+Thus the rod runs from \((0,0,0.62)\) to \((-0.473036,0,0.146964)\).
+
+The bob rotates rigidly about the pivot. Let
+\[
+v_1=(-0.58,0,-0.52),\qquad
+v_f=(-0.550818,0,-0.550818).
+\]
+For rotation about the \(y\)-axis through \(P\), write the angle \(\beta\) with
+\[
+\sin\beta=\frac{x_1z_f-z_1x_f}{L^2}
+=\frac{(-0.58)(-0.550818)-(-0.52)(-0.550818)}{0.6068}
+=\frac{0.033049}{0.6068}=0.0544645,
+\]
+and
+\[
+\cos\beta=0.998516.
+\]
+For any bob point, take coordinates relative to the first bob center,
+\[
+u=x+0.58,\qquad w=z-0.10,
+\]
+then apply the same rotation and place at the final center:
+\[
+X=-0.550818+u\cos\beta-w\sin\beta,
+\]
+\[
+Y=y,
+\]
+\[
+Z=0.069182+u\sin\beta+w\cos\beta.
+\]
+For example, the first bob-\(xz\) start point \((-0.69,0,0.10)\) has \(u=-0.11\), \(w=0\), giving
+\[
+X=-0.550818+0.998516(-0.11)=-0.660654,
+\]
+\[
+Z=0.069182+0.0544645(-0.11)=0.063191,
+\]
+so the final bob-\(xz\) curve starts at \((-0.660654,0,0.063191)\). The other control points of that vertical great circle use the same transform.
+
+For the horizontal great circle, a representative point is \((-0.64075,0.11,0.10)\). Here \(u=-0.06075\), \(w=0\), \(y=0.11\), so
+\[
+X=-0.550818+0.998516(-0.06075)=-0.611477,
+\]
+\[
+Z=0.069182+0.0544645(-0.06075)=0.065874,
+\]
+giving \((-0.611477,0.11,0.065874)\). For the remaining vertical great circle, a representative point is \((-0.58,-0.11,0.16075)\), where \(u=0\), \(w=0.06075\), \(y=-0.11\):
+\[
+X=-0.550818-0.0544645(0.06075)=-0.554126,
+\]
+\[
+Z=0.069182+0.998516(0.06075)=0.129842,
+\]
+giving \((-0.554126,-0.11,0.129842)\). All bob control points are transformed this way, so the sphere keeps radius \(0.11\) and its three great circles remain mutually perpendicular in the rotated orientation. The pivot, bracket, stop, base, and floor are unchanged.
