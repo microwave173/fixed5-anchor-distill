@@ -55,6 +55,10 @@ async def worker(task,client,render_limit):
    stage=name;s.update(status='generating',stage=name)
    c=d/'calls'/name;c.mkdir(parents=True,exist_ok=True)
    payload=dict(model=CFG['model'],messages=[dict(role='system',content=system),dict(role='user',content=json.dumps(user,ensure_ascii=False))],thinking={'type':'enabled'},reasoning_effort=CFG['reasoning_effort'],max_tokens=CFG['teacher_max_tokens'],stream=False)
+   if index is not None and index>=3 and (d/'format_reminder.txt').exists():payload['messages'][0]['content']+='\nFormat reminder: '+(d/'format_reminder.txt').read_text()
+   if (c/'request_override.json').exists():
+    override=read(c/'request_override.json');assert override['messages'][1:]==payload['messages'][1:],'Override must preserve the original user context'
+    payload=override
    if (c/'request.json').exists():assert read(c/'request.json')==payload,'Cached request mismatch; use a new run directory'
    save(c/'request.json',payload)
    if (c/'content.txt').exists() and (c/'reasoning.txt').exists():content=(c/'content.txt').read_text();reason=(c/'reasoning.txt').read_text()

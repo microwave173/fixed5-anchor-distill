@@ -11,13 +11,13 @@
 
 | 已提供 | 数量 / 位置 |
 |---|---|
-| 完整教师轨迹 | **10 条**，每条 1 个计划＋5 帧，含原始与压缩 reasoning：[data/pilot10](data/pilot10) |
+| 完整教师轨迹 | **5,000 条已完成**，通过 [Release](https://github.com/microwave173/fixed5-anchor-distill/releases/tag/full5000-v1) 下载；仓库内另含 [10 条小样本](data/pilot10) |
 | 训练候选 prompt | **5,000 条**：[data/tasks5000/tasks.json](data/tasks5000/tasks.json)，不是 5,000 条完整轨迹 |
 | 结果预览 | 下载仓库后打开 [data/pilot10/index.html](data/pilot10/index.html)；[质量检查](data/pilot10/REVIEW_ZH.md) |
 | 生成 / 压缩 | [pipeline](pipeline)，默认不调用 API |
 | 训练 | [training](training)，BF16 LoRA，默认 rank 64、alpha 128、1 epoch |
 
-模型权重不在仓库内。10 条数据用于跑通流程，**不代表足以训练出高质量模型**。
+模型权重不在仓库内。10 条小样本用于跑通流程；全量数据含 25,000 帧、30,000 份压缩文本。若只想用已造好的数据训练，执行 **Task 1 → Task 6 → Task 2（预检）→ Task 3（改为全量路径）**，无需再次付费造数据。
 
 ## Task 1：新 GPU 服务器安装与预检
 
@@ -97,3 +97,23 @@ RUN_DIR="$PWD/runs/full5000" python pipeline/bulk.py
 2,400 是同时在途请求的上限，不是吞吐保证。轨迹内部各帧有前后依赖；生成完成后才压缩。CPU 渲染另限 4 个并发。看板每 10 秒更新，请求报错有有限重试；大量失败时先排查额度、网络与 API 服务。完整 5,000 条约需 **30,000 次生成＋30,000 次压缩**，重试另计。
 
 完成后先抽查各类别动画和压缩文本，再按 Task 3 准备数据并训练。数据分布、已知限制见 [数据说明](docs/DATA.md)，复现实测见 [验收记录](docs/VALIDATION.md)。
+
+## Task 6：下载已完成的 5,000 条数据
+
+**前置：**Python 3.11+、联网、足够的本地磁盘空间；不需要 API key，不产生造数据费用。
+
+```bash
+python3 scripts/download_data.py
+```
+
+脚本下载 5 个分片，逐一校验 SHA-256，再解压到 `data/full5000/`。完整下载后有 `tasks.json`、生成/压缩提示词和 `results/<task_id>/`。再次运行会复用校验通过的压缩包。可先用 Task 2 小数据测试训练环境。
+
+```bash
+# 按 task 划分：4,750 条训练、250 条验证，共 30,000 个计划/帧样本。
+python training/prepare.py --data data/full5000 --validation-tasks 250
+# 预处理通过后再按 Task 3 启动训练；不要在已有实验目录更换数据后自动恢复。
+```
+
+**验收：**5 个分片校验通过，5,000 个 `result.json` 均 `compression_complete=true`。完整性验收不等于语义正确；全量尚未逐样本分词预检，超长样本会明确报错，不静默截断。
+
+最后一条 `fix5_819a2427f211` 在 F2–F5 增加了控制点格式提醒；实际请求、提醒与修复说明包含在数据中。发布包保留成功轨迹，失败尝试仍保留在原始工作目录，未打包到 Release。看板运行状态及服务器凭据不在发布数据中。
