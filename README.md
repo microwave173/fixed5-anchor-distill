@@ -21,7 +21,7 @@
 
 ## Task 1：新 GPU 服务器安装与预检
 
-**输入：**一台 Linux NVIDIA GPU 服务器和本仓库；推荐先用单张 80–96 GB 卡验证。已使用的环境为 Python 3.12、CUDA 12.8 版 PyTorch；更小显存未保证。
+**输入：**一台 Linux NVIDIA GPU 服务器、Python 3.11+（建议 3.12）和本仓库；推荐先用单张 80–96 GB 卡验证。已使用的环境为 Python 3.12、CUDA 12.8 版 PyTorch；更小显存未保证。
 
 ```bash
 git clone https://github.com/microwave173/fixed5-anchor-distill.git
